@@ -26,8 +26,10 @@ This document provides the complete epic and user story breakdown for Firefly, d
 ## Roadmap Structure
 
 - **Epic 1: Core Scaffolding, Encrypted Storage & Design Foundations** (Sprint 1 - Completed)
-- **Epic 2: Stanley-Brown Safety Plan (Priority First)** (Sprint 2 - Current Priority)
-- **Epic 3: Affect Check-In & Deterministic Recommendation Engine** (Sprint 2 - Core Engine)
+- **Epic 2: Stanley-Brown Safety Plan (Priority First)** (Sprint 2 - Completed)
+- **Epic 3: Affect Check-In & Deterministic Recommendation Engine** (Sprint 2 - Completed)
+- **Epic 4: Respiration & Grounding Engine** (Sprint 3 - Current Priority)
+- **Epic 5: Tiny Steps Mode (Behavioral Activation)** (Sprint 3 - Core Interventions)
 
 ---
 
@@ -238,3 +240,130 @@ So that I am guided directly to the right relief without decision paralysis.
 - And tapping the primary CTA navigates directly to the suggested route,
 - And "Try something else" presents 3 subtle alternatives,
 - And returning to Home shows the active suggestion or a prompt to check in.
+
+---
+
+## Epic 4: Respiration & Grounding Engine
+
+Implement the clinical-grade respiration and sensory grounding engine (FR-02), featuring evidence-backed cyclic sighing (4s inhale / 8s exhale), gapless offline soundscapes, synchronized haptic cues, high-performance `CustomPainter` bloom visualizer, 5-4-3-2-1 sensory grounding mode, and full-screen screen integration routed from the affect check-in.
+
+### Story 4.1: Audio & Haptics Hardware Ports and Adapters
+
+As a developer,
+I want hardware abstraction ports and concrete adapters for audio playback and device haptics,
+So that respiration audio and tactile feedback run deterministically offline and remain easily testable with mocks.
+
+**Acceptance Criteria:**
+- Given abstract interfaces `AudioPlayerPort` and `HapticsPort` in `core/contracts/`,
+- When `JustAudioPlayerAdapter` is invoked,
+- Then offline audio assets (`cyclic_sigh_ambience.mp3`, `gentle_rain.mp3`, `grounding_chime.mp3`) loop gaplessly with a 300ms volume fade-in/fade-out,
+- And audio errors fail silently without interrupting ongoing respiration sessions;
+- When `FlutterHapticsAdapter` is invoked,
+- Then `phaseTransition(inhale)` emits a double light impact spaced 100ms apart,
+- And `phaseTransition(exhale)` emits a single light impact,
+- And `groundingConfirm()` emits a crisp selection click;
+- And unit tests with mocks verify port behavior and error handling.
+
+### Story 4.2: Respiration State Management & Cyclic Sighing Engine
+
+As a user regulating acute distress,
+I want a reactive breathing controller running a precise cyclic sighing cadence (4s inhale / 8s exhale),
+So that my autonomic nervous system is guided toward parasympathetic calm without requiring active cognitive counting.
+
+**Acceptance Criteria:**
+- Given `BreathingSessionNotifier` extending Riverpod `AsyncNotifier` (or `StateNotifier`),
+- When a cyclic sighing session starts,
+- Then a periodic ticker (50ms) drives normalized `phaseProgress` (0.0 to 1.0) and updates phase (`inhale` 4000ms, `exhale` 8000ms),
+- And each phase transition triggers corresponding haptic feedback via `HapticsPort`,
+- And `ref.onDispose` cleanly stops the ticker, halts audio playback, and cancels ongoing haptics,
+- And unit tests verify cadence timing, cycle count increments, and memory leak safety.
+
+### Story 4.3: Cyclic Sigh Bloom Visualizer (CustomPainter)
+
+As a user following a breathing session,
+I want an organic, smoothly expanding bloom visualizer that guides my breath without visual noise or frame drops,
+So that I can follow the pacing effortlessly with eyes open or in peripheral vision.
+
+**Acceptance Criteria:**
+- Given `CyclicSighBloomPainter` extending `CustomPainter`,
+- When rendering during cyclic sighing,
+- Then the bloom smoothly scales from 50dp radius at rest/exhale to 120dp at peak inhale,
+- And 3 concentric glow rings render with decaying opacity,
+- And the color smoothly transitions between calm sage (`#4A7862`) on inhale and dusk blue (`#3B5B6C`) on exhale,
+- And `shouldRepaint` returns false when progress or phase has not changed,
+- And when reduced motion is enabled, the animation collapses to a calm, static indicator.
+
+### Story 4.4: 5-4-3-2-1 Sensory Grounding Mode
+
+As an overwhelmed user experiencing sensory or cognitive overload,
+I want a step-by-step 5-4-3-2-1 sensory grounding exercise,
+So that I can anchor myself in my immediate physical reality through guided perceptual prompts.
+
+**Acceptance Criteria:**
+- Given `GroundingController` and `GroundingPromptCard`,
+- When grounding mode is activated,
+- Then sequential prompt cards guide the user through 5 things to see, 4 to touch, 3 to hear, 2 to smell, and 1 to taste,
+- And each card tap advances to the next step accompanied by a haptic confirmation click,
+- And the user can gracefully finish early or repeat any step,
+- And unit tests verify complete progression through all 5 sensory stages.
+
+### Story 4.5: Breathing & Grounding Screen Integration
+
+As a user routed from the affect check-in or home navigation,
+I want a complete, low-stimulation respiration screen with soundscape controls and emergency safety access,
+So that I can complete a calming session in comfort and exit whenever I need to.
+
+**Acceptance Criteria:**
+- Given `BreathingGroundingScreen` connected to GoRouter (`/home/breathe`),
+- When opened with optional query parameter `?mode=grounding`,
+- Then the appropriate mode (Cyclic Sighing vs 5-4-3-2-1 Grounding) is displayed,
+- And a full-screen canvas in `#111518` displays the centered bloom or grounding card with phase typography and cycle count,
+- And the user can choose ambient soundscapes (cyclic sigh ambience, gentle rain, grounding chime, or mute) with preferences saved,
+- And an accessible secondary exit button allows closing the session cleanly at any time,
+- And the persistent SOS overlay button remains accessible for immediate safety.
+
+---
+
+## Epic 5: Tiny Steps Mode (Behavioral Activation)
+
+Implement the behavioral activation micro-action system (FR-03) designed to interrupt depression-inertia and anxiety paralysis through 2-minute actionable steps matched to the user's current energy and affect state, with calm tactile feedback and zero gamification.
+
+### Story 5.1: Curated Behavioral Micro-Action Library & Domain Models
+
+As a developer,
+I want domain models and an offline library of 20+ evidence-based micro-actions,
+So that low-energy users receive immediate, practical behavioral activation tasks without requiring network access.
+
+**Acceptance Criteria:**
+- Given `TinyStep` domain model (id, title, description, category, energyLevel 1-5, durationMinutes ≤ 2),
+- When loaded,
+- Then at least 20 curated micro-actions exist categorized across sensory, physical, environmental, and nourishment categories,
+- And all actions are achievable within 2 minutes with zero barrier to entry,
+- And unit tests verify library validation and non-empty categorization.
+
+### Story 5.2: Tiny Steps State Controller & Recommendation Matching
+
+As a user feeling paralyzed or lacking momentum,
+I want a state controller that matches 3 relevant tiny steps to my latest check-in state,
+So that I am offered manageable options tailored to my current energy without feeling overwhelmed.
+
+**Acceptance Criteria:**
+- Given `TinyStepsController` extending Riverpod `AsyncNotifier` (or `StateNotifier`),
+- When initialized,
+- Then it evaluates the active `AffectState` and filters 3 tailored micro-actions matching the user's energy level,
+- And users can request an alternative set of 3 steps ("Show different options") without guilt or penalty,
+- And unit tests verify state filtering, fallback for uninitialized affect state, and shuffle behavior.
+
+### Story 5.3: Tiny Steps Screen & Micro-Action Interaction UI
+
+As a user trying to take a small positive action,
+I want an accessible, low-pressure screen displaying 3 actionable cards with tactile completion feedback,
+So that completing a small step feels grounding and supportive rather than competitive.
+
+**Acceptance Criteria:**
+- Given `TinyStepsScreen` connected to GoRouter (`/home/tiny-steps`),
+- When displayed,
+- Then 3 full-width action cards render with touch targets ≥ 72dp and clear typography,
+- And tapping "Done" triggers a warm double-tap haptic and gentle sage highlight without gamified streaks, badges, or confetti,
+- And an "I'll do this later" option allows closing the screen without judgment,
+- And returning to Home updates the active card to reflect completed action or offers a gentle rest prompt.

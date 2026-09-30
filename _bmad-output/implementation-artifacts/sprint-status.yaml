@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 09-30-2026 19:10
-last_updated: 09-30-2026 19:43
+last_updated: 09-30-2026 20:30
 project: Firefly
 project_key: NOKEY
 tracking_system: file-system
@@ -58,3 +58,17 @@ development_status:
   3-4-affect-check-in-screen-ui: done
   3-5-affect-result-card-home-screen-integration: done
   epic-3-retrospective: optional
+
+  epic-4: backlog
+  4-1-audio-haptics-hardware-ports-and-adapters: ready-for-dev
+  4-2-respiration-state-management-cyclic-sighing-engine: ready-for-dev
+  4-3-cyclic-sigh-bloom-visualizer-custompainter: ready-for-dev
+  4-4-5-4-3-2-1-sensory-grounding-mode: ready-for-dev
+  4-5-breathing-grounding-screen-integration: ready-for-dev
+  epic-4-retrospective: optional
+
+  epic-5: backlog
+  5-1-curated-behavioral-micro-action-library-domain-models: ready-for-dev
+  5-2-tiny-steps-state-controller-recommendation-matching: ready-for-dev
+  5-3-tiny-steps-screen-micro-action-interaction-ui: ready-for-dev
+  epic-5-retrospective: optional
