@@ -16,3 +16,6 @@
 | 2026-09-30 | cicd-automation-workflow-automate | https://github.com/rmyndharis/antigravity-skills | workspace | latest | Required for pipeline automation | Antigravity |
 | 2026-09-30 | github-actions-templates | https://github.com/rmyndharis/antigravity-skills | workspace | latest | Required for CI/CD setup | Antigravity |
 | 2026-09-30 | prompt-engineering-patterns | https://github.com/rmyndharis/antigravity-skills | workspace | latest | Required for on-device AI prompts | Antigravity |
+| 2026-09-30 | ponytail (and sub-skills) | https://github.com/DietrichGebert/ponytail | workspace | latest | Specified by user | Antigravity |
+| 2026-09-30 | flutter-riverpod-init | https://github.com/ducafecat/skills | workspace | latest | Specified by user | Antigravity |
+| 2026-09-30 | tdd-workflows-tdd-cycle | https://github.com/rmyndharis/antigravity-skills | workspace | latest | Specified by user | Antigravity |
