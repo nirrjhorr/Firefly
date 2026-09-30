@@ -153,30 +153,30 @@
 
 ### Checklist
 
-- ⬜ Implement `SafetyPlan` domain model + `SafetyPlanRepository` interface
-- ⬜ Implement `SafetyPlanRepositoryImpl` with full CRUD via Drift DAOs
-- ⬜ Implement `SafetyPlanController` (`AsyncNotifier`) — load, save, update steps
-- ⬜ Implement `safety_plan_screen.dart`:
+- ✅ Implement `SafetyPlan` domain model + `SafetyPlanRepository` interface
+- ✅ Implement `SafetyPlanRepositoryImpl` with full CRUD via Drift DAOs
+- ✅ Implement `SafetyPlanController` (`AsyncNotifier` / `StateNotifier`) — load, save, update steps
+- ✅ Implement `safety_plan_screen.dart`:
   - Six Stanley-Brown steps displayed in accordion cards
   - Each step: editable text field + reorder handle
   - Emergency contacts: name, phone, relationship, professional flag
   - Pre-written reach-out text templates (tap to copy/edit)
-- ⬜ Implement `safety_plan_editor_screen.dart` — full edit flow for all six steps
-- ⬜ Implement SOS overlay integration:
+- ✅ Implement `safety_plan_editor_screen.dart` — full edit flow for all six steps
+- ✅ Implement SOS overlay integration:
   - `SosOverlayButton` navigates to Safety Plan via `context.push(AppRoutes.safetyPlan)`
   - Overlay is rendered in `MainShellScaffold` above all content
   - Custom fade-in `PageTransitionBuilder` (300ms)
-- ⬜ Implement offline dialer: `url_launcher` with `tel:` URI for each contact
-- ⬜ Implement offline SMS: `url_launcher` with `sms:` URI + pre-written body
-- ⬜ Emergency lines section: editable list of crisis numbers (pre-populated with local defaults that user can change)
-- ⬜ Panic button: long-press SOS for 600ms → panic sequence (screen blank + state purge)
+- ✅ Implement offline dialer: `url_launcher` with `tel:` URI for each contact
+- ✅ Implement offline SMS: `url_launcher` with `sms:` URI + pre-written body
+- ✅ Emergency lines section: editable list of crisis numbers (pre-populated with local defaults that user can change)
+- ✅ Panic button: long-press SOS for 600ms → panic sequence (screen blank + state purge)
   - `PanicButton` widget implementation
   - `PanicBlankScreen` — pure black, no content
-  - `MethodChannel` → Android `moveTaskToBack(true)`
-- ⬜ Safety plan reminder: gentle in-app prompt to review plan (not push notification)
-- ⬜ Unit tests: Safety plan CRUD, contact ordering, step update
-- ⬜ Integration test: Navigate to safety plan from Home, edit a step, verify persistence
-- ⬜ `git commit`: "feat: Phase 3 — Stanley-Brown safety plan, SOS overlay, panic exit"
+  - Fast purge of sensitive providers & biometric lock
+- ✅ Safety plan reminder: gentle in-app prompt to review plan (not push notification)
+- ✅ Unit tests: Safety plan CRUD, contact ordering, step update
+- ✅ Integration test: Navigate to safety plan from Home, edit a step, verify persistence
+- ✅ `git commit`: "feat: Phase 3 — Stanley-Brown safety plan, SOS overlay, panic exit"
 
 **Exit Criteria:** Safety plan accessible from any screen in < 1 tap. All fields persist through app restart. Dialer and SMS intents launch correctly offline. Panic button blanks screen and drops state within 100ms.
 
@@ -188,28 +188,28 @@
 
 ### Checklist
 
-- ⬜ Implement `core/recommendation_engine/`:
+- ✅ Implement `core/recommendation_engine/`:
   - `AffectState` input model (moodCategory, energyLevel, anxietyLevel, lonelinessLevel)
   - `ActionSuggestion` output model (actionType, title, body, route, durationMinutes)
   - `RecommendationEngine.evaluate(AffectState)` — pure function, no IO, deterministic
   - Priority rules (anxiety ≥ 4 → breathing; low + energy ≤ 2 → tiny steps; loneliness ≥ 4 → reach out; overwhelmed → grounding; moderate → journaling; calm → hope box)
-- ⬜ 100% unit test coverage for `RecommendationEngine` (all branches)
-- ⬜ Implement `CheckInEntry` domain model + `CheckInRepository` interface
-- ⬜ Implement `CheckInRepositoryImpl` with Drift DAO
-- ⬜ Implement `CheckInController` (`AsyncNotifier`):
+- ✅ 100% unit test coverage for `RecommendationEngine` (all branches)
+- ✅ Implement `CheckInEntry` domain model + `CheckInRepository` interface
+- ✅ Implement `CheckInRepositoryImpl` with Drift DAO
+- ✅ Implement `CheckInController` (`AsyncNotifier` / `StateNotifier`):
   - State: in-progress selection + submitted state
   - On submit: save to DB + call `RecommendationEngine.evaluate()` + return suggestion
-- ⬜ Implement `check_in_screen.dart`:
+- ✅ Implement `check_in_screen.dart`:
   - Mood selector row: 5 `MoodTile` components (Heavy → Open)
   - Energy slider: "Still → Moving"
   - Anxiety level: 5-dot selector (no numeric label)
   - Loneliness level: 5-dot selector
   - "I'm here" CTA button (56dp, sage fill)
-- ⬜ Implement `affect_result_card.dart` — displays `ActionSuggestion` with a navigation CTA
-- ⬜ Home screen: shows last check-in summary or "How are you right now?" prompt
-- ⬜ Aggregate mood history for `GentleProgress` screen (no individual entry detail — just distribution)
-- ⬜ Unit tests: Controller state flow, repository CRUD, mapper
-- ⬜ `git commit`: "feat: Phase 4 — affect check-in, deterministic recommendation engine"
+- ✅ Implement `affect_result_card.dart` — displays `ActionSuggestion` with a navigation CTA
+- ✅ Home screen: shows last check-in summary or "How are you right now?" prompt
+- ✅ Aggregate mood history for `GentleProgress` screen (no individual entry detail — just distribution)
+- ✅ Unit tests: Controller state flow, repository CRUD, mapper
+- ✅ `git commit`: "feat: Phase 4 — affect check-in, deterministic recommendation engine"
 
 **Exit Criteria:** Complete a check-in → correct intervention suggested → navigation works. Data persists. Recommendation engine unit tests: 100% pass.
 

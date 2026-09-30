@@ -4,10 +4,13 @@ abstract final class AppRoutes {
   static const onboarding = '/onboarding';
   static const privacyLock = '/privacy-lock';
   static const safetyPlan = '/safety-plan';
+  static const safetyPlanEditor = '/safety-plan/edit';
+  static const panicBlank = '/panic';
   static const home = '/home';
   static const checkIn = '/home/check-in';
   static const breathe = '/home/breathe';
   static const journal = '/home/journal';
   static const tinySteps = '/home/tiny-steps';
   static const progress = '/home/progress';
+  static const loneliness = '/home/loneliness';
 }
