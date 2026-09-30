@@ -1,7 +1,7 @@
 # Rules.md
 # Firefly — Engineering Rules, Approved Stack & Boundaries
 
-**Version:** 1.0.0 | **Status:** Enforced from Phase 0 | **Updated:** 2026-09-30
+**Version:** 1.1.0 | **Status:** Enforced from Phase 0 | **Updated:** 2026-09-30
 
 > These rules are non-negotiable constraints, not suggestions. Every pull request, every generated file, and every agent task must be validated against this document before it is considered complete.
 
@@ -30,6 +30,8 @@
 | `file_picker` | User-initiated backup export/import | ^8.1.0 |
 | `path_provider` | App-private directory resolution | ^2.1.4 |
 | `cryptography` | AES-GCM + Argon2id backup engine | ^2.7.0 |
+| `flutter_local_notifications` | Local notification scheduling | ^17.1.2 |
+| `timezone` | Timezone-aware local notifications | ^0.9.2 |
 | `flutter_lints` | Base lint rules | ^4.0.0 |
 | `custom_lint` | Extended lint enforcement | ^0.6.0 |
 
@@ -72,10 +74,10 @@ Repository Impl → DTO Mapper → Drift DAO
 ```
 
 **Violations that must be rejected at code review:**
-- Any `Widget.build()` that calls a DAO method directly
-- Any `Controller` that imports `drift` or `sqflite`
-- Any `Repository` that imports Riverpod providers
-- Any feature that imports from another feature's `presentation/` layer
+- Any `Widget.build()` that calls a DAO method directly.
+- Any `Controller` that imports `drift` or `sqflite`.
+- Any `Repository` that imports Riverpod providers.
+- Any feature that imports from another feature's `presentation/` layer.
 
 ### 3.2 Dependency Direction
 
@@ -85,14 +87,23 @@ presentation → domain ← data
               core/*
 ```
 
-`core/` is imported by all layers. Features import from `core/` and `shared/`. Features **never** import from each other's presentation layer.
+`core/` is imported by all layers. Features import from `core/` and `shared/`. Features **never** import from each other's presentation layer. Follow the feature-first folder structure (`features/<feature_name>/{data,domain,presentation}`).
 
 ### 3.3 State Management Rules
 
-- All async state operations use `AsyncNotifier` — no raw `FutureProvider` for user-writable state
-- Every `AnimationController`, `Timer`, `StreamSubscription`, and `AudioPlayer` instance MUST be disposed in `ref.onDispose()` — no exceptions
-- State classes are immutable (`@immutable`, `copyWith` pattern)
-- UI rebuilds triggered by `ref.watch` only — never `setState` inside `ConsumerWidget` for domain-level state
+- Use `Riverpod` with code generation (`@riverpod`).
+- All async state operations use `AsyncNotifier` — no raw `FutureProvider` for user-writable state.
+- Every `AnimationController`, `Timer`, `StreamSubscription`, and `AudioPlayer` instance MUST be disposed in `ref.onDispose()` — no exceptions. This is critical for trauma-informed UX.
+- State classes are immutable (`@immutable`, `copyWith` pattern).
+- UI rebuilds triggered by `ref.watch` only — never `setState` inside `ConsumerWidget` for domain-level state.
+- Breathing phase updates must NOT trigger `setState` on parent. Use `ref.listen` in a `ConsumerWidget` to isolate rebuilds to the bloom painter only.
+- Categorize state as Transient (auto-disposed), Session (`keepAlive: false`), or Persistent (`keepAlive: true` backed by Drift).
+
+### 3.4 Navigation & Integration Contracts
+
+- Use `go_router` with Shell Routes.
+- Never use raw strings in navigation calls; always use `AppRoutes.*` constants.
+- Access hardware and data exclusively through abstract interface ports (e.g., `AudioPlayerPort`, `HapticsPort`, `VoiceRecognitionPort`).
 
 ---
 
@@ -121,19 +132,7 @@ final class Err<T, E> extends Result<T, E> {
 
 ### 4.2 Hardware Degradation (Silent Failure Rule)
 
-Audio and haptic failures **MUST NEVER crash or degrade the UI**. Use defensive wrappers:
-
-```dart
-// Correct pattern for hardware calls
-Future<void> _safePlay(AudioAsset asset) async {
-  try {
-    await _audio.play(asset);
-  } catch (_) {
-    // Silent degradation — breathing session continues without audio
-    // Log locally via package:logging only
-  }
-}
-```
+Audio and haptic failures **MUST NEVER crash or degrade the UI**. Use defensive wrappers. If an audio/haptic call fails, degrade silently and continue the session.
 
 ### 4.3 Database Failure Protocol
 
@@ -145,35 +144,36 @@ If the database cannot be opened (wrong key, corrupted file):
 
 ---
 
-## 5. Security Rules (Non-Negotiable)
+## 5. Security & Privacy Rules (Non-Negotiable)
 
 ### 5.1 Zero Network Policy
 
-```dart
-// MUST be the first line in main() — before any other initialization
-HttpOverrides.global = FireflyHttpOverride();
-```
+- `HttpOverrides.global = FireflyHttpOverride();` MUST be the first line in `main()`.
+- The `http` package must NOT appear in `pubspec.yaml` or `pubspec.lock`.
+- Android `network_security_config.xml` must deny cleartext and trust anchors. iOS `Info.plist` must deny `NSAllowsArbitraryLoads`.
+- CI must run a package deny-list check on every PR blocking networking packages (e.g., `dio`, `http`, `firebase_core`, analytics SDKs).
 
-- The `http` package must NOT appear in `pubspec.yaml` or `pubspec.lock`
-- The `dio` package is banned
-- CI must run a package deny-list check on every PR
-
-### 5.2 Key & Storage Rules
+### 5.2 Key Lifecycle & Cryptography Rules
 
 | Rule | Enforcement |
 |---|---|
-| All Keychain items: `synchronizable: false` | `flutter_secure_storage` option — mandatory |
-| Android backup: `allowBackup="false"` | `AndroidManifest.xml` — verified by CI |
-| iOS DB file: `NSURLIsExcludedFromBackupKey = true` | Set on db file path after first open |
-| No SQLite file opened without SQLCipher key PRAGMA | `beforeOpen` callback enforces this |
-| No plaintext SharedPreferences for sensitive data | Lint rule + code review |
+| Master Key Hardware Binding | iOS: `kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly`, Biometrics |
+| Android Key Binding | `setUnlockedDeviceRequired(true)`, `setIsStrongBoxBacked(true)` |
+| All Keychain items: `synchronizable: false` | `flutter_secure_storage` option — mandatory (blocks iCloud sync) |
+| SQLCipher Initialization | `PRAGMA key`, `cipher_page_size = 4096`, `cipher_hmac_algorithm = HMAC_SHA512`, `secure_delete = ON` |
+| Double Encryption | Journal content requires application-layer AES-256-GCM encryption on top of SQLCipher |
+| Cryptographic Erasure | Rotating the journal subkey to render existing ciphertext permanently unrecoverable on panic/delete |
+| Secure Memory Handling | Decrypted String lifetime scoped to screen display only. Use `Uint8List` zeroing where possible. |
 
-### 5.3 Privacy Rules
+### 5.3 Privacy & Anti-Scraping Rules
 
-- `FLAG_SECURE` must be set in `MainActivity.onCreate()` (Android)
-- Blur overlay on `applicationWillResignActive` (iOS) — no app switcher screenshots
-- No `print()` statements in any file (Semgrep rule + lint)
-- No analytics, crash reporting, or session tracking of any kind
+- `FLAG_SECURE` must be set in `MainActivity.onCreate()` (Android) to block screen scraping and screenshots.
+- Blur overlay on `applicationWillResignActive` (iOS) — no app switcher screenshots.
+- Panic Button / Quick-Exit Button must blank screen within < 10ms, purge state within < 50ms, lock DB < 100ms.
+- No `print()` statements in any file (Semgrep rule + lint).
+- No analytics, crash reporting, or session tracking of any kind.
+- The App Store Privacy Label must be "Data Not Collected" for all categories.
+- Ensure Android Manifest has `android:allowBackup="false"` and iOS DB file has `NSURLIsExcludedFromBackupKey = true`.
 
 ---
 
@@ -197,7 +197,7 @@ Installing any of these is an automatic PR rejection with no exceptions.
 - No push notifications saying "You missed X days"
 - No countdown timers creating urgency
 - No confetti, particle effects, or celebratory sound effects
-- Allowed alternative: quiet "You showed up N times this week" summary — positive framing only
+- Notifications must be opt-in, generic, warm, and contain no health state.
 
 ### ❌ Diagnostic Claims
 
@@ -209,22 +209,24 @@ Installing any of these is an automatic PR rejection with no exceptions.
 
 - No direct API calls to any LLM service (OpenAI, Gemini, Anthropic, etc.)
 - On-device LLM (future): must be opt-in, sandboxed to journaling reflective prompts only, and gated by a crisis-keyword blocklist before any output is displayed
-- The recommendation engine is deterministic Dart — not generative AI
+- The recommendation engine MUST be a deterministic Dart state machine.
 
 ### ❌ Plaintext Storage
 
 - No `SharedPreferences` for any user-entered content, mood data, or safety plan data
 - No SQLite without SQLCipher
 - No plaintext log files containing user data
-- No unencrypted backups — all exports are AES-256-GCM encrypted
+- No unencrypted backups — all exports are AES-256-GCM encrypted (using Argon2id for password-based key derivation)
 
-### ❌ Aggressive UI Patterns
+### ❌ Aggressive UI Patterns & Poor Performance
 
 - No modal dialogs that cannot be dismissed without completing an action
 - No auto-playing audio without user initiation
 - No animations that run > 16ms/frame (jank budget violation)
+- No synchronous DB reads on the UI thread. All Drift calls must return `Future` or `Stream`.
 - No `setState` calls inside `build()` methods
 - No `shouldRepaint` returning `true` unconditionally on `CustomPainter`
+- Animations (breathing bloom, gauges) must be Shader-free (`CustomPainter`-driven) unless on Impeller.
 
 ---
 

@@ -1,9 +1,8 @@
-# Design.md
 # Firefly — UI/UX Design System & Interaction Specification
 
-**Version:** 1.0.0 | **Status:** Approved Baseline | **Updated:** 2026-09-30
+**Version:** 1.0.0 | **Status:** Sprint 0 — Approved Baseline | **Updated:** 2026-09-30
 
-> **Design Philosophy:** Firefly is a quiet companion. Every visual decision must reduce cognitive load, not add to it. The interface should feel like a dimly lit room at the end of a hard day — warm, unhurried, and entirely private. No urgency. No judgment. No noise.
+> **Design Philosophy:** Firefly is a quiet companion, not a productivity tool. Every visual decision must reduce cognitive load, never add to it. The interface should feel like a dimly lit room at the end of a hard day — warm, unhurried, and entirely yours. No confetti. No streaks. No urgency. No judgment. No noise.
 
 ---
 
@@ -20,330 +19,228 @@
 | **No guilt language** | "You showed up" not "You missed 3 days" |
 | **Non-clinical tone** | "How are you right now?" not "Rate your depressive episode severity" |
 | **Quiet affirmations only** | Completion: subtle sage fade — never confetti, badges, or sounds |
-| **Safe exits always visible** | SOS overlay persists on every screen |
+| **Safe exits always visible** | SOS Safety Plan overlay persists and is reachable from anywhere within one tap |
 
 ### 1.2 Cognitive Load Reduction
 
 - **Whitespace is structural**: 48dp breathing room between sections — the screen must never feel full
 - **Dark canvas default**: Low-stimulation dark mode is the default; Calm Daylight mode is the alternative
 - **Micro-decisions only**: The check-in selector uses symbols (moon phases) + words — never numbers alone
-- **Progressive disclosure**: Advanced settings (TTL, voice-to-text, hope box add) are behind a secondary tap — not on first view
-- **No skeleton loaders**: Since all data is local and instant, skeleton screens are banned — they create false urgency
+- **Progressive disclosure**: Advanced settings are behind a secondary tap — not on first view
+- **No skeleton loaders**: Since all data is local and instant (Riverpod + Drift), skeleton screens are banned — they create false urgency
 
 ---
 
-## 2. Color Palette & Semantic Tokens
+## 2. Color Palette & Token Architecture
 
-### 2.1 Raw Primitive Palette
+All colors are drawn from a natural, desaturated palette: deep slate skies, weathered sage, warm candlelight, and the blue-grey of pre-dawn hours. No pure primaries. No neon highlights. Crisis-adjacent UI uses a **muted warm coral** — communicating importance without triggering alarm.
 
-#### Dark Foundation (Ink)
+**WCAG 2.2 AAA Compliance Target:** All text-on-background combinations must achieve ≥ 7:1 contrast ratio. Interactive controls must achieve ≥ 4.5:1.
 
-| Name | Hex | HSL |
-|---|---|---|
-| `ink-950` | `#0E1211` | `160° 17% 6%` |
-| `ink-900` | `#141C19` | `158° 16% 9%` |
-| `ink-800` | `#18201D` | `157° 14% 11%` |
-| `ink-700` | `#1F2A26` | `156° 15% 14%` |
-| `ink-600` | `#28342F` | `155° 14% 18%` |
-| `ink-500` | `#374540` | `154° 12% 24%` |
+### 2.1 Raw Color Primitives
 
-#### Sage Grounding
+**Note:** Never reference these directly in UI code — always use semantic tokens.
 
-| Name | Hex | HSL |
-|---|---|---|
-| `sage-700` | `#2D4A3A` | `150° 24% 23%` |
-| `sage-500` | `#4A7862` | `150° 23% 38%` |
-| `sage-accent` | `#7DBA9B` | `150° 28% 61%` |
-| `sage-300` | `#B5CEBC` | `140° 17% 76%` |
-| `sage-100` | `#DFF0E6` | `140° 32% 91%` |
+| Palette Category | Examples & Description |
+|---|---|
+| **Deep Rest (Dark Mode)** | OLED black canvas (`#0A0D0F`), Elevated surfaces (`#191E23`, `#232B32`), Text neutrals (`#C4CDD4`, `#F5F7F9`) |
+| **Sage Grounding** | Primary interactive (`#4A7862`), Pale decorative (`#B5CEBC`) |
+| **Dusk Blue** | Calm accent (`#2E5080`), Hover states (`#3D6A9F`) |
+| **Amber Warmth** | Primary warmth (`#C27A30`), Pale amber (`#F2D9A8`) |
+| **Crisis Coral** | Safety Plan action (`#B05454`), Crisis surface (`#2C1110`) |
 
-#### Dusk Blue
-
-| Name | Hex | HSL |
-|---|---|---|
-| `dusk-700` | `#1E3050` | `220° 43% 21%` |
-| `dusk-500` | `#5B8A99` | `194° 26% 48%` |
-| `dusk-300` | `#A3BDD9` | `210° 34% 75%` |
-| `dusk-100` | `#D8E6F4` | `210° 60% 91%` |
-
-#### Warm Amber
-
-| Name | Hex | HSL |
-|---|---|---|
-| `amber-600` | `#7A4A0F` | `35° 71% 27%` |
-| `amber-500` | `#D99B62` | `30° 57% 62%` |
-| `amber-300` | `#F2D9A8` | `40° 72% 81%` |
-| `amber-100` | `#FDF3E0` | `42° 90% 94%` |
-
-#### Crisis Coral (Safety Plan Only)
-
-| Name | Hex | HSL |
-|---|---|---|
-| `coral-800` | `#2C1110` | `2° 45% 12%` |
-| `coral-500` | `#E27D60` | `14° 68% 63%` |
-| `coral-300` | `#F2B8A6` | `14° 70% 80%` |
-| `coral-100` | `#FDF0EC` | `14° 75% 96%` |
-
-#### Text Neutrals
-
-| Name | Hex | HSL |
-|---|---|---|
-| `text-high` | `#F0F4F2` | `150° 20% 95%` |
-| `text-mid` | `#C4CDD4` | `210° 12% 80%` |
-| `text-muted` | `#8FA09A` | `160° 8% 60%` |
-| `text-disabled` | `#5C6E68` | `158° 9% 40%` |
-
----
-
-### 2.2 Semantic Token Map
+### 2.2 Semantic Token Mappings
 
 #### Dark / Low-Stimulation Mode (Default)
 
-| Semantic Token | Value | Role |
+| Semantic Token | Hex | Role |
 |---|---|---|
-| `bg-canvas` | `#141C19` | Primary app background |
-| `bg-canvas-deep` | `#0E1211` | OLED pure-black / night mode |
-| `bg-surface` | `#18201D` | Cards, bottom sheets |
-| `bg-surface-raised` | `#1F2A26` | Elevated modals |
-| `bg-overlay` | `#28342F` | Dividers, subtle borders |
-| `text-primary` | `#F0F4F2` | All headings and primary labels |
-| `text-secondary` | `#C4CDD4` | Body text |
-| `text-muted` | `#8FA09A` | Captions, placeholders |
-| `text-disabled` | `#5C6E68` | Disabled controls |
-| `accent-sage` | `#7DBA9B` | Primary interactive — CTAs |
-| `accent-sage-dim` | `#4A7862` | Hover / active state |
-| `accent-dusk` | `#5B8A99` | Breathing session, calm blue |
-| `accent-amber` | `#D99B62` | Warmth cue, reach-out |
-| `crisis-bg` | `#2C1110` | Safety plan sheet background |
-| `crisis-action` | `#E27D60` | Safety plan primary CTA |
-| `crisis-text` | `#F2B8A6` | Safety plan body text |
-| `focus-ring` | `#5B8A99` | Keyboard focus ring (2dp) |
-| `success-subtle` | `#7DBA9B` | Completion confirmation fade |
+| `color-bg-canvas` | `#111518` | Primary app background |
+| `color-bg-canvas-deep` | `#0A0D0F` | OLED deep rest / night mode |
+| `color-bg-surface` | `#191E23` | Cards, bottom sheets |
+| `color-bg-surface-raised` | `#232B32` | Elevated modals, dialogs |
+| `color-bg-overlay` | `#2E3840` | Dividers, subtle borders |
+| `color-text-primary` | `#F5F7F9` | Headings, check-in prompts |
+| `color-text-secondary` | `#C4CDD4` | Body text, descriptions |
+| `color-text-muted` | `#9AAAB6` | Captions, placeholders (AA contrast only) |
+| `color-text-disabled` | `#6B7E8C` | Disabled states |
+| `color-accent-primary` | `#4A7862` | Primary interactive (CTAs) |
+| `color-accent-primary-hover` | `#5D9478` | Hover / pressed state |
+| `color-accent-secondary` | `#2E5080` | Breathing session accent |
+| `color-accent-warmth` | `#C27A30` | Warmth cues, reach-out |
+| `color-crisis-surface` | `#2C1110` | Safety plan sheet bg |
+| `color-crisis-action` | `#B05454` | Safety plan CTA |
+| `color-crisis-text` | `#EBBEBE` | Safety plan body text |
+| `color-interactive-focus` | `#6B92BF` | Keyboard focus ring |
+| `color-success-subtle` | `#84B09A` | Completion confirmation |
 
 #### Calm Daylight Mode
 
-| Semantic Token | Value | Role |
+| Semantic Token | Hex | Role |
 |---|---|---|
-| `bg-canvas` | `#F5F7F6` | Primary background |
-| `bg-surface` | `#FFFFFF` | Cards |
-| `bg-surface-raised` | `#DFF0E6` | Elevated (sage tint) |
-| `text-primary` | `#141C19` | Headings |
-| `text-secondary` | `#1F2A26` | Body |
-| `text-muted` | `#374540` | Captions |
-| `accent-sage` | `#4A7862` | CTAs (darker for light bg) |
-| `accent-dusk` | `#1E3050` | Breathing accent |
-| `accent-amber` | `#7A4A0F` | Warmth (darker for contrast) |
-| `crisis-action` | `#C05A3F` | Safety plan CTA (light) |
+| `color-bg-canvas` | `#F5F7F9` | Primary app background |
+| `color-bg-surface` | `#FFFFFF` | Cards |
+| `color-bg-surface-raised` | `#DFF0E6` | Elevated surfaces (sage tint) |
+| `color-bg-overlay` | `#C4CDD4` | Dividers |
+| `color-text-primary` | `#111518` | Headings |
+| `color-text-secondary` | `#232B32` | Body |
+| `color-text-muted` | `#3E4A54` | Captions |
+| `color-accent-primary` | `#4A7862` | Primary CTAs |
+| `color-accent-secondary` | `#2E5080` | Breathing accent |
+| `color-accent-warmth` | `#7A4A0F` | Warmth cues |
+| `color-crisis-action` | `#7D3030` | Safety plan CTA (light) |
+| `color-crisis-surface` | `#F9EDED` | Safety plan sheet bg (light) |
 
 ---
 
-## 3. Typography System
+## 3. Typography System & Type Scale
 
-### 3.1 Font Families
+### 3.1 Font Family Selection
 
-| Family | Use | Weight | Source |
-|---|---|---|---|
-| **Atkinson Hyperlegible** | Body, headings, labels | 400, 700 | Braille Institute (SIL OFL) |
-| **Plus Jakarta Sans** | Display, large grounding words | 500, 600, 700 | Google Fonts (SIL OFL) |
-| **JetBrains Mono** | Timestamps only | 400 | JetBrains (SIL OFL) |
+- **Primary Typeface: Atkinson Hyperlegible** — Designed by the Braille Institute for low-vision readability. Exceptional character disambiguation.
+- **Secondary / Display: Plus Jakarta Sans** — Used for large single-word grounding labels and headings.
+- **Monospace: JetBrains Mono** — Used only for timestamps (tabular figures reduce re-flow on numeric updates).
 
-> All fonts bundled in `assets/fonts/` — no Google Fonts API calls at runtime.
+### 3.2 Complete Type Scale
 
-### 3.2 Type Scale
-
-| Token | Family | Size | Line Height | Letter Spacing | Weight | Use Case |
+| Token | Font Family | Size (sp) | Line Height | Letter Spacing | Weight | Use Case |
 |---|---|---|---|---|---|---|
-| `display-xl` | Plus Jakarta Sans | 48sp | 1.1 | −0.02em | 700 | Grounding anchor ("Breathe") |
-| `display-lg` | Plus Jakarta Sans | 36sp | 1.15 | −0.01em | 600 | Session headings |
-| `display-md` | Plus Jakarta Sans | 28sp | 1.2 | −0.005em | 500 | Screen section titles |
-| `heading-lg` | Atkinson Hyperlegible | 22sp | 1.3 | 0em | 700 | Check-in prompt question |
-| `heading-md` | Atkinson Hyperlegible | 18sp | 1.35 | 0em | 700 | Card headers |
-| `body-lg` | Atkinson Hyperlegible | 17sp | 1.55 | +0.01em | 400 | Primary reading, journal body |
-| `body-md` | Atkinson Hyperlegible | 15sp | 1.55 | +0.01em | 400 | Descriptions, step text |
-| `body-sm` | Atkinson Hyperlegible | 13sp | 1.5 | +0.015em | 400 | Supporting detail |
-| `label-lg` | Atkinson Hyperlegible | 16sp | 1.4 | +0.02em | 700 | Button labels, nav items |
-| `label-md` | Atkinson Hyperlegible | 14sp | 1.4 | +0.03em | 700 | Secondary labels |
-| `caption` | Atkinson Hyperlegible | 12sp | 1.5 | +0.04em | 400 | Timestamps, helper text |
-| `mono-sm` | JetBrains Mono | 12sp | 1.4 | 0em | 400 | Timestamps only |
+| `type-display-xl` | Plus Jakarta Sans | 48sp | 1.1 | -0.02em | 700 | Single-word grounding anchors ("Breathe") |
+| `type-display-lg` | Plus Jakarta Sans | 36sp | 1.15 | -0.01em | 600 | Session headings |
+| `type-display-md` | Plus Jakarta Sans | 28sp | 1.2 | -0.005em | 500 | Screen section titles |
+| `type-heading-lg` | Atkinson Hyperlegible | 22sp | 1.3 | 0em | 700 | Check-in prompt question |
+| `type-heading-md` | Atkinson Hyperlegible | 18sp | 1.35 | 0em | 700 | Card headers |
+| `type-body-lg` | Atkinson Hyperlegible | 17sp | 1.55 | 0.01em | 400 | Primary reading text, journal body |
+| `type-body-md` | Atkinson Hyperlegible | 15sp | 1.55 | 0.01em | 400 | Secondary descriptions, step text |
+| `type-body-sm` | Atkinson Hyperlegible | 13sp | 1.5 | 0.015em | 400 | Supporting detail text |
+| `type-label-lg` | Atkinson Hyperlegible | 16sp | 1.4 | 0.02em | 700 | Button labels, active navigation |
+| `type-label-md` | Atkinson Hyperlegible | 14sp | 1.4 | 0.03em | 700 | Secondary labels |
+| `type-caption` | Atkinson Hyperlegible | 12sp | 1.5 | 0.04em | 400 | Timestamps, helper text |
+| `type-mono-sm` | JetBrains Mono | 12sp | 1.4 | 0em | 400 | Journal timestamps only |
 
-### 3.3 Dynamic Type Rules
+### 3.3 Dynamic Type & Accessibility Scaling
 
-- **Body text** (`body-lg`, `body-md`, `body-sm`): scales freely up to 200% system setting
-- **Display text** (`display-xl`, `display-lg`): capped at 1.4× to prevent layout explosion
-- **Mood tile labels**: switch from inline to below-icon at scale factor > 1.3
-- **Navigation tab labels**: hidden at scale factor > 1.6 (icon-only mode)
-- **Overflow rule**: Text MUST use `softWrap: true` and `overflow: TextOverflow.visible` — never clip or ellipsis on primary content
-
----
-
-## 4. Component Specifications
-
-### 4.1 Touch Target Rules
-
-| Component | Visual Size | Touch Target | Corner Radius | Notes |
-|---|---|---|---|---|
-| Primary Button | 56dp height, full-width | 56dp | 16dp | Sage fill |
-| Secondary Button | 52dp height | 56dp | 14dp | Outlined |
-| Ghost Button | 44dp height | 56dp | 12dp | 6dp invisible padding |
-| Mood Selector Tile | 72×72dp | 72×72dp | 20dp | 5 per row |
-| Energy Slider | 60dp track | 64dp hit area | 32dp (pill) | 48dp thumb |
-| SOS Overlay Button | 44×44dp | 64×64dp | 22dp | Persistent |
-| Panic Exit Button | 36×36dp | 56×56dp | 18dp | Long-press only |
-| Navigation Tab | 64dp height | 64dp | 0dp | 4 tabs |
-| Journal Entry Row | 72dp min | 72dp | 12dp | Expandable |
-| Hope Box Item | 160×160dp | 168×168dp | 16dp | Grid tile |
-
-### 4.2 Button Press Behavior
-
-```
-Press down:
-  - Scale: 1.0 → 0.97 over 120ms (Curves.easeOut)
-  - Opacity: 1.0 → 0.88 over 80ms (Curves.easeOut)
-  - Haptic: HapticFeedback.lightImpact()
-
-Release:
-  - Scale: 0.97 → 1.0 over 150ms (Curves.easeOut)
-  - Opacity: 0.88 → 1.0 over 100ms (Curves.easeOut)
-
-NO: ink ripple, color flash, border flash, shadow pop
-```
-
-### 4.3 Mood Selector Tiles
-
-```
-States:
-  Unselected: border = bg-overlay (1dp), icon = text-muted, bg = bg-surface
-  Selected:   border = accent-sage (2dp), icon = accent-sage, bg = bg-surface-raised
-  Hover:      border = accent-sage-dim (1.5dp)
-
-Icons (Moon Phases):
-  🌑 Heavy   → Full dark circle
-  🌒 Low     → Crescent right
-  🌓 Here    → Half moon
-  🌔 Light   → Crescent left
-  🌕 Open    → Full bright circle
-
-Transition on selection: 200ms opacity cross-fade
-```
-
-### 4.4 Breathing Bloom Visualizer
-
-```
-Canvas:        280×280dp, centered on screen
-Min radius:    50dp (exhale floor / idle)
-Max radius:    120dp (inhale peak)
-Glow rings:    3 concentric at radius × 1.12, 1.24, 1.36
-               Opacity: 12%, 8%, 4% (inner → outer)
-Core fill:     accent-sage (inhale) ↔ accent-dusk (exhale) via ColorTween
-Timing:        Inhale: 4000ms easeInOutSine / Exhale: 8000ms easeInOutSine
-Phase label:   display-md, centered, "Breathe in" / "Let go"
-Background:    bg-canvas-deep (#0E1211) — full-screen OLED black
-```
-
-### 4.5 Card Component
-
-```
-Background:    bg-surface (#18201D)
-Border:        1dp, bg-overlay (#28342F)
-Corner radius: 16dp
-Padding:       space-md (16dp) all sides
-Margin:        space-xs (8dp) vertical, space-md (16dp) horizontal
-Elevation:     0 — no shadow; differentiated by background color only
-```
+Flutter's `textScaleFactor` must be **respected, not capped** for accessibility.
+- **Body and label text:** scales freely up to 200%.
+- **Display text:** (`display-xl` down to `display-md`) capped at maximum `1.4` scale via `MediaQuery` to prevent layout explosion.
+- **Layout Adaptations at 200% Scale:** Check-in mood selectors switch from 5-column row to 2-column grid. Bottom navigation labels auto-hide to show icons only.
 
 ---
 
-## 5. Motion & Haptics
+## 4. Component Design & Touch Targets
+
+### 4.1 Core Touch Target Specifications
+
+**Minimum touch target:** 56×56dp (exceeding Apple/Google minimums). **Preferred:** 64×64dp for primary actions. Minimum visual size is 48dp.
+
+| Component | Visual Height | Touch Target | Corner Radius |
+|---|---|---|---|
+| Primary Button | 56dp | 56dp full-width | 16dp |
+| Secondary Button | 52dp | 56dp | 14dp |
+| Ghost / Text Button | 44dp | 56dp | 12dp |
+| Mood Selector Tile | 72dp | 72dp | 20dp |
+| Check-in Energy Bar | 60dp | 64dp | 32dp (pill) |
+| Navigation Tab | 64dp | 64dp | 0 |
+| Safety Plan FAB | 56×56dp | 72×72dp | 28dp (near-circle) |
+| Journal Entry Row | 72dp min | 72dp | 12dp |
+
+### 4.2 Button Behavior
+
+- **Background:** `color-accent-primary` (#4A7862)
+- **Label:** `color-text-primary` (#F5F7F9)
+- **Active/Pressed:** Scale to 0.97 + opacity 0.88 over 120ms (`Curves.easeOut`). Release scales 0.97 → 1.0 over 150ms.
+- **Rule:** Never use an instant background color switch on press. No ink ripple, shadow pop, or border flash.
+
+### 4.3 Check-In Mood Selector Tiles
+
+The check-in avoids numeric scales. Uses named emotional anchor tiles (72×72dp) with visual motifs (Moon phases).
+- **States:** Heavy (🌑) → Low (🌒) → Here (🌓) → Light (🌔) → Open (🌕)
+- **Selected:** Soft sage glow border (2dp, `color-accent-primary`) + bg shifts to `color-bg-surface-raised`.
+- **Unselected:** Subtle border (`color-bg-overlay`), muted icon tint.
+
+### 4.4 Breathing / Pacing Visualizer
+
+Implemented as a `CustomPainter` capped at 60fps, completely shader-free (unless Impeller is active).
+- **Canvas size:** 280×280dp (centered)
+- **Bloom circle:** Radius 50dp (exhale) → 120dp (inhale peak)
+- **Glow rings:** 3 concentric, opacity 4%/8%/12% outward. Filled circles only.
+- **Timing:** Inhale (4000ms), Exhale (8000ms) using `Curves.easeInOutSine`.
+- **Color transition:** `primitive-sage-500` (inhale) → `primitive-dusk-500` (exhale). Gradual and imperceptible.
+
+---
+
+## 5. Motion, Haptics & Spatial Layout Tokens
 
 ### 5.1 Motion Token Catalog
 
-| Token | Duration | Curve | Use |
-|---|---|---|---|
-| `motion-instant` | 0ms | — | `disableAnimations` override |
-| `motion-micro` | 80ms | `easeOut` | Button press opacity |
-| `motion-quick` | 150ms | `easeOut` | Chip fade, icon swap |
-| `motion-standard` | 300ms | `easeInOut` | Card entrance, page element |
-| `motion-deliberate` | 500ms | `easeInOutSine` | Page transition, modal slide |
-| `motion-breath-in` | 4000ms | `easeInOutSine` | Bloom expand |
-| `motion-breath-out` | 8000ms | `easeInOutSine` | Bloom contract |
-| `motion-ambient` | 12000ms+ | `linear` | Background colour drift |
+All transitions in Firefly must feel like slow breathing — never a snap, never a jerk. All durations must be wrapped in `MotionTokens.resolve()` to respect `reduceMotion` accessibility preferences.
 
-**Reduced Motion Rule:** All `AnimationController` durations pass through `MotionTokens.resolve(duration, context)`. When `MediaQuery.of(context).disableAnimations == true`, duration collapses to `Duration.zero`.
+| Token | Duration | Curve | Use Case |
+|---|---|---|---|
+| `motion-instant` | 0ms | — | Accessibility `reduceMotion` override |
+| `motion-micro` | 80ms | `easeOut` | Button press scale feedback |
+| `motion-quick` | 150ms | `easeOut` | Opacity fade-in of small chips |
+| `motion-standard` | 300ms | `easeInOut` | Screen element entrance/exit |
+| `motion-deliberate` | 500ms | `easeInOutSine` | Page transitions, modal slides |
+| `motion-breath-inhale` | 4000ms | `easeInOutSine` | Full inhale bloom expansion |
+| `motion-breath-exhale` | 8000ms | `easeInOutSine` | Full exhale bloom contraction |
+| `motion-ambient-loop`| 12000ms+| `linear` | Ambient background color drift |
+
+**Animation Toolkit Tiers:**
+- `CustomPainter` + `AnimationController`: Breathing bloom (Zero widget tree overhead).
+- `flutter_animate`: Micro-interactions (Button press, card appear).
+- `rive` runtime: Complex animations.
+- `go_router` `CustomTransitionPage`: Page transitions.
 
 ### 5.2 Haptic Mapping Table
 
-| Event | Pattern | Flutter Call |
+| Event | Pattern | Implementation |
 |---|---|---|
-| Inhale phase start | Double light pulse (100ms gap) | `HapticFeedback.lightImpact()` × 2 |
-| Exhale phase start | Single light pulse | `HapticFeedback.lightImpact()` × 1 |
-| Mood tile selected | Selection click | `HapticFeedback.selectionClick()` |
-| Energy slider midpoint | Soft tick | `HapticFeedback.selectionClick()` |
-| 5-4-3-2-1 step confirm | Selection click | `HapticFeedback.selectionClick()` |
-| Tiny step completed | Warm double tap (200ms gap) | `HapticFeedback.mediumImpact()` × 2 |
-| Journal saved | Soft single pulse | `HapticFeedback.lightImpact()` |
-| Safety plan accessed | Firm single impact | `HapticFeedback.heavyImpact()` |
-| Panic button confirm | 300ms sustained | `SystemChannels` vibrate |
-| Error / blocked | Short double tick (50ms gap) | `HapticFeedback.lightImpact()` × 2 |
+| **Inhale phase start** | Double soft pulse | `HapticFeedback.lightImpact()` × 2 |
+| **Exhale phase start** | Single soft pulse | `HapticFeedback.lightImpact()` × 1 |
+| **Mood tile selection** | Selection click | `HapticFeedback.selectionClick()` |
+| **Energy slider tick** | Subtle tick | `HapticFeedback.selectionClick()` |
+| **Tiny step completion** | Warm double tap | `HapticFeedback.mediumImpact()` × 2 |
+| **Journal entry saved** | Smooth fade pulse | `HapticFeedback.lightImpact()` |
+| **Safety plan access** | Firm single impact | `HapticFeedback.heavyImpact()` × 1 |
+| **Panic confirm** | Sustained vibration | `SystemChannels` custom vibration |
 
----
-
-## 6. Spacing & Grid System
-
-### 6.1 Spacing Scale (4pt Baseline Grid)
+### 5.3 Spacing Scale (4pt / 8pt Baseline Grid)
 
 | Token | Value | Use Case |
 |---|---|---|
-| `space-2xs` | 4dp | Icon inner padding, label gaps |
-| `space-xs` | 8dp | Tight spacing, caption margin |
+| `space-2xs` | 4dp | Icon inner padding, chip gap |
+| `space-xs` | 8dp | Tight inline spacing, caption margin |
 | `space-sm` | 12dp | Component inner padding (compact) |
-| `space-md` | 16dp | Standard card padding, row spacing |
+| `space-md` | 16dp | Standard inner padding (cards, rows) |
 | `space-lg` | 20dp | Section internal padding |
 | `space-xl` | 24dp | Between card components |
 | `space-2xl` | 32dp | Section separators |
-| `space-3xl` | 48dp | Screen vertical breathing room |
-| `space-4xl` | 64dp | Large gap anchors |
+| `space-3xl` | 48dp | Screen-level vertical breathing room |
+| `space-4xl` | 64dp | Large screen anchoring gaps |
 
-### 6.2 Screen Layout Template
+**Safe Areas:** All screen content must respect safe area insets. Include `space-3xl` bottom clearance above bottom nav bars.
 
-```
-┌─────────────────────────────────────────┐
-│  StatusBar (transparent, light icons)   │
-├─────────────────────────────────────────┤  ← space-3xl top padding
-│                                         │
-│  Screen Title (heading-lg)              │  ← space-md below
-│  Subtitle (body-md, text-muted)         │
-│                                         │
-├─────────────────────────────────────────┤  ← space-2xl gap
-│  Primary Content                        │
-│  (single task / decision)               │
-│                                         │
-├─────────────────────────────────────────┤  ← space-2xl gap
-│  Primary CTA (56dp, full-width)         │
-│  Secondary CTA (text, centered)         │
-├─────────────────────────────────────────┤
-│  BottomNavigation (64dp)                │
-└─────────────────────────────────────────┘
-```
+### 5.4 Elevation & Shadow Tokens
+
+Firefly avoids hard drop shadows. Elevation is communicated through background lightness shifts.
+- **Level 0 (Flat):** `elevation-flat` — Canvas (`#111518`)
+- **Level 1 (Raised):** `elevation-raised` — Cards (`#191E23`)
+- **Level 2 (Modal):** `elevation-modal` — Sheets, dialogs (`#232B32`)
+- **Level 3 (Overlay):** `elevation-overlay` — Popovers (`#2E3840`)
+(No hard box shadows on Levels 1–2. A subtle 1dp border at `color-bg-overlay` communicates edge.)
 
 ---
 
-## 7. Accessibility Requirements
+## 6. Architecture & State Management UX Integrity
 
-| Requirement | Target | Tool |
-|---|---|---|
-| Text contrast (primary) | ≥ 7:1 (WCAG AAA) | Colour Contrast Analyser |
-| Text contrast (secondary) | ≥ 4.5:1 (WCAG AA) | Colour Contrast Analyser |
-| Interactive element contrast | ≥ 3:1 | WCAG 2.2 §1.4.11 |
-| Touch target size | ≥ 56×56dp | Flutter `SemanticsChecker` |
-| Dynamic type support | Up to 200% | Physical device test |
-| Screen reader labels | All interactive elements | VoiceOver + TalkBack |
-| Reduced motion | Full `disableAnimations` support | Simulator accessibility setting |
-| Focus order | Logical reading order | Keyboard navigation test |
-| Error identification | Never colour-only | Icon + text always |
+- **Resource cleanup:** `ref.onDispose` guarantees teardown of audio, timers, and haptics when navigating away. Critical for trauma-informed UX where an abrupt exit must gracefully pause any overstimulation.
+- **Emergency Safety Plan:** Accessible via a persistent `SosOverlayButton` positioned just above the `NavigationShell`. Opens in a `go_router` instant modal overlay. Reachable within one tap anywhere in the app.
+- **Audio fade-in/out:** Implemented via `just_audio` with a 300ms volume fade to prevent jarring cuts.
 
 ---
 
-## 8. Banned Design Patterns
+## 7. Banned Design Patterns
 
 | Pattern | Reason | Alternative |
 |---|---|---|
@@ -356,4 +253,4 @@ Elevation:     0 — no shadow; differentiated by background color only
 | Auto-advancing animations | Loss of control | User-triggered only |
 | Bold saturated gradients | High stimulation | Muted single-hue surfaces |
 | Modal dialogs without dismiss | Trap anxiety | Always dismissible |
-| Skeleton loaders | False urgency (data is local) | Instant render |
+| Skeleton loaders | False urgency (data is local) | Instant render via Riverpod `AsyncNotifier` |

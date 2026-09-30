@@ -1,7 +1,7 @@
 # Phases.md
 # Firefly — Incremental Development Roadmap
 
-**Version:** 1.0.0 | **Status:** Living Document | **Updated:** 2026-09-30
+**Version:** 1.1.0 | **Status:** Living Document | **Updated:** 2026-09-30
 
 > Each phase is a self-contained, verifiable unit. A phase is only complete when every checklist item is ticked. Phases build on each other — never start a phase until the prior one is verified.
 
@@ -45,7 +45,7 @@
       always_declare_return_types: true
   ```
 - ⬜ Create `.agent/` directory with all 5 compass documents
-- ⬜ Create `research data/` directory; confirm all 8 research docs present
+- ⬜ Create `research data/` directory; confirm all research docs present
 - ⬜ Create `assets/` directory structure:
   ```
   assets/
@@ -82,7 +82,7 @@
   - `lockApp()` — drops in-memory key reference
 - ⬜ Implement `core/security/network_kill_switch.dart` — `FireflyHttpOverride`
 - ⬜ Install `HttpOverrides.global = FireflyHttpOverride()` as first line in `main()`
-- ⬜ Design all Drift table schemas (see `Architecture.md §6`):
+- ⬜ Design all Drift table schemas:
   - `MoodCheckIns`, `JournalEntries`, `SafetyPlans`, `SafetyPlanContacts`, `SafetyPlanWarnings`, `SafetyPlanSteps`, `AudioPreferences`, `AppConfiguration`, `UsageSummaries`
 - ⬜ Configure `app_database.dart`:
   - `beforeOpen`: apply SQLCipher PRAGMAs (key, WAL mode, foreign keys, secure_delete ON)
@@ -260,7 +260,7 @@
 
 ---
 
-## Phase 6 — Tiny Steps, Journaling & Secure Wipe
+## Phase 6 — Tiny Steps, Journaling & Secure Wipe (MVP Completion)
 
 **Goal:** Behavioral activation micro-actions and private expressive journaling are functional with cryptographic auto-delete.
 
@@ -298,23 +298,60 @@
 - ⬜ Implement `CryptographicEraser`:
   - Journal subkey rotation on "wipe all journals"
   - Version-incremented HKDF context → old ciphertext unreadable
-- ⬜ Implement `LonelinessComfortScreen`:
-  - Ambient sound player (gentle rain default)
-  - "Someone's here" breathing visual (slow ambient bloom)
-  - "Guess vs. Reality" flow: log expectation → send message → log outcome
-  - Pre-written SMS templates with one-tap `url_launcher`
-- ⬜ Implement `HopeBoxScreen`:
-  - Add items: photo (from device gallery), text note, voice note
-  - All stored locally in app-private directory
-  - Display: masonry grid of hope items
 - ⬜ Unit tests: Journal CRUD, TTL expiry logic, secure wipe triggers
-- ⬜ `git commit`: "feat: Phase 6 — tiny steps, journaling, hope box, loneliness comfort, secure wipe"
+- ⬜ `git commit`: "feat: Phase 6 — tiny steps, journaling, secure wipe"
 
 **Exit Criteria:** Write a journal entry with auto-delete → advance system clock past TTL → wipe service erases the entry → entry unreadable. Voice-to-text works offline. Tiny steps correctly matched to check-in state.
 
 ---
 
-## Phase 7 — Accessibility, SAST & Release
+## Phase 7 — Hope Box, Wind-Down & Loneliness (Next Roadmap)
+
+**Goal:** Implement evidence-supported additions: Hope Box (B6), Wind-Down (B5), and Guess vs. Reality (B2).
+
+### Checklist
+
+- ⬜ Implement `HopeBoxScreen`:
+  - Add items: photo (from device gallery), text note, voice note
+  - All stored locally in app-private directory
+  - Display: masonry grid of hope items
+- ⬜ Implement `LonelinessComfortScreen`:
+  - Ambient sound player (gentle rain default)
+  - "Someone's here" breathing visual (slow ambient bloom)
+  - "Guess vs. Reality" flow: log expectation → send message → log outcome
+  - Pre-written SMS templates with one-tap `url_launcher`
+- ⬜ Implement `WindDownScreen` (B5):
+  - Sleep diary, fixed wake-time nudge, pre-bed "worry dump"
+- ⬜ Implement DB schema migrations for Hope Box and Wind-Down features (v2 to v3)
+- ⬜ `git commit`: "feat: Phase 7 — hope box, wind-down, loneliness comfort"
+
+**Exit Criteria:** Hope box persists and displays media locally. Loneliness intervention properly connects to SMS intents and logs expectation vs reality. DB migration runs safely.
+
+---
+
+## Phase 8 — One-Session Reset & Extended Features (Later Roadmap)
+
+**Goal:** Implement single-session interventions and extended features: One-Session Reset (B1), Movement Snacks (B4), Music Room (B7), Awe Walk (B3), Check-in Buddy (B8).
+
+### Checklist
+
+- ⬜ Implement `OneSessionResetScreen` (B1):
+  - Self-contained 5–10 min guided module (name the problem → one skill → one small commitment)
+- ⬜ Implement `MovementSnacksScreen` (B4):
+  - 2–10 minute movement options matched to check-in (gentle for anxious, graded ladder for low energy)
+- ⬜ Implement `MusicRoomScreen` (B7):
+  - Import own music; "calm down" and "gentle lift" sets; slow soundscapes
+- ⬜ Implement `AweWalkScreen` (B3):
+  - 15-minute outdoor prompt with offline prompt cards ("find something vast", "notice something tiny")
+- ⬜ Implement `CheckInBuddy` (B8):
+  - User picks a trusted person; app prompts a ~2-minute weekly summary to share securely via intents
+- ⬜ `git commit`: "feat: Phase 8 — one-session reset, movement, music room, awe walk, check-in buddy"
+
+**Exit Criteria:** Single-session flows operate predictably and handle internal state. Audio components load external music appropriately.
+
+---
+
+## Phase 9 — Accessibility, SAST & Release
 
 **Goal:** Firefly meets WCAG 2.2 AAA standards, passes all security audits, and is ready for App Store / Play Store submission.
 

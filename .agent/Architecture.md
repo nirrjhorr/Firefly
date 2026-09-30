@@ -71,7 +71,7 @@ It is **not** a diagnostic tool. It **does not** replace professional care. It i
 
 ---
 
-## 4. App Flow & State Transitions
+## 4. App Flow, State Transitions, & Navigation
 
 ```mermaid
 flowchart TD
@@ -107,8 +107,10 @@ flowchart TD
     O -->|Emergency| Q[Emergency Number — offline dialer]
 ```
 
-**Persistent Safety Plan Access:**
-The SOS button is a floating overlay rendered above the `NavigationShell` via `Stack` — it exists on every screen including during active breathing sessions. Long-press activates the Panic Exit sequence.
+**Navigation Architecture:**
+- **Router:** `go_router` with Shell Routes.
+- **Guards:** Privacy lock (biometric/PIN) and Onboarding guards intercept state transitions to redirect users to appropriate screens before they access any protected route.
+- **Persistent Safety Plan Access:** The SOS button is a floating overlay rendered above the `NavigationShell` via `Stack` — it exists on every screen, including during active breathing sessions. It opens an instant full-screen modal over any route. Long-press activates the Panic Exit sequence.
 
 ---
 
@@ -133,6 +135,11 @@ The SOS button is a floating overlay rendered above the `NavigationShell` via `S
 | URL Launcher | `url_launcher` | ^6.3.x | Native `tel:` and `sms:` intents offline |
 | Cryptography | `cryptography` | ^2.7.x | AES-GCM + Argon2id for backup engine |
 | Linting | `flutter_lints` + `custom_lint` | ^4.x | Strict static analysis |
+
+**Key Architectural Decisions:**
+- **Riverpod over BLoC:** Chosen for its compile-time safety (via code generation), native `AsyncNotifier` handling DB streams, and `ref.onDispose` contract which guarantees resource cleanup (audio, timers, haptics) when a user navigates away mid-session.
+- **Drift + SQLCipher over Isar/Hive:** Drift provides robust ACID compliance (via SQLite WAL mode), transparent AES-256-CBC encryption via SQLCipher, and full relational integrity (foreign keys) necessary for the hierarchical Safety Plan data.
+- **Deterministic Rule Engine over Local LLM:** A rule-based engine offers sub-millisecond response times, zero impact on app size, and 100% predictable, safe outputs (non-negotiable for a crisis-adjacent app).
 
 **Packages explicitly BANNED:** `http`, `dio`, `firebase_*`, `sentry_*`, `amplitude_*`, `mixpanel_*`, `google_sign_in`, any package making outbound network connections.
 
@@ -284,13 +291,15 @@ lib/
 
 ---
 
-## 7. Data Flow Diagram
+## 7. Data Flow & Integration Contracts
 
 ```
 User Input (UI Widget)
         │
         ▼
 Feature Controller (Riverpod AsyncNotifier)
+        │
+        ├──► Hardware Ports (AudioPlayerPort, HapticsPort, VoiceRecognitionPort)
         │
         ▼
 Repository Interface (Domain boundary — abstract)
@@ -303,6 +312,8 @@ Repository Impl ──► DTO Mapper ──► Drift DAO
                               (Key sealed in iOS Keychain /
                                Android StrongBox TEE)
 ```
+
+**Integration Contracts:** All presentation controllers interact with hardware and data exclusively through **abstract interface ports**. This enforces testability (via mocks), decouples features from infrastructure, and prevents direct dependency on platform channels.
 
 **Invariant:** No Widget ever touches a DAO. No Controller imports `drift` directly. The Repository is the only boundary-crosser.
 
@@ -320,3 +331,37 @@ Repository Impl ──► DTO Mapper ──► Drift DAO
 | Backup | AES-256-GCM + Argon2id passphrase derivation |
 | Expired journals | Cryptographic key rotation → permanent unreadability + VACUUM |
 | Cloud sync block | `synchronizable: false` on all Keychain items |
+
+---
+
+## 9. State Management & UI Performance
+- **State Lifecycle Categories:**
+  - **Transient:** Active timers, tap states (`@riverpod` auto-disposed).
+  - **Session:** In-progress answers, draft journals (`@Riverpod(keepAlive: false)`).
+  - **Persistent:** Completed journals, saved plans (`@Riverpod(keepAlive: true)` backed by Drift stream).
+- **UI Render Strategy:**
+  - **Shader-free:** Visualizations are shader-free unless Impeller is fully supported.
+  - **CustomPainter:** Breathing blooms and pacing gauges (e.g., `CyclicSighBloomPainter`) are drawn using `CustomPainter` to avoid widget tree overhead and maintain smooth 60fps. Repaints are restricted natively via `shouldRepaint`.
+  - **Jank Prevention Rules:** DB reads on the UI thread are strictly asynchronous. `setState` is avoided for high-frequency animations (like breathing ticks) — `ref.listen` is used to isolated updates.
+
+---
+
+## 10. Database Schema & Local Data Access
+- **Embedded Engine:** Drift + SQLCipher provides complete crash safety via SQLite WAL mode and safe data migration logic (versioned additive schema shifts).
+- **Entity-Relationship Models:** Essential features like the Safety Plan heavily rely on cascaded foreign keys (e.g. `SAFETY_PLANS` linking `SAFETY_PLAN_CONTACTS` and `SAFETY_PLAN_STEPS`) to maintain strict relational integrity offline.
+- **Lazy-Loading Polices:** Journal entries only retrieve metadata previews initially to save memory. Full text and voice transcriptions load exclusively on demand when the entry is opened.
+- **Offline Analytics:** Analytics data (usage length, feature access) are securely written to `USAGE_SUMMARIES` table upon session end. This data powers internal gentle progress charts securely.
+
+---
+
+## 11. On-Device Recommendation Engine
+- **Engine Selection:** Instead of LLMs which pose risks, Firefly implements a **Deterministic State Machine (Rule-based)** via `RecommendationEngine.evaluate(AffectState)`.
+- **Determinism Flow:** User inputs `AffectState` on Check-in -> Rule Engine prioritizes safety rules -> Outputs 100% predictable, deterministic `ActionSuggestion` route for the user.
+- **Rules Priority:** Immediate physiological regulation overrides cognitive tasks. For instance, high anxiety unconditionally routes to the cyclic sigh feature, while very low energy targets tiny behavioral activation steps.
+
+---
+
+## 12. Hardware, Media & Notifications Subsystems
+- **Audio Delivery:** Through `just_audio`, local ambient sounds employ gapless looping via `LoopingAudioSource`. Audio uniformly fades over 300ms to avoid jolts or triggers for the user.
+- **Haptic Synchronization:** Haptic feedback patterns are synchronously triggered with audio phase changes via shared logic loops to guarantee < 16ms synchronization lag.
+- **Privacy-First Reminders:** `flutter_local_notifications` powered reminders avoid all sensitive data, are thoroughly opt-in, use native local device alarms (no background service), and focus on a compassionate, generic tone.

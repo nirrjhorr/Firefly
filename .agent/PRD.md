@@ -374,7 +374,7 @@ All copy must pass a "would a caring friend say this at 2am?" test before inclus
 
 ### FR-03: Tiny Steps Mode (Behavioral Activation)
 
-**Priority:** P0 — Core MVP
+**Priority:** P1 — Fast Follow (Tier 2)
 **Feature Area:** Behavioral Activation
 **Clinical Evidence:**
 - Behavioral Activation (BA): meta-analysis of 28 studies (Psychol Med 2021;51(9):1491–1504) — BA vs. inactive controls: depression g=0.83, anxiety g=0.37
@@ -514,7 +514,7 @@ All copy must pass a "would a caring friend say this at 2am?" test before inclus
 
 ### FR-05: Expressive Journaling & Unsent Letters
 
-**Priority:** P0 — Core MVP
+**Priority:** P2 — Roadmap (Tier 3)
 **Feature Area:** Journaling
 **Clinical Evidence:**
 - Frattaroli 2006 (Psychological Bulletin): meta-analysis of 146 disclosure studies — stronger effects with ≥ 3 sessions, sessions ≥ 15 min, writing at home/private space
@@ -582,7 +582,7 @@ All copy must pass a "would a caring friend say this at 2am?" test before inclus
 
 ### FR-06: Loneliness Comfort & Reaching Out
 
-**Priority:** P0 — Core MVP
+**Priority:** P1 — Fast Follow (Tier 2)
 **Feature Area:** Loneliness
 **Clinical Evidence:**
 - Masi et al. 2011 (Pers Soc Psychol Rev 15(3)): meta-analysis of loneliness interventions — interventions targeting maladaptive social cognition most effective in randomised trials
@@ -735,8 +735,9 @@ All copy must pass a "would a caring friend say this at 2am?" test before inclus
 
 | ID | Feature | Evidence Tier | Planned Phase |
 |---|---|---|---|
-| RM-01 | **One-Session Reset** (SSI module: name problem → one skill → one commitment) | Strong (Schleider et al. 2025: 83% of 24 systematic reviews positive; SMD −0.25) | v1.1 |
+| RM-01 | **One-Session Reset** (SSI module: name problem → one skill → one commitment) | Strong (Schleider et al. 2025: 83% of 24 systematic reviews positive; SMD −0.25) | v1.0 (MVP) |
 | RM-02 | **Guess vs. Reality** (full belief-testing log with outcome tracking) | Strong (basic science: Kumar & Epley 2023) | v1.1 |
+| RM-02b | **Thought Untangler (Self-Compassion)** (guided reflection to counteract shame/self-criticism) | Moderate (Neff's research; many RCTs, but few online trials) | v1.1 |
 | RM-03 | **Wind-Down / Sleep** (gentle dCBT-I: sleep diary, consistent wake time, worry dump — no sleep restriction in v1.x) | Strong for digital dCBT-I (Lin et al. 2023, PeerJ: SMD −0.85 short-term insomnia) | v1.2 |
 | RM-04 | **Movement Snacks** (2–10 min state-matched movement prompts) | Moderate-strong (Noetel et al. 2024, BMJ: g=−0.62 for walking) | v1.2 |
 | RM-05 | **Awe Walk** (15-min guided outdoor prompt cards) | Preliminary (Sturm et al. 2020, Emotion: n=60, healthy older adults) | v1.3 |
@@ -871,6 +872,13 @@ Before any public release:
 | User data ownership | User can export their data and delete all local data at any time |
 | No discriminatory design | Mood selectors, copy, and visuals tested for cultural neutrality and accessibility |
 
+### 6.6 Mitigation of Known Harms and Null Results
+
+Based on research into digital mental health interventions, Firefly incorporates structural safeguards against known harms:
+- **Mood Tracking and Rumination:** Constant mood logging can encourage circular thinking and hyper-monitoring. Firefly mitigates this by not pushing notifications for mood tracking and limiting the display of historical data to avoid triggering rumination.
+- **Expressive Writing Risks:** While journaling is beneficial, it can exacerbate distress in vulnerable populations (e.g., severe PTSD) if it triggers reliving of trauma without resolution. Firefly includes a crisis phrase detection overlay that gently routes users to the Safety Plan if acute distress language is detected, and positions journaling as an optional, later-tier feature.
+- **Unguided Mental Health App Shortfalls:** Many unguided apps suffer from a well-documented "efficacy gap," yielding negligible real-world results despite controlled trial success, often due to low motivation, manipulative gamification, or misleading advice. Firefly prioritizes user emotional safety over retention metrics, using utility over achievement (no streaks, no guilt) and ensuring robust crisis guardrails to avoid mishandling disclosures of self-harm.
+
 ---
 
 ## 7. Validation & Quality Framework
@@ -946,17 +954,19 @@ Because Firefly transmits no data, standard product analytics (funnel analysis, 
 
 ## Appendix A: Feature Evidence Summary
 
-| Feature | FR ID | Evidence Level | Key Citation |
+| Feature | FR/RM ID | Evidence Level | Key Citation |
 |---|---|---|---|
-| Affect check-in / mood monitoring | FR-01 | Moderate | Linardon et al. (176 RCTs, World Psychiatry) — mood monitoring as effective moderator |
-| Cyclic sighing | FR-02 | Moderate | Balban et al. 2023 (Cell Reports Medicine, NCT05304000) |
+| Affect check-in / mood monitoring | FR-01 | Moderate | Linardon et al. (2024 meta-analysis of 176 RCTs) — mood monitoring as effective moderator |
+| Cyclic sighing | FR-02 | Moderate | Balban et al. 2023 (Cell Reports Medicine) — produced greater improvements than mindfulness |
 | 5-4-3-2-1 grounding | FR-02 | Weak (clinical consensus) | CBT/DBT clinical use; pilot HRV studies; no large-scale RCT |
 | Behavioral activation | FR-03 | Moderate-strong | Psychol Med 2021;51(9) — g=0.83 vs. inactive controls |
 | Stanley-Brown Safety Plan | FR-04 | Moderate | Stanley et al. 2018 (JAMA Psychiatry); ED-SAFE 2 (2023) |
-| Expressive journaling | FR-05 | Weak-mixed | Frattaroli 2006; 31 RCTs meta-analysis; null results in some studies |
+| Expressive journaling | FR-05 | Weak-mixed | Frattaroli 2006; newer meta-analyses show small effects, risks for vulnerable |
 | Loneliness / reaching out | FR-06 | Moderate (basic science) | Kumar & Epley 2023 (J Pers Soc Psychol); Masi et al. 2011 |
 | Hope Box / virtual coping | FR-07 | Weak (single RCT) | Bush et al. 2017 (Psychiatric Services) — coping self-efficacy only |
-| Gentle progress (no streaks) | FR-08 | Indirect | Baumel et al. 2019; guilt mechanics literature |
+| Gentle progress (no streaks) | FR-08 | Indirect | Baumel et al. 2019 (engagement data); literature on gamification harms |
+| One-Session Reset | RM-01 | Strong | Schleider et al. 2025 (Annual Review) — 83% of 24 reviews positive (SMD -0.25) |
+| Thought Untangler | RM-02b| Moderate | Neff's self-compassion research |
 
 ---
 
