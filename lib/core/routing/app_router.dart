@@ -8,6 +8,7 @@ import '../../features/gentle_progress/presentation/screens/gentle_progress_scre
 import '../../features/journaling/presentation/controllers/journal_editor_controller.dart';
 import '../../features/journaling/presentation/screens/journal_entry_screen.dart';
 import '../../features/journaling/presentation/screens/journal_list_screen.dart';
+import '../../features/loneliness_comfort/presentation/screens/loneliness_comfort_screen.dart';
 import '../../features/onboarding/presentation/screens/biometric_lock_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/onboarding/presentation/screens/splash_screen.dart';
@@ -24,8 +25,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: AppRoutes.checkIn,
+    restorationScopeId: 'firefly_router',
     debugLogDiagnostics: false, // Never log routes in production
     routes: [
+      GoRoute(
+        path: AppRoutes.home,
+        redirect: (context, state) => AppRoutes.checkIn,
+      ),
       GoRoute(
         path: AppRoutes.splash,
         builder: (context, state) => const SplashScreen(),
@@ -114,6 +120,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.progress,
             builder: (context, state) => const GentleProgressScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.loneliness,
+            builder: (context, state) => const LonelinessComfortScreen(),
           ),
         ],
       ),
