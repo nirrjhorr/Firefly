@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:drift/drift.dart';
 import '../../features/journaling/domain/models/journal_entry.dart';
-import '../app_database.dart';
+import '../app_database.dart' hide JournalEntry;
 
 /// Data Access Object contract for JournalEntries table.
 abstract class JournalDao {
@@ -148,11 +148,11 @@ class DriftJournalDao implements JournalDao {
       'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       variables: [
         Variable.withString(entry.id),
-        Variable.withString(entry.checkInId),
+        Variable.withString(entry.checkInId ?? ''),
         Variable.withString(entry.title),
         Variable.withString(entry.contentEncrypted),
         Variable.withString(entry.contentType),
-        Variable.withInt(entry.ttlDeleteAtUnix),
+        Variable.withInt(entry.ttlDeleteAtUnix ?? 0),
         Variable.withBool(entry.isAutoDeleteEnabled),
         Variable.withInt(entry.wordCount),
         Variable.withInt(entry.createdAtUnix),

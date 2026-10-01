@@ -232,5 +232,6 @@ extension AppCustomColorsAliases on AppCustomColors {
   Color get background => bgCanvas;
   Color get textTertiary => textMuted;
   Color get crisisRed => crisisAction;
+  Color get crisisCoral => crisisAction;
   Color get accentAmber => accentWarmth;
 }

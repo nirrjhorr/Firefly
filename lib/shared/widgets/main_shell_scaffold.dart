@@ -73,8 +73,8 @@ class MainShellScaffold extends StatelessWidget {
             label: 'Journal',
           ),
           NavigationDestination(
-            icon: Icon(Icons.footprint_outlined),
-            selectedIcon: Icon(Icons.footprint),
+            icon: Icon(Icons.directions_walk_outlined),
+            selectedIcon: Icon(Icons.directions_walk),
             label: 'Tiny Steps',
           ),
           NavigationDestination(

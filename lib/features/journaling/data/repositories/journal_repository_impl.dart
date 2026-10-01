@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/database/app_database.dart';
+import '../../../../core/database/app_database.dart' hide JournalEntry;
 import '../../../../core/database/daos/journal_dao.dart';
 import '../../../../core/errors/result.dart';
 import '../../../../core/security/journal_crypto_service.dart';

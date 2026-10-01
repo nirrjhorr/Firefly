@@ -1,4 +1,4 @@
-import '../../../../core/database/app_database.dart';
+import '../../../../core/database/app_database.dart' hide SafetyPlan, SafetyPlanContact, SafetyPlanStep, SafetyPlanWarning;
 import '../../../../core/errors/result.dart';
 import '../../domain/models/safety_plan.dart';
 import '../../domain/models/safety_plan_contact.dart';

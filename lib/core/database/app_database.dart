@@ -24,7 +24,9 @@ part 'app_database.g.dart';
   UsageSummaries,
 ])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase(super.executor);
+  AppDatabase(super.executor, {this.encryptionKey});
+
+  final String? encryptionKey;
 
   @override
   int get schemaVersion => 1;
@@ -36,6 +38,14 @@ class AppDatabase extends _$AppDatabase {
           await runDatabaseMigrations(this, m, from, to);
         },
         beforeOpen: (details) async {
+          if (encryptionKey != null && encryptionKey!.isNotEmpty) {
+            final escapedKey = encryptionKey!.replaceAll("'", "''");
+            await customStatement("PRAGMA key = '$escapedKey';");
+            await customStatement('PRAGMA cipher_page_size = 4096;');
+            await customStatement('PRAGMA kdf_iter = 256000;');
+            await customStatement('PRAGMA cipher_hmac_algorithm = HMAC_SHA512;');
+            await customStatement('PRAGMA cipher_default_kdf_algorithm = PBKDF2_HMAC_SHA512;');
+          }
           // Enforce foreign key constraints
           await customStatement('PRAGMA foreign_keys = ON;');
           // WAL mode for crash safety & concurrency
@@ -56,17 +66,7 @@ AppDatabase openEncryptedDatabase({
   final executor = SqfliteQueryExecutor.inDatabaseFolder(
     path: dbName,
     singleInstance: true,
-    setup: (db) async {
-      // Apply SQLCipher encryption key pragma before table generation
-      // Escaping single quotes in the encryption key
-      final escapedKey = encryptionKey.replaceAll("'", "''");
-      await db.execute("PRAGMA key = '$escapedKey';");
-      await db.execute('PRAGMA cipher_page_size = 4096;');
-      await db.execute('PRAGMA kdf_iter = 256000;');
-      await db.execute('PRAGMA cipher_hmac_algorithm = HMAC_SHA512;');
-      await db.execute('PRAGMA cipher_default_kdf_algorithm = PBKDF2_HMAC_SHA512;');
-    },
   );
 
-  return AppDatabase(executor);
+  return AppDatabase(executor, encryptionKey: encryptionKey);
 }

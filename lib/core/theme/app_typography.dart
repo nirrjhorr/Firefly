@@ -101,6 +101,12 @@ abstract final class AppTypography {
     fontWeight: FontWeight.w400,
   );
 
+  // ── Compatibility Aliases ────────────────────────────────────────────────────
+  static const headingSm = headingMd;
+  static const headlineSm = headingMd;
+  static const headlineLg = headingLg;
+  static const labelSm = caption;
+
   /// Maps AppTypography to Flutter's Material TextTheme
   static TextTheme toTextTheme(Color defaultColor) => TextTheme(
         displayLarge: displayXl.copyWith(color: defaultColor),
