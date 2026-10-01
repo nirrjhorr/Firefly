@@ -1,22 +1,17 @@
 # Memory.md
 # Firefly — Agent Memory & State
 
-**Current Phase:** Sprint 3: Respiration Engine & Grounding (FR-02) and Tiny Steps Mode (FR-03) (All Stories Completed & Verified)
+**Current Phase:** Sprint 4: Expressive Journaling & Unsent Letters (FR-05) (Planning Completed, Ready for Dev)
 
-## Micro-Tasks for Sprint 3
+## Micro-Tasks for Sprint 4
 
-### Epic 4: Respiration & Grounding Engine (FR-02)
-- [x] 4.1 Audio & Haptics Hardware Ports and Adapters (`AudioPlayerPort`, `HapticsPort`, `JustAudioPlayerAdapter`, `FlutterHapticsAdapter`).
-- [x] 4.2 Respiration State Management & Cyclic Sighing Engine (`BreathingSessionNotifier`, 4s/8s cadence ticker, `ref.onDispose` cleanup).
-- [x] 4.3 Cyclic Sigh Bloom Visualizer (`CyclicSighBloomPainter`, CustomPainter, 3-ring glow, sage/dusk-blue tween, reduced motion).
-- [x] 4.4 5-4-3-2-1 Sensory Grounding Mode (`GroundingController`, `GroundingPromptCard`, sequential prompt progression).
-- [x] 4.5 Breathing & Grounding Screen Integration (`BreathingGroundingScreen`, route integration, audio preferences, exit controls).
-
-### Epic 5: Tiny Steps Mode (Behavioral Activation) (FR-03)
-- [x] 5.1 Curated Behavioral Micro-Action Library & Domain Models (`TinyStep`, 24 offline curated actions across energy 1-5, unit tests).
-- [x] 5.2 Tiny Steps State Controller & Recommendation Matching (`TinyStepsController`, state-matched filtering, shuffle logic, unit tests).
-- [x] 5.3 Tiny Steps Screen & Micro-Action Interaction UI (`TinyStepsScreen`, 72dp action cards, warm double-tap haptic, dismiss/rest, widget tests).
+### Epic 6: Expressive Journaling & Unsent Letters (FR-05)
+- [ ] 6.1 Application-Layer AES-256-GCM Double Encryption & Cryptographic Erasure (`JournalCryptoService`, HKDF subkey derivation, 12-byte nonce, 16-byte MAC, memory zeroing).
+- [ ] 6.2 Journal Drift Database DAO, Repository & TTL Expiry Engine (`JournalDao`, `JournalRepository`, `JournalEntry` domain model, automated TTL cleanup query).
+- [ ] 6.3 Offline Speech-to-Text Port & Vosk Voice Recognition Adapter (`VoiceRecognitionPort`, `VoskVoiceAdapter`, background isolate transcription < 50MB RAM).
+- [ ] 6.4 Journal State Management & Unsent Letters Controller (`JournalEditorController`, `JournalListController`, word count, TTL configuration, instant burn/wipe action).
+- [ ] 6.5 Distraction-Free Journal Editor Screen & Unsent Letters UI (`JournalListScreen`, `JournalEntryScreen`, Atkinson Hyperlegible, offline mic dictation, burn animation).
 
 ## State
-**Currently Working On:** Epic 5 Complete.
-**Next Immediate Step:** Run retrospective or plan next roadmap phase (e.g. FR-05 Expressive Journaling & Unsent Letters or release hardening).
+**Currently Working On:** Epic 6: Expressive Journaling & Unsent Letters.
+**Next Immediate Step:** Story 6.1 (`6-1-application-layer-aes-gcm-double-encryption-crypto-erasure`).

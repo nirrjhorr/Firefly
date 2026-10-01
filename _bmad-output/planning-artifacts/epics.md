@@ -28,8 +28,9 @@ This document provides the complete epic and user story breakdown for Firefly, d
 - **Epic 1: Core Scaffolding, Encrypted Storage & Design Foundations** (Sprint 1 - Completed)
 - **Epic 2: Stanley-Brown Safety Plan (Priority First)** (Sprint 2 - Completed)
 - **Epic 3: Affect Check-In & Deterministic Recommendation Engine** (Sprint 2 - Completed)
-- **Epic 4: Respiration & Grounding Engine** (Sprint 3 - Current Priority)
-- **Epic 5: Tiny Steps Mode (Behavioral Activation)** (Sprint 3 - Core Interventions)
+- **Epic 4: Respiration & Grounding Engine** (Sprint 3 - Completed)
+- **Epic 5: Tiny Steps Mode (Behavioral Activation)** (Sprint 3 - Completed)
+- **Epic 6: Expressive Journaling & Unsent Letters** (Sprint 4 - Current Priority)
 
 ---
 
@@ -367,3 +368,82 @@ So that completing a small step feels grounding and supportive rather than compe
 - And tapping "Done" triggers a warm double-tap haptic and gentle sage highlight without gamified streaks, badges, or confetti,
 - And an "I'll do this later" option allows closing the screen without judgment,
 - And returning to Home updates the active card to reflect completed action or offers a gentle rest prompt.
+
+---
+
+## Epic 6: Expressive Journaling & Unsent Letters
+
+Implement the confidential expressive journaling and unsent letters system (FR-05), featuring application-layer AES-256-GCM double encryption on top of SQLCipher, cryptographic erasure and TTL auto-delete engine, offline speech-to-text (Vosk) on a background isolate, and a distraction-free writing UI designed to reduce cognitive load and prevent rumination traps.
+
+### Story 6.1: Application-Layer AES-256-GCM Double Encryption & Cryptographic Erasure
+
+As a privacy-conscious user recording deep emotional distress or unsent letters,
+I want my journal entries protected by a second layer of AES-256-GCM encryption with cryptographic erasure,
+So that even in forensic NAND extraction or database key compromise, my raw thoughts remain permanently unreadable.
+
+**Acceptance Criteria:**
+- Given `JournalCryptoService` using `package:cryptography`,
+- When encrypting plaintext,
+- Then an HKDF subkey is derived from the Master Key using context `firefly-journal-content-v1`,
+- And encryption uses AES-256-GCM with a 12-byte secure random nonce and 16-byte authentication tag,
+- And plaintext bytes in memory are securely overwritten (`_zeroMemory`) immediately after encryption/decryption,
+- And decryption verifies the authentication tag, rejecting tampered ciphertext,
+- And a cryptographic erasure mechanism enables immediate subkey version rotation and ciphertext zero-overwriting.
+
+### Story 6.2: Journal Drift Database DAO, Repository & TTL Expiry Engine
+
+As a developer,
+I want an encrypted Drift DAO and repository supporting CRUD operations and automated TTL deletion,
+So that expired entries and auto-delete unsent letters are automatically purged without manual intervention.
+
+**Acceptance Criteria:**
+- Given `JournalDao` attached to `JournalEntries` table,
+- When entries are saved,
+- Then encrypted ciphertext, contentType (`text` or `voice`), `ttlDeleteAtUnix`, `isAutoDeleteEnabled`, and `wordCount` are stored,
+- And `JournalRepository` interface and implementation provide reactive streams (`watchEntries()`) and `getEntryById()`,
+- And automated cleanup query (`purgeExpiredEntries()`) runs on launch and entry write to remove all entries where `ttlDeleteAtUnix <= currentTime`,
+- And unit tests verify persistent storage, TTL purge logic, and repository stream updates.
+
+### Story 6.3: Offline Speech-to-Text Port & Vosk Voice Recognition Adapter
+
+As a user feeling too exhausted, numb, or overwhelmed to type,
+I want an offline voice-to-text input option powered by Vosk,
+So that I can articulate my feelings verbally with 100% on-device privacy and zero audio data sent to any network.
+
+**Acceptance Criteria:**
+- Given abstract `VoiceRecognitionPort` in `lib/core/contracts/`,
+- When listening is triggered,
+- Then speech recognition operates on a dedicated background isolate keeping UI thread RAM overhead < 50MB,
+- And partial speech transcriptions stream reactively to the caller via `transcribePartial()`,
+- And `transcribeFinal()` returns the committed transcript upon silence or stop,
+- And disposing or stopping the adapter cleanly releases audio resources and isolates without memory leaks.
+
+### Story 6.4: Journal State Management & Unsent Letters Controller
+
+As a user composing an expressive journal or unsent letter,
+I want a responsive state controller managing draft persistence, auto-delete intervals, and instant "burn" capabilities,
+So that I can safely release heavy feelings with full control over their lifecycle.
+
+**Acceptance Criteria:**
+- Given `JournalEditorController` and `JournalListController` using Riverpod,
+- When composing,
+- Then word count is reactively calculated and drafts are securely cached in state,
+- And users can configure TTL options: None (keep indefinitely), 1 hour, 24 hours, or 7 days,
+- And an unsent letter "burn / instant wipe" action completely purges the entry and its ciphertext with haptic feedback,
+- And unit tests verify controller state transitions, TTL calculation, draft saving, and purge events.
+
+### Story 6.5: Distraction-Free Journal Editor Screen & Unsent Letters UI
+
+As a user seeking emotional catharsis without distraction,
+I want a serene, distraction-free writing canvas with offline voice dictation and clear privacy controls,
+So that I can write freely without judgment, pressure, or cognitive overwhelm.
+
+**Acceptance Criteria:**
+- Given `JournalEditorScreen` and `JournalListScreen` connected to GoRouter (`/home/journal`),
+- When the editor opens,
+- Then a clean, dark `#111518` canvas renders with fluid Atkinson Hyperlegible typography and touch targets ≥ 56dp,
+- And an offline microphone button toggles Vosk voice dictation with a calming pulse indicator and partial transcript insertion,
+- And a TTL selector badge clearly displays the auto-delete horizon (e.g. "Auto-deletes in 24h" or "Unsent Letter"),
+- And an "Unsent Letter: Burn Now" button allows immediate destruction with a calm confirmation and tactile fade,
+- And the journal list displays cards with creation date, word count, TTL countdown chips, and quick delete,
+- And widget tests verify screen rendering, voice toggle interaction, TTL selection, and burn/delete behavior.
