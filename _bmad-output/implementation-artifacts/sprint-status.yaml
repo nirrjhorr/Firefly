@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 09-30-2026 19:10
-last_updated: 10-01-2026 12:52
+last_updated: 10-01-2026 13:12
 project: Firefly
 project_key: NOKEY
 tracking_system: file-system
@@ -80,3 +80,10 @@ development_status:
   6-4-journal-state-management-unsent-letters-controller: done
   6-5-journal-editor-screen-unsent-letters-ui: done
   epic-6-retrospective: done
+
+  epic-7: done
+  7-1-offline-audio-assets-vosk-acoustic-model-bundling: done
+  7-2-end-to-end-home-navigation-state-integration-flows: done
+  7-3-nfr-security-latency-benchmarks-panic-button-cryptographic-w: done
+  7-4-golden-path-e2e-smoke-accessibility-compliance-suite: done
+  epic-7-retrospective: done
