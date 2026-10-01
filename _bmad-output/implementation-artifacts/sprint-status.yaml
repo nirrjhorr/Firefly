@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 09-30-2026 19:10
-last_updated: 10-01-2026 12:14
+last_updated: 10-01-2026 12:26
 project: Firefly
 project_key: NOKEY
 tracking_system: file-system
@@ -75,7 +75,7 @@ development_status:
 
   epic-6: in-progress
   6-1-application-layer-aes-gcm-double-encryption-crypto-erasure: review
-  6-2-journal-drift-database-dao-repository-ttl-engine: ready-for-dev
+  6-2-journal-drift-database-dao-repository-ttl-engine: review
   6-3-offline-speech-to-text-port-vosk-voice-adapter: ready-for-dev
   6-4-journal-state-management-unsent-letters-controller: ready-for-dev
   6-5-journal-editor-screen-unsent-letters-ui: ready-for-dev

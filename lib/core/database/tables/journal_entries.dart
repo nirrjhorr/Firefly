@@ -8,6 +8,7 @@ class JournalEntries extends Table {
         #id,
         onDelete: KeyAction.setNull,
       )();
+  TextColumn get title => text().withDefault(const Constant(''))();
   // content_encrypted: application-layer AES-GCM encrypted payload
   // Double encryption layer on top of SQLCipher for defense-in-depth
   TextColumn get contentEncrypted => text()();
