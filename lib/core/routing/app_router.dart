@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/breathing_grounding/presentation/screens/breathing_grounding_screen.dart';
 import '../../features/check_in/presentation/screens/check_in_screen.dart';
 import '../../features/gentle_progress/presentation/screens/gentle_progress_screen.dart';
+import '../../features/journaling/presentation/controllers/journal_editor_controller.dart';
 import '../../features/journaling/presentation/screens/journal_entry_screen.dart';
 import '../../features/journaling/presentation/screens/journal_list_screen.dart';
 import '../../features/onboarding/presentation/screens/biometric_lock_screen.dart';
@@ -17,8 +18,11 @@ import '../../features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
+final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
+    navigatorKey: _rootNavigatorKey,
     initialLocation: AppRoutes.checkIn,
     debugLogDiagnostics: false, // Never log routes in production
     routes: [
@@ -87,9 +91,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: ':id',
-                builder: (context, state) => JournalEntryScreen(
-                  entryId: state.pathParameters['id'] ?? '',
-                ),
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) {
+                  final id = state.pathParameters['id'] ?? '';
+                  final ttlParam = state.uri.queryParameters['ttl'];
+                  JournalTtlOption? initialTtl;
+                  if (ttlParam == '1h') initialTtl = JournalTtlOption.oneHour;
+                  if (ttlParam == '24h') initialTtl = JournalTtlOption.twentyFourHours;
+                  if (ttlParam == '7d') initialTtl = JournalTtlOption.sevenDays;
+                  return JournalEntryScreen(
+                    entryId: id,
+                    initialTtl: initialTtl,
+                  );
+                },
               ),
             ],
           ),

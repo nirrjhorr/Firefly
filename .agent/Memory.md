@@ -10,8 +10,8 @@
 - [x] 6.2 Journal Drift Database DAO, Repository & TTL Expiry Engine (`JournalDao`, `JournalRepository`, `JournalEntry` domain model, automated TTL cleanup query).
 - [x] 6.3 Offline Speech-to-Text Port & Vosk Voice Recognition Adapter (`VoiceRecognitionPort`, `VoskVoiceAdapter`, background isolate transcription < 50MB RAM).
 - [x] 6.4 Journal State Management & Unsent Letters Controller (`JournalEditorController`, `JournalListController`, word count, TTL configuration, instant burn/wipe action).
-- [ ] 6.5 Distraction-Free Journal Editor Screen & Unsent Letters UI (`JournalListScreen`, `JournalEntryScreen`, Atkinson Hyperlegible, offline mic dictation, burn animation).
+- [x] 6.5 Distraction-Free Journal Editor Screen & Unsent Letters UI (`JournalListScreen`, `JournalEntryScreen`, Atkinson Hyperlegible, offline mic dictation, burn animation).
 
 ## State
-**Currently Working On:** Epic 6: Expressive Journaling & Unsent Letters.
-**Next Immediate Step:** Story 6.5 (`6-5-journal-editor-screen-unsent-letters-ui`).
+**Currently Working On:** Epic 6 Completed (Stories 6.1 through 6.5 implemented, reviewed, tested, and documented).
+**Next Immediate Step:** Epic 6 Retrospective or next epic planning.

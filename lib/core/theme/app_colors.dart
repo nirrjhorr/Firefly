@@ -229,4 +229,8 @@ extension AppCustomColorsAliases on AppCustomColors {
   Color get borderSubtle => bgOverlay;
   Color get borderOpaque => textDisabled;
   Color get textInverse => bgCanvasDeep;
+  Color get background => bgCanvas;
+  Color get textTertiary => textMuted;
+  Color get crisisRed => crisisAction;
+  Color get accentAmber => accentWarmth;
 }

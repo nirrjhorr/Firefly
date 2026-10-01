@@ -158,11 +158,19 @@ class JournalEditorController extends StateNotifier<JournalEditorState> {
   })  : _repository = repository,
         _voicePort = voicePort,
         super(JournalEditorState(
-          id: entryId ?? _generateUniqueId(),
+          id: (entryId != null &&
+                  entryId.isNotEmpty &&
+                  entryId != 'new' &&
+                  entryId != 'new-letter')
+              ? entryId
+              : _generateUniqueId(),
           ttlOption: initialTtl,
           isAutoDeleteEnabled: initialTtl != JournalTtlOption.none,
         )) {
-    if (entryId != null && entryId.isNotEmpty) {
+    if (entryId != null &&
+        entryId.isNotEmpty &&
+        entryId != 'new' &&
+        entryId != 'new-letter') {
       loadEntry(entryId);
     }
   }
