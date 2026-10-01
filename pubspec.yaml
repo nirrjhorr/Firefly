@@ -16,7 +16,7 @@ dependencies:
   
   # Local Database (SQLite via Drift)
   drift: ^2.18.0
-  drift_sqflite: ^2.4.0
+  drift_sqflite: ^2.0.1
   sqlcipher_flutter_libs: ^0.6.8
   
   # Security

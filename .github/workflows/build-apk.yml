@@ -33,6 +33,12 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Scaffold Official Flutter Android Platform
+        run: |
+          rm -rf android
+          flutter create . --platforms=android --org=app
+          sed -i '/<application/i \    <uses-permission android:name="android.permission.VIBRATE" />\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />\n    <uses-permission android:name="android.permission.USE_BIOMETRIC" />' android/app/src/main/AndroidManifest.xml
+
       - name: Install Dependencies
         run: flutter pub get
 
