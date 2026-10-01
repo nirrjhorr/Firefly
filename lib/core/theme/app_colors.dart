@@ -220,3 +220,13 @@ extension AppColorsX on BuildContext {
   AppCustomColors get colors =>
       Theme.of(this).extension<AppCustomColors>() ?? AppCustomColors.dark;
 }
+
+/// Convenience aliases matching design system specifications across UI widgets
+extension AppCustomColorsAliases on AppCustomColors {
+  Color get actionSage => accentPrimary;
+  Color get surfaceCard => bgSurface;
+  Color get surfaceSubtle => bgSurfaceRaised;
+  Color get borderSubtle => bgOverlay;
+  Color get borderOpaque => textDisabled;
+  Color get textInverse => bgCanvasDeep;
+}

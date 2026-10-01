@@ -1,6 +1,6 @@
 # Story 5.3: Tiny Steps Screen & Micro-Action Interaction UI
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As a user trying to take a small positive action,

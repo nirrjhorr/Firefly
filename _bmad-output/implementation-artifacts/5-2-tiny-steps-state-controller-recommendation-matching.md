@@ -1,6 +1,6 @@
 # Story 5.2: Tiny Steps State Controller & Recommendation Matching
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As a user feeling paralyzed or lacking momentum,

@@ -1,7 +1,7 @@
 # Memory.md
 # Firefly — Agent Memory & State
 
-**Current Phase:** Sprint 3: Respiration Engine & Grounding (FR-02) and Tiny Steps Mode (FR-03) (Planning Completed, Ready for Dev)
+**Current Phase:** Sprint 3: Respiration Engine & Grounding (FR-02) and Tiny Steps Mode (FR-03) (All Stories Completed & Verified)
 
 ## Micro-Tasks for Sprint 3
 
@@ -13,13 +13,10 @@
 - [x] 4.5 Breathing & Grounding Screen Integration (`BreathingGroundingScreen`, route integration, audio preferences, exit controls).
 
 ### Epic 5: Tiny Steps Mode (Behavioral Activation) (FR-03)
-- [ ] 5.1 Curated Behavioral Micro-Action Library & Domain Models (`TinyStep`, 20+ offline curated actions across energy 1-5).
-- [ ] 5.2 Tiny Steps State Controller & Recommendation Matching (`TinyStepsController`, state-matched filtering, shuffle logic).
-- [ ] 5.3 Tiny Steps Screen & Micro-Action Interaction UI (`TinyStepsScreen`, 72dp action cards, warm double-tap haptic, dismiss/rest).
+- [x] 5.1 Curated Behavioral Micro-Action Library & Domain Models (`TinyStep`, 24 offline curated actions across energy 1-5, unit tests).
+- [x] 5.2 Tiny Steps State Controller & Recommendation Matching (`TinyStepsController`, state-matched filtering, shuffle logic, unit tests).
+- [x] 5.3 Tiny Steps Screen & Micro-Action Interaction UI (`TinyStepsScreen`, 72dp action cards, warm double-tap haptic, dismiss/rest, widget tests).
 
 ## State
-**Currently Working On:** Epic 5: Tiny Steps Mode (Behavioral Activation).
-**Next Immediate Step:** Story 5.1 (`5-1-curated-behavioral-micro-action-library-domain-models`).
-
-
-
+**Currently Working On:** Epic 5 Complete.
+**Next Immediate Step:** Run retrospective or plan next roadmap phase (e.g. FR-05 Expressive Journaling & Unsent Letters or release hardening).

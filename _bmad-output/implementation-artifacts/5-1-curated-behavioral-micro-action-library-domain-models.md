@@ -1,6 +1,6 @@
 # Story 5.1: Curated Behavioral Micro-Action Library & Domain Models
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As a developer,
