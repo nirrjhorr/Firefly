@@ -1,12 +1,12 @@
 {
-  "package": "firefly-v1.0.0-debug.apk",
+  "release_package": "firefly-v1.0.0-release.apk",
+  "debug_package": "firefly-v1.0.0-debug.apk",
   "app_id": "app.firefly",
   "version": "1.0.0+1",
-  "build_type": "debug_test_release",
-  "size_bytes": 2755,
-  "sha256": "78ec35d85a697444247f011df30859c88e7f8db7cdf4da6281d8b85fc68acde7",
-  "sha1": "95aa77d32b4ffa48ea3aa9bdc91851985f6cf888",
-  "timestamp": 1790840215,
+  "size_bytes": 2756,
+  "sha256": "4dc046b20f94d5844de40b34d2c11683062d49f42712d7ef9bdffbc126a4cd8c",
+  "sha1": "fb2cc2ba63583d5d267d62e35d9a1a990558d933",
+  "timestamp": 1790840758,
   "bundled_assets": [
     "assets/audio/cyclic_sigh_ambience.mp3",
     "assets/audio/gentle_rain.mp3",
