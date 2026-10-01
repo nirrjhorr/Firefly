@@ -77,7 +77,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.breathe,
-            builder: (context, state) => const BreathingGroundingScreen(),
+            builder: (context, state) => BreathingGroundingScreen(
+              initialMode: state.uri.queryParameters['mode'],
+            ),
           ),
           GoRoute(
             path: AppRoutes.journal,

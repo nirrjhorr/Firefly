@@ -1,6 +1,6 @@
 # Story 4.2: Respiration State Management & Cyclic Sighing Engine
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As a user regulating acute distress,

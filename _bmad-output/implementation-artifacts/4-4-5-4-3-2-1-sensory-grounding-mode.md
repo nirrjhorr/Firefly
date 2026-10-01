@@ -1,6 +1,6 @@
 # Story 4.4: 5-4-3-2-1 Sensory Grounding Mode
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As an overwhelmed user experiencing sensory or cognitive overload,

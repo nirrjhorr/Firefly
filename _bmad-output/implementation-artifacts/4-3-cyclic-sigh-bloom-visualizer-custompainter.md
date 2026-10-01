@@ -1,6 +1,6 @@
 # Story 4.3: Cyclic Sigh Bloom Visualizer (CustomPainter)
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As a user following a breathing session,

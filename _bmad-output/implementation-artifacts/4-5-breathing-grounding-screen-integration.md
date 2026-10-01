@@ -1,6 +1,6 @@
 # Story 4.5: Breathing & Grounding Screen Integration
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As a user routed from the affect check-in or home navigation,

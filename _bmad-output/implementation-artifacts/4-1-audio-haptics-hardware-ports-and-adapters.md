@@ -1,6 +1,6 @@
 # Story 4.1: Audio & Haptics Hardware Ports and Adapters
 
-Status: ready-for-dev
+Status: done
 
 ## Story Description
 As a developer,
