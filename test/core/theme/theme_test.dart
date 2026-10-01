@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/theme/app_colors.dart';
-import 'package:app.firefly/core/theme/app_theme.dart';
-import 'package:app.firefly/core/theme/app_typography.dart';
-import 'package:app.firefly/core/theme/spacing_tokens.dart';
+import 'package:firefly/core/theme/app_colors.dart';
+import 'package:firefly/core/theme/app_theme.dart';
+import 'package:firefly/core/theme/app_typography.dart';
+import 'package:firefly/core/theme/spacing_tokens.dart';
 
 void main() {
   group('Theme & Design System Tokens', () {

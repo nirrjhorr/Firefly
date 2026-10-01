@@ -2,13 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:app.firefly/core/database/daos/journal_dao.dart';
-import 'package:app.firefly/core/security/journal_crypto_service.dart';
-import 'package:app.firefly/core/security/key_manager.dart';
-import 'package:app.firefly/features/journaling/data/repositories/journal_repository_impl.dart';
-import 'package:app.firefly/features/journaling/domain/models/journal_entry.dart';
-import 'package:app.firefly/features/journaling/domain/repositories/journal_repository.dart';
-import 'package:app.firefly/features/journaling/presentation/controllers/journal_list_controller.dart';
+import 'package:firefly/core/database/daos/journal_dao.dart';
+import 'package:firefly/core/security/journal_crypto_service.dart';
+import 'package:firefly/core/security/key_manager.dart';
+import 'package:firefly/features/journaling/data/repositories/journal_repository_impl.dart';
+import 'package:firefly/features/journaling/domain/models/journal_entry.dart';
+import 'package:firefly/features/journaling/domain/repositories/journal_repository.dart';
+import 'package:firefly/features/journaling/presentation/controllers/journal_list_controller.dart';
 
 class MockKeyManager extends Mock implements KeyManager {}
 

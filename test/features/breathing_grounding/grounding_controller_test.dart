@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:app.firefly/core/contracts/haptics_port.dart';
-import 'package:app.firefly/features/breathing_grounding/domain/models/grounding_stage.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/controllers/grounding_controller.dart';
+import 'package:firefly/core/contracts/haptics_port.dart';
+import 'package:firefly/features/breathing_grounding/domain/models/grounding_stage.dart';
+import 'package:firefly/features/breathing_grounding/presentation/controllers/grounding_controller.dart';
 
 class MockHapticsPort extends Mock implements HapticsPort {}
 

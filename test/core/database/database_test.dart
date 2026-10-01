@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/database/tables/mood_check_ins.dart';
-import 'package:app.firefly/core/database/tables/journal_entries.dart';
-import 'package:app.firefly/core/database/tables/safety_plan_tables.dart';
-import 'package:app.firefly/core/database/tables/audio_preferences.dart';
-import 'package:app.firefly/core/database/tables/app_configuration.dart';
-import 'package:app.firefly/core/database/tables/usage_summaries.dart';
+import 'package:firefly/core/database/tables/mood_check_ins.dart';
+import 'package:firefly/core/database/tables/journal_entries.dart';
+import 'package:firefly/core/database/tables/safety_plan_tables.dart';
+import 'package:firefly/core/database/tables/audio_preferences.dart';
+import 'package:firefly/core/database/tables/app_configuration.dart';
+import 'package:firefly/core/database/tables/usage_summaries.dart';
 
 void main() {
   group('Database Schema Tables', () {

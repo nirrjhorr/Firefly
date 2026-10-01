@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:app.firefly/core/contracts/voice_recognition_port.dart';
-import 'package:app.firefly/core/database/daos/journal_dao.dart';
-import 'package:app.firefly/core/errors/result.dart';
-import 'package:app.firefly/core/security/journal_crypto_service.dart';
-import 'package:app.firefly/core/security/key_manager.dart';
-import 'package:app.firefly/features/journaling/data/adapters/vosk_voice_adapter.dart';
-import 'package:app.firefly/features/journaling/data/repositories/journal_repository_impl.dart';
-import 'package:app.firefly/features/journaling/domain/models/journal_entry.dart';
-import 'package:app.firefly/features/journaling/domain/repositories/journal_repository.dart';
-import 'package:app.firefly/features/journaling/presentation/controllers/journal_editor_controller.dart';
+import 'package:firefly/core/contracts/voice_recognition_port.dart';
+import 'package:firefly/core/database/daos/journal_dao.dart';
+import 'package:firefly/core/errors/result.dart';
+import 'package:firefly/core/security/journal_crypto_service.dart';
+import 'package:firefly/core/security/key_manager.dart';
+import 'package:firefly/features/journaling/data/adapters/vosk_voice_adapter.dart';
+import 'package:firefly/features/journaling/data/repositories/journal_repository_impl.dart';
+import 'package:firefly/features/journaling/domain/models/journal_entry.dart';
+import 'package:firefly/features/journaling/domain/repositories/journal_repository.dart';
+import 'package:firefly/features/journaling/presentation/controllers/journal_editor_controller.dart';
 
 class MockVoiceRecognitionPort extends Mock implements VoiceRecognitionPort {}
 class MockKeyManager extends Mock implements KeyManager {}

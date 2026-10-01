@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:app.firefly/core/contracts/audio_player_port.dart';
-import 'package:app.firefly/core/contracts/haptics_port.dart';
-import 'package:app.firefly/features/breathing_grounding/domain/models/breathing_session_state.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/controllers/breathing_session_controller.dart';
+import 'package:firefly/core/contracts/audio_player_port.dart';
+import 'package:firefly/core/contracts/haptics_port.dart';
+import 'package:firefly/features/breathing_grounding/domain/models/breathing_session_state.dart';
+import 'package:firefly/features/breathing_grounding/presentation/controllers/breathing_session_controller.dart';
 
 class MockAudioPlayerPort extends Mock implements AudioPlayerPort {}
 

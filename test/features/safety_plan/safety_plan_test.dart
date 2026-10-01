@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/errors/result.dart';
-import 'package:app.firefly/features/safety_plan/data/repositories/safety_plan_repository_impl.dart';
-import 'package:app.firefly/features/safety_plan/domain/models/safety_plan.dart';
-import 'package:app.firefly/features/safety_plan/domain/models/safety_plan_contact.dart';
-import 'package:app.firefly/features/safety_plan/domain/models/safety_plan_step.dart';
-import 'package:app.firefly/features/safety_plan/presentation/controllers/safety_plan_controller.dart';
+import 'package:firefly/core/errors/result.dart';
+import 'package:firefly/features/safety_plan/data/repositories/safety_plan_repository_impl.dart';
+import 'package:firefly/features/safety_plan/domain/models/safety_plan.dart';
+import 'package:firefly/features/safety_plan/domain/models/safety_plan_contact.dart';
+import 'package:firefly/features/safety_plan/domain/models/safety_plan_step.dart';
+import 'package:firefly/features/safety_plan/presentation/controllers/safety_plan_controller.dart';
 
 void main() {
   group('SafetyPlan Repository & Domain', () {

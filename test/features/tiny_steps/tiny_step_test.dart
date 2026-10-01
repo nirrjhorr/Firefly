@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/features/tiny_steps/domain/models/tiny_step.dart';
-import 'package:app.firefly/features/tiny_steps/domain/data/curated_tiny_steps.dart';
+import 'package:firefly/features/tiny_steps/domain/models/tiny_step.dart';
+import 'package:firefly/features/tiny_steps/domain/data/curated_tiny_steps.dart';
 
 void main() {
   group('TinyStep Domain Model', () {

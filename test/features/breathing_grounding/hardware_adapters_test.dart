@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:app.firefly/core/contracts/audio_player_port.dart';
-import 'package:app.firefly/core/contracts/haptics_port.dart';
-import 'package:app.firefly/features/breathing_grounding/data/adapters/flutter_haptics_adapter.dart';
-import 'package:app.firefly/features/breathing_grounding/data/adapters/just_audio_player_adapter.dart';
+import 'package:firefly/core/contracts/audio_player_port.dart';
+import 'package:firefly/core/contracts/haptics_port.dart';
+import 'package:firefly/features/breathing_grounding/data/adapters/flutter_haptics_adapter.dart';
+import 'package:firefly/features/breathing_grounding/data/adapters/just_audio_player_adapter.dart';
 
 class MockAudioPlayer extends Mock implements AudioPlayer {}
 

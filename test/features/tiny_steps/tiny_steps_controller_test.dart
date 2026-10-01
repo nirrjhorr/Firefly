@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/errors/result.dart';
-import 'package:app.firefly/features/check_in/domain/models/check_in_entry.dart';
-import 'package:app.firefly/features/check_in/domain/repositories/check_in_repository.dart';
-import 'package:app.firefly/features/tiny_steps/presentation/controllers/tiny_steps_controller.dart';
+import 'package:firefly/core/errors/result.dart';
+import 'package:firefly/features/check_in/domain/models/check_in_entry.dart';
+import 'package:firefly/features/check_in/domain/repositories/check_in_repository.dart';
+import 'package:firefly/features/tiny_steps/presentation/controllers/tiny_steps_controller.dart';
 
 class MockCheckInRepository implements CheckInRepository {
   CheckInEntry? mockLatest;

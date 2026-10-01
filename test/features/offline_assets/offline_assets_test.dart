@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/assets/offline_asset_manager.dart';
-import 'package:app.firefly/core/security/network_kill_switch.dart';
+import 'package:firefly/core/assets/offline_asset_manager.dart';
+import 'package:firefly/core/security/network_kill_switch.dart';
 
 class FakeAssetBundle extends CachingAssetBundle {
   final Map<String, ByteData> _assets = {};

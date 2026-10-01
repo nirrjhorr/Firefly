@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/features/journaling/domain/models/journal_entry.dart';
+import 'package:firefly/features/journaling/domain/models/journal_entry.dart';
 
 void main() {
   group('JournalEntry Domain Model', () {

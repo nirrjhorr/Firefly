@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/theme/app_theme.dart';
-import 'package:app.firefly/features/tiny_steps/domain/models/tiny_step.dart';
-import 'package:app.firefly/features/tiny_steps/presentation/controllers/tiny_steps_controller.dart';
-import 'package:app.firefly/features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
+import 'package:firefly/core/theme/app_theme.dart';
+import 'package:firefly/features/tiny_steps/domain/models/tiny_step.dart';
+import 'package:firefly/features/tiny_steps/presentation/controllers/tiny_steps_controller.dart';
+import 'package:firefly/features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
 
 void main() {
   group('TinyStepsScreen Widget Tests', () {

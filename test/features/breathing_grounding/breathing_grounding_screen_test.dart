@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:app.firefly/core/contracts/audio_player_port.dart';
-import 'package:app.firefly/core/contracts/haptics_port.dart';
-import 'package:app.firefly/core/theme/app_theme.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/controllers/hardware_providers.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/screens/breathing_grounding_screen.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/widgets/cyclic_sigh_bloom_visualizer.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/widgets/grounding_prompt_card.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/widgets/soundscape_selector_sheet.dart';
-import 'package:app.firefly/shared/widgets/sos_overlay_button.dart';
+import 'package:firefly/core/contracts/audio_player_port.dart';
+import 'package:firefly/core/contracts/haptics_port.dart';
+import 'package:firefly/core/theme/app_theme.dart';
+import 'package:firefly/features/breathing_grounding/presentation/controllers/hardware_providers.dart';
+import 'package:firefly/features/breathing_grounding/presentation/screens/breathing_grounding_screen.dart';
+import 'package:firefly/features/breathing_grounding/presentation/widgets/cyclic_sigh_bloom_visualizer.dart';
+import 'package:firefly/features/breathing_grounding/presentation/widgets/grounding_prompt_card.dart';
+import 'package:firefly/features/breathing_grounding/presentation/widgets/soundscape_selector_sheet.dart';
+import 'package:firefly/shared/widgets/sos_overlay_button.dart';
 
 class MockAudioPlayerPort extends Mock implements AudioPlayerPort {}
 

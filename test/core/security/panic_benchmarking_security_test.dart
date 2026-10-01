@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:app.firefly/core/security/biometric_guard.dart';
-import 'package:app.firefly/core/security/key_manager.dart';
-import 'package:app.firefly/core/security/network_kill_switch.dart';
-import 'package:app.firefly/core/security/panic_cryptographic_service.dart';
+import 'package:firefly/core/security/biometric_guard.dart';
+import 'package:firefly/core/security/key_manager.dart';
+import 'package:firefly/core/security/network_kill_switch.dart';
+import 'package:firefly/core/security/panic_cryptographic_service.dart';
 
 class MockLocalAuthentication extends Mock implements LocalAuthentication {}
 class MockKeyManager extends Mock implements KeyManager {}

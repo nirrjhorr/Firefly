@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/errors/result.dart';
-import 'package:app.firefly/core/recommendation_engine/models/action_suggestion.dart';
-import 'package:app.firefly/features/check_in/data/repositories/check_in_repository_impl.dart';
-import 'package:app.firefly/features/check_in/domain/models/check_in_entry.dart';
-import 'package:app.firefly/features/check_in/presentation/controllers/check_in_controller.dart';
-import 'package:app.firefly/shared/widgets/mood_tile.dart';
+import 'package:firefly/core/errors/result.dart';
+import 'package:firefly/core/recommendation_engine/models/action_suggestion.dart';
+import 'package:firefly/features/check_in/data/repositories/check_in_repository_impl.dart';
+import 'package:firefly/features/check_in/domain/models/check_in_entry.dart';
+import 'package:firefly/features/check_in/presentation/controllers/check_in_controller.dart';
+import 'package:firefly/shared/widgets/mood_tile.dart';
 
 void main() {
   group('CheckInRepository', () {

@@ -1,4 +1,4 @@
-name: app.firefly
+name: firefly
 description: "Firefly — 100% offline, privacy-critical mental wellbeing companion"
 publish_to: 'none'
 version: 1.0.0+1

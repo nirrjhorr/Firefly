@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/recommendation_engine/models/action_suggestion.dart';
-import 'package:app.firefly/core/recommendation_engine/models/affect_state.dart';
-import 'package:app.firefly/core/recommendation_engine/recommendation_engine.dart';
-import 'package:app.firefly/core/routing/app_routes.dart';
+import 'package:firefly/core/recommendation_engine/models/action_suggestion.dart';
+import 'package:firefly/core/recommendation_engine/models/affect_state.dart';
+import 'package:firefly/core/recommendation_engine/recommendation_engine.dart';
+import 'package:firefly/core/routing/app_routes.dart';
 
 void main() {
   group('RecommendationEngine (100% Branch Coverage)', () {

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/security/network_kill_switch.dart';
+import 'package:firefly/core/security/network_kill_switch.dart';
 
 void main() {
   group('NetworkKillSwitch (Zero-Network Policy)', () {

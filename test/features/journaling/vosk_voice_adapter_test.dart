@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:app.firefly/core/contracts/voice_recognition_port.dart';
-import 'package:app.firefly/features/journaling/data/adapters/vosk_voice_adapter.dart';
+import 'package:firefly/core/contracts/voice_recognition_port.dart';
+import 'package:firefly/features/journaling/data/adapters/vosk_voice_adapter.dart';
 
 void main() {
   group('VoskVoiceAdapter & VoiceRecognitionPort Contract', () {

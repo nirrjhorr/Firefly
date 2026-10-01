@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/routing/app_router.dart';
-import 'package:app.firefly/core/routing/app_routes.dart';
-import 'package:app.firefly/core/theme/app_colors.dart';
-import 'package:app.firefly/features/check_in/presentation/controllers/check_in_controller.dart';
-import 'package:app.firefly/features/check_in/presentation/screens/check_in_screen.dart';
-import 'package:app.firefly/features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
-import 'package:app.firefly/shared/widgets/firefly_button.dart';
-import 'package:app.firefly/shared/widgets/mood_tile.dart';
-import 'package:app.firefly/shared/widgets/sos_overlay_button.dart';
+import 'package:firefly/core/routing/app_router.dart';
+import 'package:firefly/core/routing/app_routes.dart';
+import 'package:firefly/core/theme/app_colors.dart';
+import 'package:firefly/features/check_in/presentation/controllers/check_in_controller.dart';
+import 'package:firefly/features/check_in/presentation/screens/check_in_screen.dart';
+import 'package:firefly/features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
+import 'package:firefly/shared/widgets/firefly_button.dart';
+import 'package:firefly/shared/widgets/mood_tile.dart';
+import 'package:firefly/shared/widgets/sos_overlay_button.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

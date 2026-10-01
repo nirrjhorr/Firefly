@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:app.firefly/core/recommendation_engine/models/action_suggestion.dart';
-import 'package:app.firefly/core/recommendation_engine/models/affect_state.dart';
-import 'package:app.firefly/core/recommendation_engine/recommendation_engine.dart';
-import 'package:app.firefly/core/routing/app_router.dart';
-import 'package:app.firefly/core/routing/app_routes.dart';
-import 'package:app.firefly/features/check_in/presentation/widgets/affect_result_card.dart';
-import 'package:app.firefly/features/loneliness_comfort/presentation/screens/loneliness_comfort_screen.dart';
+import 'package:firefly/core/recommendation_engine/models/action_suggestion.dart';
+import 'package:firefly/core/recommendation_engine/models/affect_state.dart';
+import 'package:firefly/core/recommendation_engine/recommendation_engine.dart';
+import 'package:firefly/core/routing/app_router.dart';
+import 'package:firefly/core/routing/app_routes.dart';
+import 'package:firefly/features/check_in/presentation/widgets/affect_result_card.dart';
+import 'package:firefly/features/loneliness_comfort/presentation/screens/loneliness_comfort_screen.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

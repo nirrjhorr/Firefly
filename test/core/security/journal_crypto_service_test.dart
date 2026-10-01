@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:app.firefly/core/security/journal_crypto_service.dart';
+import 'package:firefly/core/security/journal_crypto_service.dart';
 
 void main() {
   group('JournalCryptoService (Application-Layer AES-256-GCM Double Encryption)', () {

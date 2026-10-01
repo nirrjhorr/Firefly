@@ -36,7 +36,20 @@ jobs:
       - name: Scaffold Official Flutter Android Platform
         run: |
           rm -rf android
-          flutter create . --platforms=android --org=app
+          cp pubspec.yaml pubspec.yaml.bak
+          flutter create . --platforms=android --project-name=firefly --org=app
+          cp pubspec.yaml.bak pubspec.yaml
+          rm pubspec.yaml.bak
+
+          # Update MainActivity.kt for local_auth (FlutterFragmentActivity)
+          find android -name "MainActivity.kt" -exec sed -i 's/import io.flutter.embedding.android.FlutterActivity/import io.flutter.embedding.android.FlutterFragmentActivity/' {} +
+          find android -name "MainActivity.kt" -exec sed -i 's/FlutterActivity/FlutterFragmentActivity/' {} +
+
+          # Set minSdkVersion to at least 23 for local_auth and sqlcipher
+          sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 23/' android/app/build.gradle || true
+          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 23/' android/app/build.gradle || true
+
+          # Add required permissions to AndroidManifest.xml
           sed -i '/<application/i \    <uses-permission android:name="android.permission.VIBRATE" />\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />\n    <uses-permission android:name="android.permission.USE_BIOMETRIC" />' android/app/src/main/AndroidManifest.xml
 
       - name: Install Dependencies
@@ -65,13 +78,7 @@ jobs:
           path: release-artifacts/
 
       - name: Upload APKs to GitHub Release v1.0.0
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v1.0.0
-          name: "Firefly v1.0.0 — Official Production Release"
-          files: |
-            release-artifacts/firefly-v1.0.0-release.apk
-            release-artifacts/firefly-v1.0.0-debug.apk
-            release-artifacts/checksums-sha256.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload v1.0.0 release-artifacts/firefly-v1.0.0-release.apk release-artifacts/firefly-v1.0.0-debug.apk release-artifacts/checksums-sha256.txt --clobber

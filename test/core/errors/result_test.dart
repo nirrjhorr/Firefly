@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/errors/result.dart';
+import 'package:firefly/core/errors/result.dart';
 
 void main() {
   group('Result<T, E> Pattern', () {

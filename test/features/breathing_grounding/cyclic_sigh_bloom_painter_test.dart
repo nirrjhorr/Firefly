@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/features/breathing_grounding/domain/models/breathing_session_state.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/widgets/cyclic_sigh_bloom_painter.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/widgets/cyclic_sigh_bloom_visualizer.dart';
+import 'package:firefly/features/breathing_grounding/domain/models/breathing_session_state.dart';
+import 'package:firefly/features/breathing_grounding/presentation/widgets/cyclic_sigh_bloom_painter.dart';
+import 'package:firefly/features/breathing_grounding/presentation/widgets/cyclic_sigh_bloom_visualizer.dart';
 
 void main() {
   group('CyclicSighBloomPainter', () {

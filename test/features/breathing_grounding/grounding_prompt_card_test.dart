@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app.firefly/core/theme/app_theme.dart';
-import 'package:app.firefly/features/breathing_grounding/domain/models/grounding_session_state.dart';
-import 'package:app.firefly/features/breathing_grounding/domain/models/grounding_stage.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/widgets/grounding_completion_card.dart';
-import 'package:app.firefly/features/breathing_grounding/presentation/widgets/grounding_prompt_card.dart';
+import 'package:firefly/core/theme/app_theme.dart';
+import 'package:firefly/features/breathing_grounding/domain/models/grounding_session_state.dart';
+import 'package:firefly/features/breathing_grounding/domain/models/grounding_stage.dart';
+import 'package:firefly/features/breathing_grounding/presentation/widgets/grounding_completion_card.dart';
+import 'package:firefly/features/breathing_grounding/presentation/widgets/grounding_prompt_card.dart';
 
 void main() {
   Widget buildTestWidget({
