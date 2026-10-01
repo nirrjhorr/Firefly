@@ -30,7 +30,8 @@ This document provides the complete epic and user story breakdown for Firefly, d
 - **Epic 3: Affect Check-In & Deterministic Recommendation Engine** (Sprint 2 - Completed)
 - **Epic 4: Respiration & Grounding Engine** (Sprint 3 - Completed)
 - **Epic 5: Tiny Steps Mode (Behavioral Activation)** (Sprint 3 - Completed)
-- **Epic 6: Expressive Journaling & Unsent Letters** (Sprint 4 - Current Priority)
+- **Epic 6: Expressive Journaling & Unsent Letters** (Sprint 4 - Completed)
+- **Epic 7: Production Hardening, System Integration & Offline Model Packaging** (Sprint 5 - Current Priority)
 
 ---
 
@@ -375,7 +376,7 @@ So that completing a small step feels grounding and supportive rather than compe
 
 Implement the confidential expressive journaling and unsent letters system (FR-05), featuring application-layer AES-256-GCM double encryption on top of SQLCipher, cryptographic erasure and TTL auto-delete engine, offline speech-to-text (Vosk) on a background isolate, and a distraction-free writing UI designed to reduce cognitive load and prevent rumination traps.
 
-### Story 6.1: Application-Layer AES-256-GCM Double Encryption & Cryptographic Erasure
+### Story 6.1: Application Layer AES GCM Double Encryption Crypto Erasure
 
 As a privacy-conscious user recording deep emotional distress or unsent letters,
 I want my journal entries protected by a second layer of AES-256-GCM encryption with cryptographic erasure,
@@ -390,7 +391,7 @@ So that even in forensic NAND extraction or database key compromise, my raw thou
 - And decryption verifies the authentication tag, rejecting tampered ciphertext,
 - And a cryptographic erasure mechanism enables immediate subkey version rotation and ciphertext zero-overwriting.
 
-### Story 6.2: Journal Drift Database DAO, Repository & TTL Expiry Engine
+### Story 6.2: Journal Drift Database DAO Repository TTL Engine
 
 As a developer,
 I want an encrypted Drift DAO and repository supporting CRUD operations and automated TTL deletion,
@@ -404,7 +405,7 @@ So that expired entries and auto-delete unsent letters are automatically purged 
 - And automated cleanup query (`purgeExpiredEntries()`) runs on launch and entry write to remove all entries where `ttlDeleteAtUnix <= currentTime`,
 - And unit tests verify persistent storage, TTL purge logic, and repository stream updates.
 
-### Story 6.3: Offline Speech-to-Text Port & Vosk Voice Recognition Adapter
+### Story 6.3: Offline Speech to Text Port Vosk Voice Adapter
 
 As a user feeling too exhausted, numb, or overwhelmed to type,
 I want an offline voice-to-text input option powered by Vosk,
@@ -418,7 +419,7 @@ So that I can articulate my feelings verbally with 100% on-device privacy and ze
 - And `transcribeFinal()` returns the committed transcript upon silence or stop,
 - And disposing or stopping the adapter cleanly releases audio resources and isolates without memory leaks.
 
-### Story 6.4: Journal State Management & Unsent Letters Controller
+### Story 6.4: Journal State Management Unsent Letters Controller
 
 As a user composing an expressive journal or unsent letter,
 I want a responsive state controller managing draft persistence, auto-delete intervals, and instant "burn" capabilities,
@@ -432,7 +433,7 @@ So that I can safely release heavy feelings with full control over their lifecyc
 - And an unsent letter "burn / instant wipe" action completely purges the entry and its ciphertext with haptic feedback,
 - And unit tests verify controller state transitions, TTL calculation, draft saving, and purge events.
 
-### Story 6.5: Distraction-Free Journal Editor Screen & Unsent Letters UI
+### Story 6.5: Journal Editor Screen Unsent Letters UI
 
 As a user seeking emotional catharsis without distraction,
 I want a serene, distraction-free writing canvas with offline voice dictation and clear privacy controls,
@@ -447,3 +448,65 @@ So that I can write freely without judgment, pressure, or cognitive overwhelm.
 - And an "Unsent Letter: Burn Now" button allows immediate destruction with a calm confirmation and tactile fade,
 - And the journal list displays cards with creation date, word count, TTL countdown chips, and quick delete,
 - And widget tests verify screen rendering, voice toggle interaction, TTL selection, and burn/delete behavior.
+
+---
+
+## Epic 7: Production Hardening, System Integration & Offline Model Packaging
+
+Harden the application into a verifiable, release-ready offline mental health companion. Provision real bundled assets (Vosk lightweight acoustic models, ambient audio soundscapes) directly in `assets/`, establish seamless end-to-end user navigation flows linking the Check-In recommendation engine with active interventions, strictly benchmark non-functional security constraints (zero-network enforcement, hardware key lifecycle, < 100ms panic button blanking), and implement end-to-end golden path verification.
+
+### Story 7.1: Offline Audio Assets & Vosk Acoustic Model Bundling
+
+As a user needing calming soundscapes and voice dictation without internet connectivity,
+I want ambient audio and lightweight Vosk models packaged as bundled local assets in the build,
+So that all grounding sounds and voice journaling work 100% offline out-of-the-box.
+
+**Acceptance Criteria:**
+- Given the Flutter app configuration and `pubspec.yaml`,
+- When assets are declared and loaded at runtime,
+- Then real offline audio loops (rain/stream/white-noise) are accessible in `assets/audio/` without external network dependencies,
+- And a compressed Vosk model (e.g. `vosk-model-small-en-us`) is configured in `assets/models/` and loaded into the background isolate by `VoskVoiceAdapter`,
+- And `HardwareAudioAdapter` verifies offline asset playback fallback without throws,
+- And unit/integration tests verify that asset loading adheres to the `FireflyHttpOverride` zero-network policy.
+
+### Story 7.2: End-to-End Home Navigation & State Integration Flows
+
+As an emotionally overwhelmed user,
+I want seamless navigation journeys from check-in results into matched interventions (Breathing, Grounding, Tiny Steps, Journal, Safety Plan),
+So that I experience zero friction or broken links when following recommendations.
+
+**Acceptance Criteria:**
+- Given `HomeScreen` and GoRouter route definitions,
+- When a user selects a recommended action on `AffectResultCard`,
+- Then navigation routes directly to the appropriate destination: `/breathing`, `/grounding`, `/tiny-steps`, `/journal`, or `/safety-plan`,
+- And state from the check-in (affect score, energy level) smoothly initializes and contextualizes the destination screen,
+- And completing or exiting an intervention returns cleanly to the Home shell with updated status or a calm resting state,
+- And widget tests verify end-to-end route transitions and state synchronization across all modules.
+
+### Story 7.3: NFR Security & Latency Benchmarks (Panic Button & Cryptographic Wipe)
+
+As a privacy-dependent user facing acute distress or privacy intrusion,
+I want the panic button to blank the screen and wipe decrypted state in under 100ms, with zero network leakage,
+So that my mental health state and sensitive thoughts are instantly protected.
+
+**Acceptance Criteria:**
+- Given the active application running in any state (Check-in, Breathing, Journaling, Safety Plan),
+- When the persistent SOS panic button or fast-exit trigger is tapped,
+- Then screen blanking and navigation reset execute in < 100ms,
+- And database encryption keys and decrypted journal plaintexts in memory are zero-overwritten (`_zeroMemory`),
+- And automated benchmark tests confirm latency constraints (< 100ms for UI purge),
+- And a security audit test verifies that `FireflyHttpOverride` catches and blocks any simulated socket or HTTP egress attempts.
+
+### Story 7.4: Golden Path E2E Smoke & Accessibility Compliance Suite
+
+As a user with sensory sensitivity or low energy,
+I want an accessible interface that adheres strictly to WCAG AA contrast and touch target standards across the entire app lifecycle,
+So that using Firefly never induces sensory overload or physical frustration.
+
+**Acceptance Criteria:**
+- Given the end-to-end application suite,
+- When tested across the complete user golden path (Onboarding → Check-in → Intervention → Safety Plan),
+- Then all interactive touch targets meet or exceed 56dp (72dp for Tiny Steps cards),
+- And color contrast ratios across dark canvas (`#111518`), typography, and interactive controls pass WCAG AA (≥ 4.5:1 for normal text, ≥ 3.0:1 for large text),
+- And an automated E2E integration test verifies the complete flow without crashes or memory leaks,
+- And a full test run validates all suites pass with zero regressions.
