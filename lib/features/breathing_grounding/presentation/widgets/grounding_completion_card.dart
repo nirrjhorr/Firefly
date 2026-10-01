@@ -60,7 +60,7 @@ class GroundingCompletionCard extends StatelessWidget {
               Text(
                 'You are grounded.',
                 textAlign: TextAlign.center,
-                style: AppTypography.headlineLg.copyWith(
+                style: AppTypography.headingLg.copyWith(
                   color: colors.textPrimary,
                   fontWeight: FontWeight.w600,
                 ),

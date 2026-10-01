@@ -45,6 +45,7 @@ jobs:
         run: |
           flutter pub get
           python3 scripts/configure_android.py
+          dart run build_runner build --delete-conflicting-outputs
 
       - name: Build Android Release APK
         run: flutter build apk --release --no-tree-shake-icons

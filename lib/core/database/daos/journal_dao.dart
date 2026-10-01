@@ -147,16 +147,16 @@ class DriftJournalDao implements JournalDao {
       '(id, check_in_id, title, content_encrypted, content_type, ttl_delete_at_unix, is_auto_delete_enabled, word_count, created_at_unix, updated_at_unix) '
       'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       variables: [
-        Variable<String>(entry.id),
-        Variable<String?>(entry.checkInId),
-        Variable<String>(entry.title),
-        Variable<String>(entry.contentEncrypted),
-        Variable<String>(entry.contentType),
-        Variable<int?>(entry.ttlDeleteAtUnix),
-        Variable<bool>(entry.isAutoDeleteEnabled),
-        Variable<int>(entry.wordCount),
-        Variable<int>(entry.createdAtUnix),
-        Variable<int>(entry.updatedAtUnix),
+        Variable.withString(entry.id),
+        Variable.withString(entry.checkInId),
+        Variable.withString(entry.title),
+        Variable.withString(entry.contentEncrypted),
+        Variable.withString(entry.contentType),
+        Variable.withInt(entry.ttlDeleteAtUnix),
+        Variable.withBool(entry.isAutoDeleteEnabled),
+        Variable.withInt(entry.wordCount),
+        Variable.withInt(entry.createdAtUnix),
+        Variable.withInt(entry.updatedAtUnix),
       ],
     );
   }

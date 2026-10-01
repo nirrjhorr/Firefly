@@ -56,7 +56,7 @@ AppDatabase openEncryptedDatabase({
   final executor = SqfliteQueryExecutor.inDatabaseFolder(
     path: dbName,
     singleInstance: true,
-    creator: (db) async {
+    setup: (db) async {
       // Apply SQLCipher encryption key pragma before table generation
       // Escaping single quotes in the encryption key
       final escapedKey = encryptionKey.replaceAll("'", "''");
