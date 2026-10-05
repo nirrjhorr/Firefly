@@ -1,14 +1,79 @@
-# Miscellaneous
+# Miscellaneous & System
 *.class
 *.log
 *.pyc
 *.swp
+*.swo
+*~
 .DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
 .atom/
 .buildlog/
 .history
 .svn/
 migrate_working_dir/
+*.tmp
+*.bak
+*.temp
+*.crash
+*.dmp
+*.dump
+
+# Research, Data & Sensitive Specifications
+/research data/
+research data/
+/research/
+research/
+research*/
+Product_Research_Scope.md
+*.research.md
+raw_data/
+datasets/
+
+# Environment Variables & Secrets
+.env
+.env.*
+*.env
+*.secret
+*.secrets
+secrets/
+private/
+credentials.json
+*credentials*.json
+client_secret*.json
+service-account*.json
+serviceAccountKey*.json
+
+# Signing Keys & Keystores (Android / iOS)
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.key
+*.pem
+*.cer
+*.crt
+key.properties
+local.properties
+/android/key.properties
+/android/local.properties
+
+# Service Configuration & Credentials Files
+google-services.json
+GoogleService-Info.plist
+amplifyconfiguration*.json
+
+# Databases & Local Application Storage
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.realm
+local_storage/
+app_data/
 
 # IntelliJ related
 *.iml
@@ -29,17 +94,29 @@ migrate_working_dir/
 .pub/
 /build/
 
-# Symbol processing
-app.*.symbols
+# Flutter Build Artifacts
+*.aab
+*.ipa
 
-# Obfuscation related
+# Symbol processing & Obfuscation
+app.*.symbols
 app.*.map.json
 
-# Android Studio will create this file on sync of Gradle projects.
+# Platform Ephemerals (Android / iOS / macOS / Windows / Linux)
 .gradle/
 /android/app/debug
 /android/app/profile
 /android/app/release
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/app.flx
+/ios/Flutter/ephemeral/
+/macos/Flutter/ephemeral/
+/windows/flutter/ephemeral/
+/linux/flutter/ephemeral/
 
-# Exceptions to above rules.
+# Exceptions to above rules
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
