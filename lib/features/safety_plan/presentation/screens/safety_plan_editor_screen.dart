@@ -217,7 +217,7 @@ class _SafetyPlanEditorScreenState
                 ),
                 const SizedBox(width: 8),
                 IconButton.filled(
-                  style: IconButton.filled(
+                  style: IconButton.styleFrom(
                     backgroundColor: colors.actionSage,
                   ),
                   icon: const Icon(Icons.add, color: Colors.white),

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:drift/drift.dart';
-import '../../features/journaling/domain/models/journal_entry.dart';
+import '../../../features/journaling/domain/models/journal_entry.dart';
 import '../app_database.dart' hide JournalEntry;
 
 /// Data Access Object contract for JournalEntries table.
