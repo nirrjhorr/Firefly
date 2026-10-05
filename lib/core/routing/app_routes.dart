@@ -16,5 +16,7 @@ abstract final class AppRoutes {
   static const soundscapes = '/home/soundscapes';
   static const pmr = '/home/pmr';
   static const rightNow = '/home/right-now';
+  static const move = '/home/move';
   static const tinyStepActivity = '/tiny-step/:id';
 }
+

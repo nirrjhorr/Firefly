@@ -60,7 +60,7 @@ const List<RightNowAnchor> kRightNowAnchors = [
     title: 'I feel restless',
     subtitle: 'Physical release & shakeout',
     iconKey: 'figure.walk',
-    route: AppRoutes.tinySteps,
+    route: '/home/move?mode=shakeout',
   ),
   RightNowAnchor(
     id: 'cant_focus',
@@ -74,7 +74,7 @@ const List<RightNowAnchor> kRightNowAnchors = [
     title: 'I feel emotionally heavy',
     subtitle: 'Muscle relaxation & release',
     iconKey: 'figure.mind.and.body',
-    route: AppRoutes.breathe,
+    route: AppRoutes.pmr,
   ),
   RightNowAnchor(
     id: 'want_to_sleep',

@@ -24,8 +24,9 @@ void main() {
   // Verify v2 new routes
   assert(AppRoutes.pmr == '/home/pmr', 'PMR path mismatch');
   assert(AppRoutes.rightNow == '/home/right-now', 'Right Now path mismatch');
+  assert(AppRoutes.move == '/home/move', 'Move path mismatch');
 
-  print('All 16 routes verified:');
+  print('All 17 routes verified:');
   print(' - Splash: ${AppRoutes.splash}');
   print(' - CheckIn: ${AppRoutes.checkIn}');
   print(' - Breathe: ${AppRoutes.breathe}');

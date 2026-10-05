@@ -12,6 +12,7 @@ import '../../features/loneliness_comfort/presentation/screens/loneliness_comfor
 import '../../features/onboarding/presentation/screens/biometric_lock_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/onboarding/presentation/screens/splash_screen.dart';
+import '../../features/movement/presentation/screens/movement_engine_screen.dart';
 import '../../features/pmr/presentation/screens/pmr_screen.dart';
 import '../../features/safety_plan/presentation/screens/panic_blank_screen.dart';
 import '../../features/safety_plan/presentation/screens/safety_plan_editor_screen.dart';
@@ -87,6 +88,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final id = state.pathParameters['id'] ?? '';
           return TinyStepActivityScreen(stepId: id);
         },
+      ),
+
       // Progressive Muscle Relaxation (Root Modal with SOS overlay)
       GoRoute(
         path: '/pmr',
@@ -96,6 +99,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           showSosOverlay: true,
         ),
       ),
+
+      // Movement & Somatic Release Engine (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/move',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => MovementEngineScreen(
+          initialMode: state.uri.queryParameters['mode'],
+          showSosOverlay: true,
+        ),
+      ),
+
 
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
@@ -153,6 +167,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: AppRoutes.pmr,
             builder: (context, state) => PmrScreen(
               isQuickMode: state.uri.queryParameters['mode'] == 'quick',
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.move,
+            builder: (context, state) => MovementEngineScreen(
+              initialMode: state.uri.queryParameters['mode'],
             ),
           ),
         ],
