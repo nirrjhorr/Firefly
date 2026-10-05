@@ -20,6 +20,7 @@ This document provides the complete epic and user story breakdown for Firefly, d
 - **NFR-02: Cryptographic Security**: SQLCipher AES-256-CBC, hardware-backed key derivation (`KeyManager`), HKDF subkey derivation.
 - **NFR-03: Layered Clean Architecture**: Presentation (Riverpod `AsyncNotifier`) → Domain (Repository interfaces, sealed `Result<T, E>`) ← Data (Drift DAOs + SQLCipher).
 - **NFR-04: Low-Stimulation Design System**: Atkinson Hyperlegible, Plus Jakarta Sans, JetBrains Mono, dark canvas `#111518`, sage `#4A7862`, crisis coral `#B05454`, touch targets ≥ 56dp, no streaks or gamification.
+- **NFR-05: 6-Group Activity Architecture**: All 150+ activities must be mapped strictly into the 6 core engines (Movement & Somatic, Respiration, Grounding/Mindfulness, Cognitive Flow, Expression/Processing, Auditory/Social) to prevent UI bloat and ensure maintainability.
 
 ---
 
@@ -32,6 +33,15 @@ This document provides the complete epic and user story breakdown for Firefly, d
 - **Epic 5: Tiny Steps Mode (Behavioral Activation)** (Sprint 3 - Completed)
 - **Epic 6: Expressive Journaling & Unsent Letters** (Sprint 4 - Completed)
 - **Epic 7: Production Hardening, System Integration & Offline Model Packaging** (Sprint 5 - Current Priority)
+- **Epic 8: Phase 1 Evidence-Supported Features** (Sprint 6 & 7 - Next)
+- **Epic 9: Phase 2 Exploratory Features** (Sprint 8 & 9 - Later)
+- **Epic 10: v2 Sprint 1 - Movement & Somatic Release** (Active Focus)
+- **Epic 11: v2 Sprint 2 - Respiration & Autonomic Regulation** (Planned)
+- **Epic 12: v2 Sprint 3 - Grounding, Mindfulness & Nature** (Planned)
+- **Epic 13: v2 Sprint 4 - Cognitive Flow & Attention Switching** (Planned)
+- **Epic 14: v2 Sprint 5 - Expression, Processing & Reframing** (Planned)
+- **Epic 15: v2 Sprint 6 - Auditory, Restorative & Social Environments** (Planned)
+
 
 ---
 
@@ -510,3 +520,198 @@ So that using Firefly never induces sensory overload or physical frustration.
 - And color contrast ratios across dark canvas (`#111518`), typography, and interactive controls pass WCAG AA (≥ 4.5:1 for normal text, ≥ 3.0:1 for large text),
 - And an automated E2E integration test verifies the complete flow without crashes or memory leaks,
 - And a full test run validates all suites pass with zero regressions.
+
+---
+
+## Epic 8: Phase 1 Evidence-Supported Features
+
+Implement the immediate next priorities identified in the PRD, focusing on loneliness, sleep, and coping mechanisms. 
+
+### Story 8.1: Hope Box & Guess vs. Reality Models (Sprint 6)
+
+As a developer,
+I want to define domain models and encrypted data access for the Hope Box and Social Experiment,
+So that users can store media and log social predictions securely offline.
+
+**Acceptance Criteria:**
+- Given `HopeBoxItem` and `SocialExperiment` domain models,
+- When data is stored,
+- Then it is encrypted in the local SQLite database via Drift DAOs,
+- And media (photos/audio) is stored securely on the device and purged if deleted.
+
+### Story 8.2: Hope Box & Social Experiment Screens (Sprint 6)
+
+As a user,
+I want a private space for uplifting media and a way to test my social predictions,
+So that I can combat loneliness and manage low mood.
+
+**Acceptance Criteria:**
+- Given the `HopeBoxScreen` and `SocialExperimentScreen`,
+- When navigating to them,
+- Then users can view/add media and log expected vs. actual outcomes of social interactions,
+- And the UI adheres to the low-stimulation design system.
+
+### Story 8.3: Wind-Down & One-Session Reset Models (Sprint 7)
+
+As a developer,
+I want to establish the data structures for Sleep Diaries and One-Session Resets,
+So that users have structured, persistent records of their sleep and problem-solving commitments.
+
+**Acceptance Criteria:**
+- Given the `SleepDiary` and `OneSessionReset` models,
+- When instances are created,
+- Then they are properly saved in the encrypted store.
+
+### Story 8.4: Wind-Down & One-Session Reset UIs (Sprint 7)
+
+As a user struggling with sleep or acute overwhelm,
+I want a gentle pre-bed worry dump and a 5-10 minute problem-solving module,
+So that I can rest better or break out of a paralyzed state even if I don't use the app regularly.
+
+**Acceptance Criteria:**
+- Given the `WindDownScreen` and `OneSessionResetScreen`,
+- When interacted with,
+- Then the user is gently guided through CBT-I sleep components or a single-session problem/skill/commitment flow.
+
+---
+
+## Epic 9: Phase 2 Exploratory Features
+
+Implement the later exploratory features that extend the app's physical and environmental interventions.
+
+### Story 9.1: Movement Snacks & Awe Walk (Sprint 8)
+
+As a low-energy or anxious user,
+I want micro-movement options and guided 15-minute awe walks,
+So that I can gently re-engage my body and shift my perspective.
+
+**Acceptance Criteria:**
+- Given the offline libraries for Movement Snacks and Awe Walk prompts,
+- When the user selects these modes,
+- Then they are presented with gentle, state-matched options that encourage small physical steps or outdoor perspective shifts.
+
+### Story 9.2: Music Room & Weekly Check-in Buddy (Sprint 9)
+
+As a user needing comfort and connection,
+I want to play local calming music and easily share a weekly summary with a trusted person,
+So that I feel supported without compromising my offline privacy.
+
+**Acceptance Criteria:**
+- Given the `MusicRoomController` and `WeeklyCheckInController`,
+- When used,
+- Then local audio can be played for comfort,
+- And a textual summary can be generated and passed to the system share sheet or SMS intent without Firefly needing network permissions.
+
+---
+
+## Epic 10: v2 Sprint 1 - Movement & Somatic Release
+
+Implement the foundational physical regulation activities designed to discharge nervous system energy and activate positive behavioral momentum.
+
+### Story 10.1: Movement Engine & Routine Action Trackers
+As a user feeling restless or lethargic, I want simple physical and routine actions guided by a clean UI, so that I can shift my state through movement without needing high cognitive energy.
+**Acceptance Criteria:**
+- Create `MovementEngineScreen` supporting Active Physical (Walking, Stretching, Yoga) and Behavioral (Make bed, Drink water) tasks.
+- Include a 2-minute timer for short activities, and open-ended trackers for others.
+- Log effectiveness to Drift DB after completion.
+
+### Story 10.2: Progressive Muscle Relaxation (PMR) Interactive Body Map
+As a user carrying physical tension, I want a body map that guides me through tensing and releasing muscles from head to toe, so that I can physically release stored somatic tension.
+**Acceptance Criteria:**
+- `PmrScreen` with an interactive anatomical vector silhouette.
+- 10 active body regions highlighted during Tense/Hold/Release phases.
+- Synchronized haptic cues for phase transitions.
+
+---
+
+## Epic 11: v2 Sprint 2 - Respiration & Autonomic Regulation
+
+Implement the core breathing engine with adaptive visualizers to directly manipulate heart rate and physiological arousal.
+
+### Story 11.1: Multi-Technique Respiration Engine & Adaptive Bloom Painter
+As a user experiencing physical anxiety or racing thoughts, I want to select from validated breathing techniques (Cyclic Sighing, Box, Resonance) with an organic bloom visualizer, so that my autonomic nervous system can down-regulate.
+**Acceptance Criteria:**
+- `BreathingSessionController` computes phase transitions accurately (inhale, hold, exhale).
+- `BloomCustomPainter` renders 60fps smooth expansion in sage and contraction in dusk blue.
+- Haptic pulses fire precisely on phase boundaries.
+
+---
+
+## Epic 12: v2 Sprint 3 - Grounding, Mindfulness & Nature
+
+Implement the sensory anchoring features designed to shift attention away from internal rumination.
+
+### Story 12.1: Extended Sensory Grounding Suite
+As a user feeling dissociated or sensory-overloaded, I want guided multi-modal sensory grounding exercises (5-4-3-2-1, Texture Hunt, Sound Hunt), so that I can anchor my attention to the physical world.
+**Acceptance Criteria:**
+- `SensoryGroundingScreen` with tactile prompt cards (≥ 56dp touch targets).
+- Smooth 300ms transition animations and soft haptic confirmations.
+- Ability to exit gracefully at any step.
+
+### Story 12.2: Nature & Somatic Visualizations
+As a user seeking calm, I want guided nature observation and somatic visualizations (Heavy body, Warm body), to gently ground myself.
+**Acceptance Criteria:**
+- Add Nature prompts (Sit outside, Look at trees) as guided text/audio elements.
+- Ensure audio components fall back to offline assets.
+
+---
+
+## Epic 13: v2 Sprint 4 - Cognitive Flow & Attention Switching
+
+Implement puzzles and mental load tasks that consume working memory to interrupt intrusive thoughts.
+
+### Story 13.1: Cognitive Grounding Engine
+As a user experiencing racing thoughts, I want low-pressure structured working memory exercises (Categories, Backward Counting, Alphabet Association), so that my mind can break repetitive thought cycles.
+**Acceptance Criteria:**
+- `CognitiveGroundingScreen` with text-based cognitive prompts.
+- Zero scoring, timers, or error buzzers.
+- 50+ offline soothing category prompts.
+
+### Story 13.2: Flow & Spatial Puzzles Integration
+As a user seeking distraction, I want simple spatial and path-based puzzles (Sliding, Mazes, Labyrinths), to consume my working memory.
+**Acceptance Criteria:**
+- Simple Canvas-based puzzle UI (Labyrinth tracing, Connect the dots).
+- Accessible touch targets and high-contrast, low-stimulation colors.
+
+---
+
+## Epic 14: v2 Sprint 5 - Expression, Processing & Reframing
+
+Implement tools for externalizing emotions, organizing thoughts, and practicing self-compassion.
+
+### Story 14.1: Encrypted Worry Dump & Unsent Letters
+As a user needing emotional catharsis, I want a distraction-free writing canvas with instant "burn" capabilities, so that I can safely release heavy feelings.
+**Acceptance Criteria:**
+- `JournalEditorScreen` with offline voice dictation (Vosk).
+- TTL selector badge for auto-delete horizons.
+- AES-256-GCM double encryption for all entries stored in Drift.
+- "Burn Now" button for immediate cryptographic zeroing.
+
+### Story 14.2: Cognitive Defusion Prompts
+As a user stuck in a thought spiral, I want guided cognitive defusion prompts (Leaves on a stream, Thought labelling), to reframe my worries.
+**Acceptance Criteria:**
+- Interactive prompts guiding users to label thoughts or visualize them drifting away.
+
+---
+
+## Epic 15: v2 Sprint 6 - Auditory, Restorative & Social Environments
+
+Implement passive sensory regulation, sleep preparation, and co-regulation tools.
+
+### Story 15.1: Ambient Audio Mixer & Sleep Wind-Down
+As a user struggling with insomnia, I want an audio mixer with a fading sleep timer, so that I can rest better.
+**Acceptance Criteria:**
+- `SleepWindDownScreen` with ultra-dark `#0A0D0F` canvas.
+- Audio mixer combining 2-3 offline tracks (Rain, Piano, White Noise).
+- Logarithmic volume attenuation over the final 5 minutes of a 15-60 min timer.
+
+### Story 15.2: Social Connection & Cooperative Activities
+As a user experiencing isolation, I want pre-written reach-out texts and cooperative game suggestions, so that I can connect with others without the barrier of expecting awkwardness.
+**Acceptance Criteria:**
+- Display supportive contacts from `SafetyPlanContactsDao`.
+- Offline SMS dialer integration via `url_launcher`.
+- "Guess vs. Reality" tracker logging predictions and outcomes.
+
+---
+
+

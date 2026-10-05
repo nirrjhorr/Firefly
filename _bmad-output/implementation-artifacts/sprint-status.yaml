@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 09-30-2026 19:10
-last_updated: 10-01-2026 13:12
+last_updated: 10-05-2026 23:31
 project: Firefly
 project_key: NOKEY
 tracking_system: file-system
@@ -87,3 +87,22 @@ development_status:
   7-3-nfr-security-latency-benchmarks-panic-button-cryptographic-w: done
   7-4-golden-path-e2e-smoke-accessibility-compliance-suite: done
   epic-7-retrospective: done
+
+  epic-10: done
+  10-1-unified-activity-domain-model-drift-schema-offline-catalog: done
+  10-2-right-now-immediate-distress-fast-path-modal-routing: done
+  10-3-multi-technique-respiration-engine-adaptive-bloom-painter: done
+  10-4-progressive-muscle-relaxation-pmr-interactive-body-map: done
+  10-5-post-session-effectiveness-feedback-personal-model-logging: done
+  10-6-app-router-shell-navigation-sos-panic-compatibility: done
+  epic-10-retrospective: optional
+
+  epic-11: in-progress
+  11-1-extended-sensory-grounding-suite: done
+  11-2-cognitive-grounding-attention-switching-engine: ready-for-dev
+  11-3-pre-bed-sleep-wind-down-suite: backlog
+  11-4-hope-box-offline-multi-media-coping-vault: backlog
+  11-5-loneliness-comfort-guess-vs-reality-experiment: backlog
+  11-6-universal-navigation-sos-panic-seeding-alignment: backlog
+  epic-11-retrospective: optional
+

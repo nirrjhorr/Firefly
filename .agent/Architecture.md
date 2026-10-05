@@ -1,18 +1,19 @@
 # Architecture.md
 # Firefly — System Architecture & Technical Compass
 
-**Version:** 1.0.0 | **Status:** Sprint 0 Living Document | **Updated:** 2026-09-30
+**Version:** 2.0.0 | **Status:** Activity Architecture Integration | **Updated:** 2026-10-05
 
 ---
 
 ## 1. What We Are Building
 
-**Firefly** is a calm, 100% offline, privacy-critical mental wellbeing companion for Flutter (iOS & Android). It meets users in their hardest moments — late-night anxiety, overwhelming stress, creeping loneliness — and guides them through one small, evidence-informed step at a time.
+**Firefly** is a calm, 100% offline, privacy-critical mental wellbeing companion and **state-based self-regulation system** for Flutter (iOS & Android). It meets users in their hardest moments — late-night anxiety, overwhelming stress, creeping loneliness, restlessness, racing thoughts, or difficulty sleeping — and guides them through one small, evidence-informed step at a time.
 
 It is **not** a diagnostic tool. It **does not** replace professional care. It is a quiet companion that works without a network, never stores unencrypted data, and never judges.
 
 **Core Promise:**
-> Deliver meaningful relief in under 2 minutes. Work offline forever. Own your data completely.
+> *"Find something that helps you feel a little more settled right now."*
+Deliver meaningful regulation in under 2 minutes. Work offline forever. Own your data completely.
 
 ---
 
@@ -20,9 +21,13 @@ It is **not** a diagnostic tool. It **does not** replace professional care. It i
 
 | Profile | Scenario | App Entry Point |
 |---|---|---|
-| Evening distress | Overwhelmed after a hard day, can't decompress | Check-in → Breathing |
+| Evening distress | Overwhelmed after a hard day, can't decompress | Check-in → Breathing / Grounding |
 | Low-energy / flat mood | Can't start anything, stuck on the sofa | Check-in → Tiny Steps |
+| Restless / can't settle | Physical tension, can't sit still | Right Now → Movement / Games |
+| Racing thoughts | Mind won't stop, rumination loop | Right Now → Cognitive Reset / Audio |
 | Loneliness spike | Alone, not sure if reaching out is worth it | Check-in → Loneliness Comfort |
+| Can't sleep | Mind too active at night | Right Now → Sleep Wind-Down |
+| Needs to express | Feeling heavy, needs to process | Check-in → Journal / Expression |
 | Acute anxiety | Racing thoughts, physical tension | Check-in → Cyclic Sigh |
 | Crisis precaution | Warning signs accumulating, needs a plan | Safety Plan (1-tap, persistent) |
 
@@ -32,22 +37,27 @@ It is **not** a diagnostic tool. It **does not** replace professional care. It i
 
 ## 3. Feature Catalogue
 
-### A. Affect Check-In
+### A. Affect Check-In + "Right Now" Mode
 - Moon-phase mood selector (Heavy → Open, 5 states — no numeric 1-10 scale)
 - Energy drag-slider ("Still" → "Moving")
 - Loneliness, anxiety levels (visual, non-clinical selectors)
 - **Output:** Deterministic `ActionSuggestion` from the recommendation engine → routes user to the most relevant feature
+- **"Right Now" fast path:** 12-state self-selection bypassing full check-in for users in acute distress (panicked / overwhelmed / racing thoughts / restless / can't sleep / etc.)
 
 ### B. Grounding & Respiration
 - **Cyclic sighing** (default): double inhale + prolonged exhale, 4s/8s — backed by Balban et al. 2023
+- **Breathing Studio:** single engine for all breathing techniques (box breathing, star breathing, resonance, extended exhale, humming breathing, counted breathing, breath awareness)
 - **5-4-3-2-1 senses** grounding exercise with guided prompts
+- **Extended sensory grounding:** texture hunt, sound hunt, colour search, feet-on-floor, object holding, environmental scan
+- **Cognitive grounding:** counting backwards, categories, alphabet association, word association (attention switching — "Try a short attention reset")
 - Haptic phase-sync (light impact on inhale, single pulse on exhale)
 - Ambient local audio loop (gentle rain / white noise / silence)
 - `CustomPainter` bloom visualizer — smooth, no widget-tree rebuilds
 
-### C. Tiny-Steps Mode (Behavioral Activation)
-- Curated ≤ 2-minute micro-action library (drink water, open a window, stand up)
+### C. Tiny Steps Mode (Behavioral Activation)
+- Curated ≤ 2-minute micro-action library (30+ actions: drink water, open a window, stand up, make tea, open curtains, shoulder rolls, text someone)
 - Matched by energy level and affect state from check-in
+- After-session effectiveness feedback: "How do you feel now?" (5-point scale) stored to personal profile
 - Completion: warm double-tap haptic + gentle sage fade — no confetti
 
 ### D. Expressive Journaling & Unsent Letters
@@ -59,15 +69,78 @@ It is **not** a diagnostic tool. It **does not** replace professional care. It i
 ### E. Offline Safety Plan (Stanley-Brown Protocol)
 - Six-step template: warning signs → internal coping → distraction contacts → support contacts → professional contacts → environment safety
 - One-tap emergency access from **any screen** (persistent SOS overlay)
-- Pre-written reach-out text templates ("Hey, having a rough day. Can we talk?")
+- Pre-written reach-out text templates
 - Offline emergency dialer (native `tel:` intent — no internet needed)
 - All data encrypted on-device; no cloud sync
 
 ### F. Loneliness Comfort & Hope Box
 - **Loneliness Comfort:** Gentle ambient sound, "Someone's here" breathing visual
-- **Guess vs. Reality:** Log expected outcome before reaching out; record what happened after — builds evidence against catastrophic thinking
+- **Guess vs. Reality:** Log expected outcome before reaching out; record what happened after
 - **Hope Box:** Private offline vault — user photos, voice notes, favourite songs, written reasons to keep going
 - Pre-written friction-reducing text prompts; one-tap launch of native SMS
+
+### G. Progressive Muscle Relaxation (NEW)
+- Interactive human body silhouette highlighting 10 regions: Forehead → Jaw → Neck → Shoulders → Hands → Chest → Abdomen → Legs → Feet
+- Guided sequence: **Tense → Hold (5s) → Release → Notice → Move on**
+- Audio-guided option; haptic on each phase transition
+- Fully offline, no equipment required
+
+### H. Sleep Wind-Down (NEW)
+- Entry point: "I cannot switch my brain off"
+- Duration options: 5 min / 10 min / 20 min / 30 min sleep mode
+- Activities: body scan, slow breathing, progressive relaxation, sleep story, rain sounds, worry parking, gratitude reflection, tomorrow planning
+- Gentle dCBT-I approach (Lin et al. 2023) — no sleep restriction protocol in v1.x
+
+### I. Nature Mode (NEW)
+- Indoor nature simulation for users who cannot easily go outside
+- Audio: rain, ocean, forest, birdsong, fireplace
+- Visual: ambient nature scenes (animated or static), watch clouds / fire / water
+- Nature walk guidance prompts for outdoor use
+
+### J. Audio Room & Sound Mixer (NEW)
+- Intent-based routing: Relax / Sleep / Focus / Ground / Anxiety / Low mood / Nature / Meditation / Background
+- Multi-source sound mixer (e.g., Rain 60% + Piano 30% + Fireplace 20%) with independent volume controls
+- Controls: Timer / Volume / Fade in / Fade out / Loop / Mix / Save favourite / Playlists
+
+### K. Flow Games & Cognitive Interruption (NEW)
+- **Cognitive Reset** (2–5 min): short absorbing activities
+- **Deep Flow**: longer sessions for extended attention shift
+- Game types by mechanism: Spatial (Tetris-style, tangram) / Pattern (matching, Sudoku) / Visual (colour ordering) / Sequential (mazes, path tracing) / Memory (matching pairs) / Logic (nonograms)
+- Cognitive grounding mini-games (counting, categories, word association)
+
+### L. Labyrinth & Path Activities (NEW)
+- Finger labyrinth (trace a meditative path)
+- Digital path-following and spiral tracing
+- One-line puzzles and connect-the-dots (sequential visual attention)
+- Design principle: path-following ("Can I stay with the path?") not maze-solving ("Which way should I go?")
+
+### M. Extended Mindfulness (NEW)
+- Body scan (full systematic body awareness)
+- Open awareness (observe thoughts without following)
+- Loving kindness meditation
+- Walking mindfulness, sound meditation
+- Mindful pause (brief interruption of automatic behaviour)
+
+### N. Creative Regulation (NEW)
+- Guided drawing and colouring instructions
+- Origami step-by-step
+- Creative writing prompts, poetry starters
+- Photography challenge (external attention)
+
+### O. Cognitive Defusion & Thought Management (NEW)
+- Thought cloud visualisation (observe thoughts passing)
+- Leaves on stream, worry container
+- Problem vs. worry separator (actionable vs. hypothetical)
+- "I am having the thought that..." distancing language
+
+### P. Problem Solving Flow (NEW)
+- Structured 6-step guided flow: identify → can I influence? → what can I control? → possible solutions → one action → when?
+- Distinguishes "I need to calm down" from "I need to figure something out"
+
+### Q. Personal Regulation Profiles (NEW)
+- After-session effectiveness feedback (5-point scale: Much worse → Much better)
+- Personal profile: sessions per feature + average effectiveness
+- Future: personalised suggestions ("Last time you felt this way, X helped")
 
 ---
 
@@ -164,41 +237,48 @@ lib/
 │   │       ├── safety_plan_tables.dart
 │   │       ├── audio_preferences.dart
 │   │       ├── app_configuration.dart
-│   │       └── usage_summaries.dart
+│   │       ├── usage_summaries.dart
+│   │       └── effectiveness_ratings.dart  # NEW: per-session effectiveness scores
 │   │
 │   ├── security/
-│   │   ├── key_manager.dart           # Secure key generation + retrieval
-│   │   ├── biometric_guard.dart       # local_auth wrapper + DEK unlock gate
-│   │   ├── journal_crypto_service.dart # Application-layer AES-GCM for journals
-│   │   ├── cryptographic_eraser.dart  # Key rotation + VACUUM wipe
-│   │   └── network_kill_switch.dart   # HttpOverrides.global override
+│   │   ├── key_manager.dart
+│   │   ├── biometric_guard.dart
+│   │   ├── journal_crypto_service.dart
+│   │   ├── cryptographic_eraser.dart
+│   │   └── network_kill_switch.dart
 │   │
 │   ├── routing/
-│   │   ├── app_router.dart            # go_router + ShellRoute + biometric redirect
-│   │   ├── app_routes.dart            # Route name constants (no raw strings)
-│   │   └── route_guards.dart          # Privacy lock + onboarding redirect logic
+│   │   ├── app_router.dart
+│   │   ├── app_routes.dart
+│   │   └── route_guards.dart
 │   │
 │   ├── theme/
-│   │   ├── app_theme.dart             # AppTheme.darkTheme / lightTheme
-│   │   ├── app_colors.dart            # Primitive palette + AppCustomColors extension
-│   │   ├── app_typography.dart        # Atkinson Hyperlegible type scale
-│   │   ├── animation_tokens.dart      # MotionTokens (breath-paced durations)
-│   │   └── spacing_tokens.dart        # 4pt/8pt baseline grid
+│   │   ├── app_theme.dart
+│   │   ├── app_colors.dart
+│   │   ├── app_typography.dart
+│   │   ├── animation_tokens.dart
+│   │   └── spacing_tokens.dart
 │   │
 │   ├── contracts/
-│   │   ├── audio_player_port.dart     # Abstract audio interface
-│   │   ├── haptics_port.dart          # Abstract haptics interface
-│   │   └── voice_recognition_port.dart # Abstract offline STT interface
+│   │   ├── audio_player_port.dart
+│   │   ├── haptics_port.dart
+│   │   └── voice_recognition_port.dart
 │   │
 │   ├── errors/
-│   │   ├── app_exception.dart         # Domain exception types
-│   │   ├── failure.dart               # Result<T, Failure> failure types
-│   │   └── result.dart                # Result<T, E> sealed class
+│   │   ├── app_exception.dart
+│   │   ├── failure.dart
+│   │   └── result.dart
 │   │
 │   ├── recommendation_engine/
-│   │   ├── recommendation_engine.dart # Pure Dart deterministic matcher
-│   │   ├── affect_state.dart          # Input model
-│   │   └── action_suggestion.dart     # Output model
+│   │   ├── recommendation_engine.dart  # Extended: maps to 21-category activity system
+│   │   ├── affect_state.dart           # Extended: includes reportedState enum
+│   │   ├── action_suggestion.dart
+│   │   └── right_now_router.dart       # NEW: 12-state immediate distress routing
+│   │
+│   ├── activity_system/               # NEW: unified activity catalogue architecture
+│   │   ├── activity_model.dart        # Shared activity data model
+│   │   ├── activity_catalogue.dart    # Dart constants for all curated activities
+│   │   └── activity_filter.dart       # Dynamic filtering by state/energy/duration
 │   │
 │   └── utils/
 │       ├── dart_extensions.dart
@@ -206,87 +286,120 @@ lib/
 │
 ├── shared/
 │   └── widgets/
-│       ├── firefly_button.dart        # Primary CTA (56dp, scale+fade press)
-│       ├── firefly_card.dart          # Elevated surface card
-│       ├── sos_overlay_button.dart    # Persistent Safety Plan trigger
-│       ├── panic_button.dart          # Long-press quick exit
-│       ├── breathing_bloom_painter.dart # CustomPainter — bloom visualizer
-│       ├── mood_tile.dart             # Moon-phase mood selector tile
-│       ├── energy_slider.dart         # Still → Moving drag slider
-│       └── gentle_progress_bar.dart   # Non-gamified progress indicator
+│       ├── firefly_button.dart
+│       ├── firefly_card.dart
+│       ├── sos_overlay_button.dart
+│       ├── panic_button.dart
+│       ├── breathing_bloom_painter.dart
+│       ├── mood_tile.dart
+│       ├── energy_slider.dart
+│       ├── gentle_progress_bar.dart
+│       ├── effectiveness_prompt.dart   # NEW: "How do you feel now?" post-session widget
+│       ├── body_silhouette_painter.dart # NEW: PMR body map CustomPainter
+│       └── right_now_selector.dart     # NEW: 12-state immediate selection grid
 │
 └── features/
     ├── onboarding/
-    │   └── presentation/screens/onboarding_screen.dart
     │
     ├── check_in/
-    │   ├── data/
-    │   │   ├── check_in_repository_impl.dart
-    │   │   └── sources/check_in_local_source.dart
-    │   ├── domain/
-    │   │   ├── check_in_entry.dart
-    │   │   └── check_in_repository.dart
-    │   └── presentation/
-    │       ├── screens/check_in_screen.dart
-    │       ├── controllers/check_in_controller.dart
-    │       └── widgets/
-    │           ├── mood_selector_row.dart
-    │           └── affect_result_card.dart
     │
-    ├── breathing_grounding/
-    │   ├── data/
-    │   ├── domain/breathing_session.dart
+    ├── right_now/                      # NEW
+    │   ├── domain/right_now_state.dart
     │   └── presentation/
-    │       ├── screens/breathing_grounding_screen.dart
-    │       ├── controllers/breathing_session_controller.dart
+    │       ├── screens/right_now_screen.dart
+    │       └── controllers/right_now_controller.dart
+    │
+    ├── breathing_grounding/            # EXTENDED
+    │   ├── domain/
+    │   │   ├── breathing_session.dart
+    │   │   └── grounding_exercise.dart
+    │   └── presentation/
+    │       ├── screens/
+    │       │   ├── breathing_studio_screen.dart  # NEW: multi-technique engine
+    │       │   ├── breathing_grounding_screen.dart
+    │       │   └── extended_grounding_screen.dart # NEW: texture/sound/colour hunts
+    │       ├── controllers/
+    │       │   ├── breathing_session_controller.dart
+    │       │   └── grounding_controller.dart
     │       └── widgets/
     │           ├── cyclic_sigh_bloom.dart
     │           └── grounding_prompt_card.dart
     │
-    ├── tiny_steps/
+    ├── cognitive_grounding/            # NEW
+    │   └── presentation/
+    │       ├── screens/cognitive_grounding_screen.dart
+    │       └── controllers/cognitive_grounding_controller.dart
+    │
+    ├── tiny_steps/                     # EXTENDED
     │   ├── data/
     │   ├── domain/tiny_step.dart
     │   └── presentation/
     │       ├── screens/tiny_steps_screen.dart
     │       └── controllers/tiny_steps_controller.dart
     │
-    ├── journaling/
-    │   ├── data/
-    │   ├── domain/journal_entry.dart
+    ├── pmr/                            # NEW: Progressive Muscle Relaxation
     │   └── presentation/
-    │       ├── screens/
-    │       │   ├── journal_list_screen.dart
-    │       │   └── journal_entry_screen.dart
-    │       ├── controllers/journal_controller.dart
-    │       └── widgets/voice_to_text_button.dart
+    │       ├── screens/pmr_screen.dart
+    │       └── controllers/pmr_controller.dart
+    │
+    ├── sleep/                          # NEW: Sleep Wind-Down
+    │   ├── data/
+    │   ├── domain/sleep_session.dart
+    │   └── presentation/
+    │       ├── screens/sleep_winddown_screen.dart
+    │       └── controllers/sleep_controller.dart
+    │
+    ├── nature/                         # NEW: Nature Mode
+    │   └── presentation/
+    │       ├── screens/nature_mode_screen.dart
+    │       └── controllers/nature_controller.dart
+    │
+    ├── audio_room/                     # NEW: Audio Room + Sound Mixer
+    │   ├── data/
+    │   ├── domain/audio_track.dart
+    │   └── presentation/
+    │       ├── screens/audio_room_screen.dart
+    │       ├── screens/sound_mixer_screen.dart
+    │       └── controllers/audio_room_controller.dart
+    │
+    ├── flow_games/                     # NEW: Flow & Cognitive Interruption Games
+    │   ├── domain/game_catalogue.dart
+    │   └── presentation/
+    │       ├── screens/game_hub_screen.dart
+    │       └── games/
+    │           ├── spatial_game_screen.dart
+    │           ├── pattern_game_screen.dart
+    │           └── labyrinth_screen.dart
+    │
+    ├── mindfulness/                    # NEW: Extended Mindfulness
+    │   └── presentation/
+    │       ├── screens/mindfulness_hub_screen.dart
+    │       ├── screens/body_scan_screen.dart
+    │       └── screens/loving_kindness_screen.dart
+    │
+    ├── creative/                       # NEW: Creative Regulation
+    │   └── presentation/
+    │       └── screens/creative_hub_screen.dart
+    │
+    ├── thought_tools/                  # NEW: Cognitive Defusion + Problem Solving
+    │   └── presentation/
+    │       ├── screens/cognitive_defusion_screen.dart
+    │       └── screens/problem_solving_screen.dart
+    │
+    ├── journaling/
     │
     ├── safety_plan/
-    │   ├── data/
-    │   ├── domain/
-    │   │   ├── safety_plan.dart
-    │   │   ├── safety_plan_contact.dart
-    │   │   └── safety_plan_step.dart
-    │   └── presentation/
-    │       ├── screens/safety_plan_screen.dart
-    │       ├── screens/safety_plan_editor_screen.dart
-    │       └── controllers/safety_plan_controller.dart
     │
     ├── loneliness_comfort/
-    │   ├── data/
-    │   ├── domain/
-    │   └── presentation/
-    │       ├── screens/loneliness_comfort_screen.dart
-    │       └── screens/guess_vs_reality_screen.dart
     │
     ├── hope_box/
-    │   ├── data/
-    │   ├── domain/hope_box_item.dart
+    │
+    ├── personal_profile/               # NEW: Personal Regulation Profiles
+    │   ├── domain/effectiveness_entry.dart
     │   └── presentation/
-    │       ├── screens/hope_box_screen.dart
-    │       └── controllers/hope_box_controller.dart
+    │       └── screens/personal_profile_screen.dart
     │
     └── gentle_progress/
-        └── presentation/screens/gentle_progress_screen.dart
 ```
 
 ---
@@ -355,9 +468,11 @@ Repository Impl ──► DTO Mapper ──► Drift DAO
 ---
 
 ## 11. On-Device Recommendation Engine
-- **Engine Selection:** Instead of LLMs which pose risks, Firefly implements a **Deterministic State Machine (Rule-based)** via `RecommendationEngine.evaluate(AffectState)`.
-- **Determinism Flow:** User inputs `AffectState` on Check-in -> Rule Engine prioritizes safety rules -> Outputs 100% predictable, deterministic `ActionSuggestion` route for the user.
-- **Rules Priority:** Immediate physiological regulation overrides cognitive tasks. For instance, high anxiety unconditionally routes to the cyclic sigh feature, while very low energy targets tiny behavioral activation steps.
+- **Engine Selection:** Instead of LLMs, Firefly implements a **Deterministic State Machine** via `RecommendationEngine.evaluate(AffectState)`.
+- **Determinism Flow:** User inputs `AffectState` via Check-In OR self-selects via "Right Now" (12-state) → Rule Engine prioritizes safety rules → Outputs 100% predictable, deterministic `ActionSuggestion` route.
+- **Rules Priority:** Immediate physiological regulation overrides cognitive tasks. High anxiety → cyclic sigh. Racing thoughts → cognitive reset. Restless → movement. Can't sleep → sleep mode. Low energy → tiny steps.
+- **"Right Now" Router:** A separate pure `RightNowRouter.route(RightNowState)` maps 12 self-selected states to activity routes without requiring full affect data. Routes include: `/breathe`, `/ground`, `/ground?mode=cognitive`, `/move`, `/sleep`, `/journal/new`, `/audio`, `/games`, `/loneliness`.
+- **Activity System:** The `ActivityCatalogue` in `core/activity_system/` provides a queryable library of all curated activities with fields for `targetStates`, `energyRequired`, `duration`, and `guidanceType`. Used by feature controllers to select contextually appropriate activities.
 
 ---
 

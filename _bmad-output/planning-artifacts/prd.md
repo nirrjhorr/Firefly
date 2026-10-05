@@ -33,7 +33,7 @@ Firefly's **core promise** is: *"Find something that helps you feel a little mor
 
 ### 1.2 Positioning Statement
 
-> *For people experiencing mild-to-moderate acute distress who want immediate, private support, Firefly is an offline self-regulation companion that delivers state-matched activities across 21 regulation categories — breathing, movement, grounding, mindfulness, games, creative expression, sleep, social connection, and more — unlike therapy apps, mood trackers, or crisis lines, which require connectivity, account creation, or significant cognitive investment.*
+> *For people experiencing mild-to-moderate acute distress who want immediate, private support, Firefly is an offline self-regulation companion that delivers state-matched activities across 6 core regulation groups (Movement, Respiration, Grounding/Mindfulness, Cognitive Flow, Expression, and Restorative Environments) encompassing 150+ activities — unlike therapy apps, mood trackers, or crisis lines, which require connectivity, account creation, or significant cognitive investment.*
 
 ### 1.3 Product Philosophy
 
@@ -50,7 +50,7 @@ Firefly is built around three philosophical commitments:
 | In Scope | Out of Scope |
 |---|---|
 | Mild-to-moderate stress, low mood, overwhelm, loneliness, restlessness, sleep difficulties | Severe mental illness, psychosis, active suicidal crisis management |
-| State-matched activities across 21 regulation categories (breathing, movement, grounding, games, audio, sleep, social, creative, etc.) | Full therapeutic programs (8-week CBT, MBSR) |
+| State-matched activities mapped into 6 Core Regulation Groups (Movement, Respiration, Grounding, Flow, Expression, Restore) | Full therapeutic programs (8-week CBT, MBSR) |
 | Evidence-backed micro-interventions (< 2 min) AND extended flow activities | Replacing professional care |
 | Stanley-Brown offline Safety Plan with crisis contacts | Real-time crisis intervention or professional counseling |
 | Private, encrypted on-device data | Any cloud storage, user accounts, or remote sync |
