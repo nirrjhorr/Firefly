@@ -1,6 +1,8 @@
 import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../core/errors/result.dart';
 import '../../../check_in/domain/repositories/check_in_repository.dart';
 import '../../../check_in/presentation/controllers/check_in_controller.dart';
@@ -13,12 +15,14 @@ class TinyStepsState {
     this.candidates = const [],
     this.energyLevel = 2,
     this.completedStepId,
+    this.actualDuration,
     this.isLoading = false,
   });
 
   final List<TinyStep> candidates;
   final int energyLevel;
   final String? completedStepId;
+  final Duration? actualDuration;
   final bool isLoading;
 
   bool get hasCompleted => completedStepId != null;
@@ -36,13 +40,19 @@ class TinyStepsState {
     List<TinyStep>? candidates,
     int? energyLevel,
     String? completedStepId,
+    Duration? actualDuration,
     bool? isLoading,
     bool clearCompleted = false,
   }) {
     return TinyStepsState(
       candidates: candidates ?? this.candidates,
       energyLevel: energyLevel ?? this.energyLevel,
-      completedStepId: clearCompleted ? null : (completedStepId ?? this.completedStepId),
+      completedStepId: clearCompleted
+          ? null
+          : (completedStepId ?? this.completedStepId),
+      actualDuration: clearCompleted
+          ? null
+          : (actualDuration ?? this.actualDuration),
       isLoading: isLoading ?? this.isLoading,
     );
   }
@@ -55,11 +65,17 @@ class TinyStepsState {
           listEquals(candidates, other.candidates) &&
           energyLevel == other.energyLevel &&
           completedStepId == other.completedStepId &&
+          actualDuration == other.actualDuration &&
           isLoading == other.isLoading;
 
   @override
-  int get hashCode =>
-      Object.hash(Object.hashAll(candidates), energyLevel, completedStepId, isLoading);
+  int get hashCode => Object.hash(
+    Object.hashAll(candidates),
+    energyLevel,
+    completedStepId,
+    actualDuration,
+    isLoading,
+  );
 }
 
 class TinyStepsController extends StateNotifier<TinyStepsState> {
@@ -67,8 +83,8 @@ class TinyStepsController extends StateNotifier<TinyStepsState> {
     this.checkInRepository,
     Random? random,
     int defaultEnergy = 2,
-  })  : _random = random ?? Random(),
-        super(TinyStepsState(energyLevel: defaultEnergy, isLoading: true)) {
+  }) : _random = random ?? Random(),
+       super(TinyStepsState(energyLevel: defaultEnergy, isLoading: true)) {
     _init(defaultEnergy);
   }
 
@@ -83,7 +99,9 @@ class TinyStepsController extends StateNotifier<TinyStepsState> {
         final result = await checkInRepository!.getLatestCheckIn();
         if (result is Ok) {
           final entry = (result as Ok).value;
-          if (entry != null && entry.energyLevel >= 1 && entry.energyLevel <= 5) {
+          if (entry != null &&
+              entry.energyLevel >= 1 &&
+              entry.energyLevel <= 5) {
             effectiveEnergy = entry.energyLevel;
           }
         }
@@ -103,12 +121,16 @@ class TinyStepsController extends StateNotifier<TinyStepsState> {
   /// Select 3 distinct micro-actions matching the provided energy level.
   List<TinyStep> _selectCandidates(int energy, {List<TinyStep>? exclude}) {
     final matching = TinyStepsCatalog.getStepsForEnergy(energy);
-    final pool = List<TinyStep>.from(matching.isNotEmpty ? matching : TinyStepsCatalog.allSteps);
+    final pool = List<TinyStep>.from(
+      matching.isNotEmpty ? matching : TinyStepsCatalog.allSteps,
+    );
 
     // If we have exclusion and enough pool items, prefer items not currently shown
     if (exclude != null && exclude.isNotEmpty && pool.length > 3) {
       final excludedIds = exclude.map((e) => e.id).toSet();
-      final filteredPool = pool.where((item) => !excludedIds.contains(item.id)).toList();
+      final filteredPool = pool
+          .where((item) => !excludedIds.contains(item.id))
+          .toList();
       if (filteredPool.length >= 3) {
         filteredPool.shuffle(_random);
         return filteredPool.take(3).toList();
@@ -121,11 +143,11 @@ class TinyStepsController extends StateNotifier<TinyStepsState> {
 
   /// Shuffles candidates to present 3 alternative options for the current energy level.
   void shuffle() {
-    final newCandidates = _selectCandidates(state.energyLevel, exclude: state.candidates);
-    state = state.copyWith(
-      candidates: newCandidates,
-      clearCompleted: true,
+    final newCandidates = _selectCandidates(
+      state.energyLevel,
+      exclude: state.candidates,
     );
+    state = state.copyWith(candidates: newCandidates, clearCompleted: true);
   }
 
   /// Updates energy level filter and refreshes candidates.
@@ -140,8 +162,11 @@ class TinyStepsController extends StateNotifier<TinyStepsState> {
   }
 
   /// Marks a tiny step as completed.
-  void completeStep(String stepId) {
-    state = state.copyWith(completedStepId: stepId);
+  void completeStep(String stepId, Duration actualDuration) {
+    state = state.copyWith(
+      completedStepId: stepId,
+      actualDuration: actualDuration,
+    );
   }
 
   /// Resets completion to allow doing another step.
@@ -151,7 +176,9 @@ class TinyStepsController extends StateNotifier<TinyStepsState> {
 }
 
 final tinyStepsControllerProvider =
-    StateNotifierProvider.autoDispose<TinyStepsController, TinyStepsState>((ref) {
-  final checkInRepo = ref.watch(checkInRepositoryProvider);
-  return TinyStepsController(checkInRepository: checkInRepo);
-});
+    StateNotifierProvider.autoDispose<TinyStepsController, TinyStepsState>((
+      ref,
+    ) {
+      final checkInRepo = ref.watch(checkInRepositoryProvider);
+      return TinyStepsController(checkInRepository: checkInRepo);
+    });

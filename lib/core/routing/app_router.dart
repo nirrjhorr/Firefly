@@ -12,11 +12,13 @@ import '../../features/loneliness_comfort/presentation/screens/loneliness_comfor
 import '../../features/onboarding/presentation/screens/biometric_lock_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/onboarding/presentation/screens/splash_screen.dart';
+import '../../features/pmr/presentation/screens/pmr_screen.dart';
 import '../../features/safety_plan/presentation/screens/panic_blank_screen.dart';
 import '../../features/safety_plan/presentation/screens/safety_plan_editor_screen.dart';
 import '../../features/safety_plan/presentation/screens/safety_plan_screen.dart';
 import '../../features/soundscapes/presentation/screens/soundscape_library_screen.dart';
 import '../../features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
+import '../../features/tiny_steps/presentation/screens/tiny_step_activity_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -77,6 +79,23 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
         ),
       ),
+      
+      // Full screen Tiny Step Activity
+      GoRoute(
+        path: AppRoutes.tinyStepActivity,
+        builder: (context, state) {
+          final id = state.pathParameters['id'] ?? '';
+          return TinyStepActivityScreen(stepId: id);
+        },
+      // Progressive Muscle Relaxation (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/pmr',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => PmrScreen(
+          isQuickMode: state.uri.queryParameters['mode'] == 'quick',
+          showSosOverlay: true,
+        ),
+      ),
 
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
@@ -129,6 +148,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.soundscapes,
             builder: (context, state) => const SoundscapeLibraryScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.pmr,
+            builder: (context, state) => PmrScreen(
+              isQuickMode: state.uri.queryParameters['mode'] == 'quick',
+            ),
           ),
         ],
       ),

@@ -12,6 +12,7 @@ import '../../../../shared/widgets/energy_slider.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../../../shared/widgets/mood_tile.dart';
+import '../../activities/presentation/widgets/right_now_modal.dart';
 import '../controllers/check_in_controller.dart';
 import '../widgets/affect_result_card.dart';
 
@@ -74,6 +75,72 @@ class CheckInScreen extends ConsumerWidget {
                       'Take a quiet moment to notice what is present.',
                       style: AppTypography.bodyMd.copyWith(
                         color: colors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(height: SpacingTokens.spaceMd),
+
+                    // FR-10: Immediate distress fast-path entry
+                    InkWell(
+                      onTap: () {
+                        HapticFeedback.lightImpact();
+                        RightNowModal.show(context);
+                      },
+                      borderRadius: BorderRadius.circular(RadiusTokens.radiusMd),
+                      child: Ink(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: SpacingTokens.spaceMd,
+                          vertical: SpacingTokens.spaceSm + 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colors.bgSurface,
+                          borderRadius: BorderRadius.circular(RadiusTokens.radiusMd),
+                          border: Border.all(
+                            color: colors.accentSage.withOpacity(0.35),
+                            width: 1.0,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                color: colors.accentSage.withOpacity(0.15),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.bolt_rounded,
+                                size: 18,
+                                color: colors.accentSage,
+                              ),
+                            ),
+                            const SizedBox(width: SpacingTokens.spaceMd),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Need something right now?',
+                                    style: AppTypography.headingSm.copyWith(
+                                      color: colors.textPrimary,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Skip the check-in and start regulating immediately',
+                                    style: AppTypography.captionSm.copyWith(
+                                      color: colors.textSecondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 13,
+                              color: colors.textTertiary,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: SpacingTokens.sectionGap),

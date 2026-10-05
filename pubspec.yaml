@@ -59,6 +59,8 @@ flutter:
   assets:
     - assets/audio/
     - assets/models/
+    - assets/data/
+
   
   # fonts:
   #   - family: AtkinsonHyperlegible

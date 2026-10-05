@@ -10,7 +10,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'sip_water',
       title: 'Take a slow sip of water',
-      description: 'Notice the cool temperature and the sensation as you swallow.',
+      description:
+          'Notice the cool temperature and the sensation as you swallow.',
       category: TinyStepCategory.nourishment,
       minEnergyLevel: 1,
       maxEnergyLevel: 2,
@@ -28,7 +29,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'look_window',
       title: 'Look out a window for 30s',
-      description: 'Find the farthest visible cloud or tree and rest your gaze there.',
+      description:
+          'Find the farthest visible cloud or tree and rest your gaze there.',
       category: TinyStepCategory.sensory,
       minEnergyLevel: 1,
       maxEnergyLevel: 2,
@@ -37,7 +39,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'feel_feet',
       title: 'Feel your feet against the floor',
-      description: 'Notice the solid pressure and contact points grounding your body.',
+      description:
+          'Notice the solid pressure and contact points grounding your body.',
       category: TinyStepCategory.sensory,
       minEnergyLevel: 1,
       maxEnergyLevel: 2,
@@ -46,7 +49,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'open_palms',
       title: 'Rest both hands open on your lap',
-      description: 'Uncurl your fingers completely and let go of any holding tension.',
+      description:
+          'Uncurl your fingers completely and let go of any holding tension.',
       category: TinyStepCategory.physical,
       minEnergyLevel: 1,
       maxEnergyLevel: 2,
@@ -84,7 +88,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'wash_face',
       title: 'Wash face with cool water',
-      description: 'Splash refreshing cool water over your forehead and cheeks.',
+      description:
+          'Splash refreshing cool water over your forehead and cheeks.',
       category: TinyStepCategory.sensory,
       minEnergyLevel: 2,
       maxEnergyLevel: 4,
@@ -102,7 +107,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'step_outside_air',
       title: 'Step outside for fresh air',
-      description: 'Open a door or step onto the doorstep and take two deep breaths.',
+      description:
+          'Open a door or step onto the doorstep and take two deep breaths.',
       category: TinyStepCategory.environment,
       minEnergyLevel: 2,
       maxEnergyLevel: 4,
@@ -111,7 +117,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'open_blinds',
       title: 'Open curtains or blinds',
-      description: 'Let natural daylight into the room to reset your circadian rhythm.',
+      description:
+          'Let natural daylight into the room to reset your circadian rhythm.',
       category: TinyStepCategory.environment,
       minEnergyLevel: 2,
       maxEnergyLevel: 4,
@@ -138,7 +145,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'eat_one_snack',
       title: 'Eat a small mindful bite',
-      description: 'Take a single piece of fruit, cracker, or nut and slowly savor it.',
+      description:
+          'Take a single piece of fruit, cracker, or nut and slowly savor it.',
       category: TinyStepCategory.nourishment,
       minEnergyLevel: 2,
       maxEnergyLevel: 4,
@@ -147,7 +155,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'wash_hands_warm',
       title: 'Rinse hands with warm water & soap',
-      description: 'Lather gently, noticing the warmth and clean scent on your hands.',
+      description:
+          'Lather gently, noticing the warmth and clean scent on your hands.',
       category: TinyStepCategory.sensory,
       minEnergyLevel: 2,
       maxEnergyLevel: 4,
@@ -167,7 +176,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'put_away_three',
       title: 'Put away three misplaced items',
-      description: 'Return three displaced objects back to where they usually live.',
+      description:
+          'Return three displaced objects back to where they usually live.',
       category: TinyStepCategory.environment,
       minEnergyLevel: 3,
       maxEnergyLevel: 5,
@@ -194,7 +204,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'ice_water_glass',
       title: 'Pour a fresh glass of cold water',
-      description: 'Fill a clean glass with water and drink half with calm presence.',
+      description:
+          'Fill a clean glass with water and drink half with calm presence.',
       category: TinyStepCategory.nourishment,
       minEnergyLevel: 3,
       maxEnergyLevel: 5,
@@ -212,7 +223,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'standing_torso_twist',
       title: 'Standing gentle torso twists',
-      description: 'Stand with feet shoulder-width and swing arms gently side to side.',
+      description:
+          'Stand with feet shoulder-width and swing arms gently side to side.',
       category: TinyStepCategory.physical,
       minEnergyLevel: 4,
       maxEnergyLevel: 5,
@@ -221,7 +233,8 @@ abstract final class TinyStepsCatalog {
     TinyStep(
       id: 'wipe_one_table',
       title: 'Wipe down one tabletop',
-      description: 'Take a damp cloth and make one clean, clear spot on a table.',
+      description:
+          'Take a damp cloth and make one clean, clear spot on a table.',
       category: TinyStepCategory.environment,
       minEnergyLevel: 4,
       maxEnergyLevel: 5,

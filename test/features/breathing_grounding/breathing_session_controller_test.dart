@@ -154,5 +154,16 @@ void main() {
       await expectLater(notifier.start(), completes);
       expect(notifier.state.isActive, isTrue);
     });
+
+    test('setTechnique() switches active technique and resets phase to inhale', () {
+      notifier.setTechnique(BreathingTechnique.boxBreathing);
+      expect(notifier.state.technique, equals(BreathingTechnique.boxBreathing));
+      expect(notifier.state.phase, equals(BreathingPhase.inhale));
+      expect(notifier.state.phaseProgress, equals(0.0));
+
+      notifier.setTechnique(BreathingTechnique.relax478);
+      expect(notifier.state.technique, equals(BreathingTechnique.relax478));
+      expect(notifier.state.phase, equals(BreathingPhase.inhale));
+    });
   });
 }

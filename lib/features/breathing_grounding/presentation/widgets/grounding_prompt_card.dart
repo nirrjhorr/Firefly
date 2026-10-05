@@ -96,7 +96,9 @@ class GroundingPromptCard extends StatelessWidget {
                       minimumSize: const Size(44, 44),
                     ),
                     child: Text(
-                      'Skip sense',
+                      state.mode == GroundingMode.fiveSenses
+                          ? 'Skip sense'
+                          : 'Skip step',
                       style: AppTypography.labelSm.copyWith(
                         color: colors.textSecondary,
                       ),
@@ -122,7 +124,7 @@ class GroundingPromptCard extends StatelessWidget {
                       ),
                     ),
                     child: Icon(
-                      stage.icon,
+                      IconData(stage.icon.codePoint, fontFamily: stage.icon.fontFamily),
                       size: 26,
                       color: colors.actionSage,
                     ),

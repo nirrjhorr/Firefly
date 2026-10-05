@@ -9,6 +9,8 @@ import 'tables/journal_entries.dart';
 import 'tables/mood_check_ins.dart';
 import 'tables/safety_plan_tables.dart';
 import 'tables/usage_summaries.dart';
+import 'tables/activities_table.dart';
+import 'tables/activity_effectiveness_table.dart';
 
 part 'app_database.g.dart';
 
@@ -22,6 +24,8 @@ part 'app_database.g.dart';
   AudioPreferences,
   AppConfiguration,
   UsageSummaries,
+  Activities,
+  ActivityEffectivenessLogs,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.executor, {this.encryptionKey});

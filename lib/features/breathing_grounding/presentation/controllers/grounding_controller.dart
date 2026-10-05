@@ -4,16 +4,32 @@ import '../../domain/models/grounding_session_state.dart';
 import '../../domain/models/grounding_stage.dart';
 import 'hardware_providers.dart';
 
-/// Reactive controller driving step-by-step 5-4-3-2-1 sensory grounding exercise,
-/// stage progression, check-offs, and tactile confirmation.
+/// Reactive controller driving step-by-step sensory grounding exercises,
+/// mode selection, stage progression, check-offs, and tactile confirmation.
 class GroundingController extends StateNotifier<GroundingSessionState> {
   final HapticsPort _haptics;
 
   GroundingController({
     required HapticsPort haptics,
-    List<GroundingStage> stages = GroundingStage.standardStages,
+    GroundingMode mode = GroundingMode.fiveSenses,
+    List<GroundingStage>? stages,
   })  : _haptics = haptics,
-        super(GroundingSessionState(stages: stages));
+        super(GroundingSessionState(mode: mode, stages: stages ?? mode.stages));
+
+  /// Sets or switches the active grounding mode, cleanly resetting progression.
+  void setMode(GroundingMode mode) {
+    if (state.mode == mode &&
+        state.currentStageIndex == 0 &&
+        state.currentStageNoticedCount == 0 &&
+        !state.isCompleted) {
+      return;
+    }
+    _triggerHapticClick();
+    state = GroundingSessionState(
+      mode: mode,
+      stages: mode.stages,
+    );
+  }
 
   /// Confirms noticing an item in the current sensory stage.
   /// Triggers a tactile confirmation click via [HapticsPort].
@@ -94,9 +110,12 @@ class GroundingController extends StateNotifier<GroundingSessionState> {
     state = state.copyWith(isCompleted: true);
   }
 
-  /// Completely resets the grounding session to stage 0.
+  /// Completely resets the grounding session for the current mode.
   void reset() {
-    state = GroundingSessionState(stages: state.stages);
+    state = GroundingSessionState(
+      mode: state.mode,
+      stages: state.stages,
+    );
   }
 
   void _triggerHapticClick() {
@@ -108,7 +127,7 @@ class GroundingController extends StateNotifier<GroundingSessionState> {
   }
 }
 
-/// Riverpod provider managing reactive 5-4-3-2-1 sensory grounding.
+/// Riverpod provider managing reactive sensory grounding across modes.
 final groundingControllerProvider = StateNotifierProvider.autoDispose<
     GroundingController, GroundingSessionState>((ref) {
   final haptics = ref.watch(hapticsPortProvider);

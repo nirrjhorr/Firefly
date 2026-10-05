@@ -28,7 +28,13 @@ enum TinyStepCategory {
   }
 }
 
-/// A 2-minute-or-less evidence-based behavioural activation task.
+/// A behavioural activation micro-action.
+///
+/// [durationMinutes] is nullable. When null the step is considered untimed —
+/// the activity screen shows an elapsed-time-only timer with no target or
+/// countdown. When set, it represents the *recommended* target duration in
+/// whole minutes. There is no upper-bound cap: activities like a 5-minute walk
+/// are valid.
 @immutable
 class TinyStep {
   const TinyStep({
@@ -38,11 +44,11 @@ class TinyStep {
     required this.category,
     required this.minEnergyLevel,
     required this.maxEnergyLevel,
-    required this.durationMinutes,
+    this.durationMinutes,
   })  : assert(minEnergyLevel >= 1 && minEnergyLevel <= 5, 'minEnergyLevel must be between 1 and 5'),
         assert(maxEnergyLevel >= 1 && maxEnergyLevel <= 5, 'maxEnergyLevel must be between 1 and 5'),
         assert(minEnergyLevel <= maxEnergyLevel, 'minEnergyLevel cannot exceed maxEnergyLevel'),
-        assert(durationMinutes > 0 && durationMinutes <= 2, 'durationMinutes must be 1 or 2');
+        assert(durationMinutes == null || durationMinutes > 0, 'durationMinutes must be positive when provided');
 
   final String id;
   final String title;
@@ -50,7 +56,16 @@ class TinyStep {
   final TinyStepCategory category;
   final int minEnergyLevel;
   final int maxEnergyLevel;
-  final int durationMinutes;
+
+  /// Target duration in minutes. Null means the step is untimed.
+  final int? durationMinutes;
+
+  /// Whether this step has a defined target duration.
+  bool get isTimed => durationMinutes != null;
+
+  /// Target duration as a [Duration]. Returns null when untimed.
+  Duration? get targetDuration =>
+      durationMinutes != null ? Duration(minutes: durationMinutes!) : null;
 
   /// Returns true if this step is suitable for the given energy level (1-5).
   bool matchesEnergy(int energy) {
@@ -65,6 +80,7 @@ class TinyStep {
     int? minEnergyLevel,
     int? maxEnergyLevel,
     int? durationMinutes,
+    bool clearDuration = false,
   }) {
     return TinyStep(
       id: id ?? this.id,
@@ -73,7 +89,7 @@ class TinyStep {
       category: category ?? this.category,
       minEnergyLevel: minEnergyLevel ?? this.minEnergyLevel,
       maxEnergyLevel: maxEnergyLevel ?? this.maxEnergyLevel,
-      durationMinutes: durationMinutes ?? this.durationMinutes,
+      durationMinutes: clearDuration ? null : (durationMinutes ?? this.durationMinutes),
     );
   }
 
@@ -97,7 +113,7 @@ class TinyStep {
       category: TinyStepCategory.fromString(json['category'] as String? ?? 'physical'),
       minEnergyLevel: json['minEnergyLevel'] as int? ?? 1,
       maxEnergyLevel: json['maxEnergyLevel'] as int? ?? 5,
-      durationMinutes: json['durationMinutes'] as int? ?? 1,
+      durationMinutes: json['durationMinutes'] as int?,
     );
   }
 
@@ -125,6 +141,8 @@ class TinyStep {
       durationMinutes.hashCode;
 
   @override
-  String toString() =>
-      'TinyStep(id: $id, title: $title, category: ${category.name}, duration: ${durationMinutes}m)';
+  String toString() {
+    final dur = durationMinutes != null ? '${durationMinutes}m' : 'untimed';
+    return 'TinyStep(id: $id, title: $title, category: ${category.name}, duration: $dur)';
+  }
 }

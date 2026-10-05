@@ -28,13 +28,11 @@ class RespirationSoundscapes {
   }
 }
 
-/// Reactive controller driving clinical cyclic sighing (4s inhale / 8s exhale)
-/// cadence, synchronized haptic cues, and gapless offline soundscapes.
+/// Reactive controller driving multi-technique respiration (Cyclic Sighing, Box,
+/// Resonance, 4-7-8, Star, Diaphragmatic), synchronized haptic cues, and gapless audio.
 class BreathingSessionNotifier extends StateNotifier<BreathingSessionState> {
   final AudioPlayerPort _audioPlayer;
   final HapticsPort _haptics;
-  final Duration inhaleDuration;
-  final Duration exhaleDuration;
   final Duration tickerInterval;
 
   Timer? _timer;
@@ -45,16 +43,27 @@ class BreathingSessionNotifier extends StateNotifier<BreathingSessionState> {
   BreathingSessionNotifier({
     required AudioPlayerPort audioPlayer,
     required HapticsPort haptics,
-    this.inhaleDuration = const Duration(seconds: 4),
-    this.exhaleDuration = const Duration(seconds: 8),
     this.tickerInterval = const Duration(milliseconds: 50),
+    BreathingTechnique initialTechnique = BreathingTechnique.cyclicSighing,
     String? defaultSoundscape,
   })  : _audioPlayer = audioPlayer,
         _haptics = haptics,
         super(BreathingSessionState(
           phase: BreathingPhase.inhale,
+          technique: initialTechnique,
           soundscape: defaultSoundscape,
         ));
+
+  /// Selects or changes the active breathing technique.
+  void setTechnique(BreathingTechnique technique) {
+    if (_isDisposed) return;
+    _elapsedPhaseMs = 0;
+    state = state.copyWith(
+      technique: technique,
+      phase: BreathingPhase.inhale,
+      phaseProgress: 0.0,
+    );
+  }
 
   /// Starts or restarts a breathing session.
   Future<void> start() async {
@@ -160,29 +169,11 @@ class BreathingSessionNotifier extends StateNotifier<BreathingSessionState> {
     _elapsedPhaseMs += tickerInterval.inMilliseconds;
     _totalElapsedMs += tickerInterval.inMilliseconds;
 
-    final targetPhaseMs = state.phase == BreathingPhase.inhale
-        ? inhaleDuration.inMilliseconds
-        : exhaleDuration.inMilliseconds;
+    final targetPhaseMs = _getTargetDurationMs(state.phase, state.technique);
 
     if (_elapsedPhaseMs >= targetPhaseMs) {
       _elapsedPhaseMs = 0;
-      if (state.phase == BreathingPhase.inhale) {
-        state = state.copyWith(
-          phase: BreathingPhase.exhale,
-          phaseProgress: 0.0,
-          elapsedSeconds: _totalElapsedMs ~/ 1000,
-        );
-        _triggerExhaleHaptics();
-      } else {
-        final newCycleCount = state.cycleCount + 1;
-        state = state.copyWith(
-          phase: BreathingPhase.inhale,
-          phaseProgress: 0.0,
-          cycleCount: newCycleCount,
-          elapsedSeconds: _totalElapsedMs ~/ 1000,
-        );
-        _triggerInhaleHaptics();
-      }
+      _advancePhase();
     } else {
       final progress = (_elapsedPhaseMs / targetPhaseMs).clamp(0.0, 1.0);
       state = state.copyWith(
@@ -192,20 +183,98 @@ class BreathingSessionNotifier extends StateNotifier<BreathingSessionState> {
     }
   }
 
+  int _getTargetDurationMs(BreathingPhase phase, BreathingTechnique technique) {
+    switch (phase) {
+      case BreathingPhase.inhale:
+        return technique.inhaleMs;
+      case BreathingPhase.inhaleHold:
+        return technique.inhaleHoldMs > 0 ? technique.inhaleHoldMs : 50;
+      case BreathingPhase.exhale:
+        return technique.exhaleMs;
+      case BreathingPhase.exhaleHold:
+        return technique.exhaleHoldMs > 0 ? technique.exhaleHoldMs : 50;
+    }
+  }
+
+  void _advancePhase() {
+    final tech = state.technique;
+    switch (state.phase) {
+      case BreathingPhase.inhale:
+        if (tech.inhaleHoldMs > 0) {
+          state = state.copyWith(
+            phase: BreathingPhase.inhaleHold,
+            phaseProgress: 0.0,
+            elapsedSeconds: _totalElapsedMs ~/ 1000,
+          );
+          _triggerHoldHaptics();
+        } else {
+          state = state.copyWith(
+            phase: BreathingPhase.exhale,
+            phaseProgress: 0.0,
+            elapsedSeconds: _totalElapsedMs ~/ 1000,
+          );
+          _triggerExhaleHaptics();
+        }
+        break;
+
+      case BreathingPhase.inhaleHold:
+        state = state.copyWith(
+          phase: BreathingPhase.exhale,
+          phaseProgress: 0.0,
+          elapsedSeconds: _totalElapsedMs ~/ 1000,
+        );
+        _triggerExhaleHaptics();
+        break;
+
+      case BreathingPhase.exhale:
+        if (tech.exhaleHoldMs > 0) {
+          state = state.copyWith(
+            phase: BreathingPhase.exhaleHold,
+            phaseProgress: 0.0,
+            elapsedSeconds: _totalElapsedMs ~/ 1000,
+          );
+          _triggerHoldHaptics();
+        } else {
+          final newCount = state.cycleCount + 1;
+          state = state.copyWith(
+            phase: BreathingPhase.inhale,
+            phaseProgress: 0.0,
+            cycleCount: newCount,
+            elapsedSeconds: _totalElapsedMs ~/ 1000,
+          );
+          _triggerInhaleHaptics();
+        }
+        break;
+
+      case BreathingPhase.exhaleHold:
+        final newCount = state.cycleCount + 1;
+        state = state.copyWith(
+          phase: BreathingPhase.inhale,
+          phaseProgress: 0.0,
+          cycleCount: newCount,
+          elapsedSeconds: _totalElapsedMs ~/ 1000,
+        );
+        _triggerInhaleHaptics();
+        break;
+    }
+  }
+
   void _triggerInhaleHaptics() {
     try {
       _haptics.phaseTransitionInhale();
-    } catch (_) {
-      // Audio/haptics failures are contained and never disrupt respiration
-    }
+    } catch (_) {}
   }
 
   void _triggerExhaleHaptics() {
     try {
       _haptics.phaseTransitionExhale();
-    } catch (_) {
-      // Contained
-    }
+    } catch (_) {}
+  }
+
+  void _triggerHoldHaptics() {
+    try {
+      _haptics.selectionClick();
+    } catch (_) {}
   }
 
   Future<void> _playCurrentSoundscape() async {
@@ -217,9 +286,7 @@ class BreathingSessionNotifier extends StateNotifier<BreathingSessionState> {
         await _audioPlayer.fadeIn(duration: const Duration(milliseconds: 300));
         await _audioPlayer.play();
       }
-    } catch (_) {
-      // Audio errors fail silently per NFR
-    }
+    } catch (_) {}
   }
 
   Future<void> _fadeInAudio() async {
@@ -228,25 +295,19 @@ class BreathingSessionNotifier extends StateNotifier<BreathingSessionState> {
         await _audioPlayer.fadeIn(duration: const Duration(milliseconds: 300));
         await _audioPlayer.play();
       }
-    } catch (_) {
-      // Silent failure
-    }
+    } catch (_) {}
   }
 
   Future<void> _fadeOutAudio() async {
     try {
       await _audioPlayer.fadeOut(duration: const Duration(milliseconds: 300));
-    } catch (_) {
-      // Silent failure
-    }
+    } catch (_) {}
   }
 
   Future<void> _stopAudio() async {
     try {
       await _audioPlayer.stop();
-    } catch (_) {
-      // Silent failure
-    }
+    } catch (_) {}
   }
 
   @override
@@ -261,7 +322,7 @@ class BreathingSessionNotifier extends StateNotifier<BreathingSessionState> {
   }
 }
 
-/// Riverpod provider managing reactive cyclic sighing respiration sessions.
+/// Riverpod provider managing reactive respiration sessions.
 final breathingSessionControllerProvider = StateNotifierProvider.autoDispose<
     BreathingSessionNotifier, BreathingSessionState>((ref) {
   final audioPlayer = ref.watch(audioPlayerPortProvider);

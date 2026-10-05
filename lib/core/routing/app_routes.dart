@@ -14,4 +14,7 @@ abstract final class AppRoutes {
   static const progress = '/home/progress';
   static const loneliness = '/home/loneliness';
   static const soundscapes = '/home/soundscapes';
+  static const pmr = '/home/pmr';
+  static const rightNow = '/home/right-now';
+  static const tinyStepActivity = '/tiny-step/:id';
 }

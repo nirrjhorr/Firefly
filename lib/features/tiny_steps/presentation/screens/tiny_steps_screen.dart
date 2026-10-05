@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/animation_tokens.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -57,7 +58,11 @@ class TinyStepsScreen extends ConsumerWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: Icon(AppIcons.back, color: colors.textSecondary, size: IconSizeTokens.appAction),
+          icon: Icon(
+            AppIcons.back,
+            color: colors.textSecondary,
+            size: IconSizeTokens.appAction,
+          ),
           tooltip: 'Return to Home',
           onPressed: () {
             if (context.canPop()) {
@@ -73,7 +78,11 @@ class TinyStepsScreen extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(AppIcons.refresh, color: colors.textSecondary, size: IconSizeTokens.appAction),
+            icon: Icon(
+              AppIcons.refresh,
+              color: colors.textSecondary,
+              size: IconSizeTokens.appAction,
+            ),
             tooltip: 'Try different options',
             onPressed: () => controller.shuffle(),
           ),
@@ -84,7 +93,9 @@ class TinyStepsScreen extends ConsumerWidget {
             ? Center(
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(colors.accentPrimary),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    colors.accentPrimary,
+                  ),
                 ),
               )
             : SingleChildScrollView(
@@ -118,7 +129,9 @@ class TinyStepsScreen extends ConsumerWidget {
                     if (state.hasCompleted) ...[
                       FireflyCard(
                         variant: FireflyCardVariant.raised,
-                        padding: const EdgeInsets.all(SpacingTokens.cardPadding),
+                        padding: const EdgeInsets.all(
+                          SpacingTokens.cardPadding,
+                        ),
                         borderColor: colors.accentPrimary.withOpacity(0.35),
                         backgroundColor: colors.accentPrimary.withOpacity(0.12),
                         child: Column(
@@ -148,9 +161,11 @@ class TinyStepsScreen extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: FireflyButton(
-                                    variant: FireflyButtonVariant.smallSecondary,
+                                    variant:
+                                        FireflyButtonVariant.smallSecondary,
                                     text: 'Do another step',
-                                    onPressed: () => controller.resetCompleted(),
+                                    onPressed: () =>
+                                        controller.resetCompleted(),
                                   ),
                                 ),
                                 const SizedBox(width: SpacingTokens.elementGap),
@@ -179,14 +194,22 @@ class TinyStepsScreen extends ConsumerWidget {
                     ...state.candidates.map((step) {
                       final isCompleted = state.completedStepId == step.id;
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: SpacingTokens.elementGap),
+                        padding: const EdgeInsets.only(
+                          bottom: SpacingTokens.elementGap,
+                        ),
                         child: _MicroActionCard(
                           step: step,
                           isCompleted: isCompleted,
                           iconData: _getCategoryIcon(step.category),
-                          onComplete: () async {
-                            await _triggerWarmDoubleTapHaptic();
-                            controller.completeStep(step.id);
+                          onComplete: () {
+                            if (!isCompleted) {
+                              context.push(
+                                AppRoutes.tinyStepActivity.replaceFirst(
+                                  ':id',
+                                  step.id,
+                                ),
+                              );
+                            }
                           },
                         ),
                       );
@@ -230,7 +253,9 @@ class _MicroActionCard extends StatelessWidget {
     final colors = context.colors;
 
     return FireflyCard(
-      variant: isCompleted ? FireflyCardVariant.raised : FireflyCardVariant.interactive,
+      variant: isCompleted
+          ? FireflyCardVariant.raised
+          : FireflyCardVariant.interactive,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       borderColor: isCompleted ? colors.accentPrimary : colors.borderSubtle,
       backgroundColor: isCompleted
@@ -254,7 +279,9 @@ class _MicroActionCard extends StatelessWidget {
                 ),
                 child: Icon(
                   isCompleted ? AppIcons.check : iconData,
-                  color: isCompleted ? colors.accentPrimary : colors.textSecondary,
+                  color: isCompleted
+                      ? colors.accentPrimary
+                      : colors.textSecondary,
                   size: IconSizeTokens.standard,
                 ),
               ),
@@ -267,7 +294,9 @@ class _MicroActionCard extends StatelessWidget {
                       step.title,
                       style: AppTypography.headingSm.copyWith(
                         color: colors.textPrimary,
-                        decoration: isCompleted ? TextDecoration.lineThrough : null,
+                        decoration: isCompleted
+                            ? TextDecoration.lineThrough
+                            : null,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -287,35 +316,43 @@ class _MicroActionCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Duration indicator
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: colors.surfaceSubtle,
-                  borderRadius: BorderRadius.circular(RadiusTokens.xs),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      AppIcons.timer,
-                      size: IconSizeTokens.xs,
-                      color: colors.textSecondary,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      '≤ ${step.durationMinutes} min',
-                      style: AppTypography.labelSm.copyWith(
+              if (step.isTimed)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colors.surfaceSubtle,
+                    borderRadius: BorderRadius.circular(RadiusTokens.xs),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        AppIcons.timer,
+                        size: IconSizeTokens.xs,
                         color: colors.textSecondary,
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '≤ ${step.durationMinutes} min',
+                        style: AppTypography.labelSm.copyWith(
+                          color: colors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                const SizedBox.shrink(),
 
               // Completion prompt text
               Text(
-                isCompleted ? 'Completed' : 'Tap to mark done',
+                isCompleted ? 'Completed' : 'Tap to start',
                 style: AppTypography.caption.copyWith(
-                  color: isCompleted ? colors.accentPrimary : colors.textSecondary,
+                  color: isCompleted
+                      ? colors.accentPrimary
+                      : colors.textSecondary,
                   fontWeight: isCompleted ? FontWeight.w700 : FontWeight.normal,
                 ),
               ),
