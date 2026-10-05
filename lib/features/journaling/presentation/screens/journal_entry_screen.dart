@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../controllers/journal_editor_controller.dart';
@@ -131,13 +133,13 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
         _handleBackNavigation(context, editorState, controller);
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFF111518),
+        backgroundColor: colors.bgCanvasDeep,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF111518),
+          backgroundColor: colors.bgCanvasDeep,
           elevation: 0,
           scrolledUnderElevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: colors.textSecondary, size: 20),
+            icon: Icon(AppIcons.back, color: colors.textSecondary, size: IconSizeTokens.appAction),
             tooltip: 'Back to reflections',
             onPressed: () => _handleBackNavigation(context, editorState, controller),
           ),
@@ -391,9 +393,9 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
                               : null,
                         ),
                         child: Icon(
-                          isListening ? Icons.mic : Icons.mic_none,
+                          isListening ? AppIcons.audio : AppIcons.audio,
                           color: isListening ? colors.actionSage : colors.textSecondary,
-                          size: 22,
+                          size: IconSizeTokens.appAction,
                         ),
                       );
                     },
@@ -417,7 +419,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
                   child: FireflyButton(
                     text: 'Burn Now',
                     variant: FireflyButtonVariant.crisis,
-                    icon: Icons.local_fire_department,
+                    icon: AppIcons.burnFlame,
                     onPressed: () => _confirmBurn(context, controller),
                   ),
                 ),
@@ -441,7 +443,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
         backgroundColor: colors.surfaceCard,
         title: Row(
           children: [
-            Icon(Icons.local_fire_department, color: colors.crisisRed, size: 24),
+            Icon(AppIcons.burnFlame, color: colors.crisisRed, size: IconSizeTokens.standard),
             const SizedBox(width: 8),
             Text(
               'Burn Unsent Letter?',

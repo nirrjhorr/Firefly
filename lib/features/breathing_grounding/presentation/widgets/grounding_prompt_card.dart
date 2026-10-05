@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
@@ -52,11 +54,11 @@ class GroundingPromptCard extends StatelessWidget {
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.spaceLg,
+          horizontal: SpacingTokens.screenPaddingH,
           vertical: SpacingTokens.spaceMd,
         ),
         child: FireflyCard(
-          padding: const EdgeInsets.all(SpacingTokens.spaceXl),
+          padding: const EdgeInsets.all(SpacingTokens.cardPaddingLg),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -72,7 +74,7 @@ class GroundingPromptCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: colors.actionSage.withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(RadiusTokens.pill),
                     ),
                     child: Text(
                       'STEP ${state.currentStageIndex + 1} OF ${state.stages.length}',
@@ -89,10 +91,9 @@ class GroundingPromptCard extends StatelessWidget {
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                         horizontal: SpacingTokens.spaceSm,
-                        vertical: SpacingTokens.space2xs,
+                        vertical: SpacingTokens.spaceXs,
                       ),
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      minimumSize: const Size(44, 44),
                     ),
                     child: Text(
                       'Skip sense',
@@ -174,7 +175,7 @@ class GroundingPromptCard extends StatelessWidget {
                   child: InkWell(
                     key: Key('grounding_item_${state.currentStageIndex}_$index'),
                     onTap: isNoticed ? null : onNoticeItem,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(RadiusTokens.sm),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       padding: const EdgeInsets.symmetric(
@@ -185,7 +186,7 @@ class GroundingPromptCard extends StatelessWidget {
                         color: isNoticed
                             ? colors.actionSage.withOpacity(0.08)
                             : colors.surfaceSubtle,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(RadiusTokens.sm),
                         border: Border.all(
                           color: isNoticed
                               ? colors.actionSage.withOpacity(0.3)
@@ -197,9 +198,9 @@ class GroundingPromptCard extends StatelessWidget {
                         children: [
                           Icon(
                             isNoticed
-                                ? Icons.check_circle
-                                : Icons.radio_button_unchecked,
-                            size: 20,
+                                ? AppIcons.checkCircleFilled
+                                : Icons.radio_button_unchecked_rounded,
+                            size: IconSizeTokens.appAction,
                             color: isNoticed
                                 ? colors.actionSage
                                 : colors.textSecondary,
@@ -231,27 +232,12 @@ class GroundingPromptCard extends StatelessWidget {
 
               // Gentle Tap-to-Notice Action when not all noticed
               if (!isStageComplete) ...[
-                OutlinedButton.icon(
+                FireflyButton(
                   key: const Key('grounding_notice_tap_button'),
+                  text: 'Notice another (${target - noticed} left)',
+                  icon: Icons.touch_app_rounded,
+                  variant: FireflyButtonVariant.secondary,
                   onPressed: onNoticeItem,
-                  icon: const Icon(Icons.touch_app_outlined, size: 18),
-                  label: Text(
-                    'Notice another (${target - noticed} left)',
-                    style: AppTypography.labelMd.copyWith(
-                      color: colors.actionSage,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: colors.actionSage,
-                    side: BorderSide(color: colors.actionSage.withOpacity(0.4)),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: SpacingTokens.spaceSm,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
                 ),
                 const SizedBox(height: SpacingTokens.spaceMd),
               ],
@@ -263,7 +249,8 @@ class GroundingPromptCard extends StatelessWidget {
                     IconButton(
                       key: const Key('grounding_back_button'),
                       onPressed: onPreviousStage,
-                      icon: const Icon(Icons.arrow_back),
+                      icon: const Icon(AppIcons.back),
+                      iconSize: IconSizeTokens.appAction,
                       tooltip: 'Previous sense',
                       color: colors.textSecondary,
                     ),
@@ -292,6 +279,9 @@ class GroundingPromptCard extends StatelessWidget {
                 child: TextButton(
                   key: const Key('grounding_finish_early_button'),
                   onPressed: onCompleteEarly,
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size(44, 44),
+                  ),
                   child: Text(
                     'Finish now',
                     style: AppTypography.labelSm.copyWith(

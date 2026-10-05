@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
@@ -48,8 +49,8 @@ class GroundingCompletionCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Icon(
-                    Icons.spa_outlined,
-                    size: 36,
+                    AppIcons.progress,
+                    size: IconSizeTokens.lg,
                     color: colors.actionSage,
                   ),
                 ),
@@ -81,7 +82,7 @@ class GroundingCompletionCard extends StatelessWidget {
               // Primary Action: Transition to Slow Breathing
               FireflyButton(
                 text: 'Try Slow Breathing',
-                icon: Icons.air,
+                icon: AppIcons.breathe,
                 onPressed: onTransitionToBreathing,
                 variant: FireflyButtonVariant.primary,
               ),
@@ -90,7 +91,7 @@ class GroundingCompletionCard extends StatelessWidget {
               // Secondary Action: Return Home
               FireflyButton(
                 text: 'Return Home',
-                icon: Icons.home_outlined,
+                icon: AppIcons.homeOutlined,
                 onPressed: onReturnHome,
                 variant: FireflyButtonVariant.secondary,
               ),

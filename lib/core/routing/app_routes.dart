@@ -13,4 +13,5 @@ abstract final class AppRoutes {
   static const tinySteps = '/home/tiny-steps';
   static const progress = '/home/progress';
   static const loneliness = '/home/loneliness';
+  static const soundscapes = '/home/soundscapes';
 }

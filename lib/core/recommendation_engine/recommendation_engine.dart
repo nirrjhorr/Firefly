@@ -19,6 +19,7 @@ abstract final class RecommendationEngine {
         durationMinutes: 2,
         alternativeSuggestions: [
           _groundingSuggestion,
+          _soundscapeSuggestion,
           _tinyStepsSuggestion,
           _journalingSuggestion,
         ],
@@ -133,6 +134,15 @@ abstract final class RecommendationEngine {
         'When everything feels too much, return your focus to your immediate senses, one by one.',
     route: '${AppRoutes.breathe}?mode=grounding',
     durationMinutes: 2,
+  );
+
+  static const _soundscapeSuggestion = ActionSuggestion(
+    actionType: ActionType.soundscape,
+    title: 'Sound Sanctuary',
+    body:
+        'Immerse in offline nature recordings or restorative brown noise for calming rest.',
+    route: AppRoutes.soundscapes,
+    durationMinutes: 10,
   );
 }
 

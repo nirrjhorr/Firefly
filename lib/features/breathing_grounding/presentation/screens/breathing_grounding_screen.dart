@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
+import '../../../../shared/widgets/firefly_segmented_control.dart';
 import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../../domain/models/breathing_session_state.dart';
 import '../controllers/breathing_session_controller.dart';
@@ -76,10 +78,10 @@ class _BreathingGroundingScreenState
           children: [
             Column(
               children: [
-                // Top Header: Navigation back, Mode Segmented Selector, Soundscape
+                // Top Header: Navigation back, Canonical Segmented Selector, Soundscape
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.spaceMd,
+                    horizontal: SpacingTokens.screenPaddingH,
                     vertical: SpacingTokens.spaceSm,
                   ),
                   child: Row(
@@ -87,51 +89,35 @@ class _BreathingGroundingScreenState
                       // Back / Exit icon
                       IconButton(
                         key: const Key('breathing_screen_back_button'),
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(AppIcons.close),
+                        iconSize: IconSizeTokens.appAction,
                         color: colors.textSecondary,
                         tooltip: 'Exit',
                         onPressed: _handleExit,
                       ),
 
-                      // Segmented Mode Selector
+                      // Canonical Sliding Segmented Mode Selector
                       Expanded(
                         child: Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: colors.surfaceSubtle,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: colors.borderSubtle,
-                                width: 1,
+                          child: FireflySegmentedControl<bool>(
+                            items: const [
+                              SegmentItem(
+                                value: false,
+                                label: 'Breathing',
+                                icon: AppIcons.breathe,
                               ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _buildModeTab(
-                                  title: 'Breathing',
-                                  isSelected: !_isGroundingMode,
-                                  onTap: () {
-                                    if (_isGroundingMode) {
-                                      setState(() {
-                                        _isGroundingMode = false;
-                                      });
-                                    }
-                                  },
-                                ),
-                                _buildModeTab(
-                                  title: '5-4-3-2-1',
-                                  isSelected: _isGroundingMode,
-                                  onTap: () {
-                                    if (!_isGroundingMode) {
-                                      setState(() {
-                                        _isGroundingMode = true;
-                                      });
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
+                              SegmentItem(
+                                value: true,
+                                label: '5-4-3-2-1',
+                                icon: AppIcons.progress,
+                              ),
+                            ],
+                            selectedValue: _isGroundingMode,
+                            onValueChanged: (val) {
+                              setState(() {
+                                _isGroundingMode = val;
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -141,9 +127,10 @@ class _BreathingGroundingScreenState
                         key: const Key('breathing_soundscape_button'),
                         icon: Icon(
                           breathingState.soundscape == null
-                              ? Icons.volume_off_outlined
-                              : Icons.graphic_eq,
+                              ? AppIcons.volumeMute
+                              : AppIcons.audioFrequency,
                         ),
+                        iconSize: IconSizeTokens.appAction,
                         color: breathingState.soundscape == null
                             ? colors.textSecondary
                             : colors.actionSage,
@@ -165,7 +152,7 @@ class _BreathingGroundingScreenState
               ],
             ),
 
-            // Persistent SOS Overlay if requested explicitly (e.g. outside shell)
+            // Persistent SOS Overlay if requested explicitly
             if (widget.showSosOverlay)
               const Positioned(
                 bottom: 24,
@@ -173,35 +160,6 @@ class _BreathingGroundingScreenState
                 child: SosOverlayButton(),
               ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildModeTab({
-    required String title,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    final colors = context.colors;
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.spaceMd,
-          vertical: SpacingTokens.spaceXs,
-        ),
-        decoration: BoxDecoration(
-          color: isSelected ? colors.actionSage : Colors.transparent,
-          borderRadius: BorderRadius.circular(18),
-        ),
-        child: Text(
-          title,
-          style: AppTypography.labelSm.copyWith(
-            color: isSelected ? colors.textInverse : colors.textSecondary,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-          ),
         ),
       ),
     );
@@ -230,7 +188,7 @@ class _BreathingGroundingScreenState
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.spaceLg),
+      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.screenPaddingH),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -264,17 +222,19 @@ class _BreathingGroundingScreenState
               progress: state.phaseProgress,
               phase: state.phase,
               size: 280,
+              inhaleColor: colors.actionSage,
+              exhaleColor: colors.accentSecondary,
               child: state.isActive
                   ? null
                   : Icon(
-                      Icons.play_arrow_rounded,
-                      size: 48,
+                      AppIcons.play,
+                      size: IconSizeTokens.hero,
                       color: colors.actionSage.withOpacity(0.6),
                     ),
             ),
           ),
 
-          // Cycle count (Minimalist caption style, no streaks)
+          // Cycle count
           Column(
             children: [
               Text(
@@ -293,7 +253,7 @@ class _BreathingGroundingScreenState
               FireflyButton(
                 key: const Key('breathing_play_pause_button'),
                 text: state.isActive ? 'Pause' : 'Begin Breathing',
-                icon: state.isActive ? Icons.pause : Icons.play_arrow,
+                icon: state.isActive ? AppIcons.pause : AppIcons.play,
                 onPressed: () => notifier.togglePlayPause(),
                 variant: FireflyButtonVariant.primary,
               ),

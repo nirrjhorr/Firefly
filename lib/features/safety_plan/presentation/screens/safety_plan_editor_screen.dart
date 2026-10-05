@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
+import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../controllers/safety_plan_controller.dart';
@@ -47,6 +50,9 @@ class _SafetyPlanEditorScreenState
       builder: (dialogContext) {
         return AlertDialog(
           backgroundColor: context.colors.surfaceCard,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(RadiusTokens.dialog),
+          ),
           title: Text(
             isProfessional ? 'Add Professional Contact' : 'Add Support Contact',
             style: AppTypography.headingMd.copyWith(
@@ -63,7 +69,7 @@ class _SafetyPlanEditorScreenState
                     labelText: 'Full Name / Service Name',
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: SpacingTokens.spaceSm),
                 TextField(
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
@@ -71,7 +77,7 @@ class _SafetyPlanEditorScreenState
                     labelText: 'Phone Number',
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: SpacingTokens.spaceSm),
                 TextField(
                   controller: relationshipController,
                   decoration: InputDecoration(
@@ -93,6 +99,9 @@ class _SafetyPlanEditorScreenState
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.colors.actionSage,
                 foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(RadiusTokens.buttonSecondary),
+                ),
               ),
               onPressed: () {
                 if (nameController.text.trim().isNotEmpty) {
@@ -144,24 +153,27 @@ class _SafetyPlanEditorScreenState
         ),
         backgroundColor: colors.bgCanvasDeep,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colors.textPrimary),
+          icon: Icon(AppIcons.back, color: colors.textPrimary, size: IconSizeTokens.appAction),
           onPressed: () => context.pop(),
         ),
       ),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.screenPaddingH,
+            vertical: SpacingTokens.screenPaddingV,
+          ),
           children: [
             Text(
               'Your Personalized Plan',
               style: AppTypography.headingLg.copyWith(color: colors.textPrimary),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: SpacingTokens.spaceXs),
             Text(
               'Changes are automatically saved to your encrypted device database.',
               style: AppTypography.bodySm.copyWith(color: colors.textSecondary),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: SpacingTokens.sectionGap),
 
             // Step 1: Warning Signs
             _buildSectionHeader(
@@ -172,14 +184,14 @@ class _SafetyPlanEditorScreenState
             ),
             ...plan.warnings.map(
               (w) => Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(bottom: SpacingTokens.spaceXs),
                 child: FireflyCard(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Row(
                     children: [
-                      Icon(Icons.warning_amber_rounded,
-                          color: colors.crisisCoral, size: 20),
-                      const SizedBox(width: 12),
+                      Icon(AppIcons.warning,
+                          color: colors.crisisCoral, size: IconSizeTokens.appAction),
+                      const SizedBox(width: SpacingTokens.spaceSm),
                       Expanded(
                         child: Text(
                           w.warningText,
@@ -189,7 +201,7 @@ class _SafetyPlanEditorScreenState
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.close, color: colors.textSecondary, size: 18),
+                        icon: Icon(AppIcons.close, color: colors.textSecondary, size: IconSizeTokens.sm),
                         onPressed: () => ref
                             .read(safetyPlanControllerProvider.notifier)
                             .removeWarningSign(w.id),
@@ -209,18 +221,18 @@ class _SafetyPlanEditorScreenState
                       hintStyle: AppTypography.bodySm.copyWith(color: colors.textSecondary),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(RadiusTokens.input),
                         borderSide: BorderSide(color: colors.borderSubtle),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: SpacingTokens.spaceXs),
                 IconButton.filled(
                   style: IconButton.styleFrom(
                     backgroundColor: colors.actionSage,
                   ),
-                  icon: const Icon(Icons.add, color: Colors.white),
+                  icon: Icon(AppIcons.add, color: Colors.white, size: IconSizeTokens.appAction),
                   onPressed: () {
                     final text = _warningInputController.text.trim();
                     if (text.isNotEmpty) {
@@ -274,10 +286,10 @@ class _SafetyPlanEditorScreenState
             FireflyButton(
               text: 'Add Support Contact',
               variant: FireflyButtonVariant.secondary,
-              icon: Icons.person_add_alt,
+              icon: AppIcons.contactAdd,
               onPressed: () => _showAddContactDialog(context, isProfessional: false),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: SpacingTokens.sectionGap),
 
             // Step 5: Professionals & Crisis Lines
             _buildSectionHeader(
@@ -292,10 +304,10 @@ class _SafetyPlanEditorScreenState
             FireflyButton(
               text: 'Add Professional Contact',
               variant: FireflyButtonVariant.secondary,
-              icon: Icons.medical_services_outlined,
+              icon: AppIcons.emergencyShield,
               onPressed: () => _showAddContactDialog(context, isProfessional: true),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: SpacingTokens.sectionGap),
 
             // Step 6: Environment Safety
             _buildStepEditorCard(
@@ -308,14 +320,15 @@ class _SafetyPlanEditorScreenState
                       orElse: () => plan.steps.first)
                   .stepContent,
             ),
-            const SizedBox(height: 36),
+            const SizedBox(height: SpacingTokens.spaceXl),
 
             FireflyButton(
               text: 'Done Editing',
               variant: FireflyButtonVariant.primary,
+              icon: AppIcons.check,
               onPressed: () => context.pop(),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: SpacingTokens.spaceLg),
           ],
         ),
       ),
@@ -397,13 +410,13 @@ class _SafetyPlanEditorScreenState
                 .updateStepContent(stepNumber, val);
           },
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(16),
+            contentPadding: const EdgeInsets.all(SpacingTokens.spaceMd),
             hintText: 'Describe strategies or specifics for this step...',
             hintStyle: AppTypography.bodySm.copyWith(color: colors.textSecondary),
             filled: true,
             fillColor: colors.surfaceCard,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(RadiusTokens.card),
               borderSide: BorderSide(color: colors.borderSubtle),
             ),
           ),
@@ -424,12 +437,12 @@ class _SafetyPlanEditorScreenState
           children: [
             Icon(
               contact.isProfessional
-                  ? Icons.local_hospital_outlined
-                  : Icons.person_outline,
+                  ? AppIcons.emergencyShield
+                  : AppIcons.contactAdd,
               color: colors.actionSage,
-              size: 24,
+              size: IconSizeTokens.standard,
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: SpacingTokens.spaceSm),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,7 +470,7 @@ class _SafetyPlanEditorScreenState
               ),
             ),
             IconButton(
-              icon: Icon(Icons.delete_outline, color: colors.crisisCoral, size: 20),
+              icon: Icon(AppIcons.delete, color: colors.crisisCoral, size: IconSizeTokens.appAction),
               onPressed: () => ref
                   .read(safetyPlanControllerProvider.notifier)
                   .removeContact(contact.id),

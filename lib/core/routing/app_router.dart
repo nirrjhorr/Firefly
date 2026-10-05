@@ -15,6 +15,7 @@ import '../../features/onboarding/presentation/screens/splash_screen.dart';
 import '../../features/safety_plan/presentation/screens/panic_blank_screen.dart';
 import '../../features/safety_plan/presentation/screens/safety_plan_editor_screen.dart';
 import '../../features/safety_plan/presentation/screens/safety_plan_screen.dart';
+import '../../features/soundscapes/presentation/screens/soundscape_library_screen.dart';
 import '../../features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
@@ -124,6 +125,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.loneliness,
             builder: (context, state) => const LonelinessComfortScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.soundscapes,
+            builder: (context, state) => const SoundscapeLibraryScreen(),
           ),
         ],
       ),

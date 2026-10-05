@@ -101,11 +101,25 @@ abstract final class AppTypography {
     fontWeight: FontWeight.w400,
   );
 
+  static const headingSm = TextStyle(
+    fontFamily: 'AtkinsonHyperlegible',
+    fontSize: 16,
+    height: 1.35,
+    letterSpacing: 0,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const labelSm = TextStyle(
+    fontFamily: 'AtkinsonHyperlegible',
+    fontSize: 12,
+    height: 1.4,
+    letterSpacing: 0.36,
+    fontWeight: FontWeight.w700,
+  );
+
   // ── Compatibility Aliases ────────────────────────────────────────────────────
-  static const headingSm = headingMd;
   static const headlineSm = headingMd;
   static const headlineLg = headingLg;
-  static const labelSm = caption;
 
   /// Maps AppTypography to Flutter's Material TextTheme
   static TextTheme toTextTheme(Color defaultColor) => TextTheme(

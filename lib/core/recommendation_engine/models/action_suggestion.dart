@@ -6,7 +6,8 @@ enum ActionType {
   lonelinessComfort,
   grounding,
   journaling,
-  hopeBox;
+  hopeBox,
+  soundscape;
 
   static ActionType fromString(String value) {
     return ActionType.values.firstWhere(

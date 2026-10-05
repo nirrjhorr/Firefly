@@ -5,6 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
+import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../controllers/safety_plan_controller.dart';
@@ -69,7 +72,7 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
         backgroundColor: colors.bgCanvasDeep,
         actions: [
           IconButton(
-            icon: Icon(Icons.edit_outlined, color: colors.actionSage),
+            icon: Icon(AppIcons.edit, color: colors.actionSage, size: IconSizeTokens.appAction),
             tooltip: 'Edit Plan',
             onPressed: () => context.push(AppRoutes.safetyPlanEditor),
           ),
@@ -80,7 +83,10 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.screenPaddingH,
+                  vertical: SpacingTokens.screenPaddingV,
+                ),
                 children: [
                   Text(
                     'Stored 100% offline & encrypted',
@@ -88,14 +94,14 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                       color: colors.textSecondary,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: SpacingTokens.spaceMd),
 
                   // Emergency Crisis Lines Quick Bar
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(SpacingTokens.cardPadding),
                     decoration: BoxDecoration(
                       color: colors.crisisSurface,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(RadiusTokens.card),
                       border: Border.all(
                         color: colors.crisisCoral.withOpacity(0.35),
                       ),
@@ -106,11 +112,11 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                         Row(
                           children: [
                             Icon(
-                              Icons.emergency,
+                              AppIcons.emergencyShield,
                               color: colors.crisisCoral,
-                              size: 22,
+                              size: IconSizeTokens.standard,
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: SpacingTokens.spaceSm),
                             Text(
                               'Immediate Crisis Support (24/7)',
                               style: AppTypography.headingMd.copyWith(
@@ -119,7 +125,7 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: SpacingTokens.spaceMd),
                         Row(
                           children: [
                             Expanded(
@@ -127,28 +133,28 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: colors.crisisCoral,
                                   foregroundColor: Colors.white,
-                                  minimumSize: const Size(0, 48),
+                                  minimumSize: const Size(0, SpacingTokens.buttonHeightSecondary),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(RadiusTokens.buttonSecondary),
                                   ),
                                 ),
-                                icon: const Icon(Icons.phone, size: 18),
+                                icon: Icon(AppIcons.phone, size: IconSizeTokens.md),
                                 label: const Text('Call 988'),
                                 onPressed: () => _launchCall('988'),
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: SpacingTokens.spaceSm),
                             Expanded(
                               child: OutlinedButton.icon(
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: colors.crisisCoral,
                                   side: BorderSide(color: colors.crisisCoral),
-                                  minimumSize: const Size(0, 48),
+                                  minimumSize: const Size(0, SpacingTokens.buttonHeightSecondary),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(RadiusTokens.buttonSecondary),
                                   ),
                                 ),
-                                icon: const Icon(Icons.sms, size: 18),
+                                icon: Icon(AppIcons.sms, size: IconSizeTokens.md),
                                 label: const Text('Text 741741'),
                                 onPressed: () => _launchSms(
                                   '741741',
@@ -161,7 +167,7 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: SpacingTokens.spaceLg),
 
                   // Step 1: Warning Signs
                   _buildAccordionCard(
@@ -312,26 +318,29 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                   FireflyButton(
                     text: 'Edit My Plan',
                     variant: FireflyButtonVariant.secondary,
-                    icon: Icons.edit,
+                    icon: AppIcons.edit,
                     onPressed: () => context.push(AppRoutes.safetyPlanEditor),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: SpacingTokens.spaceMd),
                 ],
               ),
             ),
 
             // Persistent Non-Clinical Advisory Footer
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.screenPaddingH,
+                vertical: SpacingTokens.spaceSm,
+              ),
               color: colors.surfaceSubtle,
               child: Row(
                 children: [
                   Icon(
-                    Icons.info_outline,
+                    AppIcons.info,
                     color: colors.textSecondary,
-                    size: 18,
+                    size: IconSizeTokens.md,
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: SpacingTokens.spaceSm),
                   Expanded(
                     child: Text(
                       'Firefly supports — it does not replace professional care.',
@@ -416,10 +425,10 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(SpacingTokens.spaceSm),
         decoration: BoxDecoration(
           color: colors.bgCanvasDeep,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(RadiusTokens.card),
           border: Border.all(color: colors.borderSubtle),
         ),
         child: Row(
@@ -455,16 +464,16 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                 style: IconButton.styleFrom(
                   backgroundColor: colors.actionSage.withOpacity(0.2),
                 ),
-                icon: Icon(Icons.call, color: colors.actionSage, size: 20),
+                icon: Icon(AppIcons.phone, color: colors.actionSage, size: IconSizeTokens.appAction),
                 tooltip: 'Call ${contact.name}',
                 onPressed: () => _launchCall(contact.phoneNumber),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: SpacingTokens.spaceXs),
               IconButton.filledTonal(
                 style: IconButton.styleFrom(
                   backgroundColor: colors.actionSage.withOpacity(0.2),
                 ),
-                icon: Icon(Icons.sms, color: colors.actionSage, size: 20),
+                icon: Icon(AppIcons.sms, color: colors.actionSage, size: IconSizeTokens.appAction),
                 tooltip: 'Text ${contact.name}',
                 onPressed: () => _launchSms(
                   contact.phoneNumber,

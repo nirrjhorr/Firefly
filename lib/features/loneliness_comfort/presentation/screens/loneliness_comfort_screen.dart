@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
+import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 
@@ -23,7 +26,7 @@ class LonelinessComfortScreen extends StatelessWidget {
         backgroundColor: colors.bgCanvasDeep,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colors.textSecondary),
+          icon: Icon(AppIcons.back, color: colors.textSecondary, size: IconSizeTokens.appAction),
           tooltip: 'Return to Home',
           onPressed: () {
             if (context.canPop()) {
@@ -68,9 +71,9 @@ class LonelinessComfortScreen extends StatelessWidget {
                         color: colors.actionSage.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.air, color: colors.actionSage, size: 24),
+                      child: Icon(AppIcons.breathe, color: colors.actionSage, size: IconSizeTokens.standard),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: SpacingTokens.spaceMd),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,15 +94,15 @@ class LonelinessComfortScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Icon(Icons.chevron_right, color: colors.textSecondary),
+                    Icon(AppIcons.chevronRight, color: colors.textSecondary, size: IconSizeTokens.appAction),
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: SpacingTokens.spaceMd),
 
               // Option 2: Pre-written Reach Out
               FireflyCard(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(SpacingTokens.cardPadding),
                 onTap: () => context.push(AppRoutes.safetyPlan),
                 child: Row(
                   children: [
@@ -110,9 +113,9 @@ class LonelinessComfortScreen extends StatelessWidget {
                         color: colors.accentAmber.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.people_outline, color: colors.accentAmber, size: 24),
+                      child: Icon(AppIcons.contactAdd, color: colors.accentAmber, size: IconSizeTokens.standard),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: SpacingTokens.spaceMd),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,15 +136,15 @@ class LonelinessComfortScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Icon(Icons.chevron_right, color: colors.textSecondary),
+                    Icon(AppIcons.chevronRight, color: colors.textSecondary, size: IconSizeTokens.appAction),
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: SpacingTokens.spaceMd),
 
               // Option 3: Unsent Letter
               FireflyCard(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(SpacingTokens.cardPadding),
                 onTap: () => context.push('${AppRoutes.journal}/new-letter?ttl=24h'),
                 child: Row(
                   children: [
@@ -152,9 +155,9 @@ class LonelinessComfortScreen extends StatelessWidget {
                         color: colors.textSecondary.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.edit_note, color: colors.textPrimary, size: 24),
+                      child: Icon(AppIcons.burnFlame, color: colors.textPrimary, size: IconSizeTokens.standard),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: SpacingTokens.spaceMd),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,11 +178,11 @@ class LonelinessComfortScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Icon(Icons.chevron_right, color: colors.textSecondary),
+                    Icon(AppIcons.chevronRight, color: colors.textSecondary, size: IconSizeTokens.appAction),
                   ],
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: SpacingTokens.sectionGap),
 
               Center(
                 child: FireflyButton(

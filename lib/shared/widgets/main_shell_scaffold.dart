@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/routing/app_routes.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/icon_tokens.dart';
+import '../../core/theme/spacing_tokens.dart';
 import 'sos_overlay_button.dart';
 
 /// Main navigation shell hosting bottom navigation and the persistent SOS overlay.
+/// Crafted with Apple-inspired visual restraint, clear hierarchy, and non-intrusive crisis access.
 class MainShellScaffold extends StatelessWidget {
   const MainShellScaffold({required this.child, super.key});
 
@@ -19,6 +24,7 @@ class MainShellScaffold extends StatelessWidget {
   }
 
   void _onItemTapped(int index, BuildContext context) {
+    HapticFeedback.selectionClick();
     switch (index) {
       case 0:
         context.go(AppRoutes.checkIn);
@@ -40,49 +46,64 @@ class MainShellScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final selectedIndex = _calculateSelectedIndex(context);
 
     return Scaffold(
+      backgroundColor: colors.bgCanvasDeep,
       body: Stack(
         children: [
           child,
           const Positioned(
-            bottom: 24,
-            right: 16,
+            bottom: SpacingTokens.spaceMd,
+            right: SpacingTokens.spaceMd,
             child: SosOverlayButton(),
           ),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: selectedIndex,
-        onDestinationSelected: (idx) => _onItemTapped(idx, context),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.wb_twilight_outlined),
-            selectedIcon: Icon(Icons.wb_twilight),
-            label: 'Check-In',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: colors.surfaceCard,
+          border: Border(
+            top: BorderSide(color: colors.borderSubtle, width: 1.0),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.air_outlined),
-            selectedIcon: Icon(Icons.air),
-            label: 'Breathe',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.edit_note_outlined),
-            selectedIcon: Icon(Icons.edit_note),
-            label: 'Journal',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.directions_walk_outlined),
-            selectedIcon: Icon(Icons.directions_walk),
-            label: 'Tiny Steps',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.spa_outlined),
-            selectedIcon: Icon(Icons.spa),
-            label: 'Progress',
-          ),
-        ],
+        ),
+        child: NavigationBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          height: SpacingTokens.navBarHeight,
+          indicatorColor: colors.actionSage.withOpacity(0.14),
+          selectedIndex: selectedIndex,
+          onDestinationSelected: (idx) => _onItemTapped(idx, context),
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          destinations: [
+            NavigationDestination(
+              icon: Icon(AppIcons.checkIn, color: colors.textSecondary, size: IconSizeTokens.nav),
+              selectedIcon: Icon(AppIcons.checkInSelected, color: colors.actionSage, size: IconSizeTokens.nav),
+              label: 'Check-In',
+            ),
+            NavigationDestination(
+              icon: Icon(AppIcons.breathe, color: colors.textSecondary, size: IconSizeTokens.nav),
+              selectedIcon: Icon(AppIcons.breatheSelected, color: colors.actionSage, size: IconSizeTokens.nav),
+              label: 'Breathe',
+            ),
+            NavigationDestination(
+              icon: Icon(AppIcons.journal, color: colors.textSecondary, size: IconSizeTokens.nav),
+              selectedIcon: Icon(AppIcons.journalSelected, color: colors.actionSage, size: IconSizeTokens.nav),
+              label: 'Journal',
+            ),
+            NavigationDestination(
+              icon: Icon(AppIcons.tinySteps, color: colors.textSecondary, size: IconSizeTokens.nav),
+              selectedIcon: Icon(AppIcons.tinyStepsSelected, color: colors.actionSage, size: IconSizeTokens.nav),
+              label: 'Tiny Steps',
+            ),
+            NavigationDestination(
+              icon: Icon(AppIcons.progress, color: colors.textSecondary, size: IconSizeTokens.nav),
+              selectedIcon: Icon(AppIcons.progressSelected, color: colors.actionSage, size: IconSizeTokens.nav),
+              label: 'Progress',
+            ),
+          ],
+        ),
       ),
     );
   }

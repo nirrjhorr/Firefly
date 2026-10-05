@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
@@ -67,7 +69,7 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.cleaning_services_outlined, color: colors.textSecondary),
+            icon: Icon(AppIcons.purge, color: colors.textSecondary, size: IconSizeTokens.appAction),
             tooltip: 'Purge expired letters',
             onPressed: () async {
               HapticFeedback.lightImpact();
@@ -110,9 +112,9 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
                     children: [
                       Expanded(
                         child: FireflyButton(
-                          text: '+ New Reflection',
+                          text: 'New Reflection',
                           variant: FireflyButtonVariant.primary,
-                          icon: Icons.edit_note,
+                          icon: AppIcons.edit,
                           onPressed: () {
                             context.push('${AppRoutes.journal}/new');
                           },
@@ -123,7 +125,7 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
                         child: FireflyButton(
                           text: 'Unsent Letter',
                           variant: FireflyButtonVariant.secondary,
-                          icon: Icons.local_fire_department_outlined,
+                          icon: AppIcons.burnFlame,
                           onPressed: () {
                             context.push('${AppRoutes.journal}/new-letter?ttl=24h');
                           },
@@ -144,10 +146,10 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
                     decoration: InputDecoration(
                       hintText: 'Search entries by title...',
                       hintStyle: AppTypography.bodyMd.copyWith(color: colors.textTertiary),
-                      prefixIcon: Icon(Icons.search, color: colors.textSecondary, size: 20),
+                      prefixIcon: Icon(AppIcons.search, color: colors.textSecondary, size: IconSizeTokens.appAction),
                       suffixIcon: _searchQuery.isNotEmpty
                           ? IconButton(
-                              icon: Icon(Icons.clear, color: colors.textSecondary, size: 18),
+                              icon: Icon(AppIcons.clear, color: colors.textSecondary, size: IconSizeTokens.md),
                               onPressed: () {
                                 _searchController.clear();
                                 setState(() {
@@ -163,15 +165,15 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
                         vertical: SpacingTokens.spaceSm,
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(RadiusTokens.input),
                         borderSide: BorderSide(color: colors.borderSubtle),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(RadiusTokens.input),
                         borderSide: BorderSide(color: colors.borderSubtle),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(RadiusTokens.input),
                         borderSide: BorderSide(color: colors.actionSage),
                       ),
                     ),
@@ -246,8 +248,8 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
                 border: Border.all(color: colors.borderSubtle),
               ),
               child: Icon(
-                isSearching ? Icons.search_off : Icons.lock_outline,
-                size: 32,
+                isSearching ? AppIcons.search : AppIcons.vaultLock,
+                size: IconSizeTokens.lg,
                 color: colors.actionSage,
               ),
             ),
@@ -303,7 +305,7 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
               ),
               const SizedBox(width: SpacingTokens.spaceXs),
               IconButton(
-                icon: Icon(Icons.delete_outline, color: colors.textTertiary, size: 20),
+                icon: Icon(AppIcons.delete, color: colors.textTertiary, size: IconSizeTokens.appAction),
                 tooltip: 'Delete reflection',
                 onPressed: () => _confirmDelete(context, entry, controller),
               ),
@@ -322,7 +324,7 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
               ),
               if (entry.contentType == 'voice') ...[
                 const SizedBox(width: 4),
-                Icon(Icons.mic, size: 14, color: colors.actionSage),
+                Icon(AppIcons.audio, size: IconSizeTokens.xs, color: colors.actionSage),
               ],
               const Spacer(),
               _buildTtlChip(context, entry),
@@ -341,12 +343,12 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
         decoration: BoxDecoration(
           color: colors.surfaceSubtle,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(RadiusTokens.chip),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.shield_outlined, size: 12, color: colors.textTertiary),
+            Icon(AppIcons.shield, size: IconSizeTokens.xs, color: colors.textTertiary),
             const SizedBox(width: 4),
             Text(
               'Encrypted',
@@ -375,13 +377,13 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: chipColor.withOpacity(0.12),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(RadiusTokens.chip),
         border: Border.all(color: chipColor.withOpacity(0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.local_fire_department, size: 12, color: chipColor),
+          Icon(AppIcons.burnFlame, size: IconSizeTokens.xs, color: chipColor),
           const SizedBox(width: 4),
           Text(
             label,

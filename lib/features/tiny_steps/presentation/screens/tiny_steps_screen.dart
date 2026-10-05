@@ -3,8 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/routing/app_routes.dart';
+import '../../../../core/theme/animation_tokens.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
+import '../../../../core/theme/spacing_tokens.dart';
+import '../../../../shared/widgets/firefly_button.dart';
+import '../../../../shared/widgets/firefly_card.dart';
 import '../../domain/models/tiny_step.dart';
 import '../controllers/tiny_steps_controller.dart';
 
@@ -28,13 +34,13 @@ class TinyStepsScreen extends ConsumerWidget {
   IconData _getCategoryIcon(TinyStepCategory category) {
     switch (category) {
       case TinyStepCategory.sensory:
-        return Icons.visibility_outlined;
+        return AppIcons.sensory;
       case TinyStepCategory.physical:
-        return Icons.accessibility_new_outlined;
+        return AppIcons.physical;
       case TinyStepCategory.environment:
-        return Icons.wb_sunny_outlined;
+        return AppIcons.environment;
       case TinyStepCategory.nourishment:
-        return Icons.water_drop_outlined;
+        return AppIcons.nourishment;
     }
   }
 
@@ -45,12 +51,13 @@ class TinyStepsScreen extends ConsumerWidget {
     final controller = ref.read(tinyStepsControllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: colors.bgCanvas,
+      backgroundColor: colors.bgCanvasDeep,
       appBar: AppBar(
-        backgroundColor: colors.bgCanvas,
+        backgroundColor: colors.bgCanvasDeep,
         elevation: 0,
+        scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colors.textSecondary),
+          icon: Icon(AppIcons.back, color: colors.textSecondary, size: IconSizeTokens.appAction),
           tooltip: 'Return to Home',
           onPressed: () {
             if (context.canPop()) {
@@ -66,7 +73,7 @@ class TinyStepsScreen extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh, color: colors.textSecondary),
+            icon: Icon(AppIcons.refresh, color: colors.textSecondary, size: IconSizeTokens.appAction),
             tooltip: 'Try different options',
             onPressed: () => controller.shuffle(),
           ),
@@ -82,7 +89,12 @@ class TinyStepsScreen extends ConsumerWidget {
               )
             : SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.fromLTRB(
+                  SpacingTokens.screenPaddingH,
+                  SpacingTokens.screenPaddingV,
+                  SpacingTokens.screenPaddingH,
+                  SpacingTokens.bottomClearance,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -93,38 +105,33 @@ class TinyStepsScreen extends ConsumerWidget {
                         color: colors.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: SpacingTokens.spaceXs),
                     Text(
                       'Pick one tiny action that feels possible right now. No expectations, no pressure.',
                       style: AppTypography.bodyMd.copyWith(
                         color: colors.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: SpacingTokens.sectionGap),
 
                     // Compassionate acknowledgement on completion
                     if (state.hasCompleted) ...[
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: colors.accentPrimary.withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: colors.accentPrimary.withOpacity(0.35),
-                          ),
-                        ),
+                      FireflyCard(
+                        variant: FireflyCardVariant.raised,
+                        padding: const EdgeInsets.all(SpacingTokens.cardPadding),
+                        borderColor: colors.accentPrimary.withOpacity(0.35),
+                        backgroundColor: colors.accentPrimary.withOpacity(0.12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
                                 Icon(
-                                  Icons.check_circle_outline,
+                                  AppIcons.check,
                                   color: colors.accentPrimary,
-                                  size: 22,
+                                  size: IconSizeTokens.standard,
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: SpacingTokens.elementGap),
                                 Expanded(
                                   child: Text(
                                     'Momentum started. You can rest now or do another if you feel like it.',
@@ -136,58 +143,43 @@ class TinyStepsScreen extends ConsumerWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 14),
+                            const SizedBox(height: SpacingTokens.elementGap),
                             Row(
                               children: [
-                                OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    foregroundColor: colors.textSecondary,
-                                    side: BorderSide(
-                                      color: colors.textSecondary.withOpacity(0.3),
-                                    ),
-                                    minimumSize: const Size(0, 40),
-                                    padding: const EdgeInsets.symmetric(horizontal: 14),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+                                Expanded(
+                                  child: FireflyButton(
+                                    variant: FireflyButtonVariant.smallSecondary,
+                                    text: 'Do another step',
+                                    onPressed: () => controller.resetCompleted(),
                                   ),
-                                  onPressed: () => controller.resetCompleted(),
-                                  child: const Text('Do another step'),
                                 ),
-                                const SizedBox(width: 10),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: colors.accentPrimary,
-                                    foregroundColor: Colors.white,
-                                    minimumSize: const Size(0, 40),
-                                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+                                const SizedBox(width: SpacingTokens.elementGap),
+                                Expanded(
+                                  child: FireflyButton(
+                                    variant: FireflyButtonVariant.smallPrimary,
+                                    text: 'Rest / Home',
+                                    onPressed: () {
+                                      if (context.canPop()) {
+                                        context.pop();
+                                      } else {
+                                        context.go(AppRoutes.home);
+                                      }
+                                    },
                                   ),
-                                  onPressed: () {
-                                    if (context.canPop()) {
-                                      context.pop();
-                                    } else {
-                                      context.go(AppRoutes.home);
-                                    }
-                                  },
-                                  child: const Text('Rest / Return home'),
                                 ),
                               ],
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: SpacingTokens.sectionGap),
                     ],
 
                     // 3 Candidate Action Cards
                     ...state.candidates.map((step) {
                       final isCompleted = state.completedStepId == step.id;
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
+                        padding: const EdgeInsets.only(bottom: SpacingTokens.elementGap),
                         child: _MicroActionCard(
                           step: step,
                           isCompleted: isCompleted,
@@ -200,46 +192,18 @@ class TinyStepsScreen extends ConsumerWidget {
                       );
                     }),
 
-                    const SizedBox(height: 12),
+                    const SizedBox(height: SpacingTokens.elementGap),
 
                     // Low-pressure Secondary Controls
                     Center(
-                      child: Column(
-                        children: [
-                          OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size(220, 48),
-                              foregroundColor: colors.textSecondary,
-                              side: BorderSide(
-                                color: colors.textSecondary.withOpacity(0.25),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            icon: const Icon(Icons.shuffle, size: 18),
-                            label: const Text('Try different options'),
-                            onPressed: () => controller.shuffle(),
-                          ),
-                          const SizedBox(height: 10),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              minimumSize: const Size(220, 44),
-                              foregroundColor: colors.textMuted,
-                            ),
-                            onPressed: () {
-                              if (context.canPop()) {
-                                context.pop();
-                              } else {
-                                context.go(AppRoutes.home);
-                              }
-                            },
-                            child: const Text("I'll do this later"),
-                          ),
-                        ],
+                      child: FireflyButton(
+                        variant: FireflyButtonVariant.secondary,
+                        isFullWidth: false,
+                        icon: AppIcons.shuffle,
+                        text: 'Shuffle other options',
+                        onPressed: () => controller.shuffle(),
                       ),
                     ),
-                    const SizedBox(height: 24),
                   ],
                 ),
               ),
@@ -248,7 +212,6 @@ class TinyStepsScreen extends ConsumerWidget {
   }
 }
 
-/// Accessible micro-action card (touch target ≥ 72dp) with soft sage fade.
 class _MicroActionCard extends StatelessWidget {
   const _MicroActionCard({
     required this.step,
@@ -266,154 +229,99 @@ class _MicroActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.easeOut,
-      constraints: const BoxConstraints(minHeight: 76),
-      decoration: BoxDecoration(
-        color: isCompleted
-            ? colors.accentPrimary.withOpacity(0.14)
-            : colors.bgSurface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isCompleted
-              ? colors.accentPrimary
-              : colors.bgOverlay,
-          width: isCompleted ? 1.5 : 1.0,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: isCompleted
-                        ? colors.accentPrimary.withOpacity(0.25)
-                        : colors.bgOverlay,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    isCompleted ? Icons.check : iconData,
-                    color: isCompleted ? colors.accentPrimary : colors.textSecondary,
-                    size: 22,
-                  ),
+    return FireflyCard(
+      variant: isCompleted ? FireflyCardVariant.raised : FireflyCardVariant.interactive,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      borderColor: isCompleted ? colors.accentPrimary : colors.borderSubtle,
+      backgroundColor: isCompleted
+          ? colors.accentPrimary.withOpacity(0.14)
+          : colors.surfaceCard,
+      onTap: onComplete,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: isCompleted
+                      ? colors.accentPrimary.withOpacity(0.25)
+                      : colors.surfaceSubtle,
+                  borderRadius: BorderRadius.circular(RadiusTokens.sm),
                 ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        step.title,
-                        style: AppTypography.headingSm.copyWith(
-                          color: colors.textPrimary,
-                          decoration: isCompleted ? TextDecoration.lineThrough : null,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        step.description,
-                        style: AppTypography.bodySm.copyWith(
-                          color: colors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Icon(
+                  isCompleted ? AppIcons.check : iconData,
+                  color: isCompleted ? colors.accentPrimary : colors.textSecondary,
+                  size: IconSizeTokens.standard,
                 ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Duration & category indicators
-                Row(
+              ),
+              const SizedBox(width: SpacingTokens.elementGap),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: colors.bgOverlay,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.timer_outlined,
-                            size: 14,
-                            color: colors.textSecondary,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            '≤ ${step.durationMinutes} min',
-                            style: AppTypography.labelSm.copyWith(
-                              color: colors.textSecondary,
-                            ),
-                          ),
-                        ],
+                    Text(
+                      step.title,
+                      style: AppTypography.headingSm.copyWith(
+                        color: colors.textPrimary,
+                        decoration: isCompleted ? TextDecoration.lineThrough : null,
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: colors.bgOverlay,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        step.category.displayName,
-                        style: AppTypography.labelSm.copyWith(
-                          color: colors.textSecondary,
-                        ),
+                    const SizedBox(height: 4),
+                    Text(
+                      step.description,
+                      style: AppTypography.bodySm.copyWith(
+                        color: colors.textSecondary,
                       ),
                     ),
                   ],
                 ),
-
-                // "I did this" button
-                isCompleted
-                    ? Row(
-                        children: [
-                          Icon(
-                            Icons.check_circle,
-                            color: colors.accentPrimary,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            'Done',
-                            style: AppTypography.labelMd.copyWith(
-                              color: colors.accentPrimary,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      )
-                    : ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: colors.accentPrimary,
-                          foregroundColor: Colors.white,
-                          elevation: 0,
-                          minimumSize: const Size(110, 40),
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        icon: const Icon(Icons.check, size: 16),
-                        label: const Text('I did this'),
-                        onPressed: onComplete,
+              ),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.elementGap),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Duration indicator
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: colors.surfaceSubtle,
+                  borderRadius: BorderRadius.circular(RadiusTokens.xs),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      AppIcons.timer,
+                      size: IconSizeTokens.xs,
+                      color: colors.textSecondary,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '≤ ${step.durationMinutes} min',
+                      style: AppTypography.labelSm.copyWith(
+                        color: colors.textSecondary,
                       ),
-              ],
-            ),
-          ],
-        ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Completion prompt text
+              Text(
+                isCompleted ? 'Completed' : 'Tap to mark done',
+                style: AppTypography.caption.copyWith(
+                  color: isCompleted ? colors.accentPrimary : colors.textSecondary,
+                  fontWeight: isCompleted ? FontWeight.w700 : FontWeight.normal,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

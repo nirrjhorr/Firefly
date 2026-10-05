@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/recommendation_engine/models/action_suggestion.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
+import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 
@@ -26,17 +29,19 @@ class _AffectResultCardState extends State<AffectResultCard> {
   IconData _iconForAction(ActionType action) {
     switch (action) {
       case ActionType.breathing:
-        return Icons.air;
+        return AppIcons.breathe;
       case ActionType.tinySteps:
-        return Icons.touch_app_outlined;
+        return AppIcons.tinySteps;
       case ActionType.lonelinessComfort:
-        return Icons.favorite_border;
+        return Icons.favorite_border_rounded;
       case ActionType.grounding:
-        return Icons.spa_outlined;
+        return AppIcons.progress;
       case ActionType.journaling:
-        return Icons.edit_note_outlined;
+        return AppIcons.journal;
       case ActionType.hopeBox:
         return Icons.inventory_2_outlined;
+      case ActionType.soundscape:
+        return AppIcons.soundWaves;
     }
   }
 
@@ -49,7 +54,7 @@ class _AffectResultCardState extends State<AffectResultCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FireflyCard(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(SpacingTokens.cardPaddingLg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,24 +62,26 @@ class _AffectResultCardState extends State<AffectResultCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.spaceSm,
+                      vertical: SpacingTokens.space2xs,
+                    ),
                     decoration: BoxDecoration(
-                      color: colors.actionSage.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(20),
+                      color: colors.actionSage.withOpacity(0.14),
+                      borderRadius: BorderRadius.circular(RadiusTokens.pill),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
                           _iconForAction(suggestion.actionType),
-                          size: 16,
+                          size: IconSizeTokens.sm,
                           color: colors.actionSage,
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: SpacingTokens.spaceXs),
                         Text(
                           'Recommended Next',
-                          style: AppTypography.caption.copyWith(
+                          style: AppTypography.labelSm.copyWith(
                             color: colors.actionSage,
                             fontWeight: FontWeight.w600,
                           ),
@@ -90,24 +97,24 @@ class _AffectResultCardState extends State<AffectResultCard> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: SpacingTokens.spaceMd),
               Text(
                 suggestion.title,
                 style: AppTypography.headingLg.copyWith(
                   color: colors.textPrimary,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: SpacingTokens.spaceXs),
               Text(
                 suggestion.body,
                 style: AppTypography.bodyMd.copyWith(
                   color: colors.textSecondary,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: SpacingTokens.sectionGap),
               FireflyButton(
                 text: 'Begin Now',
-                icon: Icons.arrow_forward,
+                icon: AppIcons.forward,
                 variant: FireflyButtonVariant.primary,
                 onPressed: () {
                   context.push(suggestion.route);
@@ -116,9 +123,9 @@ class _AffectResultCardState extends State<AffectResultCard> {
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: SpacingTokens.elementGap),
 
-        // Alternative suggestions
+        // Alternative suggestions toggle
         if (suggestion.alternativeSuggestions.isNotEmpty) ...[
           Center(
             child: TextButton.icon(
@@ -129,10 +136,10 @@ class _AffectResultCardState extends State<AffectResultCard> {
               },
               icon: Icon(
                 _showAlternatives
-                    ? Icons.keyboard_arrow_up
-                    : Icons.keyboard_arrow_down,
+                    ? AppIcons.chevronUp
+                    : AppIcons.chevronDown,
                 color: colors.textSecondary,
-                size: 20,
+                size: IconSizeTokens.appAction,
               ),
               label: Text(
                 _showAlternatives
@@ -145,32 +152,43 @@ class _AffectResultCardState extends State<AffectResultCard> {
             ),
           ),
           if (_showAlternatives) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: SpacingTokens.spaceXs),
             ...suggestion.alternativeSuggestions.map(
               (alt) => Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(bottom: SpacingTokens.spaceXs),
                 child: FireflyCard(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  variant: FireflyCardVariant.interactive,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.spaceMd,
+                    vertical: SpacingTokens.spaceSm,
+                  ),
                   onTap: () => context.push(alt.route),
                   child: Row(
                     children: [
-                      Icon(
-                        _iconForAction(alt.actionType),
-                        color: colors.actionSage,
-                        size: 22,
+                      Container(
+                        padding: const EdgeInsets.all(SpacingTokens.spaceXs),
+                        decoration: BoxDecoration(
+                          color: colors.surfaceSubtle,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          _iconForAction(alt.actionType),
+                          color: colors.actionSage,
+                          size: IconSizeTokens.md,
+                        ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: SpacingTokens.elementGap),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               alt.title,
-                              style: AppTypography.headingMd.copyWith(
+                              style: AppTypography.labelMd.copyWith(
                                 color: colors.textPrimary,
                               ),
                             ),
+                            const SizedBox(height: 2),
                             Text(
                               alt.body,
                               maxLines: 1,
@@ -182,11 +200,10 @@ class _AffectResultCardState extends State<AffectResultCard> {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
                       Icon(
-                        Icons.chevron_right,
+                        AppIcons.chevronRight,
                         color: colors.textSecondary,
-                        size: 20,
+                        size: IconSizeTokens.md,
                       ),
                     ],
                   ),
@@ -196,18 +213,13 @@ class _AffectResultCardState extends State<AffectResultCard> {
           ],
         ],
 
-        const SizedBox(height: 12),
-        Center(
-          child: TextButton(
-            onPressed: widget.onCheckInAgain,
-            child: Text(
-              'Check in again',
-              style: AppTypography.bodySm.copyWith(
-                color: colors.actionSage,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
+        const SizedBox(height: SpacingTokens.elementGap),
+
+        // Reset & Check-in again
+        FireflyButton(
+          text: 'Check in again',
+          variant: FireflyButtonVariant.secondary,
+          onPressed: widget.onCheckInAgain,
         ),
       ],
     );

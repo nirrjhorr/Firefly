@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/theme/icon_tokens.dart';
+import '../../../../core/theme/radius_tokens.dart';
+import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/energy_slider.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
@@ -10,6 +15,8 @@ import '../../../../shared/widgets/mood_tile.dart';
 import '../controllers/check_in_controller.dart';
 import '../widgets/affect_result_card.dart';
 
+/// Primary check-in screen for Firefly.
+/// Designed for low cognitive load: rapid affect labeling without clinical numbers.
 class CheckInScreen extends ConsumerWidget {
   const CheckInScreen({super.key});
 
@@ -23,7 +30,12 @@ class CheckInScreen extends ConsumerWidget {
       backgroundColor: colors.bgCanvasDeep,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.fromLTRB(
+            SpacingTokens.screenPaddingH,
+            SpacingTokens.screenPaddingV,
+            SpacingTokens.screenPaddingH,
+            SpacingTokens.bottomClearance,
+          ),
           child: state.activeSuggestion != null
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,14 +46,14 @@ class CheckInScreen extends ConsumerWidget {
                         color: colors.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: SpacingTokens.spaceXs),
                     Text(
                       'Based on how you are feeling right now.',
                       style: AppTypography.bodyMd.copyWith(
                         color: colors.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: SpacingTokens.sectionGap),
                     AffectResultCard(
                       suggestion: state.activeSuggestion!,
                       onCheckInAgain: () => controller.resetForNewCheckIn(),
@@ -64,7 +76,7 @@ class CheckInScreen extends ConsumerWidget {
                         color: colors.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: SpacingTokens.sectionGap),
 
                     // 1. Mood Anchor (5 Moon Phase Tiles)
                     Text(
@@ -73,9 +85,10 @@ class CheckInScreen extends ConsumerWidget {
                         color: colors.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: SpacingTokens.elementGap),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
+                      clipBehavior: Clip.none,
                       child: Row(
                         children: MoodCategory.values.map((mood) {
                           return Padding(
@@ -89,21 +102,21 @@ class CheckInScreen extends ConsumerWidget {
                         }).toList(),
                       ),
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: SpacingTokens.sectionGap),
 
                     // 2. Energy Slider ("Still -> Moving")
                     FireflyCard(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(SpacingTokens.cardPadding),
                       child: EnergySlider(
                         value: state.energyLevel,
                         onChanged: (val) => controller.setEnergy(val),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: SpacingTokens.sectionGap),
 
                     // 3. Anxiety Level (5-dot selector)
                     FireflyCard(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(SpacingTokens.cardPadding),
                       child: _buildDotLevelSelector(
                         context,
                         title: 'Anxiety or Internal Tension',
@@ -112,11 +125,11 @@ class CheckInScreen extends ConsumerWidget {
                         onChanged: (val) => controller.setAnxiety(val),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: SpacingTokens.sectionGap),
 
                     // 4. Loneliness Level (5-dot selector)
                     FireflyCard(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(SpacingTokens.cardPadding),
                       child: _buildDotLevelSelector(
                         context,
                         title: 'Loneliness',
@@ -125,18 +138,71 @@ class CheckInScreen extends ConsumerWidget {
                         onChanged: (val) => controller.setLoneliness(val),
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: SpacingTokens.space2xl),
 
                     // 5. Submit CTA
                     FireflyButton(
                       text: "I'm here",
                       isLoading: state.isSubmitting,
+                      variant: FireflyButtonVariant.primary,
                       onPressed: () {
                         HapticFeedback.mediumImpact();
                         controller.submitCheckIn();
                       },
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: SpacingTokens.sectionGap),
+
+                    // 6. Sound Sanctuary Quick Access Card
+                    FireflyCard(
+                      variant: FireflyCardVariant.interactive,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      onTap: () {
+                        HapticFeedback.lightImpact();
+                        context.push(AppRoutes.soundscapes);
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: colors.actionSage.withOpacity(0.14),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              AppIcons.audioFrequency,
+                              color: colors.actionSage,
+                              size: IconSizeTokens.nav,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Sound Sanctuary',
+                                  style: AppTypography.headingMd.copyWith(
+                                    color: colors.textPrimary,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '29 offline restorative nature & noise soundscapes',
+                                  style: AppTypography.caption.copyWith(
+                                    color: colors.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            AppIcons.chevronRight,
+                            color: colors.textSecondary,
+                            size: IconSizeTokens.appAction,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
         ),
@@ -188,6 +254,7 @@ class CheckInScreen extends ConsumerWidget {
             final level = index + 1;
             final isSelected = level == currentValue;
             return GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 HapticFeedback.selectionClick();
                 onChanged(level);
@@ -204,10 +271,10 @@ class CheckInScreen extends ConsumerWidget {
                     color: isSelected
                         ? colors.actionSage.withOpacity(0.18)
                         : colors.surfaceSubtle,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(RadiusTokens.sm),
                     border: Border.all(
                       color: isSelected ? colors.actionSage : colors.borderSubtle,
-                      width: isSelected ? 2 : 1,
+                      width: isSelected ? 1.5 : 1.0,
                     ),
                   ),
                   child: Container(
@@ -215,7 +282,9 @@ class CheckInScreen extends ConsumerWidget {
                     height: 10 + (level * 2.5),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isSelected ? colors.actionSage : colors.textSecondary.withOpacity(0.5),
+                      color: isSelected
+                          ? colors.actionSage
+                          : colors.textSecondary.withOpacity(0.4),
                     ),
                   ),
                 ),

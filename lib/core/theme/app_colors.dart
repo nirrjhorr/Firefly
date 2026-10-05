@@ -224,14 +224,21 @@ extension AppColorsX on BuildContext {
 /// Convenience aliases matching design system specifications across UI widgets
 extension AppCustomColorsAliases on AppCustomColors {
   Color get actionSage => accentPrimary;
+  Color get actionSageHover => accentPrimaryHover;
   Color get surfaceCard => bgSurface;
   Color get surfaceSubtle => bgSurfaceRaised;
   Color get borderSubtle => bgOverlay;
   Color get borderOpaque => textDisabled;
   Color get textInverse => bgCanvasDeep;
   Color get background => bgCanvas;
+  Color get canvasBackdrop => bgCanvasDeep;
   Color get textTertiary => textMuted;
   Color get crisisRed => crisisAction;
   Color get crisisCoral => crisisAction;
+  Color get crisisCoralSurface => crisisSurface;
   Color get accentAmber => accentWarmth;
+  Color get accentDusk => accentSecondary;
+  Color get warningAmber => accentWarmth;
+  Color get infoDusk => accentSecondary;
+  Color get successGreen => successSubtle;
 }
