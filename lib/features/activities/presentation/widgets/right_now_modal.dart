@@ -114,6 +114,13 @@ const List<RightNowAnchor> kRightNowAnchors = [
     route: AppRoutes.hopeBox,
   ),
   RightNowAnchor(
+    id: 'complete_reset',
+    title: 'I need a complete reset',
+    subtitle: '5-minute guided step-by-step reset',
+    iconKey: 'spa',
+    route: AppRoutes.reset,
+  ),
+  RightNowAnchor(
     id: 'dont_know',
     title: 'I do not know what I need',
     subtitle: 'Gentle ambient sound sanctuary',

@@ -3,6 +3,23 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-10-06
+
+### Single-Session Intervention (SSI) — One-Session Reset Engine (Epic 18 / v2 Sprint 9)
+
+#### One-Session Reset Protocol & Guided Engine
+- **5-Step SSI Journey (`ResetScreen` at `/home/reset` & `/reset`):** Operationalized Schleider et al. (2025) and Baumel et al. (2019) research principles that each visit must deliver complete standalone value in under 5 minutes without requiring multi-week retention:
+  1. *Anchor (Name the Moment):* 6 evidence-based acute distress selectors (Racing Thoughts, Chest Tightness, Heavy Inertia, Sensory Overwhelm, Loneliness Dread, General Acute Tension).
+  2. *Regulate (Settle the Body):* 90-second autonomic down-regulation with pulsating circular bloom visualizer, play/pause controls, and paced breathing prompts.
+  3. *Reframe (Gentle Perspective):* Self-compassion prompts and quick reassurance chips to create cognitive distance from acute distress.
+  4. *Commit (One Small Step):* Single-tap behavioral activation micro-action selection (< 2 minutes) restoring agency.
+  5. *Complete (Sanctuary Close):* Pre/post nervous system shift rating without streak pressure or gamification.
+- **Pure Dart State Machine & Models:** Implemented `ResetPhase`, `ResetDistressAnchor`, and immutable `ResetSession` with JSON serialization and Riverpod `ResetSessionNotifier`.
+- **Universal Route & Feature Integration:** Added direct launch cards on `CheckInScreen` and `RightNowModal` ("I need a complete reset"), registered routes in `AppRoutes` and `AppRouter`, and seeded `act_one_session_reset` in `curated_activities.json` (71 total activities).
+- **Automated Verification:** Added `verify_one_session_reset_standalone.dart` with 100% test pass rate across all 24 standalone test suites.
+
+---
+
 ## [2.2.0] - 2026-10-06
 
 ### Multi-Tab Activity Architecture, Design System Harmonization & Production Release Lock

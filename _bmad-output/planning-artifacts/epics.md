@@ -795,3 +795,43 @@ So that release v2.2.0 is locked with cryptographic checksums and verified offli
 - Version bumped to 2.2.0+14 in pubspec.yaml.
 - Automated release build script generating dist/firefly-v2.2.0-release.apk with verified checksums.
 - CHANGELOG.md and dist/RELEASE_NOTES.md fully documented and finalized.
+
+---
+
+## Epic 18: Single-Session Intervention (SSI) — One-Session Reset Engine (v2 Sprint 9)
+
+Implement the evidence-backed Single-Session Intervention (SSI) One-Session Reset protocol (Schleider et al. 2025, Baumel et al. 2019) providing a self-contained 5-minute guided journey (Anchor → Regulate → Reframe → Commit → Complete) designed for acute relief in a single session.
+
+### Story 18.1: One-Session Reset Domain Model, State Machine & Repository
+As a user in distress needing immediate structured guidance,
+I want a clear 5-phase state machine managing the progression from distress anchoring to somatic regulation, cognitive reframing, and micro-commitment,
+So that I can move through regulation step-by-step without cognitive overload.
+
+**Acceptance Criteria:**
+- ResetPhase enum: anchor, regulate, reframe, commit, complete.
+- DistressAnchor enum with non-judgmental descriptions and target somatic techniques.
+- ResetSession immutable domain model with pre/post shift rating and zero cloud leakage.
+- ResetRepository interface and state management controller with step navigation.
+
+### Story 18.2: Interactive 5-Step One-Session Reset UI (ResetScreen)
+As a user with depleted executive function,
+I want a serene, distraction-free 5-step guided interface with large touch targets and real-time guidance,
+So that I can complete a full regulation sequence in under 5 minutes without friction.
+
+**Acceptance Criteria:**
+- ResetScreen mounted at /home/reset and /reset.
+- Apple-inspired calm 5-dot step indicator with unhurried transitions.
+- Interactive Step 1 (Anchor selector), Step 2 (Paced autonomic regulator with live timer), Step 3 (Compassionate reframe input), Step 4 (Micro-commitment selector), Step 5 (Effectiveness rating & peaceful closing).
+- Persistent SOS overlay protection on all steps.
+
+### Story 18.3: Universal Routing, Home/Modal Integration & Standalone Verification
+As a user navigating Firefly,
+I want seamless access to the One-Session Reset from the home check-in hub, acute distress modal, and activity library,
+So that I can launch the reset whenever acute distress overwhelms me.
+
+**Acceptance Criteria:**
+- AppRoutes and AppRouter registration (/home/reset and /reset).
+- Entry cards integrated into CheckInScreen and RightNowModal.
+- Activity seeded in curated_activities.json.
+- test/features/reset/verify_one_session_reset_standalone.dart passing 100% in pure Dart.
+- 100% compliance with security gate, lint sweep, and design tokens.

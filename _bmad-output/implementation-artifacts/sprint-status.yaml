@@ -149,3 +149,9 @@ development_status:
   17-2-stitch-serene-sanctuary-design-tokens-wcag-aaa: done
   17-3-production-release-v2-2-0-distribution-lock: done
   epic-17-retrospective: done
+
+  epic-18: done
+  18-1-one-session-reset-domain-state-machine: done
+  18-2-one-session-reset-screen-ui: done
+  18-3-universal-routing-integration-standalone-verification: done
+  epic-18-retrospective: done

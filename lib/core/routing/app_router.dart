@@ -30,6 +30,7 @@ import '../../features/labyrinth/presentation/screens/labyrinth_screen.dart';
 import '../../features/flow_puzzle/presentation/screens/flow_puzzle_screen.dart';
 import '../../features/cognitive_defusion/presentation/screens/cognitive_defusion_screen.dart';
 import '../../features/activities/presentation/screens/activities_screen.dart';
+import '../../features/one_session_reset/presentation/screens/reset_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -278,6 +279,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Single-Session Intervention: One-Session Reset (Root Modal with SOS overlay)
+      GoRoute(
+        path: AppRoutes.modalReset,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ResetScreen(),
+      ),
+
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
         builder: (context, state, child) => MainShellScaffold(child: child),
@@ -440,6 +448,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               final group = state.uri.queryParameters['group'];
               return ActivitiesScreen(initialGroup: group);
             },
+          ),
+          GoRoute(
+            path: AppRoutes.reset,
+            builder: (context, state) => const ResetScreen(),
           ),
         ],
       ),

@@ -29,6 +29,8 @@ abstract final class AppRoutes {
   static const unsentLetter = '/home/unsent-letter';
   static const ambientMixer = '/home/ambient-mixer';
   static const activities = '/home/activities';
+  static const reset = '/home/reset';
+  static const modalReset = '/reset';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

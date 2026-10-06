@@ -1,16 +1,51 @@
 [
   {
+    "id": "act_one_session_reset",
+    "title": "One-Session Reset",
+    "description": "Evidence-backed 5-step Single-Session Intervention: name the distress, settle the body, reframe gently, and choose one micro-commitment.",
+    "category": "respiration",
+    "energyRequired": 1,
+    "targetStates": [
+      "anxious",
+      "panicked",
+      "overwhelmed",
+      "flat",
+      "racingThoughts",
+      "restless"
+    ],
+    "guidanceType": "stepper",
+    "evidenceLevel": "verified",
+    "route": "/home/reset",
+    "durationMinutes": 5,
+    "instructions": [
+      "Name what feels heaviest",
+      "Follow the 90-second paced somatic settle",
+      "Give yourself gentle compassionate words",
+      "Commit to one 2-minute real-world action",
+      "Check in on your nervous system shift"
+    ]
+  },
+  {
     "id": "act_cyclic_sighing",
     "title": "Cyclic Sighing",
     "description": "Double inhale followed by a prolonged, soothing exhale to rapidly calm the autonomic nervous system.",
     "category": "respiration",
     "energyRequired": 1,
-    "targetStates": ["anxious", "panicked", "overwhelmed", "restless"],
+    "targetStates": [
+      "anxious",
+      "panicked",
+      "overwhelmed",
+      "restless"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/breathe?technique=cyclicSighing",
     "durationMinutes": 3,
-    "instructions": ["Take a deep breath in through your nose", "Top it off with a second quick inhale", "Slowly sigh all the air out through your mouth"]
+    "instructions": [
+      "Take a deep breath in through your nose",
+      "Top it off with a second quick inhale",
+      "Slowly sigh all the air out through your mouth"
+    ]
   },
   {
     "id": "act_box_breathing",
@@ -18,12 +53,21 @@
     "description": "Equal 4-second intervals of inhale, hold, exhale, and hold for steady focus and emotional equilibrium.",
     "category": "respiration",
     "energyRequired": 1,
-    "targetStates": ["anxious", "racingThoughts", "overwhelmed"],
+    "targetStates": [
+      "anxious",
+      "racingThoughts",
+      "overwhelmed"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/breathe?technique=boxBreathing",
     "durationMinutes": 4,
-    "instructions": ["Inhale for 4 seconds", "Hold gently for 4 seconds", "Exhale smoothly for 4 seconds", "Hold empty for 4 seconds"]
+    "instructions": [
+      "Inhale for 4 seconds",
+      "Hold gently for 4 seconds",
+      "Exhale smoothly for 4 seconds",
+      "Hold empty for 4 seconds"
+    ]
   },
   {
     "id": "act_resonance_breathing",
@@ -31,12 +75,19 @@
     "description": "Smooth 5.5-second inhales and exhales (~5.5 breaths per minute) maximizing heart rate variability.",
     "category": "respiration",
     "energyRequired": 1,
-    "targetStates": ["anxious", "restless", "flat"],
+    "targetStates": [
+      "anxious",
+      "restless",
+      "flat"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/breathe?technique=resonance",
     "durationMinutes": 5,
-    "instructions": ["Inhale steadily for 5.5 seconds", "Exhale smoothly for 5.5 seconds without pauses"]
+    "instructions": [
+      "Inhale steadily for 5.5 seconds",
+      "Exhale smoothly for 5.5 seconds without pauses"
+    ]
   },
   {
     "id": "act_478_breathing",
@@ -44,12 +95,20 @@
     "description": "Prolonged exhale breathing designed to trigger deep parasympathetic relaxation before sleep.",
     "category": "respiration",
     "energyRequired": 1,
-    "targetStates": ["cantSleep", "racingThoughts", "anxious"],
+    "targetStates": [
+      "cantSleep",
+      "racingThoughts",
+      "anxious"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "moderate",
     "route": "/home/breathe?technique=478",
     "durationMinutes": 4,
-    "instructions": ["Inhale quietly through nose for 4 seconds", "Hold your breath gently for 7 seconds", "Exhale completely through mouth with whoosh sound for 8 seconds"]
+    "instructions": [
+      "Inhale quietly through nose for 4 seconds",
+      "Hold your breath gently for 7 seconds",
+      "Exhale completely through mouth with whoosh sound for 8 seconds"
+    ]
   },
   {
     "id": "act_star_breathing",
@@ -57,12 +116,19 @@
     "description": "Follow the points of a star with gentle breath pacing for visual anchoring.",
     "category": "respiration",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "anxious"],
+    "targetStates": [
+      "overwhelmed",
+      "anxious"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/breathe?technique=star",
     "durationMinutes": 3,
-    "instructions": ["Breathe in as you trace up a point", "Pause at the tip", "Breathe out as you trace down the side"]
+    "instructions": [
+      "Breathe in as you trace up a point",
+      "Pause at the tip",
+      "Breathe out as you trace down the side"
+    ]
   },
   {
     "id": "act_diaphragmatic_breathing",
@@ -70,12 +136,20 @@
     "description": "Deep diaphragmatic respiration placing hands on abdomen to anchor physical attention.",
     "category": "respiration",
     "energyRequired": 1,
-    "targetStates": ["anxious", "overwhelmed", "flat"],
+    "targetStates": [
+      "anxious",
+      "overwhelmed",
+      "flat"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/breathe?technique=diaphragmatic",
     "durationMinutes": 5,
-    "instructions": ["Place one hand on your chest and one on your belly", "Inhale so your belly expands more than your chest", "Exhale slowly through pursed lips"]
+    "instructions": [
+      "Place one hand on your chest and one on your belly",
+      "Inhale so your belly expands more than your chest",
+      "Exhale slowly through pursed lips"
+    ]
   },
   {
     "id": "act_pmr_full",
@@ -83,12 +157,21 @@
     "description": "Systematic 10-zone muscle tension and release from head to toe to eliminate stored tension.",
     "category": "pmr",
     "energyRequired": 2,
-    "targetStates": ["anxious", "restless", "cantSleep", "overwhelmed"],
+    "targetStates": [
+      "anxious",
+      "restless",
+      "cantSleep",
+      "overwhelmed"
+    ],
     "guidanceType": "interactiveMap",
     "evidenceLevel": "verified",
     "route": "/home/pmr",
     "durationMinutes": 8,
-    "instructions": ["Tense forehead for 5s", "Release and notice the warmth for 10s", "Move progressively through jaw, shoulders, hands, core, and feet"]
+    "instructions": [
+      "Tense forehead for 5s",
+      "Release and notice the warmth for 10s",
+      "Move progressively through jaw, shoulders, hands, core, and feet"
+    ]
   },
   {
     "id": "act_pmr_shoulders_neck",
@@ -96,12 +179,20 @@
     "description": "Targeted 3-minute somatic reset for upper body tension caused by stress or desk work.",
     "category": "pmr",
     "energyRequired": 2,
-    "targetStates": ["anxious", "racingThoughts", "overwhelmed"],
+    "targetStates": [
+      "anxious",
+      "racingThoughts",
+      "overwhelmed"
+    ],
     "guidanceType": "interactiveMap",
     "evidenceLevel": "verified",
     "route": "/home/pmr?mode=shoulders",
     "durationMinutes": 3,
-    "instructions": ["Lift shoulders toward your ears and squeeze for 5s", "Drop them completely with an exhale", "Notice the sensation of gravity pulling tension away"]
+    "instructions": [
+      "Lift shoulders toward your ears and squeeze for 5s",
+      "Drop them completely with an exhale",
+      "Notice the sensation of gravity pulling tension away"
+    ]
   },
   {
     "id": "act_pmr_jaw_face",
@@ -109,12 +200,20 @@
     "description": "Gentle release for facial tension, teeth clenching, and eyebrow furrowing.",
     "category": "pmr",
     "energyRequired": 1,
-    "targetStates": ["anxious", "overwhelmed", "cantSleep"],
+    "targetStates": [
+      "anxious",
+      "overwhelmed",
+      "cantSleep"
+    ],
     "guidanceType": "interactiveMap",
     "evidenceLevel": "verified",
     "route": "/home/pmr?mode=jaw",
     "durationMinutes": 2,
-    "instructions": ["Scrunch your entire face gently for 4s", "Open your mouth slightly and let your tongue rest on the floor of your mouth", "Breathe softly into the space behind your eyes"]
+    "instructions": [
+      "Scrunch your entire face gently for 4s",
+      "Open your mouth slightly and let your tongue rest on the floor of your mouth",
+      "Breathe softly into the space behind your eyes"
+    ]
   },
   {
     "id": "act_pmr_hands_forearms",
@@ -122,12 +221,20 @@
     "description": "Tight fist squeezing and sudden release to dissipate adrenaline and agitation.",
     "category": "pmr",
     "energyRequired": 2,
-    "targetStates": ["panicked", "restless", "anxious"],
+    "targetStates": [
+      "panicked",
+      "restless",
+      "anxious"
+    ],
     "guidanceType": "interactiveMap",
     "evidenceLevel": "verified",
     "route": "/home/pmr?mode=hands",
     "durationMinutes": 2,
-    "instructions": ["Clench both hands into firm fists for 5s", "Release suddenly and open fingers wide", "Notice the tingling warmth spreading through your palms"]
+    "instructions": [
+      "Clench both hands into firm fists for 5s",
+      "Release suddenly and open fingers wide",
+      "Notice the tingling warmth spreading through your palms"
+    ]
   },
   {
     "id": "act_54321_grounding",
@@ -135,12 +242,23 @@
     "description": "Engage all five senses sequentially to anchor your attention firmly in the physical world.",
     "category": "sensoryGrounding",
     "energyRequired": 1,
-    "targetStates": ["panicked", "overwhelmed", "anxious", "racingThoughts"],
+    "targetStates": [
+      "panicked",
+      "overwhelmed",
+      "anxious",
+      "racingThoughts"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/breathe?mode=grounding",
     "durationMinutes": 3,
-    "instructions": ["Notice 5 things you can see", "4 things you can touch", "3 things you can hear", "2 things you can smell", "1 thing you can taste"]
+    "instructions": [
+      "Notice 5 things you can see",
+      "4 things you can touch",
+      "3 things you can hear",
+      "2 things you can smell",
+      "1 thing you can taste"
+    ]
   },
   {
     "id": "act_texture_hunt",
@@ -148,12 +266,20 @@
     "description": "Find and touch 3 distinct textures around you to break internal cognitive spinning.",
     "category": "sensoryGrounding",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed", "anxious"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "anxious"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/breathe?mode=textures",
     "durationMinutes": 2,
-    "instructions": ["Find something smooth (e.g. glass or phone screen)", "Find something rough or textured (e.g. fabric or wood)", "Find something cool to the touch"]
+    "instructions": [
+      "Find something smooth (e.g. glass or phone screen)",
+      "Find something rough or textured (e.g. fabric or wood)",
+      "Find something cool to the touch"
+    ]
   },
   {
     "id": "act_sound_hunt",
@@ -161,12 +287,19 @@
     "description": "Orient your hearing to three layers of sound in your current environment.",
     "category": "sensoryGrounding",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/breathe?mode=soundhunt",
     "durationMinutes": 2,
-    "instructions": ["Listen for the nearest sound (even your breath)", "Listen for a sound inside the room", "Listen for the farthest distant sound outside"]
+    "instructions": [
+      "Listen for the nearest sound (even your breath)",
+      "Listen for a sound inside the room",
+      "Listen for the farthest distant sound outside"
+    ]
   },
   {
     "id": "act_colour_search",
@@ -174,12 +307,18 @@
     "description": "Scan your space to spot 4 items that share a soothing visual shade.",
     "category": "sensoryGrounding",
     "energyRequired": 1,
-    "targetStates": ["anxious", "racingThoughts"],
+    "targetStates": [
+      "anxious",
+      "racingThoughts"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/breathe?mode=coloursearch",
     "durationMinutes": 2,
-    "instructions": ["Look around and find 4 green or blue objects", "Notice the shape and light on each one before moving to the next"]
+    "instructions": [
+      "Look around and find 4 green or blue objects",
+      "Notice the shape and light on each one before moving to the next"
+    ]
   },
   {
     "id": "act_feet_on_floor",
@@ -187,12 +326,20 @@
     "description": "Proprioceptive awareness of foot contact with the earth, gravity, and stability.",
     "category": "sensoryGrounding",
     "energyRequired": 1,
-    "targetStates": ["panicked", "overwhelmed", "anxious"],
+    "targetStates": [
+      "panicked",
+      "overwhelmed",
+      "anxious"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/breathe?mode=feetonfloor",
     "durationMinutes": 2,
-    "instructions": ["Plant both feet flat on the floor", "Press your toes and heels gently downward", "Feel the solid floor supporting your weight completely"]
+    "instructions": [
+      "Plant both feet flat on the floor",
+      "Press your toes and heels gently downward",
+      "Feel the solid floor supporting your weight completely"
+    ]
   },
   {
     "id": "act_categories_switch",
@@ -200,12 +347,20 @@
     "description": "Name items in comforting categories to occupy working memory and displace intrusive thoughts.",
     "category": "cognitiveGrounding",
     "energyRequired": 2,
-    "targetStates": ["racingThoughts", "anxious", "overwhelmed"],
+    "targetStates": [
+      "racingThoughts",
+      "anxious",
+      "overwhelmed"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "moderate",
     "route": "/home/cognitive-grounding?mode=categories",
     "durationMinutes": 3,
-    "instructions": ["Name 5 types of warm soup or beverage", "Name 5 calm places you have visited or seen", "Name 5 book or movie titles"]
+    "instructions": [
+      "Name 5 types of warm soup or beverage",
+      "Name 5 calm places you have visited or seen",
+      "Name 5 book or movie titles"
+    ]
   },
   {
     "id": "act_backward_counting_3s",
@@ -213,12 +368,19 @@
     "description": "Structured arithmetic sequence from 50 to zero providing gentle, absorbing mental focus.",
     "category": "cognitiveGrounding",
     "energyRequired": 2,
-    "targetStates": ["racingThoughts", "cantSleep"],
+    "targetStates": [
+      "racingThoughts",
+      "cantSleep"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "moderate",
     "route": "/home/cognitive-grounding?mode=counting",
     "durationMinutes": 2,
-    "instructions": ["Start at 50", "Subtract 3: 47, 44, 41...", "Take your time with each number without rushing"]
+    "instructions": [
+      "Start at 50",
+      "Subtract 3: 47, 44, 41...",
+      "Take your time with each number without rushing"
+    ]
   },
   {
     "id": "act_alphabet_calm",
@@ -226,12 +388,21 @@
     "description": "Move through the alphabet thinking of one calming, peaceful word for each letter.",
     "category": "cognitiveGrounding",
     "energyRequired": 2,
-    "targetStates": ["racingThoughts", "anxious", "cantSleep"],
+    "targetStates": [
+      "racingThoughts",
+      "anxious",
+      "cantSleep"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "moderate",
     "route": "/home/cognitive-grounding?mode=alphabet",
     "durationMinutes": 3,
-    "instructions": ["A is for Autumn breeze", "B is for Blanket", "C is for Candlelight", "Continue as far as feels pleasant"]
+    "instructions": [
+      "A is for Autumn breeze",
+      "B is for Blanket",
+      "C is for Candlelight",
+      "Continue as far as feels pleasant"
+    ]
   },
   {
     "id": "act_opposite_concepts",
@@ -239,12 +410,19 @@
     "description": "Rapid presentation of words where you pair the opposite concept to restore mental flexibility.",
     "category": "cognitiveGrounding",
     "energyRequired": 2,
-    "targetStates": ["racingThoughts", "flat"],
+    "targetStates": [
+      "racingThoughts",
+      "flat"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "moderate",
     "route": "/home/cognitive-grounding?mode=opposites",
     "durationMinutes": 2,
-    "instructions": ["Notice the concept shown", "Whisper or tap its gentle opposite", "Notice how meaning flips easily"]
+    "instructions": [
+      "Notice the concept shown",
+      "Whisper or tap its gentle opposite",
+      "Notice how meaning flips easily"
+    ]
   },
   {
     "id": "act_quick_shakeout",
@@ -252,12 +430,20 @@
     "description": "30 to 60 seconds of gentle physical shaking to release adrenaline and restlessness.",
     "category": "physical",
     "energyRequired": 3,
-    "targetStates": ["restless", "panicked", "anxious"],
+    "targetStates": [
+      "restless",
+      "panicked",
+      "anxious"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "moderate",
     "route": "/home/move?mode=shakeout",
     "durationMinutes": 1,
-    "instructions": ["Stand up with soft knees", "Shake your hands as if flicking water off your fingertips", "Let your shoulders, arms, and hips loosen completely for 45 seconds"]
+    "instructions": [
+      "Stand up with soft knees",
+      "Shake your hands as if flicking water off your fingertips",
+      "Let your shoulders, arms, and hips loosen completely for 45 seconds"
+    ]
   },
   {
     "id": "act_wall_pushups",
@@ -265,12 +451,20 @@
     "description": "Controlled, steady push against a firm wall to provide calming proprioceptive joint input.",
     "category": "physical",
     "energyRequired": 3,
-    "targetStates": ["restless", "anxious", "overwhelmed"],
+    "targetStates": [
+      "restless",
+      "anxious",
+      "overwhelmed"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "moderate",
     "route": "/home/move?mode=wallPushups",
     "durationMinutes": 2,
-    "instructions": ["Stand an arm's length from a sturdy wall", "Place hands flat at shoulder height", "Slowly lower your chest towards the wall and push back with steady control"]
+    "instructions": [
+      "Stand an arm's length from a sturdy wall",
+      "Place hands flat at shoulder height",
+      "Slowly lower your chest towards the wall and push back with steady control"
+    ]
   },
   {
     "id": "act_grounded_stroll",
@@ -278,12 +472,20 @@
     "description": "Slow, intentional walking focusing on heel-to-toe foot placement and natural rhythm.",
     "category": "physical",
     "energyRequired": 2,
-    "targetStates": ["lowEnergy", "restless", "anxious"],
+    "targetStates": [
+      "lowEnergy",
+      "restless",
+      "anxious"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "verified",
     "route": "/home/move?mode=stroll",
     "durationMinutes": 5,
-    "instructions": ["Walk at a comfortable, unhurried pace", "Feel your heel strike, roll across the foot, and push off with toes", "Look ahead softly rather than at your feet"]
+    "instructions": [
+      "Walk at a comfortable, unhurried pace",
+      "Feel your heel strike, roll across the foot, and push off with toes",
+      "Look ahead softly rather than at your feet"
+    ]
   },
   {
     "id": "act_shoulder_rolls",
@@ -291,12 +493,19 @@
     "description": "Slow circular rotations of the shoulder blades to loosen chest and upper spine.",
     "category": "physical",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "anxious", "lowEnergy"],
+    "targetStates": [
+      "overwhelmed",
+      "anxious",
+      "lowEnergy"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/move?mode=shoulderRolls",
     "durationMinutes": 2,
-    "instructions": ["Roll your shoulders forward, up to your ears, back, and down", "Perform 5 slow forward circles and 5 slow backward circles"]
+    "instructions": [
+      "Roll your shoulders forward, up to your ears, back, and down",
+      "Perform 5 slow forward circles and 5 slow backward circles"
+    ]
   },
   {
     "id": "act_march_in_place",
@@ -304,12 +513,20 @@
     "description": "Rhythmic, alternating leg lifting to activate circulation when energy is low.",
     "category": "physical",
     "energyRequired": 3,
-    "targetStates": ["lowEnergy", "restless", "flat"],
+    "targetStates": [
+      "lowEnergy",
+      "restless",
+      "flat"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "moderate",
     "route": "/home/move?mode=marching",
     "durationMinutes": 2,
-    "instructions": ["Lift your knees rhythmically one after the other", "Swing your arms naturally with the movement", "Continue at an easy, comfortable pace for 90 seconds"]
+    "instructions": [
+      "Lift your knees rhythmically one after the other",
+      "Swing your arms naturally with the movement",
+      "Continue at an easy, comfortable pace for 90 seconds"
+    ]
   },
   {
     "id": "act_spatial_tiling",
@@ -317,12 +534,20 @@
     "description": "Gently place smooth geometric stone shapes into an open grid without time limits or fail states.",
     "category": "flow",
     "energyRequired": 2,
-    "targetStates": ["racingThoughts", "anxious", "restless"],
+    "targetStates": [
+      "racingThoughts",
+      "anxious",
+      "restless"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "moderate",
     "route": "/home/flow?mode=spatial",
     "durationMinutes": 5,
-    "instructions": ["Drag shapes into the grid", "Fit pieces together at your own pace", "No scores, no timer — simply enjoy the tactile click"]
+    "instructions": [
+      "Drag shapes into the grid",
+      "Fit pieces together at your own pace",
+      "No scores, no timer \u2014 simply enjoy the tactile click"
+    ]
   },
   {
     "id": "act_chromatic_sort",
@@ -330,12 +555,18 @@
     "description": "Arrange subtle pastel color swatches into gentle chromatic gradients.",
     "category": "flow",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "moderate",
     "route": "/home/flow?mode=hue",
     "durationMinutes": 4,
-    "instructions": ["Notice the subtle shifts in tone", "Slide tiles until the color gradient flows smoothly from light to deep"]
+    "instructions": [
+      "Notice the subtle shifts in tone",
+      "Slide tiles until the color gradient flows smoothly from light to deep"
+    ]
   },
   {
     "id": "act_zen_path_maze",
@@ -343,12 +574,19 @@
     "description": "Trace a gentle glowing ember along a winding path without walls or collision penalties.",
     "category": "flow",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "anxious", "racingThoughts"],
+    "targetStates": [
+      "overwhelmed",
+      "anxious",
+      "racingThoughts"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "moderate",
     "route": "/home/flow?mode=zenPath",
     "durationMinutes": 3,
-    "instructions": ["Place your finger on the glowing ember", "Follow the curving river path slowly and steadily"]
+    "instructions": [
+      "Place your finger on the glowing ember",
+      "Follow the curving river path slowly and steadily"
+    ]
   },
   {
     "id": "act_finger_labyrinth",
@@ -356,12 +594,20 @@
     "description": "Follow a meditative winding circular path to the center and back without decisions.",
     "category": "labyrinth",
     "energyRequired": 1,
-    "targetStates": ["anxious", "racingThoughts", "overwhelmed"],
+    "targetStates": [
+      "anxious",
+      "racingThoughts",
+      "overwhelmed"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/flow?mode=labyrinth",
     "durationMinutes": 4,
-    "instructions": ["A labyrinth has only one path — you cannot get lost", "Trace slowly from the entrance into the peaceful center", "Pause at the center, then trace your way out"]
+    "instructions": [
+      "A labyrinth has only one path \u2014 you cannot get lost",
+      "Trace slowly from the entrance into the peaceful center",
+      "Pause at the center, then trace your way out"
+    ]
   },
   {
     "id": "act_spiral_tracing",
@@ -369,12 +615,18 @@
     "description": "Slow repetitive circular tracing creating hypnotic visual and motor soothing.",
     "category": "labyrinth",
     "energyRequired": 1,
-    "targetStates": ["restless", "anxious"],
+    "targetStates": [
+      "restless",
+      "anxious"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "clinicalConsensus",
     "route": "/home/flow?mode=spiral",
     "durationMinutes": 3,
-    "instructions": ["Trace inward along the spiral in an unhurried circle", "Feel the smooth curve guide your finger"]
+    "instructions": [
+      "Trace inward along the spiral in an unhurried circle",
+      "Feel the smooth curve guide your finger"
+    ]
   },
   {
     "id": "act_body_scan",
@@ -382,12 +634,20 @@
     "description": "Slow non-judgmental awareness passing through the body to release stored tension.",
     "category": "mindfulness",
     "energyRequired": 1,
-    "targetStates": ["cantSleep", "anxious", "overwhelmed"],
+    "targetStates": [
+      "cantSleep",
+      "anxious",
+      "overwhelmed"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "verified",
     "route": "/home/mindfulness?mode=bodyScan",
     "durationMinutes": 5,
-    "instructions": ["Bring your awareness to the top of your head", "Notice any sensation without trying to change it", "Gradually let attention drift down through chest, hips, and toes"]
+    "instructions": [
+      "Bring your awareness to the top of your head",
+      "Notice any sensation without trying to change it",
+      "Gradually let attention drift down through chest, hips, and toes"
+    ]
   },
   {
     "id": "act_loving_kindness",
@@ -395,12 +655,19 @@
     "description": "Cultivate warmth and self-compassion through gentle silent affirmations.",
     "category": "mindfulness",
     "energyRequired": 1,
-    "targetStates": ["lonely", "flat", "overwhelmed"],
+    "targetStates": [
+      "lonely",
+      "flat",
+      "overwhelmed"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/mindfulness?mode=lovingKindness",
     "durationMinutes": 3,
-    "instructions": ["Hold a warm image of someone or a pet you care for", "Silently repeat: May you be safe. May you be peaceful. May you be kind to yourself"]
+    "instructions": [
+      "Hold a warm image of someone or a pet you care for",
+      "Silently repeat: May you be safe. May you be peaceful. May you be kind to yourself"
+    ]
   },
   {
     "id": "act_sound_meditation",
@@ -408,12 +675,19 @@
     "description": "Allow ambient sounds to wash over you without labeling or judging them.",
     "category": "mindfulness",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "verified",
     "route": "/home/mindfulness?mode=sound",
     "durationMinutes": 4,
-    "instructions": ["Close your eyes or lower your gaze", "Let sounds enter your awareness like ripples in water", "Simply listen without needing to identify the source"]
+    "instructions": [
+      "Close your eyes or lower your gaze",
+      "Let sounds enter your awareness like ripples in water",
+      "Simply listen without needing to identify the source"
+    ]
   },
   {
     "id": "act_unsent_letter",
@@ -421,12 +695,19 @@
     "description": "Express difficult or honest words completely privately with no possibility of being sent.",
     "category": "emotionalExpression",
     "energyRequired": 2,
-    "targetStates": ["needExpression", "overwhelmed", "lonely"],
+    "targetStates": [
+      "needExpression",
+      "overwhelmed",
+      "lonely"
+    ],
     "guidanceType": "freeform",
     "evidenceLevel": "moderate",
     "route": "/home/journal/new?mode=unsent",
     "durationMinutes": 8,
-    "instructions": ["Write whatever needs to be said to someone or yourself", "Knowing this letter is completely private and can never be transmitted"]
+    "instructions": [
+      "Write whatever needs to be said to someone or yourself",
+      "Knowing this letter is completely private and can never be transmitted"
+    ]
   },
   {
     "id": "act_worry_dump",
@@ -434,12 +715,19 @@
     "description": "Move anxious thoughts from your mind onto dark paper so you can park them until tomorrow.",
     "category": "emotionalExpression",
     "energyRequired": 1,
-    "targetStates": ["cantSleep", "racingThoughts", "anxious"],
+    "targetStates": [
+      "cantSleep",
+      "racingThoughts",
+      "anxious"
+    ],
     "guidanceType": "freeform",
     "evidenceLevel": "verified",
     "route": "/home/sleep?mode=worryDump",
     "durationMinutes": 5,
-    "instructions": ["Write down the things running through your mind", "Choose to park them until tomorrow morning or let them dissolve"]
+    "instructions": [
+      "Write down the things running through your mind",
+      "Choose to park them until tomorrow morning or let them dissolve"
+    ]
   },
   {
     "id": "act_emotion_label",
@@ -447,12 +735,20 @@
     "description": "Name nuanced feelings from an interactive emotion wheel to diminish amygdala arousal.",
     "category": "emotionalExpression",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "needExpression", "anxious"],
+    "targetStates": [
+      "overwhelmed",
+      "needExpression",
+      "anxious"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/journal/new?mode=label",
     "durationMinutes": 2,
-    "instructions": ["Look past broad words like 'bad' or 'fine'", "Find the precise texture: tender, heavy, restless, fragile, or numb", "Naming it helps quiet the reaction"]
+    "instructions": [
+      "Look past broad words like 'bad' or 'fine'",
+      "Find the precise texture: tender, heavy, restless, fragile, or numb",
+      "Naming it helps quiet the reaction"
+    ]
   },
   {
     "id": "act_tiny_drink_water",
@@ -460,12 +756,19 @@
     "description": "One simple, hydrating micro-action providing immediate sensory and physical reset.",
     "category": "behavioralActivation",
     "energyRequired": 1,
-    "targetStates": ["lowEnergy", "flat", "overwhelmed"],
+    "targetStates": [
+      "lowEnergy",
+      "flat",
+      "overwhelmed"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "verified",
     "route": "/home/tiny-steps",
     "durationMinutes": 1,
-    "instructions": ["Get a small glass of fresh water", "Take two slow, deliberate sips, feeling the cool temperature"]
+    "instructions": [
+      "Get a small glass of fresh water",
+      "Take two slow, deliberate sips, feeling the cool temperature"
+    ]
   },
   {
     "id": "act_tiny_open_curtains",
@@ -473,12 +776,18 @@
     "description": "Let natural daylight or fresh air into your space with one small physical gesture.",
     "category": "behavioralActivation",
     "energyRequired": 1,
-    "targetStates": ["lowEnergy", "flat"],
+    "targetStates": [
+      "lowEnergy",
+      "flat"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "verified",
     "route": "/home/tiny-steps",
     "durationMinutes": 1,
-    "instructions": ["Walk to the nearest window", "Draw back the curtain or crack open the window for 30 seconds of breeze"]
+    "instructions": [
+      "Walk to the nearest window",
+      "Draw back the curtain or crack open the window for 30 seconds of breeze"
+    ]
   },
   {
     "id": "act_tiny_make_tea",
@@ -486,12 +795,20 @@
     "description": "A comforting routine combining slow sensory rhythm, warmth, and nourishment.",
     "category": "behavioralActivation",
     "energyRequired": 2,
-    "targetStates": ["lowEnergy", "lonely", "anxious"],
+    "targetStates": [
+      "lowEnergy",
+      "lonely",
+      "anxious"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "verified",
     "route": "/home/tiny-steps",
     "durationMinutes": 5,
-    "instructions": ["Boil water slowly", "Hold the warm mug in both hands", "Inhale the herbal aroma before taking a sip"]
+    "instructions": [
+      "Boil water slowly",
+      "Hold the warm mug in both hands",
+      "Inhale the herbal aroma before taking a sip"
+    ]
   },
   {
     "id": "act_tiny_wash_face",
@@ -499,12 +816,20 @@
     "description": "Splash cool water on your face to trigger the mammalian dive reflex and lower heart rate.",
     "category": "behavioralActivation",
     "energyRequired": 2,
-    "targetStates": ["panicked", "anxious", "overwhelmed"],
+    "targetStates": [
+      "panicked",
+      "anxious",
+      "overwhelmed"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "verified",
     "route": "/home/tiny-steps",
     "durationMinutes": 2,
-    "instructions": ["Run cool tap water", "Gently cup water and splash your forehead, cheeks, and eyes", "Pat dry with a soft towel"]
+    "instructions": [
+      "Run cool tap water",
+      "Gently cup water and splash your forehead, cheeks, and eyes",
+      "Pat dry with a soft towel"
+    ]
   },
   {
     "id": "act_tiny_step_outside",
@@ -512,12 +837,20 @@
     "description": "Change your sensory environment by stepping onto a porch, balcony, or doorstep.",
     "category": "behavioralActivation",
     "energyRequired": 2,
-    "targetStates": ["lowEnergy", "flat", "overwhelmed"],
+    "targetStates": [
+      "lowEnergy",
+      "flat",
+      "overwhelmed"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "verified",
     "route": "/home/tiny-steps",
     "durationMinutes": 2,
-    "instructions": ["Step past your doorway into the outside air", "Take three natural breaths while looking at the horizon", "Step back inside whenever you wish"]
+    "instructions": [
+      "Step past your doorway into the outside air",
+      "Take three natural breaths while looking at the horizon",
+      "Step back inside whenever you wish"
+    ]
   },
   {
     "id": "act_nature_audio_rain",
@@ -525,12 +858,19 @@
     "description": "High-fidelity gapless acoustic recording of gentle rainfall among broadleaf trees.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["anxious", "cantSleep", "overwhelmed"],
+    "targetStates": [
+      "anxious",
+      "cantSleep",
+      "overwhelmed"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "moderate",
     "route": "/home/soundscapes?track=rain",
     "durationMinutes": 10,
-    "instructions": ["Put on headphones if available", "Let the natural white noise of rain droplets mask distracting sounds"]
+    "instructions": [
+      "Put on headphones if available",
+      "Let the natural white noise of rain droplets mask distracting sounds"
+    ]
   },
   {
     "id": "act_nature_audio_ocean",
@@ -538,12 +878,19 @@
     "description": "Rhythmic, low-frequency ocean waves matching the cadence of relaxed human respiration.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["anxious", "cantSleep", "restless"],
+    "targetStates": [
+      "anxious",
+      "cantSleep",
+      "restless"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "moderate",
     "route": "/home/soundscapes?track=ocean",
     "durationMinutes": 10,
-    "instructions": ["Listen to the swell arrive and recede", "Sync your breath naturally with the ebb and flow"]
+    "instructions": [
+      "Listen to the swell arrive and recede",
+      "Sync your breath naturally with the ebb and flow"
+    ]
   },
   {
     "id": "act_nature_sky_gazing",
@@ -551,12 +898,19 @@
     "description": "Soft panoramic visual gazing at shifting clouds or the open blue sky to restore attention.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "racingThoughts"],
+    "targetStates": [
+      "overwhelmed",
+      "racingThoughts"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "moderate",
     "route": "/home/ground?mode=sky",
     "durationMinutes": 5,
-    "instructions": ["Look upward towards the open sky or out a window", "Rest your focus softly on the edge of a cloud", "Notice how shapes slowly dissolve and reform"]
+    "instructions": [
+      "Look upward towards the open sky or out a window",
+      "Rest your focus softly on the edge of a cloud",
+      "Notice how shapes slowly dissolve and reform"
+    ]
   },
   {
     "id": "act_audio_sound_mixer",
@@ -564,12 +918,20 @@
     "description": "Blend rain, fireplace, soft piano, and brown noise into your own custom comfort cocoon.",
     "category": "audio",
     "energyRequired": 1,
-    "targetStates": ["anxious", "cantSleep", "overwhelmed", "lonely"],
+    "targetStates": [
+      "anxious",
+      "cantSleep",
+      "overwhelmed",
+      "lonely"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "moderate",
     "route": "/home/soundscapes?mode=mixer",
     "durationMinutes": 15,
-    "instructions": ["Adjust sliders for rain, tone, and environment", "Find the balance that feels safest right now"]
+    "instructions": [
+      "Adjust sliders for rain, tone, and environment",
+      "Find the balance that feels safest right now"
+    ]
   },
   {
     "id": "act_audio_piano_calm",
@@ -577,12 +939,19 @@
     "description": "Sparse, unhurried piano melodies in gentle major chords designed for acoustic comfort.",
     "category": "audio",
     "energyRequired": 1,
-    "targetStates": ["lonely", "overwhelmed", "flat"],
+    "targetStates": [
+      "lonely",
+      "overwhelmed",
+      "flat"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "moderate",
     "route": "/home/soundscapes?track=piano",
     "durationMinutes": 10,
-    "instructions": ["Close your eyes and let the warm notes fill the room", "Notice the silence between the chords"]
+    "instructions": [
+      "Close your eyes and let the warm notes fill the room",
+      "Notice the silence between the chords"
+    ]
   },
   {
     "id": "act_sleep_fade_timer",
@@ -590,12 +959,19 @@
     "description": "Ambient soundscape that gradually diminishes in volume over the final 5 minutes.",
     "category": "sleep",
     "energyRequired": 1,
-    "targetStates": ["cantSleep", "racingThoughts"],
+    "targetStates": [
+      "cantSleep",
+      "racingThoughts"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "verified",
     "route": "/home/sleep?mode=timer",
     "durationMinutes": 30,
-    "instructions": ["Choose your preferred duration: 15, 30, or 45 minutes", "Lay your phone face down on your nightstand", "The sound will dissolve smoothly without sudden silence"]
+    "instructions": [
+      "Choose your preferred duration: 15, 30, or 45 minutes",
+      "Lay your phone face down on your nightstand",
+      "The sound will dissolve smoothly without sudden silence"
+    ]
   },
   {
     "id": "act_sleep_consistent_wake",
@@ -603,12 +979,18 @@
     "description": "Set a gentle, consistent morning wake target to strengthen your circadian rhythm.",
     "category": "sleep",
     "energyRequired": 1,
-    "targetStates": ["cantSleep", "lowEnergy"],
+    "targetStates": [
+      "cantSleep",
+      "lowEnergy"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/sleep?mode=wakeAnchor",
     "durationMinutes": 2,
-    "instructions": ["Pick a realistic wake time that you can hold 7 days a week", "Even on rough nights, waking at the same time rebuilds sleep pressure"]
+    "instructions": [
+      "Pick a realistic wake time that you can hold 7 days a week",
+      "Even on rough nights, waking at the same time rebuilds sleep pressure"
+    ]
   },
   {
     "id": "act_social_reach_out",
@@ -616,12 +998,20 @@
     "description": "Send a pre-written text message to a trusted contact without feeling awkward.",
     "category": "social",
     "energyRequired": 2,
-    "targetStates": ["lonely", "overwhelmed", "needExpression"],
+    "targetStates": [
+      "lonely",
+      "overwhelmed",
+      "needExpression"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/loneliness",
     "durationMinutes": 3,
-    "instructions": ["Select someone from your safe contact list", "Use or tweak a warm pre-written note like: 'Hey, thinking of you. Free to chat?'", "Remember: people appreciate being reached out to more than we expect"]
+    "instructions": [
+      "Select someone from your safe contact list",
+      "Use or tweak a warm pre-written note like: 'Hey, thinking of you. Free to chat?'",
+      "Remember: people appreciate being reached out to more than we expect"
+    ]
   },
   {
     "id": "act_social_guess_vs_reality",
@@ -629,12 +1019,19 @@
     "description": "Predict how someone will respond before texting, then log the actual warmth afterwards.",
     "category": "social",
     "energyRequired": 2,
-    "targetStates": ["lonely", "anxious"],
+    "targetStates": [
+      "lonely",
+      "anxious"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/loneliness?mode=experiment",
     "durationMinutes": 3,
-    "instructions": ["Rate how warmly you expect the person to respond", "After you hear back, log what actually occurred", "Over time, notice how reality is usually gentler than our fear"]
+    "instructions": [
+      "Rate how warmly you expect the person to respond",
+      "After you hear back, log what actually occurred",
+      "Over time, notice how reality is usually gentler than our fear"
+    ]
   },
   {
     "id": "act_creative_doodle",
@@ -642,12 +1039,19 @@
     "description": "Draw repetitive, non-verbal geometric loops or waves to channel restless nervous energy.",
     "category": "creative",
     "energyRequired": 1,
-    "targetStates": ["restless", "racingThoughts", "needExpression"],
+    "targetStates": [
+      "restless",
+      "racingThoughts",
+      "needExpression"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "moderate",
     "route": "/home/creative?mode=doodle",
     "durationMinutes": 5,
-    "instructions": ["Use your finger to draw repeating waves or hatched lines", "No artistic skill required — simply follow the rhythm of the lines"]
+    "instructions": [
+      "Use your finger to draw repeating waves or hatched lines",
+      "No artistic skill required \u2014 simply follow the rhythm of the lines"
+    ]
   },
   {
     "id": "act_creative_origami",
@@ -655,12 +1059,19 @@
     "description": "Follow simple step-by-step folds using any square scrap of paper nearby.",
     "category": "creative",
     "energyRequired": 2,
-    "targetStates": ["racingThoughts", "restless"],
+    "targetStates": [
+      "racingThoughts",
+      "restless"
+    ],
     "guidanceType": "stepSequence",
     "evidenceLevel": "moderate",
     "route": "/home/creative?mode=origami",
     "durationMinutes": 4,
-    "instructions": ["Find a piece of paper", "Follow the 4 simple geometric creases to make a tranquil cup or boat", "Focus on crisp edges and tactile folds"]
+    "instructions": [
+      "Find a piece of paper",
+      "Follow the 4 simple geometric creases to make a tranquil cup or boat",
+      "Focus on crisp edges and tactile folds"
+    ]
   },
   {
     "id": "act_defusion_leaves_stream",
@@ -668,12 +1079,20 @@
     "description": "Visualize your thoughts as leaves floating down a quiet river, watching them pass by.",
     "category": "cognitiveDefusion",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed", "anxious"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "anxious"
+    ],
     "guidanceType": "timerWithAudio",
     "evidenceLevel": "verified",
     "route": "/home/defusion?mode=leaves",
     "durationMinutes": 4,
-    "instructions": ["Picture a slow-moving woodland stream", "Whenever a thought arises, place it on a leaf", "Watch it float downstream out of sight without grabbing onto it"]
+    "instructions": [
+      "Picture a slow-moving woodland stream",
+      "Whenever a thought arises, place it on a leaf",
+      "Watch it float downstream out of sight without grabbing onto it"
+    ]
   },
   {
     "id": "act_defusion_thought_clouds",
@@ -681,12 +1100,19 @@
     "description": "Type a heavy thought and watch it transform into a soft cloud that slowly drifts away.",
     "category": "cognitiveDefusion",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/defusion?mode=clouds",
     "durationMinutes": 3,
-    "instructions": ["Type a thought weighing on your mind", "Tap 'Release'", "Watch the words soften into white mist and dissolve across the dark sky"]
+    "instructions": [
+      "Type a thought weighing on your mind",
+      "Tap 'Release'",
+      "Watch the words soften into white mist and dissolve across the dark sky"
+    ]
   },
   {
     "id": "act_defusion_thought_labeling",
@@ -694,12 +1120,20 @@
     "description": "Step back from fused thoughts using 3-step mindful distance: 'I notice I am having the thought that...'",
     "category": "cognitiveDefusion",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed", "anxious"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "anxious"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/defusion?mode=labeling",
     "durationMinutes": 3,
-    "instructions": ["Read the fused thought", "Insert 'I notice I am having the thought that...'", "Recognize yourself as the calm observer"]
+    "instructions": [
+      "Read the fused thought",
+      "Insert 'I notice I am having the thought that...'",
+      "Recognize yourself as the calm observer"
+    ]
   },
   {
     "id": "act_hope_box_glance",
@@ -707,12 +1141,20 @@
     "description": "Glance at private photos, comforting voice notes, and reasons to keep holding on.",
     "category": "social",
     "energyRequired": 1,
-    "targetStates": ["lonely", "flat", "overwhelmed"],
+    "targetStates": [
+      "lonely",
+      "flat",
+      "overwhelmed"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/hope-box",
     "durationMinutes": 3,
-    "instructions": ["Open your safe hope box", "Look at one photo or listen to a 10-second voice note from someone who cares", "Remind yourself why staying here matters"]
+    "instructions": [
+      "Open your safe hope box",
+      "Look at one photo or listen to a 10-second voice note from someone who cares",
+      "Remind yourself why staying here matters"
+    ]
   },
   {
     "id": "act_nature_sky_gazing",
@@ -720,12 +1162,20 @@
     "description": "Broaden visual attention and observe passing clouds or open daylight without focusing on a single spot.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "racingThoughts", "restless"],
+    "targetStates": [
+      "overwhelmed",
+      "racingThoughts",
+      "restless"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/nature?mode=skyGazing",
     "durationMinutes": 3,
-    "instructions": ["Direct your gaze upward toward open sky or light", "Follow the slow drift of clouds and air", "Rest in the wide calm above"]
+    "instructions": [
+      "Direct your gaze upward toward open sky or light",
+      "Follow the slow drift of clouds and air",
+      "Rest in the wide calm above"
+    ]
   },
   {
     "id": "act_nature_tree_canopy",
@@ -733,12 +1183,20 @@
     "description": "Observe natural branching fractals, leaf rustling, and plant shapes to calm sympathetic arousal.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["anxious", "restless", "racingThoughts"],
+    "targetStates": [
+      "anxious",
+      "restless",
+      "racingThoughts"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/nature?mode=treeCanopy",
     "durationMinutes": 3,
-    "instructions": ["Look at a tree, branch, or houseplant", "Trace the branching patterns from thick to thin", "Notice the rooted stability of living growth"]
+    "instructions": [
+      "Look at a tree, branch, or houseplant",
+      "Trace the branching patterns from thick to thin",
+      "Notice the rooted stability of living growth"
+    ]
   },
   {
     "id": "act_nature_light_shadow",
@@ -746,12 +1204,20 @@
     "description": "Attend to gentle contrasts of sunlight and shadows across walls or ground surfaces.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "flat", "anxious"],
+    "targetStates": [
+      "overwhelmed",
+      "flat",
+      "anxious"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/nature?mode=lightAndShadow",
     "durationMinutes": 3,
-    "instructions": ["Locate where natural light enters the space", "Observe where light meets shadow on a surface", "Notice the slow, steady progression of daylight"]
+    "instructions": [
+      "Locate where natural light enters the space",
+      "Observe where light meets shadow on a surface",
+      "Notice the slow, steady progression of daylight"
+    ]
   },
   {
     "id": "act_nature_outdoor_grounding",
@@ -759,12 +1225,20 @@
     "description": "Sense firm ground underfoot, ambient air temperature, and natural tactile textures.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "panicked", "restless"],
+    "targetStates": [
+      "overwhelmed",
+      "panicked",
+      "restless"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/nature?mode=outdoorGrounding",
     "durationMinutes": 3,
-    "instructions": ["Bring awareness to the solid earth under your feet", "Notice temperature on skin", "Touch a natural texture nearby"]
+    "instructions": [
+      "Bring awareness to the solid earth under your feet",
+      "Notice temperature on skin",
+      "Touch a natural texture nearby"
+    ]
   },
   {
     "id": "act_nature_weather_notice",
@@ -772,12 +1246,20 @@
     "description": "Listen to atmospheric sounds and notice air currents to ground in the present moment.",
     "category": "nature",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "restless", "flat"],
+    "targetStates": [
+      "racingThoughts",
+      "restless",
+      "flat"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/nature?mode=weatherNotice",
     "durationMinutes": 3,
-    "instructions": ["Listen to background weather sounds", "Notice air movement across your skin", "Reflect that all weather—internal and external—passes"]
+    "instructions": [
+      "Listen to background weather sounds",
+      "Notice air movement across your skin",
+      "Reflect that all weather\u2014internal and external\u2014passes"
+    ]
   },
   {
     "id": "act_somatic_heavy_body",
@@ -785,12 +1267,21 @@
     "description": "Notice downward gravitational pull and release postural bracing in jaw, shoulders, and limbs.",
     "category": "mindfulness",
     "energyRequired": 1,
-    "targetStates": ["restless", "anxious", "overwhelmed", "cantSleep"],
+    "targetStates": [
+      "restless",
+      "anxious",
+      "overwhelmed",
+      "cantSleep"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/somatic?mode=heavyBody",
     "durationMinutes": 3,
-    "instructions": ["Notice the solid surface holding you up", "Let go of muscular vigilance in your jaw and shoulders", "Allow gravity to carry your weight"]
+    "instructions": [
+      "Notice the solid surface holding you up",
+      "Let go of muscular vigilance in your jaw and shoulders",
+      "Allow gravity to carry your weight"
+    ]
   },
   {
     "id": "act_somatic_warm_hands",
@@ -798,12 +1289,20 @@
     "description": "Autogenic visualization of soothing warmth radiating into palms and fingertips to calm sympathetic drive.",
     "category": "mindfulness",
     "energyRequired": 1,
-    "targetStates": ["anxious", "panicked", "restless"],
+    "targetStates": [
+      "anxious",
+      "panicked",
+      "restless"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/somatic?mode=warmHands",
     "durationMinutes": 3,
-    "instructions": ["Center awareness in both palms", "Imagine gentle warmth soaking into fingertips", "Notice peripheral blood flow soothing your pulse"]
+    "instructions": [
+      "Center awareness in both palms",
+      "Imagine gentle warmth soaking into fingertips",
+      "Notice peripheral blood flow soothing your pulse"
+    ]
   },
   {
     "id": "act_somatic_mountain_posture",
@@ -811,12 +1310,20 @@
     "description": "Embody the rooted base and dignified stillness of a mountain to weather passing thoughts and stress.",
     "category": "mindfulness",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "racingThoughts", "restless"],
+    "targetStates": [
+      "overwhelmed",
+      "racingThoughts",
+      "restless"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/somatic?mode=mountainPosture",
     "durationMinutes": 4,
-    "instructions": ["Feel your physical base firmly rooted", "Align spine with natural, unforced dignity", "Let transient feelings blow past like wind while you stay steady"]
+    "instructions": [
+      "Feel your physical base firmly rooted",
+      "Align spine with natural, unforced dignity",
+      "Let transient feelings blow past like wind while you stay steady"
+    ]
   },
   {
     "id": "act_somatic_mindful_pause",
@@ -824,12 +1331,21 @@
     "description": "Rapid 3-step physical anchor circuit: Stop, Drop attention to physical contact, Breathe and soften.",
     "category": "mindfulness",
     "energyRequired": 1,
-    "targetStates": ["overwhelmed", "racingThoughts", "panicked", "anxious"],
+    "targetStates": [
+      "overwhelmed",
+      "racingThoughts",
+      "panicked",
+      "anxious"
+    ],
     "guidanceType": "promptCards",
     "evidenceLevel": "verified",
     "route": "/home/somatic?mode=mindfulPause",
     "durationMinutes": 2,
-    "instructions": ["Pause whatever you were doing", "Drop awareness into feet on the floor or hands on lap", "Take one slow breath out and soften muscular tension"]
+    "instructions": [
+      "Pause whatever you were doing",
+      "Drop awareness into feet on the floor or hands on lap",
+      "Take one slow breath out and soften muscular tension"
+    ]
   },
   {
     "id": "act_labyrinth_classical",
@@ -837,12 +1353,21 @@
     "description": "Unicursal geometric finger tracing winding slowly inward to center stillness.",
     "category": "labyrinth",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "restless", "anxious", "overwhelmed"],
+    "targetStates": [
+      "racingThoughts",
+      "restless",
+      "anxious",
+      "overwhelmed"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/labyrinth?pattern=classical",
     "durationMinutes": 4,
-    "instructions": ["Place your finger at the outer opening", "Follow the winding track inward at an unhurried pace", "Rest in the quiet center circle"]
+    "instructions": [
+      "Place your finger at the outer opening",
+      "Follow the winding track inward at an unhurried pace",
+      "Rest in the quiet center circle"
+    ]
   },
   {
     "id": "act_labyrinth_spiral",
@@ -850,12 +1375,20 @@
     "description": "Continuous spiral tracing drawing scattered attention into quiet focal concentration.",
     "category": "labyrinth",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "overwhelmed", "restless"],
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "restless"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/labyrinth?pattern=spiral",
     "durationMinutes": 3,
-    "instructions": ["Trace the smooth curving track", "Feel your breath settle as you approach the center", "Pause at the midpoint in quiet stillness"]
+    "instructions": [
+      "Trace the smooth curving track",
+      "Feel your breath settle as you approach the center",
+      "Pause at the midpoint in quiet stillness"
+    ]
   },
   {
     "id": "act_labyrinth_infinity",
@@ -863,12 +1396,20 @@
     "description": "Flowing bilateral figure-8 motor tracing to discharge nervous restlessness.",
     "category": "labyrinth",
     "energyRequired": 1,
-    "targetStates": ["restless", "anxious", "racingThoughts"],
+    "targetStates": [
+      "restless",
+      "anxious",
+      "racingThoughts"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/labyrinth?pattern=infinity",
     "durationMinutes": 3,
-    "instructions": ["Trace the continuous figure-8 loops smoothly", "Maintain a gentle, unforced rhythm", "Repeat as many cycles as feels soothing"]
+    "instructions": [
+      "Trace the continuous figure-8 loops smoothly",
+      "Maintain a gentle, unforced rhythm",
+      "Repeat as many cycles as feels soothing"
+    ]
   },
   {
     "id": "act_labyrinth_meander",
@@ -876,12 +1417,19 @@
     "description": "Rhythmic geometric waves providing predictable, steady tactile grounding.",
     "category": "labyrinth",
     "energyRequired": 1,
-    "targetStates": ["flat", "racingThoughts", "restless"],
+    "targetStates": [
+      "flat",
+      "racingThoughts",
+      "restless"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/labyrinth?pattern=meander",
     "durationMinutes": 3,
-    "instructions": ["Follow the crests and valleys of the rhythmic path", "Let your hand move with easy fluid motion"]
+    "instructions": [
+      "Follow the crests and valleys of the rhythmic path",
+      "Let your hand move with easy fluid motion"
+    ]
   },
   {
     "id": "act_flow_puzzle_constellation",
@@ -889,12 +1437,21 @@
     "description": "Gently connect celestial stars to reveal serene constellations, absorbing working memory.",
     "category": "flow",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "restless", "anxious", "overwhelmed"],
+    "targetStates": [
+      "racingThoughts",
+      "restless",
+      "anxious",
+      "overwhelmed"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/flow-puzzle?mode=constellationConnect",
     "durationMinutes": 4,
-    "instructions": ["Touch star 1 to begin", "Follow the glowing numbers across the tranquil sky", "Watch the celestial shape emerge"]
+    "instructions": [
+      "Touch star 1 to begin",
+      "Follow the glowing numbers across the tranquil sky",
+      "Watch the celestial shape emerge"
+    ]
   },
   {
     "id": "act_flow_puzzle_harmony_tiles",
@@ -902,12 +1459,19 @@
     "description": "Slowly slide numbered tactile tiles into harmonious order with zero pressure, timers, or score.",
     "category": "flow",
     "energyRequired": 1,
-    "targetStates": ["racingThoughts", "restless", "flat"],
+    "targetStates": [
+      "racingThoughts",
+      "restless",
+      "flat"
+    ],
     "guidanceType": "interactivePainter",
     "evidenceLevel": "verified",
     "route": "/home/flow-puzzle?mode=spatialSliding",
     "durationMinutes": 5,
-    "instructions": ["Tap any highlighted tile adjacent to the space", "Move stones with unhurried tactile rhythm", "Restore gentle balance to the grid"]
+    "instructions": [
+      "Tap any highlighted tile adjacent to the space",
+      "Move stones with unhurried tactile rhythm",
+      "Restore gentle balance to the grid"
+    ]
   }
 ]
-
