@@ -142,6 +142,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Loneliness Comfort & Social Reach-Out (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/loneliness',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const LonelinessComfortScreen(
+          showSosOverlay: true,
+        ),
+      ),
+
 
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
