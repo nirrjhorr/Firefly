@@ -83,8 +83,29 @@ def configure_manifest():
 
     if "android.permission.RECORD_AUDIO" not in content:
         content = content.replace("<application", perms + "    <application")
-        manifest_path.write_text(content, encoding="utf-8")
-        print("Configured android/app/src/main/AndroidManifest.xml with hardware permissions.")
+    
+    if 'android:label="firefly"' in content:
+        content = content.replace('android:label="firefly"', 'android:label="Firefly"')
+
+    if 'android:networkSecurityConfig' not in content:
+        content = content.replace('<application', '<application\n        android:networkSecurityConfig="@xml/network_security_config"')
+
+    manifest_path.write_text(content, encoding="utf-8")
+    print("Configured android/app/src/main/AndroidManifest.xml with hardware permissions and security config.")
+
+def configure_network_security():
+    xml_dir = Path("android/app/src/main/res/xml")
+    xml_dir.mkdir(parents=True, exist_ok=True)
+    nsc = xml_dir / "network_security_config.xml"
+    nsc.write_text("""<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Firefly 100% Zero-Network Policy: Deny all cleartext and domains -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors />
+    </base-config>
+</network-security-config>
+""", encoding="utf-8")
+    print("Configured android/app/src/main/res/xml/network_security_config.xml (Zero-Network Policy).")
 
 def configure_main_activity():
     android_dir = Path("android/app/src/main")
@@ -119,6 +140,7 @@ def main():
     print("Running Android platform configuration...")
     configure_app_gradle()
     configure_root_gradle()
+    configure_network_security()
     configure_manifest()
     configure_main_activity()
     patch_pub_cache()
@@ -126,3 +148,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

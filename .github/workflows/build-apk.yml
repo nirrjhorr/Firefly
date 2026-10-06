@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - docs-readme-and-governance
     tags:
       - 'v*'
   workflow_dispatch:
@@ -19,6 +20,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Java 17
         uses: actions/setup-java@v4
@@ -55,12 +58,15 @@ jobs:
 
       - name: Rename and Prepare Release Artifacts
         run: |
+          VERSION=$(grep '^version:' pubspec.yaml | head -n1 | awk '{print $2}' | cut -d'+' -f1)
+          TAG="v${VERSION}"
+          echo "Building artifacts for version ${VERSION} (${TAG})..."
           mkdir -p release-artifacts
-          cp build/app/outputs/flutter-apk/app-release.apk release-artifacts/firefly-v1.0.0-release.apk
-          cp build/app/outputs/flutter-apk/app-debug.apk release-artifacts/firefly-v1.0.0-debug.apk
+          cp build/app/outputs/flutter-apk/app-release.apk "release-artifacts/firefly-${TAG}-release.apk"
+          cp build/app/outputs/flutter-apk/app-debug.apk "release-artifacts/firefly-${TAG}-debug.apk"
           cd release-artifacts
-          sha256sum firefly-v1.0.0-release.apk > checksums-sha256.txt
-          sha256sum firefly-v1.0.0-debug.apk >> checksums-sha256.txt
+          sha256sum "firefly-${TAG}-release.apk" > checksums-sha256.txt
+          sha256sum "firefly-${TAG}-debug.apk" >> checksums-sha256.txt
           ls -lh
 
       - name: Upload Artifacts to GitHub Actions
@@ -69,8 +75,26 @@ jobs:
           name: firefly-android-apks
           path: release-artifacts/
 
-      - name: Upload APKs to GitHub Release v1.0.0
+      - name: Publish GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload v1.0.0 release-artifacts/firefly-v1.0.0-release.apk release-artifacts/firefly-v1.0.0-debug.apk release-artifacts/checksums-sha256.txt --clobber
+          VERSION=$(grep '^version:' pubspec.yaml | head -n1 | awk '{print $2}' | cut -d'+' -f1)
+          TAG="v${VERSION}"
+          RELEASE_TITLE="Firefly ${TAG} — Official Production Release"
+          NOTES_FILE="dist/RELEASE_NOTES.md"
+
+          echo "Publishing GitHub Release for ${TAG}..."
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            echo "Release ${TAG} exists, uploading/refreshing assets..."
+            gh release upload "${TAG}" release-artifacts/* --clobber
+          else
+            echo "Creating new release ${TAG}..."
+            if [ -f "${NOTES_FILE}" ]; then
+              gh release create "${TAG}" release-artifacts/* --title "${RELEASE_TITLE}" --notes-file "${NOTES_FILE}"
+            else
+              gh release create "${TAG}" release-artifacts/* --title "${RELEASE_TITLE}" --notes "Firefly ${TAG} Production Release"
+            fi
+          fi
+          echo "GitHub Release ${TAG} published."
+

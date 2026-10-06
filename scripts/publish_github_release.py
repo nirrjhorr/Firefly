@@ -1,11 +1,40 @@
 import os
 import json
+import subprocess
 import urllib.request
 import urllib.error
 
-TOKEN = os.environ.get('GITHUB_TOKEN', '')
+def get_token():
+    token = os.environ.get('GITHUB_TOKEN', '').strip()
+    if token:
+        return token
+    try:
+        p = subprocess.Popen(['git', 'credential', 'fill'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout, _ = p.communicate('protocol=https\nhost=github.com\n\n')
+        for line in stdout.splitlines():
+            if line.startswith('password='):
+                return line.split('=', 1)[1].strip()
+    except Exception as e:
+        print(f"Could not retrieve token from git credential manager: {e}")
+    return ''
+
+def get_version_tag():
+    tag = os.environ.get('RELEASE_TAG', '').strip()
+    if tag:
+        return tag
+    try:
+        with open('pubspec.yaml', 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.startswith('version:'):
+                    ver = line.split(':', 1)[1].strip().split('+')[0].strip()
+                    return f"v{ver}"
+    except Exception:
+        pass
+    return 'v2.8.0'
+
+TOKEN = get_token()
 REPO = os.environ.get('GITHUB_REPOSITORY', 'nirrjhorr/Firefly')
-TAG = os.environ.get('RELEASE_TAG', 'v1.0.0')
+TAG = get_version_tag()
 
 def github_request(url, method='GET', data=None, headers=None):
     req_headers = {
@@ -42,7 +71,7 @@ def get_or_create_release():
 
     # Read release notes
     notes_path = os.path.join('dist', 'RELEASE_NOTES.md')
-    body = "Firefly v1.0.0 — Official Production Release"
+    body = f"Firefly {TAG} — Official Production Release"
     if os.path.exists(notes_path):
         with open(notes_path, 'r', encoding='utf-8') as f:
             body = f.read()
@@ -50,7 +79,7 @@ def get_or_create_release():
     payload = {
         'tag_name': TAG,
         'target_commitish': 'main',
-        'name': 'Firefly v1.0.0 — Official Production Release',
+        'name': f'Firefly {TAG} — Official Production Release',
         'body': body,
         'draft': False,
         'prerelease': False
@@ -99,13 +128,18 @@ def upload_asset(release, file_path, content_type):
         return asset_data
 
 def main():
+    if not TOKEN:
+        print("ERROR: No GitHub token available. Set GITHUB_TOKEN or configure git credentials.")
+        return
+
     print(f"Publishing GitHub Release for {REPO} at tag {TAG}...")
     release = get_or_create_release()
 
     assets_to_upload = [
-        (os.path.join('dist', 'firefly-v1.0.0-release.apk'), 'application/vnd.android.package-archive'),
-        (os.path.join('dist', 'firefly-v1.0.0-debug.apk'), 'application/vnd.android.package-archive'),
+        (os.path.join('dist', f'firefly-{TAG}-release.apk'), 'application/vnd.android.package-archive'),
+        (os.path.join('dist', f'firefly-{TAG}-debug.apk'), 'application/vnd.android.package-archive'),
         (os.path.join('dist', 'checksums.json'), 'application/json'),
+        (os.path.join('dist', 'checksums-sha256.txt'), 'text/plain'),
         (os.path.join('dist', 'INSTALL.md'), 'text/markdown'),
     ]
 
@@ -120,3 +154,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
