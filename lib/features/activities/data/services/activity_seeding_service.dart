@@ -167,6 +167,19 @@ class ActivitySeedingService {
         'durationMinutes': 3,
         'instructions': ['Look toward the open sky or ceiling', 'Observe the quiet drift of light and space'],
       }),
+      ActivityItem.fromJson({
+        'id': 'act_somatic_heavy_body',
+        'title': 'Heavy Body Gravity Settling',
+        'description': 'Notice downward gravitational pull and release muscular vigilance in jaw, shoulders, and limbs.',
+        'category': 'mindfulness',
+        'energyRequired': 1,
+        'targetStates': ['restless', 'anxious', 'overwhelmed', 'cantSleep'],
+        'guidanceType': 'promptCards',
+        'evidenceLevel': 'verified',
+        'route': '/home/somatic?mode=heavyBody',
+        'durationMinutes': 3,
+        'instructions': ['Notice the solid surface holding you up', 'Let go of muscular vigilance', 'Allow gravity to carry your weight'],
+      }),
     ];
   }
 }

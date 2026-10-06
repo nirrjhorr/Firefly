@@ -765,5 +765,58 @@
     "route": "/home/nature?mode=weatherNotice",
     "durationMinutes": 3,
     "instructions": ["Listen to background weather sounds", "Notice air movement across your skin", "Reflect that all weather—internal and external—passes"]
+  },
+  {
+    "id": "act_somatic_heavy_body",
+    "title": "Heavy Body Gravity Settling",
+    "description": "Notice downward gravitational pull and release postural bracing in jaw, shoulders, and limbs.",
+    "category": "mindfulness",
+    "energyRequired": 1,
+    "targetStates": ["restless", "anxious", "overwhelmed", "cantSleep"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/somatic?mode=heavyBody",
+    "durationMinutes": 3,
+    "instructions": ["Notice the solid surface holding you up", "Let go of muscular vigilance in your jaw and shoulders", "Allow gravity to carry your weight"]
+  },
+  {
+    "id": "act_somatic_warm_hands",
+    "title": "Warm Hands Peripheral Dilation",
+    "description": "Autogenic visualization of soothing warmth radiating into palms and fingertips to calm sympathetic drive.",
+    "category": "mindfulness",
+    "energyRequired": 1,
+    "targetStates": ["anxious", "panicked", "restless"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/somatic?mode=warmHands",
+    "durationMinutes": 3,
+    "instructions": ["Center awareness in both palms", "Imagine gentle warmth soaking into fingertips", "Notice peripheral blood flow soothing your pulse"]
+  },
+  {
+    "id": "act_somatic_mountain_posture",
+    "title": "Mountain Posture Stability",
+    "description": "Embody the rooted base and dignified stillness of a mountain to weather passing thoughts and stress.",
+    "category": "mindfulness",
+    "energyRequired": 1,
+    "targetStates": ["overwhelmed", "racingThoughts", "restless"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/somatic?mode=mountainPosture",
+    "durationMinutes": 4,
+    "instructions": ["Feel your physical base firmly rooted", "Align spine with natural, unforced dignity", "Let transient feelings blow past like wind while you stay steady"]
+  },
+  {
+    "id": "act_somatic_mindful_pause",
+    "title": "Mindful Pause & Body Anchor",
+    "description": "Rapid 3-step physical anchor circuit: Stop, Drop attention to physical contact, Breathe and soften.",
+    "category": "mindfulness",
+    "energyRequired": 1,
+    "targetStates": ["overwhelmed", "racingThoughts", "panicked", "anxious"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/somatic?mode=mindfulPause",
+    "durationMinutes": 2,
+    "instructions": ["Pause whatever you were doing", "Drop awareness into feet on the floor or hands on lap", "Take one slow breath out and soften muscular tension"]
   }
 ]
+
