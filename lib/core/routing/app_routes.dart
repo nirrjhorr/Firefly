@@ -19,6 +19,7 @@ abstract final class AppRoutes {
   static const move = '/home/move';
   static const cognitiveGrounding = '/home/cognitive-grounding';
   static const sleep = '/home/sleep';
+  static const hopeBox = '/home/hope-box';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

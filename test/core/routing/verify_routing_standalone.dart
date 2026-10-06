@@ -25,6 +25,8 @@ void main() {
   assert(AppRoutes.pmr == '/home/pmr', 'PMR path mismatch');
   assert(AppRoutes.rightNow == '/home/right-now', 'Right Now path mismatch');
   assert(AppRoutes.move == '/home/move', 'Move path mismatch');
+  assert(AppRoutes.sleep == '/home/sleep', 'Sleep path mismatch');
+  assert(AppRoutes.hopeBox == '/home/hope-box', 'Hope Box path mismatch');
 
   print('All 17 routes verified:');
   print(' - Splash: ${AppRoutes.splash}');

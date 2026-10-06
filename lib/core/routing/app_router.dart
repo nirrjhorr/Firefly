@@ -22,6 +22,7 @@ import '../../features/soundscapes/presentation/screens/soundscape_library_scree
 import '../../features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
 import '../../features/tiny_steps/presentation/screens/tiny_step_activity_screen.dart';
 import '../../features/sleep/presentation/screens/sleep_suite_screen.dart';
+import '../../features/hope_box/presentation/screens/hope_box_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -132,6 +133,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Hope Box Offline Multi-Media Coping Vault (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/hope-box',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const HopeBoxScreen(
+          showSosOverlay: true,
+        ),
+      ),
+
 
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
@@ -208,6 +218,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => SleepSuiteScreen(
               initialMode: state.uri.queryParameters['mode'],
             ),
+          ),
+          GoRoute(
+            path: AppRoutes.hopeBox,
+            builder: (context, state) => const HopeBoxScreen(),
           ),
         ],
       ),
