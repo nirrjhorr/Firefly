@@ -110,6 +110,33 @@ def test_integrity():
             print(f"[FAIL] Remote streaming detected in assetPath: {track['assetPath']}")
             sys.exit(1)
     print("[PASS] 100% offline verification passed. Zero remote dependencies.")
+
+    # 5. Check Bundled Offline Speech Recognition Acoustic Model
+    model_dir = os.path.join(base_dir, "assets", "models")
+    model_zip = os.path.join(model_dir, "vosk-model-small-en-us-0.15.zip")
+    if not os.path.exists(model_zip):
+        print(f"[FAIL] Vosk acoustic model archive not found at {model_zip}!")
+        sys.exit(1)
+
+    zip_size_mb = os.path.getsize(model_zip) / (1024 * 1024)
+    if zip_size_mb < 30.0:
+        print(f"[FAIL] Vosk model archive suspiciously small: {zip_size_mb:.2f} MB")
+        sys.exit(1)
+
+    import zipfile
+    with zipfile.ZipFile(model_zip, "r") as zf:
+        corrupt = zf.testzip()
+        if corrupt:
+            print(f"[FAIL] Corrupted file in Vosk archive: {corrupt}")
+            sys.exit(1)
+        names = zf.namelist()
+        required_entries = ["final.mdl", "disambig_tid.int"]
+        for req in required_entries:
+            if not any(req in name for name in names):
+                print(f"[FAIL] Missing required acoustic entry '{req}' in Vosk model zip!")
+                sys.exit(1)
+    print(f"[PASS] Bundled Vosk acoustic model archive validated ({zip_size_mb:.2f} MB, {len(names)} files, 100% intact).")
+
     print("==================================================")
     print("ALL TESTS PASSED SUCCESSFULLY!")
     print("==================================================")
