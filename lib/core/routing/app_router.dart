@@ -93,6 +93,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
 
+      // Graceful legacy grounding redirect
+      GoRoute(
+        path: '/home/ground',
+        redirect: (context, state) {
+          final mode = state.uri.queryParameters['mode'] ?? 'grounding';
+          return '${AppRoutes.breathe}?mode=$mode';
+        },
+      ),
+
       // Progressive Muscle Relaxation (Root Modal with SOS overlay)
       GoRoute(
         path: '/pmr',
@@ -198,7 +207,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.loneliness,
-            builder: (context, state) => const LonelinessComfortScreen(),
+            builder: (context, state) => const LonelinessComfortScreen(
+              showSosOverlay: false,
+            ),
           ),
           GoRoute(
             path: AppRoutes.soundscapes,
@@ -208,29 +219,35 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: AppRoutes.pmr,
             builder: (context, state) => PmrScreen(
               isQuickMode: state.uri.queryParameters['mode'] == 'quick',
+              showSosOverlay: false,
             ),
           ),
           GoRoute(
             path: AppRoutes.move,
             builder: (context, state) => MovementEngineScreen(
               initialMode: state.uri.queryParameters['mode'],
+              showSosOverlay: false,
             ),
           ),
           GoRoute(
             path: AppRoutes.cognitiveGrounding,
             builder: (context, state) => CognitiveGroundingScreen(
               initialMode: state.uri.queryParameters['mode'],
+              showSosOverlay: false,
             ),
           ),
           GoRoute(
             path: AppRoutes.sleep,
             builder: (context, state) => SleepSuiteScreen(
               initialMode: state.uri.queryParameters['mode'],
+              showSosOverlay: false,
             ),
           ),
           GoRoute(
             path: AppRoutes.hopeBox,
-            builder: (context, state) => const HopeBoxScreen(),
+            builder: (context, state) => const HopeBoxScreen(
+              showSosOverlay: false,
+            ),
           ),
         ],
       ),

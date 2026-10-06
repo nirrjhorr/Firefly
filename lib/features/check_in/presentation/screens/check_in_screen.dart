@@ -270,6 +270,98 @@ class CheckInScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
+                    const SizedBox(height: SpacingTokens.elementGap),
+
+                    // 7. Hope Box & Sleep Sanctuary Quick Access Row
+                    Row(
+                      children: [
+                        Expanded(
+                          child: FireflyCard(
+                            variant: FireflyCardVariant.interactive,
+                            padding: const EdgeInsets.all(SpacingTokens.cardPadding),
+                            onTap: () {
+                              HapticFeedback.lightImpact();
+                              context.push(AppRoutes.hopeBox);
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFE5B870).withOpacity(0.14),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.favorite_border_rounded,
+                                    color: Color(0xFFE5B870),
+                                    size: 18,
+                                  ),
+                                ),
+                                const SizedBox(height: SpacingTokens.spaceSm),
+                                Text(
+                                  'Hope Box',
+                                  style: AppTypography.labelLg.copyWith(
+                                    color: colors.textPrimary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Reasons to stay & memories',
+                                  style: AppTypography.captionSm.copyWith(
+                                    color: colors.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: SpacingTokens.elementGap),
+                        Expanded(
+                          child: FireflyCard(
+                            variant: FireflyCardVariant.interactive,
+                            padding: const EdgeInsets.all(SpacingTokens.cardPadding),
+                            onTap: () {
+                              HapticFeedback.lightImpact();
+                              context.push(AppRoutes.sleep);
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF6B8A9E).withOpacity(0.14),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.bedtime_outlined,
+                                    color: Color(0xFF6B8A9E),
+                                    size: 18,
+                                  ),
+                                ),
+                                const SizedBox(height: SpacingTokens.spaceSm),
+                                Text(
+                                  'Sleep Suite',
+                                  style: AppTypography.labelLg.copyWith(
+                                    color: colors.textPrimary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Worry dump & fading timer',
+                                  style: AppTypography.captionSm.copyWith(
+                                    color: colors.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
         ),

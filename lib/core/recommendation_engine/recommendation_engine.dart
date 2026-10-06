@@ -50,9 +50,10 @@ abstract final class RecommendationEngine {
         title: 'Holding space for connection',
         body:
             'Loneliness can feel heavy. Here are soft, low-pressure ways to feel anchored and reach out.',
-        route: '/home/loneliness',
+        route: AppRoutes.loneliness,
         durationMinutes: 3,
         alternativeSuggestions: [
+          _hopeBoxSuggestion,
           _breathingSuggestion,
           _journalingSuggestion,
           _tinyStepsSuggestion,
@@ -143,6 +144,15 @@ abstract final class RecommendationEngine {
         'Immerse in offline nature recordings or restorative brown noise for calming rest.',
     route: AppRoutes.soundscapes,
     durationMinutes: 10,
+  );
+
+  static const _hopeBoxSuggestion = ActionSuggestion(
+    actionType: ActionType.hopeBox,
+    title: 'Visit Your Hope Box',
+    body:
+        'Revisit personal memories, comforting notes, and reasons worth holding onto.',
+    route: AppRoutes.hopeBox,
+    durationMinutes: 3,
   );
 }
 

@@ -151,7 +151,7 @@
     "targetStates": ["racingThoughts", "overwhelmed", "anxious"],
     "guidanceType": "promptCards",
     "evidenceLevel": "clinicalConsensus",
-    "route": "/home/ground?mode=texture",
+    "route": "/home/breathe?mode=textures",
     "durationMinutes": 2,
     "instructions": ["Find something smooth (e.g. glass or phone screen)", "Find something rough or textured (e.g. fabric or wood)", "Find something cool to the touch"]
   },
@@ -164,7 +164,7 @@
     "targetStates": ["racingThoughts", "overwhelmed"],
     "guidanceType": "promptCards",
     "evidenceLevel": "clinicalConsensus",
-    "route": "/home/ground?mode=sound",
+    "route": "/home/breathe?mode=soundhunt",
     "durationMinutes": 2,
     "instructions": ["Listen for the nearest sound (even your breath)", "Listen for a sound inside the room", "Listen for the farthest distant sound outside"]
   },
@@ -177,7 +177,7 @@
     "targetStates": ["anxious", "racingThoughts"],
     "guidanceType": "promptCards",
     "evidenceLevel": "clinicalConsensus",
-    "route": "/home/ground?mode=colour",
+    "route": "/home/breathe?mode=coloursearch",
     "durationMinutes": 2,
     "instructions": ["Look around and find 4 green or blue objects", "Notice the shape and light on each one before moving to the next"]
   },
@@ -190,7 +190,7 @@
     "targetStates": ["panicked", "overwhelmed", "anxious"],
     "guidanceType": "stepSequence",
     "evidenceLevel": "clinicalConsensus",
-    "route": "/home/ground?mode=feet",
+    "route": "/home/breathe?mode=feetonfloor",
     "durationMinutes": 2,
     "instructions": ["Plant both feet flat on the floor", "Press your toes and heels gently downward", "Feel the solid floor supporting your weight completely"]
   },
@@ -203,7 +203,7 @@
     "targetStates": ["racingThoughts", "anxious", "overwhelmed"],
     "guidanceType": "promptCards",
     "evidenceLevel": "moderate",
-    "route": "/home/ground?mode=categories",
+    "route": "/home/cognitive-grounding?mode=categories",
     "durationMinutes": 3,
     "instructions": ["Name 5 types of warm soup or beverage", "Name 5 calm places you have visited or seen", "Name 5 book or movie titles"]
   },
@@ -216,7 +216,7 @@
     "targetStates": ["racingThoughts", "cantSleep"],
     "guidanceType": "promptCards",
     "evidenceLevel": "moderate",
-    "route": "/home/ground?mode=counting",
+    "route": "/home/cognitive-grounding?mode=counting",
     "durationMinutes": 2,
     "instructions": ["Start at 50", "Subtract 3: 47, 44, 41...", "Take your time with each number without rushing"]
   },
@@ -229,7 +229,7 @@
     "targetStates": ["racingThoughts", "anxious", "cantSleep"],
     "guidanceType": "stepSequence",
     "evidenceLevel": "moderate",
-    "route": "/home/ground?mode=alphabet",
+    "route": "/home/cognitive-grounding?mode=alphabet",
     "durationMinutes": 3,
     "instructions": ["A is for Autumn breeze", "B is for Blanket", "C is for Candlelight", "Continue as far as feels pleasant"]
   },
@@ -242,7 +242,7 @@
     "targetStates": ["racingThoughts", "flat"],
     "guidanceType": "promptCards",
     "evidenceLevel": "moderate",
-    "route": "/home/ground?mode=opposites",
+    "route": "/home/cognitive-grounding?mode=opposites",
     "durationMinutes": 2,
     "instructions": ["Notice the concept shown", "Whisper or tap its gentle opposite", "Notice how meaning flips easily"]
   },

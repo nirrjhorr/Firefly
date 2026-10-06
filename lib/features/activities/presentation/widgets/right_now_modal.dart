@@ -46,7 +46,7 @@ const List<RightNowAnchor> kRightNowAnchors = [
     title: 'I feel overwhelmed',
     subtitle: '5-4-3-2-1 sensory grounding',
     iconKey: 'hand.point.up.left',
-    route: AppRoutes.breathe,
+    route: '/home/breathe?mode=grounding',
   ),
   RightNowAnchor(
     id: 'low_energy',
@@ -103,6 +103,13 @@ const List<RightNowAnchor> kRightNowAnchors = [
     subtitle: 'Low-friction check-in text',
     iconKey: 'person.2',
     route: AppRoutes.loneliness,
+  ),
+  RightNowAnchor(
+    id: 'losing_hope',
+    title: 'I need a reminder to hold on',
+    subtitle: 'Visit your offline Hope Box',
+    iconKey: 'heart',
+    route: AppRoutes.hopeBox,
   ),
   RightNowAnchor(
     id: 'dont_know',
@@ -340,6 +347,9 @@ class _AnchorCard extends StatelessWidget {
         return Icons.auto_awesome_rounded;
       case 'person.2':
         return Icons.people_outline_rounded;
+      case 'heart':
+      case 'favorite':
+        return Icons.favorite_border_rounded;
       case 'headphones':
         return Icons.headphones_outlined;
       default:
