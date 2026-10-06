@@ -17,6 +17,8 @@ abstract final class AppRoutes {
   static const pmr = '/home/pmr';
   static const rightNow = '/home/right-now';
   static const move = '/home/move';
+  static const cognitiveGrounding = '/home/cognitive-grounding';
+  static const sleep = '/home/sleep';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

@@ -39,7 +39,7 @@ const List<RightNowAnchor> kRightNowAnchors = [
     title: 'I cannot stop thinking',
     subtitle: 'Cognitive grounding & words',
     iconKey: 'brain.head.profile',
-    route: AppRoutes.tinySteps,
+    route: AppRoutes.cognitiveGrounding,
   ),
   RightNowAnchor(
     id: 'overwhelmed',
@@ -81,7 +81,7 @@ const List<RightNowAnchor> kRightNowAnchors = [
     title: 'I want to sleep',
     subtitle: 'Night worry dump & audio fade',
     iconKey: 'moon.stars',
-    route: AppRoutes.soundscapes,
+    route: AppRoutes.sleep,
   ),
   RightNowAnchor(
     id: 'express_feeling',

@@ -1,0 +1,510 @@
+================================================================================
+FIREFLY WORKSPACE SKILLS INVENTORY (.agent/skills/)
+Total Skills Available: 115
+================================================================================
+
+This document catalogs all 115 skills installed in the Firefly repository,
+organized by functional domain. For each skill, it specifies:
+  - Skill Name
+  - Primary Capabilities & Tasks Performed
+  - When & Why the Skill Should Be Activated
+
+--------------------------------------------------------------------------------
+[1. FLUTTER & DART CORE ARCHITECTURE] (21 skills)
+--------------------------------------------------------------------------------
+
+1. flutter-architecture
+   - Tasks Performed: Feature-first layered MVVM architecture enforcing dumb Views, single 1:1 Notifier ViewModels, and repositories as the sole write path.
+   - When to Activate: Designing new features, folder organization, layer boundaries, or refactoring architectural structure.
+
+2. flutter-expert
+   - Tasks Performed: Master Flutter development with Dart 3, advanced widgets, reactive state, and multi-platform deployment.
+   - When to Activate: Proactively for all Flutter technical architecture, UI implementation, or cross-platform features.
+
+3. flutter-conventions-index
+   - Tasks Performed: The repo front-door for Flutter/Dart apps; enforces house rules, architecture DAG, and routes tasks to specialized deep-dive skills.
+   - When to Activate: Starting any Flutter feature, deciding which layer code belongs in, or onboarding to repository conventions.
+
+4. state-management-riverpod
+   - Tasks Performed: Riverpod 3.x state architecture; enforces Notifier/AsyncNotifier ViewModels, watch/read/listen split, family+autoDispose, and bans legacy containers.
+   - When to Activate: Adding state to a screen, writing controllers, wiring dependency injection, or reviewing rebuild leaks.
+
+5. flutter-riverpod-expert
+   - Tasks Performed: Expert 2025 Riverpod patterns; AsyncNotifierProvider, code generation, mutations, reactive synchronization, and testing.
+   - When to Activate: Solving complex state flows, AsyncValue handling, autoDispose lifecycles, and asynchronous mutations.
+
+6. flutter-riverpod-init
+   - Tasks Performed: Initializes Flutter projects into runnable scaffolds with Riverpod, go_router, Dio, Freezed, SharedPreferences, and clean architecture.
+   - When to Activate: Bootstrapping a new Flutter project, creating baseline core providers, or setting up app routing scaffolds.
+
+7. scaffold-feature-module
+   - Tasks Performed: Scaffolds a complete navigable feature module (dumb View + 1:1 Notifier ViewModel + widgets/ + scoped providers + go_router route).
+   - When to Activate: Adding a new screen, tab, or feature module to ensure strict structural consistency across the codebase.
+
+8. widget-composition
+   - Tasks Performed: Flutter widget composition best practices; extract const Widget classes (never _buildX()), lean build(), controller disposal, and layout optimization.
+   - When to Activate: Authoring or reviewing UI widgets, breaking up oversized build methods, or optimizing widget rendering trees.
+
+9. dart3-idioms-and-coding-standards
+   - Tasks Performed: Enforces Dart 3 constructs; sealed classes, exhaustive switches without default, class modifiers, immutable value types, and complexity limits.
+   - When to Activate: Authoring or reviewing types, writing pattern switches, defining value equality, or enforcing class modifiers.
+
+10. async-safety
+   - Tasks Performed: Eliminates silent async failures; catches unawaited Future drops, enforces mounted guards after every await, and cleans up subscriptions/timers.
+   - When to Activate: Writing async methods, handling mounted checks across BuildContext, or managing asynchronous stream lifecycles.
+
+11. error-handling-typed-results
+   - Tasks Performed: Enforces a typed-error spine with sealed Result<T, F> and per-boundary sealed Failure carrying stable error codes instead of localized strings.
+   - When to Activate: Designing service/repository boundaries, handling recoverable failures without throwing exceptions, or writing draft/undo data safety layers.
+
+12. naming-conventions
+   - Tasks Performed: Effective Dart casing and architectural role suffixes (Screen, Notifier, Repository, Dao, Service, Failure) so names reveal layers.
+   - When to Activate: Creating new files, naming classes, members, or methods, and organizing grouped/sorted import directives.
+
+13. flutter-performance
+   - Tasks Performed: Runtime performance optimization; const subtrees, .select rebuild scoping, lazy list builders, off-isolate compute, and surgical RepaintBoundary.
+   - When to Activate: Diagnosing UI jank, tuning long lists/images, offloading heavy computations, or profiling 60/120fps frame rates.
+
+14. app-startup-and-bootstrap
+   - Tasks Performed: Fixed main() launch order; error sinks installed first, settings read before runApp, composition-root DI overrides, and lifecycle state flush.
+   - When to Activate: Editing main.dart or bootstrap.dart, reordering initialization routines, or handling app background/resume lifecycle flushes.
+
+15. navigation-and-routing
+   - Tasks Performed: Enforces app-wide GoRouter; path-param identity, redirect guards, StatefulShellRoute tab shells, and PopScope unsaved-changes protection.
+   - When to Activate: Wiring routing, registering deep links, setting up nested tab navigation, or intercepting back-button navigation.
+
+16. service-boundary-and-native
+   - Tasks Performed: Isolates side effects and native channels behind throwing abstract interfaces overridden at the composition root; MethodChannel quarantine.
+   - When to Activate: Adding third-party service ports, platform channels, native widget bridges, or injecting Clock/analytics abstractions.
+
+17. ui-states-and-feedback
+   - Tasks Performed: Handles non-happy paths in one switch (loading/empty/error/content); delayed skeletons, typed Failure retry, and the inline-snackbar-modal surface ladder.
+   - When to Activate: Writing loading skeletons, empty filters, error retry states, snackbars, banners, or confirmation dialogs.
+
+18. forms-and-input
+   - Tasks Performed: Form + GlobalKey with TextFormField; sync/async validation, FocusNode traversal, keyboard actions, input formatters, and controller disposal.
+   - When to Activate: Building user input forms, managing text editing controllers, focus traversal, or validating input data.
+
+19. dartdoc-conventions
+   - Tasks Performed: Effective-Dart public API documentation; one-sentence summaries explaining WHY, documented units/ranges/throws, and [bracket] cross-links.
+   - When to Activate: Authoring public APIs, writing library documentation, or establishing exported barrel comments.
+
+20. write-swift
+   - Tasks Performed: Modern Swift engineering; value types, Swift 6 data-race safety, concurrency, actors, and AppKit/SwiftUI native platform integration.
+   - When to Activate: Writing or reviewing native iOS/macOS plugins, bridging native Darwin APIs, or debugging Swift concurrency issues.
+
+21. animate-expo
+   - Tasks Performed: React Native and Expo animations; Reanimated, Gesture Handler, Expo Router transitions, and expo-haptics.
+   - When to Activate: Building React Native or Expo mobile apps that require fluid screen transitions, gestures, and haptic feedback.
+
+--------------------------------------------------------------------------------
+[2. DATA, PERSISTENCE & DOMAIN VALUE OBJECTS] (5 skills)
+--------------------------------------------------------------------------------
+
+22. persistence-drift
+   - Tasks Performed: Governs on-device Drift/SQLite data layer; STRICT tables, CHECK/FK constraints, WAL mode, single transaction per mutation, and keyset pagination.
+   - When to Activate: Defining or altering database tables, DAOs, writing transactions, or building WAL-safe backup routines.
+
+23. run-migration
+   - Tasks Performed: Safe, verified SQLite/Drift schema migrations; step-by-step migration scripts, drift-schema verify tests, and pre-release migration dry runs.
+   - When to Activate: Altering database schemas, adding tables/columns, or running migration verification test suites.
+
+24. value-objects-money-and-units
+   - Tasks Performed: Pure-Dart value objects storing quantities canonically (integers for minor units, ISO currencies, SI units, UTC timestamps) with largest-remainder allocation.
+   - When to Activate: Handling financial transactions, currencies, measurements, unit calculations, or precision numeric data.
+
+25. data-export-and-restore
+   - Tasks Performed: Offline-first backup and restore engine; atomic VACUUM INTO, ZIP packaging, checksum verification, schema validation, and safe restore.
+   - When to Activate: Implementing user data backup, database exports, cloud restore features, or data migration tools.
+
+26. seeded-determinism-and-golden-vectors
+   - Tasks Performed: Seeded pseudo-random data generators and deterministic golden vectors for testing, mocks, and reproducible simulation.
+   - When to Activate: Creating repeatable test fixtures, mock data sets, or property-based deterministic testing vectors.
+
+--------------------------------------------------------------------------------
+[3. UI/UX, DESIGN SYSTEMS, MOTION & GRAPHICS] (24 skills)
+--------------------------------------------------------------------------------
+
+27. design-system-structure
+   - Tasks Performed: Scalable design system architecture; design tokens (colors, typography, spacing, elevations), theme extensions, and atomic widget libraries.
+   - When to Activate: Structuring design tokens, extending ThemeExtension, or establishing cohesive styling libraries.
+
+28. adaptive-layout
+   - Tasks Performed: Adapts layouts based on constraints/size classes (compact, medium, expanded) rather than platform checks; LayoutBuilder, NavigationRail/BottomNav adaptivity.
+   - When to Activate: Building responsive screens, tablet/desktop layouts, master-detail views, or foldable device support.
+
+29. custom-canvas-and-gestures
+   - Tasks Performed: High-performance CustomPainter, RenderObject, gesture disambiguation, path operations, and touch drawing.
+   - When to Activate: Creating custom graphic visualizers, audio waveforms, interactive gesture canvases, or specialized charts.
+
+30. motion-and-haptics
+   - Tasks Performed: Interaction feedback design; immediate acknowledgement, HapticTheme intensity mapping, interruptible animations, and bounded celebrations.
+   - When to Activate: Adding micro-interactions, haptic feedback on button presses, celebrations, or screen entry motion.
+
+31. flutter-animations
+   - Tasks Performed: Deep Flutter animation patterns; AnimationController, Tween, CurvedAnimation, Hero transitions, physics simulations, and staggered sequences.
+   - When to Activate: Building explicit Flutter animations, hero route transitions, physics-based springs, or gesture flings.
+
+32. flutter-animating-apps
+   - Tasks Performed: Production Flutter motion effects, interactive page routes, shared element heroes, and aesthetic transitions.
+   - When to Activate: Polishing Flutter user interfaces with modern, fluid, production-grade transitions and motion design.
+
+33. logo-design
+   - Tasks Performed: Vector logo design, app iconography, branding geometry, SVG optimization, and brand asset generation.
+   - When to Activate: Designing brand logos, application icons, marketing marks, or vector graphic identities.
+
+34. apple-design
+   - Tasks Performed: Human Interface Guidelines (HIG) compliance and polish; Apple design craft, Liquid Glass, typography leading, and iOS/macOS platform conventions.
+   - When to Activate: Auditing UI for Apple HIG compliance, reviewing design aesthetics, or crafting premium iOS interfaces.
+
+35. emil-apple-design
+   - Tasks Performed: Emil Kowalski's translation of Apple interface physics, fluid gestures, springs, sheets, depth, and momentum for web and mobile.
+   - When to Activate: Building gesture-driven UI, bottom sheets, momentum gestures, or realistic spring animations.
+
+36. emil-design-eng
+   - Tasks Performed: UI polish and design engineering craft; microscopic details, spring physics, layout shifts, keyboard navigation, and delightful micro-interactions.
+   - When to Activate: Elevating component polish from standard to state-of-the-art, fixing subtle layout jumps, or perfecting interactions.
+
+37. animate
+   - Tasks Performed: Web animation design from scratch; decides tools, properties, duration, curves, interruptibility, and exit transitions.
+   - When to Activate: Adding web motion effects, designing component entrance/exit transitions, or building interactive CSS/JS animations.
+
+38. improve-animations
+   - Tasks Performed: Senior motion advisor codebase audit; scans existing motion code, detects jank or awkward curves, and builds prioritized improvement plans.
+   - When to Activate: Auditing app motion across an entire repository to improve motion feel, performance, and consistency.
+
+39. review-animations
+   - Tasks Performed: Targeted motion critique; reviews animation diffs, curves, durations, and accessibility fallbacks.
+   - When to Activate: Reviewing animation pull requests or critiquing specific UI transitions against motion guidelines.
+
+40. find-animation-opportunities
+   - Tasks Performed: Read-only discovery tool; scans UI for static moments that would benefit from subtle motion.
+   - When to Activate: Surveying screens to identify static elements that feel lifeless and need subtle interactive motion.
+
+41. animation-vocabulary
+   - Tasks Performed: Reverse-lookup motion glossary; maps natural language descriptions to precise motion and animation terms.
+   - When to Activate: Translating user/designer descriptions of motion into accurate technical terms for implementation.
+
+42. frontend-design
+   - Tasks Performed: Distinctive visual design direction; typography, color theory, spacing, and avoiding generic UI patterns.
+   - When to Activate: Shaping unique visual identities for websites or web apps to avoid generic, templated aesthetics.
+
+43. responsive-design
+   - Tasks Performed: Modern responsive layouts; fluid typography, container queries, CSS Grid, and mobile-first breakpoint systems.
+   - When to Activate: Building adaptive web pages, fluid component layouts, or debugging cross-device responsive rendering.
+
+44. mobile-native
+   - Tasks Performed: Web-to-native mobile polish; fixes sticky hovers, 100vh viewport bugs, tap delays, notch safe areas, and mobile browser quirks.
+   - When to Activate: Optimizing web apps or PWAs to feel indistinguishable from native mobile applications on touch devices.
+
+45. break-ui
+   - Tasks Performed: Stress-tests UI components with worst-case data (huge strings, emoji, zero states, extreme numbers) to expose layout breaks.
+   - When to Activate: Testing UI robustness before shipping by feeding extreme edge-case data into components and screens.
+
+46. prototype
+   - Tasks Performed: Rapid UI prototyping and interactive mockups; builds functional prototypes to validate ideas before full production engineering.
+   - When to Activate: Validating early product ideas, interaction models, or exploratory features with lightweight functional mockups.
+
+47. pick-ui-library
+   - Tasks Performed: Objective evaluation framework for UI libraries and component frameworks based on bundle size, accessibility, and maintenance.
+   - When to Activate: Evaluating third-party UI component libraries or making architectural technology stack decisions.
+
+48. better-icons
+   - Tasks Performed: CLI and MCP integration for searching and retrieving SVGs from over 200 icon libraries (Iconify).
+   - When to Activate: Searching for, selecting, and downloading clean SVG icon assets for user interface components.
+
+49. ask-sonner
+   - Tasks Performed: Comprehensive guide to Sonner toast notifications in React; promise toasts, styling, position, and modal layering.
+   - When to Activate: Implementing, positioning, or troubleshooting Sonner toast notifications in React applications.
+
+50. frontend-mobile-development-component-scaffold
+   - Tasks Performed: Scaffolds production-ready, accessible, and performant React/mobile components with TypeScript and tests.
+   - When to Activate: Scaffolding new React or React Native component files with complete typing, tests, and styles.
+
+--------------------------------------------------------------------------------
+[4. ACCESSIBILITY & INTERNATIONALIZATION] (3 skills)
+--------------------------------------------------------------------------------
+
+51. accessibility-as-code
+   - Tasks Performed: Enforces a11y as a compile-time correctness property; Semantics labels, 44px tap targets, 4.5:1 contrast, boldText/reduce-motion support.
+   - When to Activate: Authoring tap targets, icons, images, text styles, or reviewing views for screen reader accessibility.
+
+52. i18n-rtl-l10n
+   - Tasks Performed: Comprehensive localization, RTL layout mirroring, plural rules, number/date formatting, and ARB translation parity.
+   - When to Activate: Adding multi-language translation strings, supporting right-to-left scripts, or formatting locale-sensitive data.
+
+53. widget-golden-and-a11y-testing
+   - Tasks Performed: Widget and accessibility test harness; verifies semantics tree, contrast calculations, font scaling, and automated a11y checks.
+   - When to Activate: Writing automated accessibility tests, verifying contrast compliance, or testing font scaling behaviors.
+
+--------------------------------------------------------------------------------
+[5. HARDWARE, NOTIFICATIONS & MONETIZATION] (2 skills)
+--------------------------------------------------------------------------------
+
+54. local-notifications-scheduler
+   - Tasks Performed: Local notifications engine with DB as source of truth, idempotent syncNotifications reconciliation, wall-clock recurrence, DST handling, and boot re-arm.
+   - When to Activate: Scheduling local push notifications, recurring reminders, managing device boot alarms, or timezone calculations.
+
+55. ads-and-iap-monetization
+   - Tasks Performed: Opt-in rewarded monetization, single write-path purchase verification, non-consumable restore, and entitlement gating before ad SDK initialization.
+   - When to Activate: Wiring rewarded video earn loops, interstitial ads, in-app purchases, subscription paywalls, or feature gating.
+
+--------------------------------------------------------------------------------
+[6. QUALITY, TESTING & CODE REVIEW] (8 skills)
+--------------------------------------------------------------------------------
+
+56. testing-strategy
+   - Tasks Performed: Architectural test strategy; pure package tests, seeded fuzz testing, ProviderContainer headless tests, and Drift in-memory database suites.
+   - When to Activate: Establishing testing standards, writing integration test suites, or designing robust unit testing layers.
+
+57. tdd-workflows-tdd-cycle
+   - Tasks Performed: Strict Test-Driven Development (Red-Green-Refactor); writes failing tests first, minimal implementation to pass, and safe refactoring.
+   - When to Activate: Implementing new domain logic, bug fixes, or complex algorithms following disciplined TDD cycles.
+
+58. unit-testing-test-generate
+   - Tasks Performed: Generates maintainable, edge-case focused unit tests across languages and frameworks.
+   - When to Activate: Writing automated unit test suites for functions, classes, and business logic with high branch coverage.
+
+59. e2e-testing-patterns
+   - Tasks Performed: End-to-end testing strategies using Playwright and Cypress; reliable selectors, network mocks, and flaky test prevention.
+   - When to Activate: Authoring end-to-end browser tests, stabilizing flaky test suites, or setting up test automation frameworks.
+
+60. flutter-dart-code-review
+   - Tasks Performed: Comprehensive Flutter/Dart code review checklist covering state management, performance, a11y, idioms, and architecture.
+   - When to Activate: Conducting thorough peer reviews of Flutter code diffs, pull requests, or evaluating architectural compliance.
+
+61. code-review-ai-ai-review
+   - Tasks Performed: AI-assisted static analysis and pattern recognition code reviews across multiple languages.
+   - When to Activate: Performing automated multi-language static code reviews or identifying hidden bugs and regressions.
+
+62. design-review-workflow
+   - Tasks Performed: Structured design review process comparing implemented UI against design specs, tokens, and UX guidelines.
+   - When to Activate: Validating visual parity between Figma/design specifications and implemented UI components.
+
+63. run-goldens-rebaseline
+   - Tasks Performed: Golden file generation, comparison, and rebaselining workflow under strict OS font and rendering controls.
+   - When to Activate: Updating visual regression golden files, rebaselining screen snapshots, or debugging golden test failures.
+
+--------------------------------------------------------------------------------
+[7. SECURITY, PRIVACY & COMPLIANCE] (3 skills)
+--------------------------------------------------------------------------------
+
+64. security-auditor
+   - Tasks Performed: Deep security audits; OWASP Top 10, authentication/OAuth2, threat modeling, cloud posture, and compliance (GDPR, HIPAA, SOC2).
+   - When to Activate: Conducting security vulnerability assessments, reviewing authentication flows, or auditing compliance.
+
+65. security-scanning-security-hardening
+   - Tasks Performed: Multi-layer security hardening across dependencies, containers, infrastructure, and secrets management.
+   - When to Activate: Hardening application builds, reviewing dependency vulnerabilities, or implementing DevSecOps controls.
+
+66. sast-configuration
+   - Tasks Performed: Static Application Security Testing (SAST) tool configuration and CI automation for vulnerability detection.
+   - When to Activate: Setting up automated static security analysis tools in CI/CD pipelines to catch security flaws early.
+
+--------------------------------------------------------------------------------
+[8. TOOLING, CODEGEN, CI/CD & HYGIENE] (9 skills)
+--------------------------------------------------------------------------------
+
+67. codegen-and-toolchain
+   - Tasks Performed: Deterministic build_runner discipline; build.yaml scoping, gitignore-vs-commit rules for *.g.dart, and CI freshness gates.
+   - When to Activate: Configuring build_runner code generation, resolving build conflicts, or setting up generated file excludes.
+
+68. run-codegen
+   - Tasks Performed: Executes build_runner and code generators with clean outputs, scoped builders, and conflict resolution.
+   - When to Activate: Regenerating Freezed, Riverpod, Drift, or JSON serialization code during active feature development.
+
+69. dependency-hygiene
+   - Tasks Performed: Pubspec and lockfile discipline; caret ranges, lockfile pinning, transitive dependency audits, and license checks.
+   - When to Activate: Adding or upgrading dependencies, auditing third-party transitive packages, or resolving version conflicts.
+
+70. lint-and-style-config
+   - Tasks Performed: Strict analysis_options.yaml with very_good_analysis, error promotions, strict casts, and formatting enforcement.
+   - When to Activate: Configuring Dart analyzer linter rules, enabling strict type checks, or diagnosing analyzer warnings.
+
+71. ci-pipeline-and-gates
+   - Tasks Performed: Lean GitHub Actions Flutter CI; pinned runners, formatting, fatal analyzer infos, build_runner freshness, and randomized tests.
+   - When to Activate: Authoring or updating GitHub Actions workflows, setting up quality gates, or optimizing CI build speeds.
+
+72. cicd-automation-workflow-automate
+   - Tasks Performed: General CI/CD pipeline automation and workflow optimization for multi-stage deployments.
+   - When to Activate: Automating complex deployment pipelines, branch protection workflows, or artifact publishing.
+
+73. github-actions-templates
+   - Tasks Performed: Production-ready GitHub Actions templates for automated testing, matrix builds, release packaging, and publishing.
+   - When to Activate: Quickly setting up reusable CI/CD workflows using standardized GitHub Actions templates.
+
+74. release-and-store-shipping
+   - Tasks Performed: Production release checklist; version bumping, app signing, store metadata, ProGuard/obfuscation, and release bundle generation.
+   - When to Activate: Preparing release builds for Google Play or Apple App Store submission and release checklist validation.
+
+75. project-structure-and-packages
+   - Tasks Performed: Scaffolds maintainable monorepos and packages; feature-first folders, clean foundation layering, and modular architecture.
+   - When to Activate: Restructuring project folders, extracting shared logic into pure packages, or enforcing dependency boundaries.
+
+--------------------------------------------------------------------------------
+[9. BMAD PRODUCT LIFECYCLE & MULTI-AGENT ORCHESTRATION] (29 skills)
+--------------------------------------------------------------------------------
+
+76. bmad-agent-pm
+   - Tasks Performed: Product Manager agent persona (John) for PRD creation, feature prioritization, and requirements discovery.
+   - When to Activate: Engaging the BMAD Product Manager persona to lead product definition and requirement gathering.
+
+77. bmad-agent-analyst
+   - Tasks Performed: Business Analyst agent persona (Mary) for market research, competitive analysis, and feasibility studies.
+   - When to Activate: Engaging the BMAD Business Analyst persona to investigate market viability and competitive landscapes.
+
+78. bmad-agent-architect
+   - Tasks Performed: System Architect agent persona (Winston) for high-level technical design, component boundaries, and architecture spines.
+   - When to Activate: Engaging the BMAD System Architect persona to design technical blueprints and structural boundaries.
+
+79. bmad-agent-ux-designer
+   - Tasks Performed: UX Designer agent persona (Sally) for user flows, interaction specs, and wireframe definitions.
+   - When to Activate: Engaging the BMAD UX Designer persona to design intuitive user experiences and interaction models.
+
+80. bmad-agent-dev
+   - Tasks Performed: Senior Software Engineer agent persona (Amelia) for story implementation, coding, and technical problem solving.
+   - When to Activate: Engaging the BMAD Developer persona to execute feature stories, write clean code, and debug issues.
+
+81. bmad-prd
+   - Tasks Performed: Author, update, and validate comprehensive Product Requirement Documents (PRD).
+   - When to Activate: Creating, refining, or validating PRD specifications before technical architecture begins.
+
+82. bmad-product-brief
+   - Tasks Performed: Author and validate high-level product briefs and vision statements.
+   - When to Activate: Initiating new product discovery, defining high-level goals, and scoping project boundaries.
+
+83. bmad-prfaq
+   - Tasks Performed: Amazon Working Backwards PRFAQ methodology; draft press releases and customer/stakeholder FAQs before building.
+   - When to Activate: Validating high-risk product concepts from a customer perspective before investing engineering effort.
+
+84. bmad-spec
+   - Tasks Performed: Condense briefs, transcripts, or notes into actionable SPEC.md documents and user stories.
+   - When to Activate: Distilling unorganized notes or user feedback into structured technical specification documents.
+
+85. bmad-architecture
+   - Tasks Performed: Author and validate system architecture spines and technical design documents.
+   - When to Activate: Documenting system architecture, data flows, and component interfaces across a product.
+
+86. bmad-ux
+   - Tasks Performed: Author DESIGN.md and EXPERIENCE.md for visual guidelines and interaction models.
+   - When to Activate: Documenting UX specifications, visual style rules, interaction behaviors, and user journeys.
+
+87. bmad-create-epics-and-stories
+   - Tasks Performed: Decompose PRDs and specs into structured epics, user stories, and acceptance criteria.
+   - When to Activate: Breaking down product requirements into bite-sized, implementable stories during sprint planning.
+
+88. bmad-sprint-planning
+   - Tasks Performed: Verify implementation readiness and generate sprint-status.yaml tracking files.
+   - When to Activate: Checking implementation readiness, prioritizing sprint backlogs, and initializing sprint tracking.
+
+89. bmad-build
+   - Tasks Performed: Autonomous story implementation engine; executes stories with verification, tests, and code reviews.
+   - When to Activate: Delegating feature implementation, bug fixes, or story tasks to autonomous development workflows.
+
+90. bmad-build-auto
+   - Tasks Performed: Unattended iterative development loop executing consecutive stories.
+   - When to Activate: Running autonomous, batch implementation of backlog stories in an unattended loop.
+
+91. bmad-code-review
+   - Tasks Performed: Multi-perspective parallel code review with triaged findings and severity ratings.
+   - When to Activate: Conducting rigorous multi-agent code reviews on pull requests or major implementation diffs.
+
+92. bmad-review
+   - Tasks Performed: Multi-lens review engine examining diffs for edge cases, verification gaps, and architectural alignment.
+   - When to Activate: Running deep multi-lens critiques on code changes, technical specs, or documentation artifacts.
+
+93. bmad-walkthrough
+   - Tasks Performed: Interactive walkthrough guiding developers through changes, testing steps, and review notes.
+   - When to Activate: Walking stakeholders through implemented code changes, testing instructions, and validation notes.
+
+94. bmad-correct-course
+   - Tasks Performed: Mid-sprint impact analysis and course correction proposals across PRD, epics, and architecture.
+   - When to Activate: Adapting plans when requirements change mid-sprint or unanticipated obstacles arise.
+
+95. bmad-retrospective
+   - Tasks Performed: Epic and sprint retrospective analysis based on commit history, specs, and outcomes.
+   - When to Activate: Reflecting on sprint execution, assessing delivered outcomes, and documenting continuous improvements.
+
+96. bmad-deep-recon
+   - Tasks Performed: Deep topic research across market, technical, domain, and competitive dimensions.
+   - When to Activate: Conducting deep, evidence-based research on unknown technical domains, APIs, or competitors.
+
+97. bmad-brainstorming
+   - Tasks Performed: Creative ideation using structured brainstorming methodologies (SCAMPER, Six Thinking Hats).
+   - When to Activate: Generating creative solutions for product features, UX challenges, or complex problems.
+
+98. bmad-forge-idea
+   - Tasks Performed: Multi-persona idea stress-testing to probe weak points and harden product hypotheses.
+   - When to Activate: Challenging and refining raw, unproven concepts before committing development resources.
+
+99. bmad-advanced-elicitation
+   - Tasks Performed: Socratic, first-principles, and pre-mortem probing to push LLM thinking to higher depth.
+   - When to Activate: Pushing technical discussions or design proposals deeper using first-principles questioning.
+
+100. bmad-party-mode
+   - Tasks Performed: Orchestrates multi-agent roundtables and dynamic discussions among diverse agent personas.
+   - When to Activate: Facilitating roundtables where multiple AI specialist personas debate design tradeoffs.
+
+101. bmad-qa-generate-e2e-tests
+   - Tasks Performed: Generates automated API and end-to-end tests for newly implemented features.
+   - When to Activate: Authoring automated end-to-end integration tests to verify newly implemented feature stories.
+
+102. bmad-project-context
+   - Tasks Performed: Sets up and audits repository AGENTS.md instructions and recorded pitfalls.
+   - When to Activate: Refreshing agent operating context, recording developer pitfalls, or onboarding AI agents.
+
+103. bmad-customize
+   - Tasks Performed: Authors and updates custom overrides for BMAD skills and agent behaviors.
+   - When to Activate: Customizing BMAD prompts, adjusting persona behaviors, or extending workflow templates.
+
+104. bmad-help
+   - Tasks Performed: Intelligent router analyzing current state to recommend the optimal BMAD skill.
+   - When to Activate: Seeking guidance on which BMAD workflow, tool, or next step to take in a project.
+
+--------------------------------------------------------------------------------
+[10. DEVELOPER DISCIPLINE, WORKFLOWS & SIMPLICITY] (11 skills)
+--------------------------------------------------------------------------------
+
+105. ponytail
+   - Tasks Performed: Extreme simplicity and minimalism; enforces the laziest effective solution, YAGNI, standard library first, zero bloat.
+   - When to Activate: Any coding or architecture task to resist speculative complexity and keep code minimal and clean.
+
+106. ponytail-review
+   - Tasks Performed: Over-engineering code review; hunts speculative abstractions, reinvented standard library features, and unnecessary dependencies.
+   - When to Activate: Reviewing diffs or pull requests specifically to identify and eliminate unnecessary complexity.
+
+107. ponytail-audit
+   - Tasks Performed: Repository-wide simplicity audit; identifies bloated files, dead flexibility, and complex code to delete.
+   - When to Activate: Scanning codebases for bloat, unnecessary packages, or over-engineered abstractions to remove.
+
+108. ponytail-debt
+   - Tasks Performed: Tracks ponytail: shortcut and deferral comments across the codebase into an actionable debt ledger.
+   - When to Activate: Reviewing and triaging intentional shortcuts, temporary deferrals, and technical debt markers.
+
+109. ponytail-gain
+   - Tasks Performed: Displays measured impact scoreboard (lines deleted, complexity reduced, build speed gained).
+   - When to Activate: Evaluating simplicity gains and productivity improvements achieved through code reduction.
+
+110. ponytail-help
+   - Tasks Performed: Quick-reference cheat sheet for all Ponytail simplicity modes and intensity levels.
+   - When to Activate: Referencing available Ponytail modes, intensity flags, and simplicity guidelines.
+
+111. conductor-implement
+   - Tasks Performed: Executes tasks from a Conductor track's implementation plan with strict TDD workflow.
+   - When to Activate: Implementing tasks from an approved Conductor feature track following TDD principles.
+
+112. conductor-new-track
+   - Tasks Performed: Creates a new specification track with phased implementation plans and milestones.
+   - When to Activate: Planning and breaking down major multi-phase feature initiatives using Conductor tracks.
+
+113. context-driven-development
+   - Tasks Performed: Context-driven development methodology managing product.md, tech-stack.md, and workflow.md artifacts.
+   - When to Activate: Structuring, updating, and aligning project-level context documents and architecture blueprints.
+
+114. c4-architecture-c4-architecture
+   - Tasks Performed: Generates comprehensive bottom-up C4 architectural documentation (Context, Container, Component, Code).
+   - When to Activate: Documenting complex codebases with structured C4 architectural models and relationship maps.
+
+115. prompt-engineering-patterns
+   - Tasks Performed: Production prompt engineering patterns; few-shot templates, chain-of-thought, safety guardrails, and structured outputs.
+   - When to Activate: Designing, optimizing, and evaluating production system prompts and AI agent instructions.
