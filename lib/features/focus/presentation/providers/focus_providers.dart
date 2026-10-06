@@ -192,6 +192,11 @@ class FocusNotifier extends StateNotifier<FocusState> {
     state = state.copyWith(brainDumpItems: updated);
   }
 
+  Future<void> clearBrainDump() async {
+    await _repository.clearBrainDumpItems();
+    state = state.copyWith(brainDumpItems: const [], brainDumpInput: '');
+  }
+
   // ---------------------------------------------------------------------------
   // Serene Focus Companion (Timer) Logic
   // ---------------------------------------------------------------------------

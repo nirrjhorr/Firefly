@@ -16,7 +16,7 @@ class AddHopeBoxItemSheet extends StatefulWidget {
     required String content,
     String? filePath,
     String? caption,
-    String category,
+    required String category,
   }) onSave;
 
   const AddHopeBoxItemSheet({
@@ -32,7 +32,7 @@ class AddHopeBoxItemSheet extends StatefulWidget {
       required String content,
       String? filePath,
       String? caption,
-      String category,
+      required String category,
     }) onSave,
   }) {
     return showModalBottomSheet<void>(

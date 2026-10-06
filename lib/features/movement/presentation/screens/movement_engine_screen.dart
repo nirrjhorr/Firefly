@@ -196,7 +196,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
                 duration: AnimationTokens.fast,
                 padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xs),
                 decoration: BoxDecoration(
-                  color: isSelected ? colors.actionSage.withValues(alpha: 0.25) : Colors.transparent,
+                  color: isSelected ? colors.actionSage.withOpacity(0.25) : Colors.transparent,
                   borderRadius: BorderRadius.circular(RadiusTokens.sm),
                 ),
                 alignment: Alignment.center,
@@ -240,7 +240,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
             ),
             backgroundColor: colors.bgSurfaceElevated,
-            selectedColor: colors.actionSage.withValues(alpha: 0.35),
+            selectedColor: colors.actionSage.withOpacity(0.35),
             checkmarkColor: colors.actionSage,
             showCheckmark: false,
             shape: RoundedRectangleBorder(
@@ -387,7 +387,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
       decoration: BoxDecoration(
-        color: colors.bgSurfaceElevated.withValues(alpha: 0.5),
+        color: colors.bgSurfaceElevated.withOpacity(0.5),
         borderRadius: BorderRadius.circular(RadiusTokens.md),
         border: Border.all(color: colors.bgBorderSubtle),
       ),

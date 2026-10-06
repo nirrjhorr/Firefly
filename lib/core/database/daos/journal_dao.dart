@@ -1,5 +1,7 @@
 import 'dart:async';
 import '../../../features/journaling/domain/models/journal_entry.dart';
+import '../app_database.dart' hide JournalEntry;
+import 'drift_journal_dao.dart';
 
 /// Data Access Object contract for JournalEntries table.
 abstract class JournalDao {
@@ -15,6 +17,8 @@ abstract class JournalDao {
 
   factory JournalDao.inMemory([List<JournalEntry>? initialEntries]) =>
       InMemoryJournalDao(initialEntries);
+
+  factory JournalDao.drift(AppDatabase db) => DriftJournalDao(db);
 }
 
 /// In-memory implementation of [JournalDao] for isolated unit tests,

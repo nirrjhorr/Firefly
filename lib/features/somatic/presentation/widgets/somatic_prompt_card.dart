@@ -47,7 +47,7 @@ class SomaticPromptCard extends StatelessWidget {
                   vertical: SpacingTokens.xs,
                 ),
                 decoration: BoxDecoration(
-                  color: colors.primary.withValues(alpha: 0.15),
+                  color: colors.primary.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(RadiusTokens.full),
                 ),
                 child: Text(
@@ -82,7 +82,7 @@ class SomaticPromptCard extends StatelessWidget {
           Text(
             prompt.guidanceText,
             style: AppTypography.bodyMedium.copyWith(
-              color: colors.textPrimary.withValues(alpha: 0.90),
+              color: colors.textPrimary.withOpacity(0.90),
               height: 1.55,
             ),
           ),
@@ -95,7 +95,7 @@ class SomaticPromptCard extends StatelessWidget {
               color: colors.surfaceContainer,
               borderRadius: BorderRadius.circular(RadiusTokens.md),
               border: Border.all(
-                color: colors.outline.withValues(alpha: 0.35),
+                color: colors.outline.withOpacity(0.35),
               ),
             ),
             child: Row(
@@ -138,7 +138,7 @@ class SomaticPromptCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(SpacingTokens.sm),
             decoration: BoxDecoration(
-              color: colors.secondaryContainer.withValues(alpha: 0.45),
+              color: colors.secondaryContainer.withOpacity(0.45),
               borderRadius: BorderRadius.circular(RadiusTokens.md),
             ),
             child: Row(

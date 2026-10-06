@@ -166,9 +166,9 @@ class _HopeBoxScreenState extends ConsumerState<HopeBoxScreen> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_back_ios_new_rounded,
-                          color: neutral300,
+                          color: colors.textSecondary,
                           size: 20,
                         ),
                         tooltip: 'Back',

@@ -58,7 +58,7 @@ class SomaticModeSelectorSheet extends StatelessWidget {
         ),
         border: Border(
           top: BorderSide(
-            color: colors.outline.withValues(alpha: 0.35),
+            color: colors.outline.withOpacity(0.35),
           ),
         ),
       ),
@@ -78,7 +78,7 @@ class SomaticModeSelectorSheet extends StatelessWidget {
               width: 36,
               height: 4,
               decoration: BoxDecoration(
-                color: colors.outline.withValues(alpha: 0.40),
+                color: colors.outline.withOpacity(0.40),
                 borderRadius: BorderRadius.circular(RadiusTokens.full),
               ),
             ),
@@ -108,7 +108,7 @@ class SomaticModeSelectorSheet extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
               child: Material(
                 color: isSelected
-                    ? colors.primary.withValues(alpha: 0.15)
+                    ? colors.primary.withOpacity(0.15)
                     : colors.surfaceContainer,
                 borderRadius: BorderRadius.circular(RadiusTokens.lg),
                 child: InkWell(
@@ -128,7 +128,7 @@ class SomaticModeSelectorSheet extends StatelessWidget {
                       border: Border.all(
                         color: isSelected
                             ? colors.primary
-                            : colors.outline.withValues(alpha: 0.25),
+                            : colors.outline.withOpacity(0.25),
                         width: isSelected ? 1.5 : 1.0,
                       ),
                     ),

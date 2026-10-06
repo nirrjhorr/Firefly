@@ -82,13 +82,13 @@ class _LabyrinthPainter extends CustomPainter {
     final centerRadius = 24.0;
     final centerGlow = Paint()
       ..color = isCompleted
-          ? themeColors.primary.withValues(alpha: 0.35)
-          : themeColors.primary.withValues(alpha: 0.12)
+          ? themeColors.primary.withOpacity(0.35)
+          : themeColors.primary.withOpacity(0.12)
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, centerRadius * (isCompleted ? 1.4 : 1.0), centerGlow);
 
     final centerBorder = Paint()
-      ..color = themeColors.primary.withValues(alpha: 0.45)
+      ..color = themeColors.primary.withOpacity(0.45)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
     canvas.drawCircle(center, centerRadius, centerBorder);
@@ -102,7 +102,7 @@ class _LabyrinthPainter extends CustomPainter {
 
       // Outer soft track glow
       final trackBackground = Paint()
-        ..color = themeColors.outline.withValues(alpha: 0.18)
+        ..color = themeColors.outline.withOpacity(0.18)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 12.0
         ..strokeCap = StrokeCap.round
@@ -111,7 +111,7 @@ class _LabyrinthPainter extends CustomPainter {
 
       // Inner thin guideline
       final trackCore = Paint()
-        ..color = themeColors.outline.withValues(alpha: 0.40)
+        ..color = themeColors.outline.withOpacity(0.40)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.0
         ..strokeCap = StrokeCap.round;
@@ -119,7 +119,7 @@ class _LabyrinthPainter extends CustomPainter {
 
       // Entry dot
       final entryPaint = Paint()
-        ..color = themeColors.primary.withValues(alpha: 0.65)
+        ..color = themeColors.primary.withOpacity(0.65)
         ..style = PaintingStyle.fill;
       canvas.drawCircle(Offset(guidePoints.first.x, guidePoints.first.y), 6.0, entryPaint);
     }
@@ -133,7 +133,7 @@ class _LabyrinthPainter extends CustomPainter {
 
       // Outer luminous glow
       final outerGlow = Paint()
-        ..color = const Color(0xFFF4A261).withValues(alpha: 0.30) // warm hearth gold glow
+        ..color = const Color(0xFFF4A261).withOpacity(0.30) // warm hearth gold glow
         ..style = PaintingStyle.stroke
         ..strokeWidth = 16.0
         ..strokeCap = StrokeCap.round
@@ -152,7 +152,7 @@ class _LabyrinthPainter extends CustomPainter {
       // Fingertip cursor point
       final tip = Offset(tracedPoints.last.x, tracedPoints.last.y);
       final cursorGlow = Paint()
-        ..color = const Color(0xFFFFD166).withValues(alpha: 0.50)
+        ..color = const Color(0xFFFFD166).withOpacity(0.50)
         ..style = PaintingStyle.fill;
       canvas.drawCircle(tip, 14.0, cursorGlow);
 

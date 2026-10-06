@@ -103,7 +103,7 @@ class _AweWalkScreenState extends ConsumerState<AweWalkScreen> {
                     ),
                     child: AnimatedSwitcher(
                       duration: MotionTokens.screenTransition,
-                      curve: MotionTokens.standardCurve,
+                      switchInCurve: MotionTokens.standardCurve,
                       child: _buildPhaseContent(context, session, notifier),
                     ),
                   ),

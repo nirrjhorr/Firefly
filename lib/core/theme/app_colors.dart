@@ -219,6 +219,18 @@ class AppCustomColors extends ThemeExtension<AppCustomColors> {
   );
 }
 
+/// Compatibility type aliases
+typedef AppColors = AppCustomColors;
+typedef ThemeColors = AppCustomColors;
+
+/// Extension to support Color.withValues() on Flutter versions prior to 3.27
+extension ColorValuesExt on Color {
+  Color withValues({double? alpha, int? red, int? green, int? blue}) {
+    if (alpha != null) return withOpacity(alpha.clamp(0.0, 1.0));
+    return this;
+  }
+}
+
 /// Convenience accessor for semantic colors in the widget tree
 extension AppColorsX on BuildContext {
   AppCustomColors get colors =>
@@ -234,6 +246,7 @@ extension AppCustomColorsAliases on AppCustomColors {
   Color get surfaceElevated => bgSurfaceRaised;
   Color get surfaceBase => bgCanvas;
   Color get surfaceDeep => bgCanvasDeep;
+  Color get surfaceCanvas => bgCanvas;
   Color get surface => bgSurface;
   Color get surfaceContainer => bgSurface;
   Color get container => bgSurfaceRaised;
@@ -270,4 +283,5 @@ extension AppCustomColorsAliases on AppCustomColors {
   Color get secondaryContainer => bgSurfaceRaised;
   Color get accentLavender => accentSecondary;
 }
+
 

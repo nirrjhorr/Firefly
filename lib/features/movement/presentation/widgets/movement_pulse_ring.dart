@@ -106,8 +106,8 @@ class _MovementPulseRingState extends State<MovementPulseRing>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          colors.actionSage.withValues(alpha: isRunning ? 0.18 : 0.08),
-                          colors.actionSage.withValues(alpha: 0.0),
+                          colors.actionSage.withOpacity(isRunning ? 0.18 : 0.08),
+                          colors.actionSage.withOpacity(0.0),
                         ],
                       ),
                     ),
@@ -118,7 +118,7 @@ class _MovementPulseRingState extends State<MovementPulseRing>
                     size: const Size(200, 200),
                     painter: _RingPainter(
                       progress: state.progress,
-                      trackColor: colors.bgSurfaceElevated.withValues(alpha: 0.8),
+                      trackColor: colors.bgSurfaceElevated.withOpacity(0.8),
                       progressColor: isCompleted ? colors.actionSage : colors.actionSage,
                       strokeWidth: 8.0,
                     ),

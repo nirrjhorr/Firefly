@@ -17,11 +17,14 @@ class FireflyEmptyState extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
-    required this.description,
-    this.actionText,
+    String? description,
+    String? message,
+    String? actionText,
+    String? actionLabel,
     this.onAction,
     this.actionIcon,
-  });
+  })  : description = description ?? message ?? '',
+        actionText = actionText ?? actionLabel;
 
   final IconData icon;
   final String title;

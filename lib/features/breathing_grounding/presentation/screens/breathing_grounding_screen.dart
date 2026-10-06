@@ -19,7 +19,7 @@ import '../widgets/grounding_mode_selector.dart';
 import '../widgets/grounding_prompt_card.dart';
 import '../widgets/soundscape_selector_sheet.dart';
 import '../../domain/models/grounding_stage.dart';
-import '../../activities/presentation/widgets/effectiveness_feedback_dialog.dart';
+import '../../../activities/presentation/widgets/effectiveness_feedback_dialog.dart';
 
 /// Clinical respiration and sensory grounding screen.
 /// Offers guided Cyclic Sighing (4s inhale / 8s exhale) and 5-4-3-2-1 Sensory Grounding.

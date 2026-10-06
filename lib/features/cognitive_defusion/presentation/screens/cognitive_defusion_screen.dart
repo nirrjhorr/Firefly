@@ -14,6 +14,7 @@ import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../../../activities/presentation/widgets/effectiveness_feedback_dialog.dart';
 import '../../domain/models/defusion_mode.dart';
+import '../../domain/models/defusion_session_state.dart';
 import '../../domain/models/defusion_thought.dart';
 import '../controllers/cognitive_defusion_controller.dart';
 import '../widgets/defusion_mode_selector.dart';

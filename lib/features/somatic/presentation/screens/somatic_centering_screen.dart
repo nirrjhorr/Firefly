@@ -198,7 +198,7 @@ class _SomaticCenteringScreenState extends ConsumerState<SomaticCenteringScreen>
                             minimumSize: const Size(130, 48),
                             foregroundColor: colors.primary,
                             side: BorderSide(
-                              color: colors.primary.withValues(alpha: 0.50),
+                              color: colors.primary.withOpacity(0.50),
                             ),
                           ),
                         ),
@@ -213,7 +213,7 @@ class _SomaticCenteringScreenState extends ConsumerState<SomaticCenteringScreen>
                               borderRadius:
                                   BorderRadius.circular(RadiusTokens.full),
                               border: Border.all(
-                                color: colors.outline.withValues(alpha: 0.35),
+                                color: colors.outline.withOpacity(0.35),
                               ),
                             ),
                             child: Row(
@@ -301,7 +301,7 @@ class _SomaticCenteringScreenState extends ConsumerState<SomaticCenteringScreen>
               Container(
                 padding: const EdgeInsets.all(SpacingTokens.sm),
                 decoration: BoxDecoration(
-                  color: colors.primary.withValues(alpha: 0.15),
+                  color: colors.primary.withOpacity(0.15),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -337,7 +337,7 @@ class _SomaticCenteringScreenState extends ConsumerState<SomaticCenteringScreen>
           Text(
             'Notice any subtle softening across your jaw, shoulders, or hands. Even small shifts matter. Take as much time as you like before moving on.',
             style: AppTypography.bodyMedium.copyWith(
-              color: colors.textPrimary.withValues(alpha: 0.88),
+              color: colors.textPrimary.withOpacity(0.88),
               height: 1.5,
             ),
           ),

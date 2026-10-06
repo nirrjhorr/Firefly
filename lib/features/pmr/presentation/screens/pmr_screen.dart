@@ -15,7 +15,7 @@ import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../../domain/models/pmr_zone.dart';
 import '../controllers/pmr_controller.dart';
 import '../widgets/pmr_body_silhouette.dart';
-import '../../activities/presentation/widgets/effectiveness_feedback_dialog.dart';
+import '../../../activities/presentation/widgets/effectiveness_feedback_dialog.dart';
 
 /// Clinical Progressive Muscle Relaxation (PMR) interactive screen.
 /// Offers guided isometric tension-release cycles across 10 anatomical zones

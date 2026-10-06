@@ -12,7 +12,7 @@ import '../../../../shared/widgets/energy_slider.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../../../shared/widgets/mood_tile.dart';
-import '../../activities/presentation/widgets/right_now_modal.dart';
+import '../../../activities/presentation/widgets/right_now_modal.dart';
 import '../controllers/check_in_controller.dart';
 import '../widgets/affect_result_card.dart';
 

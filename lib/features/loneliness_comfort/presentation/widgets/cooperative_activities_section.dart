@@ -7,7 +7,7 @@ import '../../../../core/theme/icon_tokens.dart';
 import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_card.dart';
-import '../models/cooperative_activity.dart';
+import '../../domain/models/cooperative_activity.dart';
 
 /// Interactive UI section presenting curated cooperative connection activities.
 /// Allows users to explore low-demand connection options and invite a trusted contact.

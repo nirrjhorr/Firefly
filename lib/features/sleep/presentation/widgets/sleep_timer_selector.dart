@@ -41,7 +41,7 @@ class SleepTimerSelector extends ConsumerWidget {
             borderRadius: BorderRadius.circular(RadiusTokens.card),
             child: Container(
               padding: const EdgeInsets.all(SpacingTokens.md),
-              margin: const EdgeInsets.bottom(SpacingTokens.md),
+              margin: const EdgeInsets.only(bottom: SpacingTokens.md),
               decoration: BoxDecoration(
                 color: const Color(0x18E5B870),
                 borderRadius: BorderRadius.circular(RadiusTokens.card),

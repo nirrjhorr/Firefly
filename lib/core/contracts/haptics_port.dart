@@ -9,4 +9,13 @@ abstract class HapticsPort {
 
   /// Emits a tactile selection click confirming a grounding step completion.
   Future<void> groundingConfirm();
+
+  /// Emits a light impact tactile feedback.
+  Future<void> lightImpact();
+
+  /// Emits a medium impact tactile feedback.
+  Future<void> mediumImpact();
+
+  /// Emits a selection click tactile feedback.
+  Future<void> selectionClick();
 }

@@ -131,7 +131,7 @@ class _FocusScreenState extends ConsumerState<FocusScreen>
                 Expanded(
                   child: AnimatedSwitcher(
                     duration: MotionTokens.normal,
-                    curve: MotionTokens.emphasizedCurve,
+                    switchInCurve: MotionTokens.emphasizedCurve,
                     child: switch (state.mode) {
                       FocusMode.threePriorities => _buildThreePrioritiesView(context, state, notifier),
                       FocusMode.focusTimer => _buildFocusTimerView(context, state, notifier),

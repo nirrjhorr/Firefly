@@ -129,14 +129,14 @@ class _PulseAuraPainter extends CustomPainter {
     // Outer gentle aura ring (subtle expansion)
     final outerExpansion = 1.0 + (0.28 * math.sin(animationValue * math.pi));
     final outerPaint = Paint()
-      ..color = primaryColor.withValues(alpha: 0.12 * (1.0 - animationValue * 0.3))
+      ..color = primaryColor.withOpacity(0.12 * (1.0 - animationValue * 0.3))
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, baseRadius * outerExpansion * 1.5, outerPaint);
 
     // Mid pulse glow ring
     final midExpansion = 1.0 + (0.18 * math.sin((animationValue + 0.2) * math.pi));
     final midPaint = Paint()
-      ..color = lightColor.withValues(alpha: 0.22)
+      ..color = lightColor.withOpacity(0.22)
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, baseRadius * midExpansion * 1.25, midPaint);
 
@@ -144,9 +144,9 @@ class _PulseAuraPainter extends CustomPainter {
     final innerPaint = Paint()
       ..shader = RadialGradient(
         colors: [
-          lightColor.withValues(alpha: 0.85),
-          primaryColor.withValues(alpha: 0.70),
-          darkColor.withValues(alpha: 0.55),
+          lightColor.withOpacity(0.85),
+          primaryColor.withOpacity(0.70),
+          darkColor.withOpacity(0.55),
         ],
         stops: const [0.0, 0.6, 1.0],
       ).createShader(Rect.fromCircle(center: center, radius: baseRadius));
@@ -154,7 +154,7 @@ class _PulseAuraPainter extends CustomPainter {
 
     // Center focal point
     final focalPaint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.35 + (0.15 * animationValue))
+      ..color = Colors.white.withOpacity(0.35 + (0.15 * animationValue))
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, baseRadius * 0.28, focalPaint);
   }

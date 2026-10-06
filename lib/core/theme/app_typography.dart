@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract final class AppTypography {
+class AppTypography {
   // ── Display ─────────────────────────────────────────────────────────────────
   static const displayXl = TextStyle(
     fontFamily: 'PlusJakartaSans',
@@ -153,6 +153,34 @@ abstract final class AppTypography {
         labelMedium: labelMd.copyWith(color: defaultColor),
         labelSmall: caption.copyWith(color: defaultColor),
       );
+
+  const AppTypography();
+
+  // Instance getters for flexible parameter passing
+  TextStyle get displayXl => AppTypography.displayXl;
+  TextStyle get displayLg => AppTypography.displayLg;
+  TextStyle get displayMd => AppTypography.displayMd;
+  TextStyle get displayMedium => AppTypography.displayMd;
+  TextStyle get headingLg => AppTypography.headingLg;
+  TextStyle get headingMd => AppTypography.headingMd;
+  TextStyle get headlineMedium => AppTypography.headingMd;
+  TextStyle get headingSm => AppTypography.headingSm;
+  TextStyle get headlineSmall => AppTypography.headingSm;
+  TextStyle get titleLarge => AppTypography.headingLg;
+  TextStyle get titleMedium => AppTypography.headingMd;
+  TextStyle get titleSmall => AppTypography.headingSm;
+  TextStyle get bodyLg => AppTypography.bodyLg;
+  TextStyle get bodyLarge => AppTypography.bodyLg;
+  TextStyle get bodyMd => AppTypography.bodyMd;
+  TextStyle get bodyMedium => AppTypography.bodyMd;
+  TextStyle get bodySm => AppTypography.bodySm;
+  TextStyle get bodySmall => AppTypography.bodySm;
+  TextStyle get labelLg => AppTypography.labelLg;
+  TextStyle get labelLarge => AppTypography.labelLg;
+  TextStyle get labelMd => AppTypography.labelMd;
+  TextStyle get labelMedium => AppTypography.labelMd;
+  TextStyle get labelSm => AppTypography.labelSm;
+  TextStyle get labelSmall => AppTypography.labelSm;
 }
 
 /// Dynamic type scale caps to prevent layout breaks on large accessibility scales
@@ -160,3 +188,19 @@ abstract final class TypographyScaleConstraints {
   static const double displayTextMaxScale = 1.4;
   static const double bodyTextMaxScale = 2.0;
 }
+
+/// Convenience typography accessors on BuildContext
+extension BuildContextTypographyX on BuildContext {
+  AppTypography get typography => const AppTypography();
+  TextStyle get displayMedium => AppTypography.displayMd;
+  TextStyle get headlineSmall => AppTypography.headingSm;
+  TextStyle get titleMedium => AppTypography.headingMd;
+  TextStyle get titleSmall => AppTypography.headingSm;
+  TextStyle get bodyLarge => AppTypography.bodyLg;
+  TextStyle get bodyMedium => AppTypography.bodyMd;
+  TextStyle get bodySmall => AppTypography.bodySm;
+  TextStyle get labelLarge => AppTypography.labelLg;
+  TextStyle get labelMedium => AppTypography.labelMd;
+  TextStyle get labelSmall => AppTypography.labelSm;
+}
+

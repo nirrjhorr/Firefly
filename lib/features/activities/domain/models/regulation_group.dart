@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'activity_category.dart';
 
 /// The 6 Core Regulation Groups from the Firefly Activity Architecture
@@ -10,6 +11,25 @@ enum RegulationGroup {
   flow,
   expression,
   restAndSocial;
+
+  IconData get icon {
+    switch (this) {
+      case RegulationGroup.all:
+        return Icons.grid_view_rounded;
+      case RegulationGroup.movement:
+        return Icons.directions_run_rounded;
+      case RegulationGroup.respiration:
+        return Icons.air_rounded;
+      case RegulationGroup.grounding:
+        return Icons.park_rounded;
+      case RegulationGroup.flow:
+        return Icons.psychology_rounded;
+      case RegulationGroup.expression:
+        return Icons.brush_rounded;
+      case RegulationGroup.restAndSocial:
+        return Icons.nightlight_round;
+    }
+  }
 
   String get displayName {
     switch (this) {

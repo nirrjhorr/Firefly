@@ -152,4 +152,8 @@ abstract final class AppIcons {
   static const playing = audioFrequency;
   static const mic = dictationMic;
   static const micOff = dictationMicOff;
+  static const heart = Icons.favorite_rounded;
+  static const earth = Icons.public_rounded;
+  static const handHoldingHeart = Icons.volunteer_activism_rounded;
+  static const sparkles = Icons.auto_awesome_rounded;
 }

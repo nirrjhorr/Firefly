@@ -42,4 +42,31 @@ class FlutterHapticsAdapter implements HapticsPort {
       // Silent failure
     }
   }
+
+  @override
+  Future<void> lightImpact() async {
+    try {
+      await _lightImpact();
+    } catch (_) {
+      // Silent failure
+    }
+  }
+
+  @override
+  Future<void> mediumImpact() async {
+    try {
+      await HapticFeedback.mediumImpact();
+    } catch (_) {
+      // Silent failure
+    }
+  }
+
+  @override
+  Future<void> selectionClick() async {
+    try {
+      await _selectionClick();
+    } catch (_) {
+      // Silent failure
+    }
+  }
 }

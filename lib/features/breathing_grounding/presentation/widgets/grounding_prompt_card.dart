@@ -7,6 +7,7 @@ import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../domain/models/grounding_session_state.dart';
+import '../../domain/models/grounding_stage.dart';
 import 'grounding_completion_card.dart';
 
 /// Interactive UI card for guided 5-4-3-2-1 sensory grounding.

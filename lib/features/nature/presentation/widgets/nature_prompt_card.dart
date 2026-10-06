@@ -328,7 +328,7 @@ class NaturePromptCard extends StatelessWidget {
               key: const Key('nature_btn_restart'),
               onPressed: onRestart,
               style: OutlinedButton.styleFrom(
-                side: Border.all(color: colors.borderSubtle),
+                side: BorderSide(color: colors.borderSubtle),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(RadiusTokens.button),
                 ),

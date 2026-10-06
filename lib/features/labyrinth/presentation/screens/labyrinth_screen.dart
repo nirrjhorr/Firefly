@@ -187,7 +187,7 @@ class _LabyrinthScreenState extends ConsumerState<LabyrinthScreen> {
                             minimumSize: const Size(130, 48),
                             foregroundColor: colors.primary,
                             side: BorderSide(
-                              color: colors.primary.withValues(alpha: 0.50),
+                              color: colors.primary.withOpacity(0.50),
                             ),
                           ),
                         ),
@@ -200,7 +200,7 @@ class _LabyrinthScreenState extends ConsumerState<LabyrinthScreen> {
                             color: colors.surfaceContainer,
                             borderRadius: BorderRadius.circular(RadiusTokens.full),
                             border: Border.all(
-                              color: colors.outline.withValues(alpha: 0.35),
+                              color: colors.outline.withOpacity(0.35),
                             ),
                           ),
                           child: Row(
@@ -234,7 +234,7 @@ class _LabyrinthScreenState extends ConsumerState<LabyrinthScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(RadiusTokens.xl),
                         child: Container(
-                          color: colors.surfaceContainer.withValues(alpha: 0.35),
+                          color: colors.surfaceContainer.withOpacity(0.35),
                           child: LabyrinthCanvasWidget(
                             state: state,
                             onPanStart: (pos) => controller.onPanStart(pos),

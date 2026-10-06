@@ -29,13 +29,66 @@ enum FireflyButtonVariant {
 class FireflyButton extends StatefulWidget {
   const FireflyButton({
     super.key,
-    required this.text,
+    String? text,
+    String? label,
     required this.onPressed,
     this.variant = FireflyButtonVariant.primary,
     this.icon,
     this.isLoading = false,
     this.isFullWidth = true,
-  });
+    this.backgroundColor,
+    this.height,
+  }) : text = text ?? label ?? '';
+
+  factory FireflyButton.primary({
+    Key? key,
+    String? text,
+    String? label,
+    required VoidCallback? onPressed,
+    IconData? icon,
+    bool isLoading = false,
+    bool isFullWidth = true,
+    Color? backgroundColor,
+    double? height,
+  }) {
+    return FireflyButton(
+      key: key,
+      text: text,
+      label: label,
+      onPressed: onPressed,
+      variant: FireflyButtonVariant.primary,
+      icon: icon,
+      isLoading: isLoading,
+      isFullWidth: isFullWidth,
+      backgroundColor: backgroundColor,
+      height: height,
+    );
+  }
+
+  factory FireflyButton.secondary({
+    Key? key,
+    String? text,
+    String? label,
+    required VoidCallback? onPressed,
+    IconData? icon,
+    bool isLoading = false,
+    bool isFullWidth = true,
+    Color? backgroundColor,
+    double? height,
+  }) {
+    return FireflyButton(
+      key: key,
+      text: text,
+      label: label,
+      onPressed: onPressed,
+      variant: FireflyButtonVariant.secondary,
+      icon: icon,
+      isLoading: isLoading,
+      isFullWidth: isFullWidth,
+      backgroundColor: backgroundColor,
+      height: height,
+    );
+  }
 
   final String text;
   final VoidCallback? onPressed;
@@ -43,6 +96,8 @@ class FireflyButton extends StatefulWidget {
   final IconData? icon;
   final bool isLoading;
   final bool isFullWidth;
+  final Color? backgroundColor;
+  final double? height;
 
   @override
   State<FireflyButton> createState() => _FireflyButtonState();
@@ -182,6 +237,13 @@ class _FireflyButtonState extends State<FireflyButton>
         textStyle = AppTypography.labelMd;
         iconSize = IconSizeTokens.sm;
         break;
+    }
+
+    if (widget.backgroundColor != null) {
+      backgroundColor = widget.backgroundColor!;
+    }
+    if (widget.height != null) {
+      height = widget.height!;
     }
 
     final content = Center(
