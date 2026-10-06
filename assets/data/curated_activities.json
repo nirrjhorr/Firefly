@@ -1,5 +1,30 @@
 [
   {
+    "id": "act_awe_walk",
+    "title": "Awe Walk Protocol",
+    "description": "Evidence-backed perspective shift walk (Sturm et al. 2020, Emotion): shift attention outward to vastness, novelty, and the small self to dissolve rumination.",
+    "category": "nature",
+    "energyRequired": 2,
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "anxious",
+      "flat",
+      "restless"
+    ],
+    "guidanceType": "stepper",
+    "evidenceLevel": "verified",
+    "route": "/home/awe-walk",
+    "durationMinutes": 10,
+    "instructions": [
+      "Step outside and unclutter your mental field of view",
+      "Shift attention to vastness: look up at canopies, clouds, horizons",
+      "Notice intricate micro-wonders: moss, leaf veins, aged stone patterns",
+      "Experience the relief of the small self: a tiny, cared-for part of a vast world",
+      "Anchor a moment of sensory gratitude before continuing your day"
+    ]
+  },
+  {
     "id": "act_one_session_reset",
     "title": "One-Session Reset",
     "description": "Evidence-backed 5-step Single-Session Intervention: name the distress, settle the body, reframe gently, and choose one micro-commitment.",

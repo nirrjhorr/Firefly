@@ -3,6 +3,26 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-10-06
+
+### Awe Walk Protocol & Perspective Shift Engine (Epic 22 / v2 Sprint 13)
+
+#### Outward Attention & "Small Self" Regulation (RM-05 / Sturm et al. 2020)
+- **Evidence-Based Awe Walk Protocol (`AweWalkScreen` at `/home/awe-walk` & `/awe-walk`):** Operationalized the randomized controlled trial findings of Virginia Sturm et al. 2020 (*Emotion*, UCSF Memory and Aging Center RCT), establishing an outdoor walking companion that redirects attention outward toward vastness, scale, and natural novelty to reduce emotional distress and dissolve ruminative cognitive loops.
+- **4-Phase Unhurried State Machine (`AweWalkPhase`):**
+  - *Phase 1 (Preparation):* Clear intent, drop shoulders, silence phone distractions, choose duration (5, 10, or 15 minutes).
+  - *Phase 2 (Vastness & Scale):* Shift gaze outward and upward to horizons, tree canopies, and cloud architecture.
+  - *Phase 3 (The Small Self):* Savor the soothing relief of humility—feeling small, safe, and held within an immense living ecosystem.
+  - *Phase 4 (Sensory Anchor):* Pinpoint and note one specific natural wonder or geometric detail (e.g. leaf veins, moss, distant wind).
+  - *Phase 5 (Completion):* Calming summary and seamless transition to settledness feedback.
+- **Curated Observational Prompt Deck (`AwePrompt`):** 5 evidence-based prompts cycling through sensory modalities (panoramic horizon, canopy and sky depth, micro-wonder geometry, acoustic openness, and the small self comfort) with clear instructions and perspective shift reflection cues.
+- **Interactive Companion Controls:** Duration preset selector, clean MM:SS elapsed/target counter with pause/resume, prompt navigation deck, and persistent `SosOverlayButton` crisis protection.
+- **Universal Routing & Catalog Integration:** Registered `AppRoutes.aweWalk` and `AppRoutes.modalAweWalk` in `AppRouter`, seeded `act_awe_walk` in `curated_activities.json` (76 total activities), and added immediate distress anchor in `RightNowModal` for spinning rumination.
+- **Closed-Loop Personal Effectiveness:** Seamless post-walk logging into `ActivityEffectivenessLog` (`act_awe_walk`), directly training the on-device personal affinity engine.
+- **Automated Verification:** Added `verify_awe_walk_standalone.dart` passing 100% across all state machine, prompt catalog, session calculation, repository, catalog seeding, and routing checks.
+
+---
+
 ## [2.6.0] - 2026-10-06
 
 ### On-Device Personal Regulation Effectiveness Engine & Affinity Profiles (Epic 21 / v2 Sprint 12)

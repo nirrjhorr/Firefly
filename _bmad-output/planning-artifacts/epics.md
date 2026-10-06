@@ -968,4 +968,52 @@ So that I can see tangible evidence of my self-regulation journey without gamifi
 - Standalone test `test/features/personalisation/verify_personalisation_standalone.dart` passing 100% in pure Dart.
 - 100% compliance with security gate, lint sweep, and design tokens.
 
+---
+
+## Epic 22: Awe Walk Protocol & Perspective Shift Engine (v2 Sprint 13)
+
+Implement the evidence-based Awe Walk protocol (RM-05 / Sturm et al. 2020, *Emotion*) to reduce rumination and emotional distress by shifting attention outward to "vastness and novelty" and fostering the "small self" perspective. Designed as an unhurried, low-stimulation walking companion with curated observational prompts, gentle duration options (5, 10, 15 minutes), optional nature sound accompaniment, and post-session settledness feedback.
+
+### Story 22.1: Awe Walk Domain Models, State Machine & Repository
+As a user experiencing circular rumination or emotional tunnel vision,
+I want domain models and an unhurried state machine guiding me through the 4 phases of an Awe Walk (Preparation, Vastness & Novelty, Small Self Shift, Gratitude Anchor),
+So that I can disrupt negative cognitive loops through outward curiosity and awe.
+
+**Acceptance Criteria:**
+- `AweWalkPhase` enum (`preparation`, `vastness`, `smallSelf`, `gratitude`, `complete`).
+- `AwePrompt` immutable model with prompt title, description, sensory modality (`visual`, `auditory`, `tactile`, `panoramic`), and reflection cues.
+- `AweWalkSession` immutable domain model tracking chosen duration, elapsed time, completed prompts, and timestamp.
+- `AweWalkRepository` interface and implementation with zero network footprint.
+
+### Story 22.2: Interactive Awe Walk Guided Companion UI (`AweWalkScreen`)
+As an anxious or overwhelmed user taking an outdoor walk,
+I want a tranquil, low-stimulation walking companion interface with a subtle timer visualizer, soothing haptics, and curated perspective-shifting prompt cards,
+So that I can gently reconnect with the wider world without feeling rushed or judged.
+
+**Acceptance Criteria:**
+- `AweWalkScreen` mounted at `/home/awe-walk` and `/awe-walk`.
+- Strict design token compliance: `FireflyNavHeader`, `FireflyCard`, `FireflyButton`, `AppIcons`, and `MotionTokens`.
+- Gentle duration selection (5m, 10m, 15m) with smooth circular visualizer.
+- Interactive prompt card deck cycling through evidence-based prompts from Sturm et al. 2020:
+  1. *Panoramic Gaze:* Widen field of view beyond immediate steps.
+  2. *Vastness & Patterns:* Notice aged natural patterns (tree bark, cloud drift).
+  3. *Small Self Comfort:* Savor the relief of being a small, caring part of a vast ecosystem.
+  4. *Micro-Wonder:* Zoom into miniature natural geometry (leaf veins, moss).
+  5. *Acoustic Openness:* Pause and listen to environmental wind and sound layers.
+- Persistent SOS overlay protection across all phases; touch targets ≥ 56dp.
+- Seamless post-session prompt for `EffectivenessFeedbackSheet` logging to `ActivityEffectivenessLog`.
+
+### Story 22.3: Universal Routing, Catalog Seeding & Standalone Verification
+As a user exploring Firefly,
+I want seamless access to the Awe Walk from the Right Now acute modal, Activity Library (Group 3 & Group 1), and direct route links,
+So that I can engage in an awe walk whenever mental rumination overwhelms me.
+
+**Acceptance Criteria:**
+- AppRoutes (`/home/awe-walk`, `/awe-walk`) and AppRouter registration.
+- Activity catalog seeding in `assets/data/curated_activities.json` (`act_awe_walk`, bringing catalog to 76 evidence-based practices).
+- Anchor integration in `RightNowModal` under acute need ("I am trapped in my head / rumination").
+- Standalone test `test/features/awe_walk/verify_awe_walk_standalone.dart` passing 100% in pure Dart.
+- 100% compliance with security gate, lint sweep, and design tokens.
+
+
 

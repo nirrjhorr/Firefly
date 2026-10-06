@@ -155,6 +155,8 @@ class DriftActivitiesDao implements ActivitiesDao {
         timestamp: DateTime.fromMillisecondsSinceEpoch((data['timestamp_unix'] as int) * 1000),
       );
     }).toList();
+  }
+
   @override
   Future<List<ActivityEffectivenessLog>> getAllEffectivenessLogs() async {
     final rows = await _db.customSelect(

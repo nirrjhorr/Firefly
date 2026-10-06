@@ -135,6 +135,13 @@ const List<RightNowAnchor> kRightNowAnchors = [
     route: AppRoutes.focus,
   ),
   RightNowAnchor(
+    id: 'spinning_rumination',
+    title: 'My mind is spinning with rumination',
+    subtitle: 'Outdoor Awe Walk & perspective shift',
+    iconKey: 'leaf',
+    route: AppRoutes.aweWalk,
+  ),
+  RightNowAnchor(
     id: 'dont_know',
     title: 'I do not know what I need',
     subtitle: 'Gentle ambient sound sanctuary',
@@ -602,6 +609,9 @@ class _AnchorCard extends StatelessWidget {
         return Icons.favorite_border_rounded;
       case 'headphones':
         return Icons.headphones_outlined;
+      case 'leaf':
+      case 'nature':
+        return Icons.park_outlined;
       default:
         return Icons.spa_outlined;
     }

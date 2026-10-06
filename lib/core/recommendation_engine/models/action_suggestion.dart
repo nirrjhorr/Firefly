@@ -13,7 +13,8 @@ enum ActionType {
   pmr,
   flowPuzzle,
   labyrinth,
-  sleepWindDown;
+  sleepWindDown,
+  aweWalk;
 
   static ActionType fromString(String value) {
     return ActionType.values.firstWhere(

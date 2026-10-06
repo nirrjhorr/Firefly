@@ -34,6 +34,7 @@ import '../../features/one_session_reset/presentation/screens/reset_screen.dart'
 import '../../features/compassion/presentation/screens/compassion_screen.dart';
 import '../../features/focus/presentation/screens/focus_screen.dart';
 import '../../features/personalisation/presentation/screens/personal_profile_screen.dart';
+import '../../features/awe_walk/presentation/screens/awe_walk_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -312,6 +313,21 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const PersonalProfileScreen(),
       ),
 
+      // Awe Walk Protocol & Perspective Shift (Root Modal with SOS overlay)
+      GoRoute(
+        path: AppRoutes.modalAweWalk,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final durationParam = state.uri.queryParameters['duration'];
+          final initialDuration =
+              durationParam != null ? int.tryParse(durationParam) ?? 10 : 10;
+          return AweWalkScreen(
+            initialDurationMinutes: initialDuration,
+            showSosOverlay: true,
+          );
+        },
+      ),
+
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
         builder: (context, state, child) => MainShellScaffold(child: child),
@@ -492,6 +508,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.profile,
             builder: (context, state) => const PersonalProfileScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.aweWalk,
+            builder: (context, state) {
+              final durationParam = state.uri.queryParameters['duration'];
+              final initialDuration =
+                  durationParam != null ? int.tryParse(durationParam) ?? 10 : 10;
+              return AweWalkScreen(
+                initialDurationMinutes: initialDuration,
+                showSosOverlay: true,
+              );
+            },
           ),
         ],
       ),

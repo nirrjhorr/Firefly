@@ -1,7 +1,7 @@
 name: firefly
 description: "Firefly — 100% offline, privacy-critical mental wellbeing companion"
 publish_to: 'none'
-version: 2.6.0+18
+version: 2.7.0+19
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
