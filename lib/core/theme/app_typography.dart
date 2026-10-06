@@ -167,6 +167,7 @@ class AppTypographyTokens {
 
   TextStyle get displayXl => AppTypography.displayXl;
   TextStyle get displayLg => AppTypography.displayLg;
+  TextStyle get displayLarge => AppTypography.displayLg;
   TextStyle get displayMd => AppTypography.displayMd;
   TextStyle get displayMedium => AppTypography.displayMd;
   TextStyle get headingLg => AppTypography.headingLg;
