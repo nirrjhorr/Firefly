@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// The 16 canonical self-regulation activity categories from the Firefly Activity Architecture.
 enum ActivityCategory {
   physical,

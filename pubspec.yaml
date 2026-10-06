@@ -62,21 +62,22 @@ flutter:
     - assets/data/
 
   
-  # fonts:
-  #   - family: AtkinsonHyperlegible
-  #     fonts:
-  #       - asset: assets/fonts/AtkinsonHyperlegible-Regular.ttf
-  #       - asset: assets/fonts/AtkinsonHyperlegible-Bold.ttf
-  #         weight: 700
-  #   - family: PlusJakartaSans
-  #     fonts:
-  #       - asset: assets/fonts/PlusJakartaSans-Regular.ttf
-  #       - asset: assets/fonts/PlusJakartaSans-Medium.ttf
-  #         weight: 500
-  #       - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
-  #         weight: 600
-  #       - asset: assets/fonts/PlusJakartaSans-Bold.ttf
-  #         weight: 700
-  #   - family: JetBrainsMono
-  #     fonts:
-  #       - asset: assets/fonts/JetBrainsMono-Regular.ttf
+  fonts:
+    - family: AtkinsonHyperlegible
+      fonts:
+        - asset: assets/fonts/AtkinsonHyperlegible-Regular.ttf
+        - asset: assets/fonts/AtkinsonHyperlegible-Bold.ttf
+          weight: 700
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+        - asset: assets/fonts/PlusJakartaSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/PlusJakartaSans-Bold.ttf
+          weight: 700
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono-Regular.ttf
+

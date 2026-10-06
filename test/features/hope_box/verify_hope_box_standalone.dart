@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import '../../../lib/core/database/daos/hope_box_dao.dart';
 import '../../../lib/features/hope_box/data/repositories/hope_box_repository_impl.dart';
 import '../../../lib/features/hope_box/domain/models/hope_box_item.dart';
 import '../../../lib/features/hope_box/domain/models/hope_box_state.dart';
@@ -217,6 +218,44 @@ Future<void> main() async {
   // Clear vault
   await repository.clearVault();
   expect((await repository.getItems()).isEmpty, 'Clear vault removes all items');
+
+  // 7. Verify HopeBoxDao Direct Operations
+  print('Testing HopeBoxDao direct CRUD, stream watch, and pinned sort...');
+  final dao = HopeBoxDao.inMemory();
+  final daoItem1 = HopeBoxItem(
+    id: 'dao_1',
+    type: HopeBoxItemType.reason,
+    title: 'Reason 1',
+    contentEncrypted: 'enc_1',
+    createdAtUnix: 1000,
+    isPinned: false,
+  );
+  final daoItem2 = HopeBoxItem(
+    id: 'dao_2',
+    type: HopeBoxItemType.photo,
+    title: 'Photo 2',
+    contentEncrypted: 'enc_2',
+    createdAtUnix: 2000,
+    isPinned: true,
+  );
+
+  await dao.insertItem(daoItem1);
+  await dao.insertItem(daoItem2);
+
+  final daoItems = await dao.getAllItems();
+  expect(daoItems.length == 2, 'Dao must hold 2 items');
+  expect(daoItems.first.id == 'dao_2', 'Pinned item must sort first in DAO');
+
+  await dao.togglePin('dao_1');
+  final daoItem1Pinned = await dao.getItemById('dao_1');
+  expect(daoItem1Pinned?.isPinned == true, 'Toggle pin in DAO');
+
+  await dao.deleteItem('dao_2');
+  expect((await dao.getAllItems()).length == 1, 'Delete in DAO');
+
+  await dao.clearAll();
+  expect((await dao.getAllItems()).isEmpty, 'Clear all in DAO');
+  print('✓ HopeBoxDao operations verified.');
 
   print('✓ Vault state transitions and repository clear verified.');
   print('=== ALL Hope Box Vault Assertions PASSED successfully! (100% Validated) ===');

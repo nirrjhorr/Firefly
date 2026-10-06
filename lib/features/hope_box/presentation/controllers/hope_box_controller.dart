@@ -1,13 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/database/daos/hope_box_dao.dart';
 import '../../data/repositories/hope_box_repository_impl.dart';
 import '../../domain/models/hope_box_item.dart';
 import '../../domain/models/hope_box_state.dart';
 import '../../domain/repositories/hope_box_repository.dart';
 
+/// Provider for [HopeBoxDao] allowing database or test overrides.
+final hopeBoxDaoProvider = Provider<HopeBoxDao>((ref) {
+  return HopeBoxDao.inMemory();
+});
+
 /// Provider exposing the [HopeBoxRepository] instance.
 final hopeBoxRepositoryProvider = Provider<HopeBoxRepository>((ref) {
-  return HopeBoxRepositoryImpl();
+  final dao = ref.watch(hopeBoxDaoProvider);
+  return HopeBoxRepositoryImpl(dao: dao);
 });
 
 /// StateNotifierProvider managing the [HopeBoxController].

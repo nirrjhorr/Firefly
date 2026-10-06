@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/database/daos/loneliness_comfort_dao.dart';
 import '../../../../core/errors/result.dart';
 import '../../../safety_plan/domain/models/safety_plan.dart';
 import '../../../safety_plan/domain/repositories/safety_plan_repository.dart';
@@ -10,10 +11,16 @@ import '../../domain/models/reach_out_contact.dart';
 import '../../domain/models/social_prediction_experiment.dart';
 import '../../domain/repositories/loneliness_comfort_repository.dart';
 
+/// Provider exposing the [LonelinessComfortDao] instance.
+final lonelinessComfortDaoProvider = Provider<LonelinessComfortDao>((ref) {
+  return LonelinessComfortDao.inMemory();
+});
+
 /// Provider exposing the repository singleton.
 final lonelinessComfortRepositoryProvider =
     Provider<LonelinessComfortRepository>((ref) {
-  return LonelinessComfortRepositoryImpl();
+  final dao = ref.watch(lonelinessComfortDaoProvider);
+  return LonelinessComfortRepositoryImpl(dao: dao);
 });
 
 /// Optional safety plan repository provider for seamless cross-feature contact integration.

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'activity_category.dart';
 
 /// The method or UI experience type used to deliver the regulation activity.
@@ -34,7 +33,6 @@ enum EvidenceLevel {
 }
 
 /// Canonical self-regulation activity entity in Firefly v2.
-@immutable
 class ActivityItem {
   const ActivityItem({
     required this.id,

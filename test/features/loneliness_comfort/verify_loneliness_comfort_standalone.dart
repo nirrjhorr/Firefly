@@ -1,6 +1,7 @@
 import '../../../lib/features/loneliness_comfort/domain/models/reach_out_contact.dart';
 import '../../../lib/features/loneliness_comfort/domain/models/social_prediction_experiment.dart';
 import '../../../lib/features/loneliness_comfort/domain/models/loneliness_comfort_state.dart';
+import '../../../lib/core/database/daos/loneliness_comfort_dao.dart';
 import '../../../lib/features/loneliness_comfort/data/repositories/loneliness_comfort_repository_impl.dart';
 
 class MockSafetyPlanContact {
@@ -303,6 +304,43 @@ void main() async {
   state = state.copyWith(clearFeedbackMessage: true);
   assert(state.lastFeedbackMessage == null, 'Feedback message should be null');
   print('✓ LonelinessComfortState transitions and experiment lifecycle verified.');
+
+  // 8. Verify LonelinessComfortDao Direct Operations
+  print('Testing LonelinessComfortDao direct operations & stream...');
+  final dao = LonelinessComfortDao.inMemory();
+  final contact = ReachOutContact(
+    id: 'dao_contact_1',
+    name: 'Robin',
+    phoneNumber: '+15551234567',
+    relationship: 'Friend',
+    createdAtUnix: 100,
+  );
+  await dao.saveCustomContact(contact);
+  final contacts = await dao.getCustomContacts();
+  assert(contacts.length == 1, 'DAO custom contacts count mismatch');
+  assert(contacts.first.name == 'Robin', 'DAO contact name mismatch');
+
+  final experiment = SocialPredictionExperiment(
+    id: 'dao_exp_1',
+    contactId: contact.id,
+    contactName: contact.name,
+    predictedOutcome: SocialOutcome.warm,
+    predictedAtUnix: 200,
+  );
+  await dao.saveExperiment(experiment);
+  final experiments = await dao.getExperiments();
+  assert(experiments.length == 1, 'DAO experiments count mismatch');
+
+  await dao.updateExperimentOutcome('dao_exp_1', SocialOutcome.warm);
+  final updatedExpsDao = await dao.getExperiments();
+  assert(updatedExpsDao.first.actualOutcome == SocialOutcome.warm, 'DAO outcome update mismatch');
+
+  final summaryDao = await dao.getExperimentSummary();
+  assert(summaryDao.completedCount == 1, 'DAO summary completedCount mismatch');
+
+  await dao.deleteCustomContact('dao_contact_1');
+  assert((await dao.getCustomContacts()).isEmpty, 'DAO delete contact failed');
+  print('✓ LonelinessComfortDao operations verified.');
 
   print('=== ALL Loneliness Comfort & "Guess vs. Reality" Assertions PASSED successfully! (100% Validated) ===');
 }

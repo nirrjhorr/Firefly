@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import '../../../../core/database/daos/hope_box_dao.dart';
 import '../../domain/models/hope_box_item.dart';
 import '../../domain/repositories/hope_box_repository.dart';
 
@@ -13,26 +14,25 @@ typedef HopeBoxEncryptor = Future<String> Function(String plaintext);
 typedef HopeBoxDecryptor = Future<String> Function(String ciphertext);
 
 /// Concrete implementation of [HopeBoxRepository] with application-layer encryption,
-/// secure physical media file unlinking, and cryptographic memory zeroing.
+/// persistent DAO backing (Drift/SQLite or InMemory), secure physical media file unlinking,
+/// and cryptographic memory zeroing.
 class HopeBoxRepositoryImpl implements HopeBoxRepository {
   final HopeBoxEncryptor? _encryptor;
   final HopeBoxDecryptor? _decryptor;
-  final List<HopeBoxItem> _store = [];
+  final HopeBoxDao _dao;
 
   HopeBoxRepositoryImpl({
     HopeBoxEncryptor? encryptor,
     HopeBoxDecryptor? decryptor,
+    HopeBoxDao? dao,
     List<HopeBoxItem>? initialItems,
   })  : _encryptor = encryptor,
-        _decryptor = decryptor {
-    if (initialItems != null) {
-      _store.addAll(initialItems);
-    }
-  }
+        _decryptor = decryptor,
+        _dao = dao ?? HopeBoxDao.inMemory(initialItems);
 
   @override
   Future<List<HopeBoxItem>> getItems() async {
-    return List.unmodifiable(_store);
+    return _dao.getAllItems();
   }
 
   @override
@@ -53,16 +53,13 @@ class HopeBoxRepositoryImpl implements HopeBoxRepository {
       contentEncrypted: encryptedPayload,
     );
 
-    _store.removeWhere((e) => e.id == secureItem.id);
-    _store.add(secureItem);
+    await _dao.insertItem(secureItem);
   }
 
   @override
   Future<void> deleteItem(String id) async {
-    final index = _store.indexWhere((e) => e.id == id);
-    if (index != -1) {
-      final existing = _store[index];
-
+    final existing = await _dao.getItemById(id);
+    if (existing != null) {
       // 1. Physically delete file if associated with item
       if (existing.filePath != null && existing.filePath!.isNotEmpty) {
         try {
@@ -88,7 +85,7 @@ class HopeBoxRepositoryImpl implements HopeBoxRepository {
         cryptoEraseString(existing.contentEncrypted);
       }
 
-      _store.removeAt(index);
+      await _dao.deleteItem(id);
     }
   }
 
@@ -109,19 +106,16 @@ class HopeBoxRepositoryImpl implements HopeBoxRepository {
 
   @override
   Future<void> togglePin(String id) async {
-    final index = _store.indexWhere((e) => e.id == id);
-    if (index != -1) {
-      final item = _store[index];
-      _store[index] = item.copyWith(isPinned: !item.isPinned);
-    }
+    await _dao.togglePin(id);
   }
 
   @override
   Future<void> clearVault() async {
-    for (final item in List<HopeBoxItem>.from(_store)) {
+    final all = await _dao.getAllItems();
+    for (final item in all) {
       await deleteItem(item.id);
     }
-    _store.clear();
+    await _dao.clearAll();
   }
 
   /// Cryptographic erasure utility to securely zero out string buffers in memory.

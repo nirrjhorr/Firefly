@@ -11,6 +11,8 @@ import 'tables/safety_plan_tables.dart';
 import 'tables/usage_summaries.dart';
 import 'tables/activities_table.dart';
 import 'tables/activity_effectiveness_table.dart';
+import 'tables/hope_box_tables.dart';
+import 'tables/loneliness_comfort_tables.dart';
 
 part 'app_database.g.dart';
 
@@ -26,6 +28,9 @@ part 'app_database.g.dart';
   UsageSummaries,
   Activities,
   ActivityEffectivenessLogs,
+  HopeBoxItems,
+  ReachOutContactsTable,
+  SocialPredictionExperimentsTable,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.executor, {this.encryptionKey});

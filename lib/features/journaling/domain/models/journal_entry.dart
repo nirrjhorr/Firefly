@@ -1,8 +1,6 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 
 /// Domain entity representing an encrypted journal entry or unsent letter.
-@immutable
 class JournalEntry {
   const JournalEntry({
     required this.id,

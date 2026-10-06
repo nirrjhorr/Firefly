@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -78,6 +80,29 @@ class _AddHopeBoxItemSheetState extends State<AddHopeBoxItemSheet> {
     _captionController.dispose();
     _filePathController.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickMediaFile(FileType type) async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: type,
+        allowMultiple: false,
+      );
+      if (result != null && result.files.isNotEmpty) {
+        final path = result.files.single.path;
+        final name = result.files.single.name;
+        if (path != null && mounted) {
+          setState(() {
+            _filePathController.text = path;
+            if (_titleController.text.trim().isEmpty) {
+              _titleController.text = name;
+            }
+          });
+        }
+      }
+    } catch (_) {
+      // Silent error fallback for graceful UX
+    }
   }
 
   bool get _isValid {
@@ -329,11 +354,29 @@ class _AddHopeBoxItemSheetState extends State<AddHopeBoxItemSheet> {
               ),
             ),
             const SizedBox(height: SpacingTokens.md),
+            OutlinedButton.icon(
+              onPressed: () => _pickMediaFile(FileType.image),
+              icon: const Icon(Icons.photo_library_outlined, color: warmAmber, size: 20),
+              label: Text(
+                _filePathController.text.isNotEmpty
+                    ? 'Change Photo (${_filePathController.text.split(Platform.pathSeparator).last})'
+                    : 'Choose Photo from Device',
+                style: AppTypography.button.copyWith(color: warmAmber),
+              ),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: warmAmber),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(RadiusTokens.md),
+                ),
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
             TextField(
               controller: _filePathController,
               style: AppTypography.caption.copyWith(color: neutral100),
               decoration: InputDecoration(
-                labelText: 'File Path or Memory Note',
+                labelText: 'Selected File Path',
                 labelStyle: AppTypography.caption.copyWith(color: neutral300),
                 hintText: 'e.g. /storage/photos/beach.jpg',
                 filled: true,
@@ -365,11 +408,29 @@ class _AddHopeBoxItemSheetState extends State<AddHopeBoxItemSheet> {
               ),
             ),
             const SizedBox(height: SpacingTokens.md),
+            OutlinedButton.icon(
+              onPressed: () => _pickMediaFile(FileType.audio),
+              icon: const Icon(Icons.audio_file_outlined, color: sage300, size: 20),
+              label: Text(
+                _filePathController.text.isNotEmpty
+                    ? 'Change Audio (${_filePathController.text.split(Platform.pathSeparator).last})'
+                    : 'Choose Audio File from Device',
+                style: AppTypography.button.copyWith(color: sage300),
+              ),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: sage300),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(RadiusTokens.md),
+                ),
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
             TextField(
               controller: _filePathController,
               style: AppTypography.caption.copyWith(color: neutral100),
               decoration: InputDecoration(
-                labelText: 'Local File Reference',
+                labelText: 'Local Audio File Path',
                 labelStyle: AppTypography.caption.copyWith(color: neutral300),
                 hintText: 'e.g. assets/audio/ocean_waves.mp3',
                 filled: true,
