@@ -154,12 +154,22 @@ class AppTypography {
         labelSmall: caption.copyWith(color: defaultColor),
       );
 
-  const AppTypography();
+}
 
-  // Instance getters for flexible parameter passing
+/// Dynamic type scale caps to prevent layout breaks on large accessibility scales
+abstract final class TypographyScaleConstraints {
+  static const double displayTextMaxScale = 1.4;
+  static const double bodyTextMaxScale = 2.0;
+}
+
+/// Instance wrapper for ergonomic context-based access (`context.typography.*`).
+class AppTypographySet {
+  const AppTypographySet();
+
   TextStyle get displayXl => AppTypography.displayXl;
   TextStyle get displayLg => AppTypography.displayLg;
   TextStyle get displayMd => AppTypography.displayMd;
+  TextStyle get displayLarge => AppTypography.displayLg;
   TextStyle get displayMedium => AppTypography.displayMd;
   TextStyle get headingLg => AppTypography.headingLg;
   TextStyle get headingMd => AppTypography.headingMd;
@@ -183,15 +193,9 @@ class AppTypography {
   TextStyle get labelSmall => AppTypography.labelSm;
 }
 
-/// Dynamic type scale caps to prevent layout breaks on large accessibility scales
-abstract final class TypographyScaleConstraints {
-  static const double displayTextMaxScale = 1.4;
-  static const double bodyTextMaxScale = 2.0;
-}
-
 /// Convenience typography accessors on BuildContext
 extension BuildContextTypographyX on BuildContext {
-  AppTypography get typography => const AppTypography();
+  AppTypographySet get typography => const AppTypographySet();
   TextStyle get displayMedium => AppTypography.displayMd;
   TextStyle get headlineSmall => AppTypography.headingSm;
   TextStyle get titleMedium => AppTypography.headingMd;
@@ -203,4 +207,3 @@ extension BuildContextTypographyX on BuildContext {
   TextStyle get labelMedium => AppTypography.labelMd;
   TextStyle get labelSmall => AppTypography.labelSm;
 }
-

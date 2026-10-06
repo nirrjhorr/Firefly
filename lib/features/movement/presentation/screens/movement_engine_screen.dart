@@ -165,7 +165,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
 
   Widget _buildCategorySelector(
     AppColors colors,
-    AppTypography typography,
+    AppTypographySet typography,
     MovementSessionController controller,
   ) {
     const categories = [
@@ -220,7 +220,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
     List<MovementActivity> activities,
     MovementActivity current,
     AppColors colors,
-    AppTypography typography,
+    AppTypographySet typography,
     MovementSessionController controller,
   ) {
     return SizedBox(
@@ -264,7 +264,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
   Widget _buildActivityHeader(
     MovementActivity activity,
     AppColors colors,
-    AppTypography typography,
+    AppTypographySet typography,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -323,7 +323,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
   Widget _buildInstructionCard(
     MovementSessionState state,
     AppColors colors,
-    AppTypography typography,
+    AppTypographySet typography,
     MovementSessionController controller,
   ) {
     final instructions = state.activity.instructions;
@@ -382,7 +382,7 @@ class _MovementEngineScreenState extends ConsumerState<MovementEngineScreen> {
   Widget _buildSensoryAnchorCard(
     String anchor,
     AppColors colors,
-    AppTypography typography,
+    AppTypographySet typography,
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
