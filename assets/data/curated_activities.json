@@ -689,6 +689,19 @@
     "instructions": ["Type a thought weighing on your mind", "Tap 'Release'", "Watch the words soften into white mist and dissolve across the dark sky"]
   },
   {
+    "id": "act_defusion_thought_labeling",
+    "title": "Thought Labelling & Distance",
+    "description": "Step back from fused thoughts using 3-step mindful distance: 'I notice I am having the thought that...'",
+    "category": "cognitiveDefusion",
+    "energyRequired": 1,
+    "targetStates": ["racingThoughts", "overwhelmed", "anxious"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/defusion?mode=labeling",
+    "durationMinutes": 3,
+    "instructions": ["Read the fused thought", "Insert 'I notice I am having the thought that...'", "Recognize yourself as the calm observer"]
+  },
+  {
     "id": "act_hope_box_glance",
     "title": "Visit Your Hope Box",
     "description": "Glance at private photos, comforting voice notes, and reasons to keep holding on.",

@@ -118,10 +118,15 @@ development_status:
   13-2-flow-spatial-puzzles-integration: done
   epic-13-retrospective: done
 
-  epic-14: ready-for-dev
-  14-1-encrypted-worry-dump-unsent-letters: ready-for-dev
-  14-2-cognitive-defusion-prompts: backlog
-  epic-14-retrospective: optional
+  epic-14: done
+  14-1-encrypted-worry-dump-unsent-letters: done
+  14-2-cognitive-defusion-prompts: done
+  epic-14-retrospective: done
+
+  epic-15: ready-for-dev
+  15-1-ambient-audio-mixer-sleep-wind-down: ready-for-dev
+  15-2-social-connection-cooperative-activities: backlog
+  epic-15-retrospective: optional
 
   correction-sprint: done
   correction-sprint-hope-box-drift-persistence: done

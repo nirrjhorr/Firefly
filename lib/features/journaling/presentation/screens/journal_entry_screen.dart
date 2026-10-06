@@ -9,6 +9,8 @@ import '../../../../core/theme/icon_tokens.dart';
 import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
+import '../../../../shared/widgets/sos_overlay_button.dart';
+import '../../../activities/presentation/widgets/effectiveness_feedback_dialog.dart';
 import '../controllers/journal_editor_controller.dart';
 
 /// Serene, distraction-free writing canvas in dark `#111518` with offline Vosk dictation,
@@ -17,11 +19,15 @@ class JournalEntryScreen extends ConsumerStatefulWidget {
   const JournalEntryScreen({
     required this.entryId,
     this.initialTtl,
+    this.initialMode,
+    this.showSosOverlay = false,
     super.key,
   });
 
   final String entryId;
   final JournalTtlOption? initialTtl;
+  final String? initialMode;
+  final bool showSosOverlay;
 
   @override
   ConsumerState<JournalEntryScreen> createState() => _JournalEntryScreenState();
@@ -132,79 +138,124 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
         if (didPop || _isExiting) return;
         _handleBackNavigation(context, editorState, controller);
       },
-      child: Scaffold(
-        backgroundColor: colors.bgCanvasDeep,
-        appBar: AppBar(
-          backgroundColor: colors.bgCanvasDeep,
-          elevation: 0,
-          scrolledUnderElevation: 0,
-          leading: IconButton(
-            icon: Icon(AppIcons.back, color: colors.textSecondary, size: IconSizeTokens.appAction),
-            tooltip: 'Back to reflections',
-            onPressed: () => _handleBackNavigation(context, editorState, controller),
-          ),
-          title: Text(
-            '${editorState.wordCount} words',
-            style: AppTypography.bodySm.copyWith(color: colors.textTertiary),
-          ),
-          centerTitle: true,
-          actions: [
-            TextButton(
-              onPressed: editorState.isSaving
-                  ? null
-                  : () async {
-                      HapticFeedback.lightImpact();
-                      FocusScope.of(context).unfocus();
-                      final success = await controller.saveEntry();
-                      if (context.mounted) {
-                        if (success) {
-                          setState(() {
-                            _savedTitle = _titleController.text;
-                            _savedContent = _contentController.text;
-                          });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text('Saved securely'),
-                              backgroundColor: colors.surfaceCard,
-                              duration: const Duration(seconds: 1),
-                              behavior: SnackBarBehavior.floating,
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text('Failed to save reflection'),
-                              backgroundColor: colors.surfaceCard,
-                              behavior: SnackBarBehavior.floating,
-                            ),
-                          );
-                        }
-                      }
-                    },
-              child: editorState.isSaving
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : Text(
-                      'Save',
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: colors.bgCanvasDeep,
+            appBar: AppBar(
+              backgroundColor: colors.bgCanvasDeep,
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              leading: IconButton(
+                icon: Icon(AppIcons.back, color: colors.textSecondary, size: IconSizeTokens.appAction),
+                tooltip: 'Back to reflections',
+                onPressed: () => _handleBackNavigation(context, editorState, controller),
+              ),
+              title: Text(
+                '${editorState.wordCount} words',
+                style: AppTypography.bodySm.copyWith(color: colors.textTertiary),
+              ),
+              centerTitle: true,
+              actions: [
+                if (widget.initialMode != null)
+                  TextButton(
+                    onPressed: () => _handleEarlyExit(context, editorState, controller),
+                    child: Text(
+                      "That's enough",
                       style: TextStyle(
-                        color: colors.actionSage,
-                        fontWeight: FontWeight.w600,
+                        color: colors.textSecondary,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
+                  ),
+                TextButton(
+                  onPressed: editorState.isSaving
+                      ? null
+                      : () async {
+                          HapticFeedback.lightImpact();
+                          FocusScope.of(context).unfocus();
+                          final success = await controller.saveEntry();
+                          if (context.mounted) {
+                            if (success) {
+                              setState(() {
+                                _savedTitle = _titleController.text;
+                                _savedContent = _contentController.text;
+                              });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text('Saved securely'),
+                                  backgroundColor: colors.surfaceCard,
+                                  duration: const Duration(seconds: 1),
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text('Failed to save reflection'),
+                                  backgroundColor: colors.surfaceCard,
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                            }
+                          }
+                        },
+                  child: editorState.isSaving
+                      ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(
+                          'Save',
+                          style: TextStyle(
+                            color: colors.actionSage,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                ),
+              ],
             ),
-          ],
-        ),
-        body: SafeArea(
-          child: AnimatedOpacity(
-            opacity: _canvasOpacity,
-            duration: const Duration(milliseconds: 350),
-            child: Column(
-              children: [
-                // Main writing canvas
-                Expanded(
+            body: SafeArea(
+              child: AnimatedOpacity(
+                opacity: _canvasOpacity,
+                duration: const Duration(milliseconds: 350),
+                child: Column(
+                  children: [
+                    if (widget.initialMode != null)
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: SpacingTokens.spaceXl,
+                          vertical: SpacingTokens.spaceSm,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colors.surfaceSubtle,
+                          border: Border(bottom: BorderSide(color: colors.borderSubtle)),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              widget.initialMode == 'worry'
+                                  ? Icons.nightlight_round
+                                  : AppIcons.burnFlame,
+                              size: 16,
+                              color: colors.actionSage,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                widget.initialMode == 'worry'
+                                    ? 'Worry Dump: Unload thoughts onto dark paper. Park or burn when ready.'
+                                    : 'Unsent Letter: Express freely in absolute privacy. Cannot be transmitted.',
+                                style: AppTypography.bodySm.copyWith(color: colors.textSecondary),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    // Main writing canvas
+                    Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
                       horizontal: SpacingTokens.spaceXl,
@@ -288,7 +339,15 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
           ),
         ),
       ),
-    );
+      if (widget.showSosOverlay)
+        const Positioned(
+          bottom: 80,
+          right: 16,
+          child: SosOverlayButton(),
+        ),
+    ],
+  ),
+);
   }
 
   Widget _buildBottomToolbar(
@@ -494,7 +553,18 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
       if (burned) {
         _isExiting = true;
         if (context.mounted) {
-          context.pop();
+          final activityId = widget.initialMode == 'worry'
+              ? 'act_worry_dump'
+              : 'act_unsent_letter';
+          await EffectivenessFeedbackSheet.show(
+            context,
+            activityId: activityId,
+            stateAtStart: widget.initialMode == 'worry' ? 'racingThoughts' : 'needExpression',
+            durationSeconds: 30,
+          );
+          if (context.mounted) {
+            context.pop();
+          }
         }
       } else {
         if (mounted) {
@@ -515,6 +585,30 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
         setState(() {
           _canvasOpacity = 1.0;
         });
+      }
+    }
+  }
+
+  Future<void> _handleEarlyExit(
+    BuildContext context,
+    JournalEditorState state,
+    JournalEditorController controller,
+  ) async {
+    final activityId = widget.initialMode == 'worry'
+        ? 'act_worry_dump'
+        : 'act_unsent_letter';
+    await EffectivenessFeedbackSheet.show(
+      context,
+      activityId: activityId,
+      stateAtStart: widget.initialMode == 'worry' ? 'racingThoughts' : 'needExpression',
+      durationSeconds: 30,
+    );
+    if (context.mounted) {
+      _isExiting = true;
+      if (context.canPop()) {
+        context.pop();
+      } else {
+        context.go(AppRoutes.checkIn);
       }
     }
   }

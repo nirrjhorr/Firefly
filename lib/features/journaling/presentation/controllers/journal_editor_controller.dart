@@ -7,48 +7,10 @@ import '../../../../core/contracts/voice_recognition_port.dart';
 import '../../data/adapters/vosk_voice_adapter.dart';
 import '../../data/repositories/journal_repository_impl.dart';
 import '../../domain/models/journal_entry.dart';
+import '../../domain/models/journal_ttl_option.dart';
 import '../../domain/repositories/journal_repository.dart';
 
-/// Preset intervals for auto-deletion and unsent letters.
-enum JournalTtlOption {
-  none,
-  oneHour,
-  twentyFourHours,
-  sevenDays;
-
-  int? get durationSeconds {
-    switch (this) {
-      case JournalTtlOption.none:
-        return null;
-      case JournalTtlOption.oneHour:
-        return 3600;
-      case JournalTtlOption.twentyFourHours:
-        return 86400;
-      case JournalTtlOption.sevenDays:
-        return 604800;
-    }
-  }
-
-  String get displayName {
-    switch (this) {
-      case JournalTtlOption.none:
-        return 'Keep permanently';
-      case JournalTtlOption.oneHour:
-        return '1 Hour';
-      case JournalTtlOption.twentyFourHours:
-        return '24 Hours';
-      case JournalTtlOption.sevenDays:
-        return '7 Days';
-    }
-  }
-
-  int? calculateExpiryUnix([int? fromUnix]) {
-    final secs = durationSeconds;
-    if (secs == null) return null;
-    final base = fromUnix ?? (DateTime.now().millisecondsSinceEpoch ~/ 1000);
-    return base + secs;
-  }
-}
+export '../../domain/models/journal_ttl_option.dart';
 
 /// State for [JournalEditorController].
 @immutable

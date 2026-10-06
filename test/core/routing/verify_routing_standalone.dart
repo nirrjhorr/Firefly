@@ -27,12 +27,22 @@ void main() {
   assert(AppRoutes.move == '/home/move', 'Move path mismatch');
   assert(AppRoutes.sleep == '/home/sleep', 'Sleep path mismatch');
   assert(AppRoutes.hopeBox == '/home/hope-box', 'Hope Box path mismatch');
+  assert(AppRoutes.nature == '/home/nature', 'Nature path mismatch');
+  assert(AppRoutes.somatic == '/home/somatic', 'Somatic path mismatch');
+  assert(AppRoutes.labyrinth == '/home/labyrinth', 'Labyrinth path mismatch');
+  assert(AppRoutes.flowPuzzle == '/home/flow-puzzle', 'Flow Puzzle path mismatch');
+  assert(AppRoutes.defusion == '/home/defusion', 'Defusion path mismatch');
+  assert(AppRoutes.worryDump == '/home/worry-dump', 'Worry Dump path mismatch');
+  assert(AppRoutes.unsentLetter == '/home/unsent-letter', 'Unsent Letter path mismatch');
 
-  print('All 17 routes verified:');
+  print('All routes verified:');
   print(' - Splash: ${AppRoutes.splash}');
   print(' - CheckIn: ${AppRoutes.checkIn}');
   print(' - Breathe: ${AppRoutes.breathe}');
   print(' - PMR: ${AppRoutes.pmr}');
+  print(' - Defusion: ${AppRoutes.defusion}');
+  print(' - Worry Dump: ${AppRoutes.worryDump}');
+  print(' - Unsent Letter: ${AppRoutes.unsentLetter}');
   print(' - Right Now: ${AppRoutes.rightNow}');
   print(' - Safety Plan: ${AppRoutes.safetyPlan}');
   print(' - Panic Blank: ${AppRoutes.panicBlank}');

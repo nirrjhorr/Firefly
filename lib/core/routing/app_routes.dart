@@ -24,6 +24,9 @@ abstract final class AppRoutes {
   static const somatic = '/home/somatic';
   static const labyrinth = '/home/labyrinth';
   static const flowPuzzle = '/home/flow-puzzle';
+  static const defusion = '/home/defusion';
+  static const worryDump = '/home/worry-dump';
+  static const unsentLetter = '/home/unsent-letter';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

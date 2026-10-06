@@ -27,6 +27,7 @@ import '../../features/nature/presentation/screens/nature_observation_screen.dar
 import '../../features/somatic/presentation/screens/somatic_centering_screen.dart';
 import '../../features/labyrinth/presentation/screens/labyrinth_screen.dart';
 import '../../features/flow_puzzle/presentation/screens/flow_puzzle_screen.dart';
+import '../../features/cognitive_defusion/presentation/screens/cognitive_defusion_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -205,6 +206,39 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Unsent Letters Suite (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/unsent-letter',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const JournalEntryScreen(
+          entryId: 'new-letter',
+          initialTtl: JournalTtlOption.twentyFourHours,
+          initialMode: 'unsent',
+          showSosOverlay: true,
+        ),
+      ),
+
+      // Encrypted Worry Dump (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/worry-dump',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const JournalEntryScreen(
+          entryId: 'new-worry',
+          initialTtl: JournalTtlOption.none,
+          initialMode: 'worry',
+          showSosOverlay: true,
+        ),
+      ),
+
+      // Cognitive Defusion Suite (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/defusion',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => CognitiveDefusionScreen(
+          initialMode: state.uri.queryParameters['mode'],
+          showSosOverlay: true,
+        ),
+      ),
 
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
@@ -230,6 +264,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 builder: (context, state) {
                   final id = state.pathParameters['id'] ?? '';
                   final ttlParam = state.uri.queryParameters['ttl'];
+                  final modeParam = state.uri.queryParameters['mode'];
                   JournalTtlOption? initialTtl;
                   if (ttlParam == '1h') initialTtl = JournalTtlOption.oneHour;
                   if (ttlParam == '24h') initialTtl = JournalTtlOption.twentyFourHours;
@@ -237,6 +272,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   return JournalEntryScreen(
                     entryId: id,
                     initialTtl: initialTtl,
+                    initialMode: modeParam,
+                    showSosOverlay: true,
                   );
                 },
               ),
@@ -320,6 +357,31 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => FlowPuzzleScreen(
               initialMode: state.uri.queryParameters['mode'],
               initialPattern: state.uri.queryParameters['pattern'],
+              showSosOverlay: false,
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.unsentLetter,
+            builder: (context, state) => const JournalEntryScreen(
+              entryId: 'new-letter',
+              initialTtl: JournalTtlOption.twentyFourHours,
+              initialMode: 'unsent',
+              showSosOverlay: false,
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.worryDump,
+            builder: (context, state) => const JournalEntryScreen(
+              entryId: 'new-worry',
+              initialTtl: JournalTtlOption.none,
+              initialMode: 'worry',
+              showSosOverlay: false,
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.defusion,
+            builder: (context, state) => CognitiveDefusionScreen(
+              initialMode: state.uri.queryParameters['mode'],
               showSosOverlay: false,
             ),
           ),
