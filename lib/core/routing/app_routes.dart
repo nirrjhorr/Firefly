@@ -23,6 +23,7 @@ abstract final class AppRoutes {
   static const nature = '/home/nature';
   static const somatic = '/home/somatic';
   static const labyrinth = '/home/labyrinth';
+  static const flowPuzzle = '/home/flow-puzzle';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

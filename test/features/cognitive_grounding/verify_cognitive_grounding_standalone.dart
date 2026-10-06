@@ -21,8 +21,7 @@ void main() {
   assert(CognitiveExerciseType.fromString('unknown_type') == CognitiveExerciseType.alphabetCategories);
   print('✓ CognitiveExerciseType fromString resolution verified.');
 
-  // 3. Verify Offline Curated Categories
-  assert(kOfflineCognitiveCategories.length >= 5, 'Should have at least 5 offline categories');
+  assert(kOfflineCognitiveCategories.length >= 50, 'Should have at least 50 offline categories');
   for (final cat in kOfflineCognitiveCategories) {
     assert(cat.id.isNotEmpty && cat.name.isNotEmpty && cat.hint.isNotEmpty);
   }

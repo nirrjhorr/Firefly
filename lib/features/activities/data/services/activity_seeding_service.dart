@@ -193,6 +193,32 @@ class ActivitySeedingService {
         'durationMinutes': 4,
         'instructions': ['Place your finger at the outer opening', 'Follow the winding track inward', 'Rest in the center circle'],
       }),
+      ActivityItem.fromJson({
+        'id': 'act_flow_puzzle_constellation',
+        'title': 'Constellation Star Flow',
+        'description': 'Gently connect celestial stars to reveal serene constellations, absorbing working memory.',
+        'category': 'flow',
+        'energyRequired': 1,
+        'targetStates': ['racingThoughts', 'restless', 'anxious', 'overwhelmed'],
+        'guidanceType': 'interactivePainter',
+        'evidenceLevel': 'verified',
+        'route': '/home/flow-puzzle?mode=constellationConnect',
+        'durationMinutes': 4,
+        'instructions': ['Touch star 1 to begin', 'Follow the glowing numbers across the tranquil sky', 'Watch the celestial shape emerge'],
+      }),
+      ActivityItem.fromJson({
+        'id': 'act_flow_puzzle_harmony_tiles',
+        'title': 'Harmony Sliding Tiles',
+        'description': 'Slowly slide numbered tactile tiles into harmonious order with zero pressure, timers, or score.',
+        'category': 'flow',
+        'energyRequired': 1,
+        'targetStates': ['racingThoughts', 'restless', 'flat'],
+        'guidanceType': 'interactivePainter',
+        'evidenceLevel': 'verified',
+        'route': '/home/flow-puzzle?mode=spatialSliding',
+        'durationMinutes': 5,
+        'instructions': ['Tap any highlighted tile adjacent to the space', 'Move stones with unhurried tactile rhythm', 'Restore gentle balance to the grid'],
+      }),
     ];
   }
 }
