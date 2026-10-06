@@ -45,6 +45,8 @@ credentials.json
 client_secret*.json
 service-account*.json
 serviceAccountKey*.json
+mcp_config.json
+.agents/mcp_config.json
 
 # Signing Keys & Keystores (Android / iOS)
 *.keystore
