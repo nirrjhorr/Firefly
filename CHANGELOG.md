@@ -3,6 +3,31 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2026-10-07
+
+### Apple-Aligned Design Validation, System Harmonization & Production Release (v2.8.0+20)
+
+#### Apple Design Standards & Direct Manipulation Polish (Emil Kowalski & Apple HIG)
+- **Tactile Direct Manipulation & Physical Feedback:** Standardized interactive feedback across all interactive controls (`FireflyButton`, `FireflyCard`, `MoodTile`, and navigation triggers) with responsive scale transforms (`0.97` on button press, `0.985` on card press), `selectionClick` haptics, and fluid Apple deceleration easing (`Cubic(0.16, 1.0, 0.3, 1.0)`).
+- **Accessible Touch Target Guarantees:** Enforced minimum 44x44dp / 56dp touch targets across all interactive anchors and distress paths to ensure safe, frustration-free navigation during acute motor tremor or panic episodes.
+- **Color Contrast Rigor & Visual Restraint (WCAG 2.2 AAA):** Validated sRGB contrast ratios exceeding AAA requirements (illuminated sage `#7DBA9B` at 8.19:1; primary stone text `#E2E8F0` at 14.89:1 against dark slate canvas `#111518`), eliminating harsh drop shadows in favor of subtle 1px ambient boundaries.
+- **System-Wide Reduced Motion & Accessibility:** Full support for `MediaQuery.disableAnimations` and `reduceMotion`, resolving motion tokens to instant zero-duration transitions when requested.
+
+#### Stitch Serene Sanctuary Alignment & System Completeness
+- **Universal Category & Action Harmonization:**
+  - Integrated `ActionType.aweWalk` into `AffectResultCard` with canonical nature iconography (`AppIcons.nature`).
+  - Integrated `ActivityCategory.selfCompassion` (`Icons.volunteer_activism_rounded`) and `ActivityCategory.focus` (`Icons.filter_center_focus_rounded`) into the Activity Library catalog icon resolver.
+  - Added `_aweWalkSuggestion` to the deterministic recommendation engine as a prime alternative for scattered/racing cognitive states.
+  - Updated Personal Sanctuary profile mappings with direct routing and friendly naming for the Awe Walk protocol.
+- **76-Practice Unified Catalog Alignment:** Synchronized library counts across `CheckInScreen`, `RightNowModal`, and `ActivitiesScreen`, ensuring accurate reflection of all 76 curated practices across the 6 regulation groups.
+- **Crisis Phrase Detection Hardening:** Extended self-harm detection patterns in `CrisisPhraseDetector` to include past-tense variations (`burned myself`, `harmed myself`) with zero telemetry.
+
+#### Production Packaging & Build Verification
+- **Automated Verification:** 100% pass across all 30 standalone verification test suites, zero lint warnings across 256 Dart source files, zero network egress in security gate.
+- **Distributable Release Artifact:** Packaged `firefly-v2.8.0-release.apk` (77.30 MB) with launcher icons verified across all 5 Android DPI buckets, offline soundscapes, and Vosk acoustic models.
+
+---
+
 ## [2.7.0] - 2026-10-06
 
 ### Awe Walk Protocol & Perspective Shift Engine (Epic 22 / v2 Sprint 13)

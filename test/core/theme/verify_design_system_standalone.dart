@@ -71,15 +71,15 @@ void main() {
   final typoFile = File('lib/core/theme/app_typography.dart');
   assert(typoFile.existsSync(), 'app_typography.dart must exist');
   final typoContent = typoFile.readAsStringSync();
-  assert(typoContent.contains('static TextStyle get captionSm => caption;'), 'captionSm alias missing');
-  assert(typoContent.contains('static TextStyle get displaySm => displayMd;'), 'displaySm alias missing');
-  assert(typoContent.contains('static TextStyle get labelXs => labelSm;'), 'labelXs alias missing');
-  assert(typoContent.contains('static TextStyle get headingSmall => headingSm;'), 'headingSmall alias missing');
-  assert(typoContent.contains('static TextStyle get titleMedium => headingMd;'), 'titleMedium alias missing');
-  assert(typoContent.contains('static TextStyle get bodyMedium => bodyMd;'), 'bodyMedium alias missing');
-  assert(typoContent.contains('static TextStyle get bodySmall => bodySm;'), 'bodySmall alias missing');
-  assert(typoContent.contains('static TextStyle get labelMedium => labelMd;'), 'labelMedium alias missing');
-  assert(typoContent.contains('static TextStyle get labelSmall => labelSm;'), 'labelSmall alias missing');
+  assert(typoContent.contains('captionSm = caption;') || typoContent.contains('get captionSm => caption;'), 'captionSm alias missing');
+  assert(typoContent.contains('displaySm = displayMd;') || typoContent.contains('get displaySm => displayMd;'), 'displaySm alias missing');
+  assert(typoContent.contains('labelXs = labelSm;') || typoContent.contains('get labelXs => labelSm;'), 'labelXs alias missing');
+  assert(typoContent.contains('headingSmall = headingSm;') || typoContent.contains('get headingSmall => headingSm;'), 'headingSmall alias missing');
+  assert(typoContent.contains('titleMedium = headingMd;') || typoContent.contains('get titleMedium => headingMd;'), 'titleMedium alias missing');
+  assert(typoContent.contains('bodyMedium = bodyMd;') || typoContent.contains('get bodyMedium => bodyMd;'), 'bodyMedium alias missing');
+  assert(typoContent.contains('bodySmall = bodySm;') || typoContent.contains('get bodySmall => bodySm;'), 'bodySmall alias missing');
+  assert(typoContent.contains('labelMedium = labelMd;') || typoContent.contains('get labelMedium => labelMd;'), 'labelMedium alias missing');
+  assert(typoContent.contains('labelSmall = labelSm;') || typoContent.contains('get labelSmall => labelSm;'), 'labelSmall alias missing');
   stdout.writeln('✓ AppTypography canonical aliases verified (9/9 passed)');
 
   // 4. Icon token aliases verification

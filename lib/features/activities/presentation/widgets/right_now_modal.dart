@@ -312,7 +312,7 @@ class _RightNowModalState extends State<RightNowModal> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Want to explore all 70 practices?',
+                      'Want to explore the full library?',
                       style: AppTypography.captionSm.copyWith(color: colors.textSecondary),
                     ),
                   ),

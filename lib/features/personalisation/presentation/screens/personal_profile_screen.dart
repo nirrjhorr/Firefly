@@ -54,6 +54,7 @@ class _PersonalProfileScreenState extends ConsumerState<PersonalProfileScreen> {
       'act_soundscape': 'Sound Sanctuary',
       'act_labyrinth': 'Meditative Labyrinth',
       'act_flow_puzzle': 'Spatial Flow Puzzle',
+      'act_awe_walk': 'Awe Walk Protocol',
     };
     if (mapping.containsKey(activityId)) return mapping[activityId]!;
 
@@ -64,6 +65,9 @@ class _PersonalProfileScreenState extends ConsumerState<PersonalProfileScreen> {
   }
 
   String _routeForActivity(String activityId) {
+    if (activityId.contains('awe')) {
+      return AppRoutes.aweWalk;
+    }
     if (activityId.contains('sighing') || activityId.contains('breathing')) {
       return AppRoutes.breathe;
     }

@@ -18,7 +18,7 @@ import '../../domain/models/activity_item.dart';
 import '../../domain/models/regulation_group.dart';
 import '../providers/activity_providers.dart';
 
-/// Full-catalog Activities Screen organizing all 70 evidence-based practices
+/// Full-catalog Activities Screen organizing all 76 evidence-based practices
 /// across the 6 canonical regulation groups defined in PRD v2.0 & Activity Architecture.
 class ActivitiesScreen extends ConsumerStatefulWidget {
   const ActivitiesScreen({
@@ -589,6 +589,10 @@ class _ActivityCard extends StatelessWidget {
         return Icons.palette_outlined;
       case ActivityCategory.cognitiveDefusion:
         return Icons.cloud_outlined;
+      case ActivityCategory.selfCompassion:
+        return Icons.volunteer_activism_rounded;
+      case ActivityCategory.focus:
+        return Icons.filter_center_focus_rounded;
     }
   }
 }

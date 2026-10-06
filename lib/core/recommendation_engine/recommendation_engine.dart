@@ -79,6 +79,7 @@ abstract final class RecommendationEngine {
     // Priority 5: Scattered / Mind Racing -> Focus & Three Priorities
     else if (mood == 'scattered' || mood == 'racing') {
       base = _focusSuggestion.copyWithAlternatives([
+        _aweWalkSuggestion,
         _groundingSuggestion,
         _breathingSuggestion,
         _journalingSuggestion,
@@ -271,6 +272,15 @@ abstract final class RecommendationEngine {
         'A self-contained 5-minute journey designed for acute relief in a single session.',
     route: AppRoutes.reset,
     durationMinutes: 5,
+  );
+
+  static const _aweWalkSuggestion = ActionSuggestion(
+    actionType: ActionType.aweWalk,
+    title: 'Outdoor Awe Walk',
+    body:
+        'Shift attention outward to vast horizons, canopies, and natural wonders to dissolve rumination.',
+    route: AppRoutes.aweWalk,
+    durationMinutes: 10,
   );
 }
 

@@ -399,7 +399,7 @@ class CheckInScreen extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  '70 practices organized across 6 regulation groups',
+                                  '76 practices organized across 6 regulation groups',
                                   style: AppTypography.caption.copyWith(
                                     color: colors.textSecondary,
                                   ),

@@ -58,6 +58,8 @@ class _AffectResultCardState extends State<AffectResultCard> {
         return Icons.blur_circular_rounded;
       case ActionType.sleepWindDown:
         return Icons.bedtime_outlined;
+      case ActionType.aweWalk:
+        return AppIcons.nature;
     }
   }
 
