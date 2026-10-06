@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/theme/icon_tokens.dart';
 import '../../../../core/theme/radius_tokens.dart';
@@ -30,6 +32,67 @@ class SleepTimerSelector extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Multi-Track Ambient Mixer Launch Banner
+          InkWell(
+            onTap: () {
+              HapticFeedback.lightImpact();
+              context.push(AppRoutes.ambientMixer);
+            },
+            borderRadius: BorderRadius.circular(RadiusTokens.card),
+            child: Container(
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              margin: const EdgeInsets.bottom(SpacingTokens.md),
+              decoration: BoxDecoration(
+                color: const Color(0x18E5B870),
+                borderRadius: BorderRadius.circular(RadiusTokens.card),
+                border: Border.all(color: const Color(0x55E5B870)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: const Color(0x33E5B870),
+                      borderRadius: BorderRadius.circular(RadiusTokens.chip),
+                    ),
+                    child: const Icon(
+                      Icons.tune_rounded,
+                      color: warmAmber,
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: SpacingTokens.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Multi-Track Ambient Mixer',
+                          style: AppTypography.bodySmall.copyWith(
+                            color: const Color(0xFFF2D9A8),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          'Layer rain, hearth, brown noise & chimes together',
+                          style: AppTypography.caption.copyWith(
+                            color: const Color(0xFF9AAAB6),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: warmAmber,
+                    size: 14,
+                  ),
+                ],
+              ),
+            ),
+          ),
           // Active Track & Playback Controller
           Container(
             padding: const EdgeInsets.all(SpacingTokens.lg),

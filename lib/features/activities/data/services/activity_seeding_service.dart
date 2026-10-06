@@ -284,6 +284,19 @@ class ActivitySeedingService {
         'durationMinutes': 3,
         'instructions': ['Read the fused thought', 'Insert "I notice I am having the thought that..."', 'Recognize yourself as the calm observer'],
       }),
+      ActivityItem.fromJson({
+        'id': 'act_audio_sound_mixer',
+        'title': 'Ambient Sound Sanctuary',
+        'description': 'Layer multiple calming sounds (rain, brown noise, hearth, chimes) with a fading sleep timer.',
+        'category': 'audio',
+        'energyRequired': 1,
+        'targetStates': ['cantSleep', 'racingThoughts', 'anxious', 'restless'],
+        'guidanceType': 'interactivePlayer',
+        'evidenceLevel': 'verified',
+        'route': '/home/ambient-mixer',
+        'durationMinutes': 15,
+        'instructions': ['Select restorative preset or customize layers', 'Adjust individual layer volumes', 'Set fading sleep timer'],
+      }),
     ];
   }
 }

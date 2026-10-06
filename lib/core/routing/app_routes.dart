@@ -27,6 +27,7 @@ abstract final class AppRoutes {
   static const defusion = '/home/defusion';
   static const worryDump = '/home/worry-dump';
   static const unsentLetter = '/home/unsent-letter';
+  static const ambientMixer = '/home/ambient-mixer';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

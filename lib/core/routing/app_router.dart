@@ -18,6 +18,7 @@ import '../../features/pmr/presentation/screens/pmr_screen.dart';
 import '../../features/safety_plan/presentation/screens/panic_blank_screen.dart';
 import '../../features/safety_plan/presentation/screens/safety_plan_editor_screen.dart';
 import '../../features/safety_plan/presentation/screens/safety_plan_screen.dart';
+import '../../features/soundscapes/presentation/screens/ambient_audio_mixer_screen.dart';
 import '../../features/soundscapes/presentation/screens/soundscape_library_screen.dart';
 import '../../features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
 import '../../features/tiny_steps/presentation/screens/tiny_step_activity_screen.dart';
@@ -240,6 +241,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Ambient Audio Mixer & Sleep Wind-Down Suite (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/ambient-mixer',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AmbientAudioMixerScreen(
+          showSosOverlay: true,
+        ),
+      ),
+
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
         builder: (context, state, child) => MainShellScaffold(child: child),
@@ -295,7 +305,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.soundscapes,
-            builder: (context, state) => const SoundscapeLibraryScreen(),
+            builder: (context, state) {
+              if (state.uri.queryParameters['mode'] == 'mixer') {
+                return const AmbientAudioMixerScreen(showSosOverlay: false);
+              }
+              return const SoundscapeLibraryScreen();
+            },
           ),
           GoRoute(
             path: AppRoutes.pmr,
@@ -382,6 +397,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: AppRoutes.defusion,
             builder: (context, state) => CognitiveDefusionScreen(
               initialMode: state.uri.queryParameters['mode'],
+              showSosOverlay: false,
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.ambientMixer,
+            builder: (context, state) => const AmbientAudioMixerScreen(
               showSosOverlay: false,
             ),
           ),

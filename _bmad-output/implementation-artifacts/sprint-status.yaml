@@ -123,9 +123,9 @@ development_status:
   14-2-cognitive-defusion-prompts: done
   epic-14-retrospective: done
 
-  epic-15: ready-for-dev
-  15-1-ambient-audio-mixer-sleep-wind-down: ready-for-dev
-  15-2-social-connection-cooperative-activities: backlog
+  epic-15: in-progress
+  15-1-ambient-audio-mixer-sleep-wind-down: done
+  15-2-social-connection-cooperative-activities: ready-for-dev
   epic-15-retrospective: optional
 
   correction-sprint: done
