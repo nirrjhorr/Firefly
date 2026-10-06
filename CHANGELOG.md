@@ -3,6 +3,18 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-10-06
+
+### Clinical Safety Guardrails & Production Verification Release
+
+#### Epic 16: Clinical Safety Guardrails & Production Verification (v2 Sprint 7)
+- **Deterministic Crisis Phrase Detection:** On-device, zero-telemetry pattern matching (`CrisisPhraseDetector`) for suicidal ideation, self-harm, and acute hopelessness with conversational idiom exclusion filters.
+- **Local Safety Interceptor (`LocalSafetyBanner`):** Non-intrusive, non-blocking support banner integrated into `JournalEntryScreen` and `/home/worry-dump` with direct 1-tap route to `/safety-plan`.
+- **Screen Inventory Specification:** Canonical `docs/SCREEN_INVENTORY_AND_FEATURE_MAPPING.md` documenting all 12 functional modules, routes, CTAs, and the 6-layer Z-index overlay hierarchy.
+- **Pre-Release Security Gate:** Automated validation pipeline (`scripts/security_gate.py` and `scripts/security_gate.sh`) enforcing zero forbidden networking packages in `pubspec.lock` and zero outbound socket calls in `lib/`.
+
+---
+
 ## [2.0.0] - 2026-10-06
 
 ### Major Release — State-Based Regulation System & 6-Group Activity Architecture

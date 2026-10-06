@@ -41,8 +41,7 @@ This document provides the complete epic and user story breakdown for Firefly, d
 - **Epic 13: v2 Sprint 4 - Cognitive Flow & Attention Switching** (Completed)
 - **Epic 14: v2 Sprint 5 - Expression, Processing & Reframing** (Completed)
 - **Epic 15: v2 Sprint 6 - Auditory, Restorative & Social Environments** (Completed)
-
-
+- **Epic 16: Clinical Safety Guardrails & Production Verification** (v2 Sprint 7 - Active)
 ---
 
 ## Epic 1: Core Scaffolding, Encrypted Storage & Design Foundations
@@ -723,3 +722,38 @@ As a user experiencing isolation, I want pre-written reach-out texts and coopera
 ---
 
 
+
+
+## Epic 16: Clinical Safety Guardrails & Production Verification (v2 Sprint 7)
+
+Implement clinical safety interceptors, zero-telemetry keyword detection, full screen inventory specification, and the pre-release zero-network gate pipeline.
+
+### Story 16.1: Deterministic Crisis Phrase Detection & Local Safety Interceptor
+As a user in acute emotional distress writing in the journal or worry dump,
+I want non-intrusive, zero-telemetry local detection of crisis language that surfaces my Stanley-Brown Safety Plan,
+So that I receive immediate, private access to crisis resources without being monitored, shamed, or blocked from writing.
+
+**Acceptance Criteria:**
+- CrisisPhraseDetector service in lib/core/safety/ with offline, clinical keyword blocklist covering self-harm, suicidal ideation, and acute hopelessness phrases.
+- Debounced (500ms) non-blocking execution on journal/worry-dump text changes.
+- Soft LocalSafetyBanner overlay offering a direct 1-tap route to /safety-plan with non-judgmental wording and dismiss capability.
+- Zero network, zero external logging, and zero persistent storage of detection events.
+- 100% verified via standalone tests.
+
+### Story 16.2: Screen Inventory & Feature Mapping Documentation Alignment
+As a developer and designer,
+I want a comprehensive canonical source-of-truth document specifying all 12 modules, routes, CTAs, and the 6-layer overlay architecture,
+So that future enhancements and design audits remain 100% consistent with Firefly design tokens.
+
+**Acceptance Criteria:**
+- docs/SCREEN_INVENTORY_AND_FEATURE_MAPPING.md documenting all 12 functional modules, routes, primary CTAs, touch targets, and low-stimulation palette tokens.
+- Complete documentation of the 6-Layer Z-Index & Overlay Architecture.
+
+### Story 16.3: Pre-Release Security & Zero-Network Verification Pipeline
+As a security auditor and release engineer,
+I want an automated pre-release verification script checking dependencies, network kill switches, and cryptographic integrity,
+So that no unauthorized networking package or telemetry can ever enter the release build.
+
+**Acceptance Criteria:**
+- scripts/security_gate.py scanning pubspec.lock and lib/ for forbidden networking packages and socket invocations.
+- Verification passes with 0 violations.

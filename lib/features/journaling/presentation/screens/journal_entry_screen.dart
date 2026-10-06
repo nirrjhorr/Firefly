@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/safety/crisis_phrase_detector.dart';
+import '../../../../core/safety/local_safety_banner.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/theme/icon_tokens.dart';
@@ -45,6 +49,11 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
   String _savedContent = '';
   bool _isExiting = false;
 
+  static const CrisisPhraseDetector _phraseDetector = CrisisPhraseDetector();
+  Timer? _debounceTimer;
+  bool _showSafetyBanner = false;
+  bool _bannerDismissedManually = false;
+
   @override
   void initState() {
     super.initState();
@@ -73,10 +82,28 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
 
   @override
   void dispose() {
+    _debounceTimer?.cancel();
     _titleController.dispose();
     _contentController.dispose();
     _pulseController.dispose();
     super.dispose();
+  }
+
+  void _onTextChanged() {
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      if (!mounted) return;
+      final combined = '${_titleController.text} ${_contentController.text}';
+      final result = _phraseDetector.checkText(combined);
+      if (result.hasMatch != _showSafetyBanner) {
+        setState(() {
+          _showSafetyBanner = result.hasMatch;
+          if (!result.hasMatch) {
+            _bannerDismissedManually = false;
+          }
+        });
+      }
+    });
   }
 
   void _updatePulseAnimation(bool isListening) {
@@ -126,6 +153,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
             text: next.content,
             selection: TextSelection.collapsed(offset: next.content.length),
           );
+          _onTextChanged();
         }
       },
     );
@@ -287,10 +315,22 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
                             ),
                           ),
                         ],
+                        if (_showSafetyBanner && !_bannerDismissedManually) ...[
+                          LocalSafetyBanner(
+                            onDismiss: () {
+                              setState(() {
+                                _bannerDismissedManually = true;
+                              });
+                            },
+                          ),
+                        ],
                         // Expandable title field
                         TextField(
                           controller: _titleController,
-                          onChanged: controller.setTitle,
+                          onChanged: (val) {
+                            controller.setTitle(val);
+                            _onTextChanged();
+                          },
                           style: AppTypography.headingLg.copyWith(
                             color: colors.textPrimary,
                             fontSize: 22,
@@ -309,7 +349,10 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
                         // Multi-line body editor
                         TextField(
                           controller: _contentController,
-                          onChanged: controller.setContent,
+                          onChanged: (val) {
+                            controller.setContent(val);
+                            _onTextChanged();
+                          },
                           maxLines: null,
                           keyboardType: TextInputType.multiline,
                           style: AppTypography.bodyLg.copyWith(

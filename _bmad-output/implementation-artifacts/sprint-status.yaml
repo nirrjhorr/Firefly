@@ -137,3 +137,9 @@ development_status:
   correction-sprint-file-picker-media-import: done
 
 
+
+  epic-16: done
+  16-1-deterministic-crisis-phrase-detection-safety-banner: done
+  16-2-screen-inventory-and-feature-mapping-specification: done
+  16-3-pre-release-security-gate-and-zero-network-audit: done
+  epic-16-retrospective: done
