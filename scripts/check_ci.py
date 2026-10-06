@@ -18,6 +18,8 @@ headers = {
     'User-Agent': 'Firefly-CI-Monitor'
 }
 
+import time
+
 try:
     if len(sys.argv) > 1:
         run_id = sys.argv[1]
@@ -29,13 +31,19 @@ try:
             run_id = str(latest_run['id'])
             print(f"Tracking Run ID: {run_id} | Status: {latest_run['status']} | Commit: {latest_run['head_commit']['message'][:50]}")
 
-    req = urllib.request.Request(f'https://api.github.com/repos/nirrjhorr/Firefly/actions/runs/{run_id}/jobs', headers=headers)
-    with urllib.request.urlopen(req) as resp:
-        data = json.loads(resp.read().decode())
-        steps = data['jobs'][0]['steps']
-        print(f"{'Step Name':<55} {'Status':<12} {'Conclusion':<10}")
-        print("-" * 80)
-        for s in steps:
-            print(f"{s['name']:<55} {s['status']:<12} {str(s.get('conclusion')):<10}")
+    while True:
+        req = urllib.request.Request(f'https://api.github.com/repos/nirrjhorr/Firefly/actions/runs/{run_id}/jobs', headers=headers)
+        with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read().decode())
+            job = data['jobs'][0]
+            steps = job['steps']
+            print(f"\n--- Job Status: {job['status']} ({job.get('conclusion')}) at {time.strftime('%H:%M:%S')} ---")
+            for s in steps:
+                if s['status'] != 'pending':
+                    print(f"  {s['name']:<50} {s['status']:<12} {str(s.get('conclusion')):<10}")
+            if job['status'] == 'completed':
+                print(f"\nWorkflow finished with conclusion: {job.get('conclusion')}")
+                break
+        time.sleep(15)
 except Exception as e:
     print('Error:', e)
