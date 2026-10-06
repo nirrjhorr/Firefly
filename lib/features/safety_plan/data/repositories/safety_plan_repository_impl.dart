@@ -53,7 +53,7 @@ class SafetyPlanRepositoryImpl implements SafetyPlanRepository {
     ),
   ];
 
-  static final _defaultCrisisContacts = [
+  static const _defaultCrisisContacts = [
     SafetyPlanContact(
       id: 'crisis-contact-988',
       planId: 'plan-default',

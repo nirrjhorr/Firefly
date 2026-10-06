@@ -139,4 +139,17 @@ abstract final class AppIcons {
   static const warning = Icons.warning_amber_rounded;
   static const error = Icons.error_outline_rounded;
   static const success = Icons.check_circle_outline_rounded;
+
+  // ── Extended Semantic Aliases ───────────────────────────────────────────────
+  static const nature = natureBirds;
+  static const audio = soundWaves;
+  static const shield = emergencyShield;
+  static const insights = scientificEvidence;
+  static const notes = Icons.note_outlined;
+  static const safetyPlan = emergencyShield;
+  static const history = Icons.history_rounded;
+  static const restart = refresh;
+  static const playing = audioFrequency;
+  static const mic = dictationMic;
+  static const micOff = dictationMicOff;
 }

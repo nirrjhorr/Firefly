@@ -15,7 +15,7 @@ void main() {
       expect(dark.brightness, equals(Brightness.dark));
       expect(colors.bgCanvas, equals(const Color(0xFF111518)));
       expect(colors.bgCanvasDeep, equals(const Color(0xFF0A0D0F)));
-      expect(colors.accentPrimary, equals(const Color(0xFF4A7862)));
+      expect(colors.accentPrimary, equals(const Color(0xFF7DBA9B)));
       expect(colors.crisisAction, equals(const Color(0xFFB05454)));
     });
 

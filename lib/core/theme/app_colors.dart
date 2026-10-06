@@ -23,7 +23,9 @@ abstract final class _Primitive {
   static const sage700 = Color(0xFF2D4A3A);
   static const sage500 = Color(0xFF4A7862);
   static const sage400 = Color(0xFF5D9478);
+  static const sage350 = Color(0xFF7DBA9B); // Stitch Serene Sanctuary illuminated sage (WCAG AAA 8.6:1)
   static const sage300 = Color(0xFF84B09A);
+  static const sage250 = Color(0xFF98D6B6); // Stitch primary hover sage
   static const sage200 = Color(0xFFB5CEBC);
   static const sage100 = Color(0xFFDFF0E6);
 
@@ -32,6 +34,7 @@ abstract final class _Primitive {
   static const dusk700 = Color(0xFF1E3050);
   static const dusk500 = Color(0xFF2E5080);
   static const dusk400 = Color(0xFF3D6A9F);
+  static const dusk350 = Color(0xFF5B8A99); // Stitch supportive dusk blue
   static const dusk300 = Color(0xFF6B92BF);
   static const dusk200 = Color(0xFFA3BDD9);
   static const dusk100 = Color(0xFFD8E6F4);
@@ -41,6 +44,7 @@ abstract final class _Primitive {
   static const amber600 = Color(0xFF7A4A0F);
   static const amber500 = Color(0xFFC27A30);
   static const amber400 = Color(0xFFD4963E);
+  static const amber350 = Color(0xFFD99B65); // Stitch warm grounding amber
   static const amber300 = Color(0xFFE5B870);
   static const amber200 = Color(0xFFF2D9A8);
   static const amber100 = Color(0xFFFDF3E0);
@@ -180,16 +184,16 @@ class AppCustomColors extends ThemeExtension<AppCustomColors> {
     textSecondary: _Primitive.neutral200,
     textMuted: _Primitive.neutral300,
     textDisabled: _Primitive.neutral400,
-    accentPrimary: _Primitive.sage500,
-    accentPrimaryHover: _Primitive.sage400,
-    accentSecondary: _Primitive.dusk500,
-    accentWarmth: _Primitive.amber500,
+    accentPrimary: _Primitive.sage350, // Stitch illuminated sage #7DBA9B (WCAG AAA 8.6:1)
+    accentPrimaryHover: _Primitive.sage250, // #98D6B6
+    accentSecondary: _Primitive.dusk350, // #5B8A99
+    accentWarmth: _Primitive.amber350, // #D99B65
     crisisSurface: _Primitive.coral800,
     crisisAction: _Primitive.coral500,
     crisisActionHover: _Primitive.coral400,
     crisisText: _Primitive.coral200,
     interactiveFocus: _Primitive.dusk300,
-    successSubtle: _Primitive.sage300,
+    successSubtle: _Primitive.sage350,
   );
 
   static const light = AppCustomColors(
@@ -227,18 +231,33 @@ extension AppCustomColorsAliases on AppCustomColors {
   Color get actionSageHover => accentPrimaryHover;
   Color get surfaceCard => bgSurface;
   Color get surfaceSubtle => bgSurfaceRaised;
+  Color get surfaceElevated => bgSurfaceRaised;
+  Color get surfaceBase => bgCanvas;
+  Color get surfaceDeep => bgCanvasDeep;
+  Color get surface => bgSurface;
+  Color get surfaceContainer => bgSurface;
+  Color get container => bgSurfaceRaised;
   Color get borderSubtle => bgOverlay;
+  Color get borderMuted => bgOverlay;
   Color get borderOpaque => textDisabled;
   Color get textInverse => bgCanvasDeep;
   Color get background => bgCanvas;
   Color get canvasBackdrop => bgCanvasDeep;
   Color get textTertiary => textMuted;
+  Color get textFaint => textDisabled;
   Color get crisisRed => crisisAction;
   Color get crisisCoral => crisisAction;
   Color get crisisCoralSurface => crisisSurface;
   Color get accentAmber => accentWarmth;
+  Color get emergencyShield => accentWarmth;
   Color get accentDusk => accentSecondary;
   Color get warningAmber => accentWarmth;
   Color get infoDusk => accentSecondary;
   Color get successGreen => successSubtle;
+  Color get primary => accentPrimary;
+  Color get secondary => accentSecondary;
+  Color get onPrimary => bgCanvasDeep;
+  Color get onSurface => textPrimary;
+  Color get onSurfaceVariant => textSecondary;
+  Color get onError => const Color(0xFFFFFFFF);
 }

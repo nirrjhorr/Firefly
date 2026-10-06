@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../domain/models/breathing_session_state.dart';
 import 'cyclic_sigh_bloom_painter.dart';
 
@@ -26,6 +27,7 @@ class CyclicSighBloomVisualizer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final isReducedMotion = overrideReducedMotion ??
         MediaQuery.maybeOf(context)?.disableAnimations ??
         false;
@@ -38,8 +40,8 @@ class CyclicSighBloomVisualizer extends StatelessWidget {
           progress: progress,
           phase: phase,
           reducedMotion: isReducedMotion,
-          inhaleColor: inhaleColor ?? const Color(0xFF4A7862),
-          exhaleColor: exhaleColor ?? const Color(0xFF3B5B6C),
+          inhaleColor: inhaleColor ?? colors.actionSage,
+          exhaleColor: exhaleColor ?? colors.accentSecondary,
         ),
         child: child != null ? Center(child: child) : null,
       ),

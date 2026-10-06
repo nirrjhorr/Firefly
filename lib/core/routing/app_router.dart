@@ -29,6 +29,7 @@ import '../../features/somatic/presentation/screens/somatic_centering_screen.dar
 import '../../features/labyrinth/presentation/screens/labyrinth_screen.dart';
 import '../../features/flow_puzzle/presentation/screens/flow_puzzle_screen.dart';
 import '../../features/cognitive_defusion/presentation/screens/cognitive_defusion_screen.dart';
+import '../../features/activities/presentation/screens/activities_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -106,6 +107,33 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final mode = state.uri.queryParameters['mode'] ?? 'grounding';
           return '${AppRoutes.breathe}?mode=$mode';
         },
+      ),
+
+      // Activity route aliases and redirects
+      GoRoute(
+        path: '/home/flow',
+        redirect: (context, state) {
+          final mode = state.uri.queryParameters['mode'] ?? 'zenPath';
+          return '${AppRoutes.flowPuzzle}?mode=$mode';
+        },
+      ),
+      GoRoute(
+        path: '/home/mindfulness',
+        redirect: (context, state) {
+          final mode = state.uri.queryParameters['mode'] ?? 'bodyScan';
+          return '${AppRoutes.somatic}?mode=$mode';
+        },
+      ),
+      GoRoute(
+        path: '/home/creative',
+        redirect: (context, state) {
+          final mode = state.uri.queryParameters['mode'] ?? 'doodle';
+          return '${AppRoutes.labyrinth}?pattern=$mode';
+        },
+      ),
+      GoRoute(
+        path: '/activities',
+        redirect: (context, state) => AppRoutes.activities,
       ),
 
       // Progressive Muscle Relaxation (Root Modal with SOS overlay)
@@ -295,7 +323,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.progress,
-            builder: (context, state) => const GentleProgressScreen(),
+            redirect: (context, state) => AppRoutes.checkIn,
           ),
           GoRoute(
             path: AppRoutes.loneliness,
@@ -405,6 +433,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const AmbientAudioMixerScreen(
               showSosOverlay: false,
             ),
+          ),
+          GoRoute(
+            path: AppRoutes.activities,
+            builder: (context, state) {
+              final group = state.uri.queryParameters['group'];
+              return ActivitiesScreen(initialGroup: group);
+            },
           ),
         ],
       ),

@@ -12,6 +12,16 @@ abstract final class SpacingTokens {
   static const double space3xl = 48.0;
   static const double space4xl = 64.0;
 
+  // ── Canonical Shorthand Aliases ─────────────────────────────────────────────
+  static const double xxs = space2xs;
+  static const double xs = spaceXs;
+  static const double sm = spaceSm;
+  static const double md = spaceMd;
+  static const double lg = spaceLg;
+  static const double xl = spaceXl;
+  static const double xxl = space2xl;
+  static const double spaceXxl = space2xl;
+
   // ── Canonical Semantic Layout Tokens ────────────────────────────────────────
   /// Standard screen horizontal padding across all primary screens (20dp)
   static const double screenPaddingH = 20.0;

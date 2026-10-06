@@ -143,3 +143,9 @@ development_status:
   16-2-screen-inventory-and-feature-mapping-specification: done
   16-3-pre-release-security-gate-and-zero-network-audit: done
   epic-16-retrospective: done
+
+  epic-17: done
+  17-1-multi-tab-6-group-activity-catalog-search: done
+  17-2-stitch-serene-sanctuary-design-tokens-wcag-aaa: done
+  17-3-production-release-v2-2-0-distribution-lock: done
+  epic-17-retrospective: done

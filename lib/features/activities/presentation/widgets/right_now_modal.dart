@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/routing/app_routes.dart';
+import '../../../../core/theme/animation_tokens.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/theme/icon_tokens.dart';
 import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
+import '../../domain/models/regulation_group.dart';
 
 /// Data representation of an acute distress need anchor.
 class RightNowAnchor {
@@ -60,14 +62,14 @@ const List<RightNowAnchor> kRightNowAnchors = [
     title: 'I feel restless',
     subtitle: 'Physical release & shakeout',
     iconKey: 'figure.walk',
-    route: '/home/move?mode=shakeout',
+    route: '${AppRoutes.move}?mode=shakeout',
   ),
   RightNowAnchor(
     id: 'cant_focus',
     title: 'I cannot focus',
     subtitle: 'Meditative finger tracing',
     iconKey: 'circle.hexagonpath',
-    route: AppRoutes.tinySteps,
+    route: AppRoutes.labyrinth,
   ),
   RightNowAnchor(
     id: 'emotionally_heavy',
@@ -95,7 +97,7 @@ const List<RightNowAnchor> kRightNowAnchors = [
     title: 'I want something distracting',
     subtitle: 'Calm tactile puzzle',
     iconKey: 'sparkles',
-    route: AppRoutes.tinySteps,
+    route: AppRoutes.flowPuzzle,
   ),
   RightNowAnchor(
     id: 'connect',
@@ -120,9 +122,9 @@ const List<RightNowAnchor> kRightNowAnchors = [
   ),
 ];
 
-/// Full-screen, low-stimulation modal allowing a user in distress to immediately
-/// self-select what they need without cognitive overhead or multi-step questionnaires.
-class RightNowModal extends StatelessWidget {
+/// Multi-tab acute distress modal allowing users to either choose an immediate
+/// feeling anchor or browse practices grouped by the 6 core regulation groups.
+class RightNowModal extends StatefulWidget {
   const RightNowModal({super.key});
 
   /// Displays the modal using smooth fade transition.
@@ -136,12 +138,19 @@ class RightNowModal extends StatelessWidget {
   }
 
   @override
+  State<RightNowModal> createState() => _RightNowModalState();
+}
+
+class _RightNowModalState extends State<RightNowModal> {
+  int _selectedTabIndex = 0; // 0 = Acute Anchors, 1 = By Regulation Group
+
+  @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     final mediaQuery = MediaQuery.of(context);
 
     return Container(
-      height: mediaQuery.size.height * 0.88,
+      height: mediaQuery.size.height * 0.90,
       decoration: BoxDecoration(
         color: colors.bgCanvasDeep,
         borderRadius: const BorderRadius.vertical(
@@ -193,7 +202,7 @@ class RightNowModal extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Tap one that fits. We will guide you from there.',
+                        'Choose an urgent feeling or explore by group.',
                         style: AppTypography.bodySm.copyWith(
                           color: colors.textSecondary,
                         ),
@@ -209,35 +218,255 @@ class RightNowModal extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: SpacingTokens.spaceXs),
-
-            // 12 Distress Need Anchors List
-            Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.fromLTRB(
-                  SpacingTokens.screenPaddingH,
-                  SpacingTokens.spaceXs,
-                  SpacingTokens.screenPaddingH,
-                  SpacingTokens.bottomClearance,
+            // Mode Selector Tabs (Acute Anchors vs By Regulation Group)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.screenPaddingH),
+              child: Container(
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                  color: colors.surfaceSubtle,
+                  borderRadius: BorderRadius.circular(RadiusTokens.radiusPill),
+                  border: Border.all(color: colors.borderSubtle, width: 1.0),
                 ),
-                itemCount: kRightNowAnchors.length,
-                separatorBuilder: (context, index) => const SizedBox(height: SpacingTokens.elementGap),
-                itemBuilder: (context, index) {
-                  final anchor = kRightNowAnchors[index];
-                  return _AnchorCard(
-                    anchor: anchor,
-                    onTap: () {
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _buildModalTab(
+                        context,
+                        title: 'Acute Anchors',
+                        icon: Icons.flash_on_rounded,
+                        isSelected: _selectedTabIndex == 0,
+                        onTap: () {
+                          HapticFeedback.selectionClick();
+                          setState(() => _selectedTabIndex = 0);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: _buildModalTab(
+                        context,
+                        title: 'By Regulation Group',
+                        icon: Icons.grid_view_rounded,
+                        isSelected: _selectedTabIndex == 1,
+                        onTap: () {
+                          HapticFeedback.selectionClick();
+                          setState(() => _selectedTabIndex = 1);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: SpacingTokens.spaceSm),
+
+            // Tab Content
+            Expanded(
+              child: _selectedTabIndex == 0
+                  ? _buildAcuteAnchorsList(context)
+                  : _buildRegulationGroupsList(context),
+            ),
+
+            // Bottom Full Library Action
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.screenPaddingH,
+                vertical: SpacingTokens.spaceSm,
+              ),
+              decoration: BoxDecoration(
+                color: colors.surfaceCard,
+                border: Border(
+                  top: BorderSide(color: colors.borderSubtle, width: 1.0),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Want to explore all 70 practices?',
+                      style: AppTypography.captionSm.copyWith(color: colors.textSecondary),
+                    ),
+                  ),
+                  TextButton.icon(
+                    onPressed: () {
                       HapticFeedback.lightImpact();
                       Navigator.of(context).pop();
-                      context.push(anchor.route);
+                      context.push(AppRoutes.activities);
                     },
-                  );
-                },
+                    icon: Icon(Icons.arrow_forward_rounded, size: 16, color: colors.actionSage),
+                    label: Text(
+                      'Browse Library',
+                      style: AppTypography.labelMd.copyWith(
+                        color: colors.actionSage,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildModalTab(
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    final colors = context.colors;
+
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: MotionTokens.quick,
+        curve: Curves.easeOut,
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: isSelected ? colors.surfaceCard : Colors.transparent,
+          borderRadius: BorderRadius.circular(RadiusTokens.radiusPill),
+          border: isSelected
+              ? Border.all(color: colors.actionSage.withOpacity(0.4), width: 1.0)
+              : Border.all(color: Colors.transparent, width: 1.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 15,
+              color: isSelected ? colors.actionSage : colors.textSecondary,
+            ),
+            const SizedBox(width: 6),
+            Text(
+              title,
+              style: AppTypography.labelMd.copyWith(
+                color: isSelected ? colors.textPrimary : colors.textSecondary,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAcuteAnchorsList(BuildContext context) {
+    return ListView.separated(
+      padding: const EdgeInsets.fromLTRB(
+        SpacingTokens.screenPaddingH,
+        SpacingTokens.spaceXs,
+        SpacingTokens.screenPaddingH,
+        SpacingTokens.bottomClearance,
+      ),
+      itemCount: kRightNowAnchors.length,
+      separatorBuilder: (context, index) => const SizedBox(height: SpacingTokens.elementGap),
+      itemBuilder: (context, index) {
+        final anchor = kRightNowAnchors[index];
+        return _AnchorCard(
+          anchor: anchor,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            Navigator.of(context).pop();
+            context.push(anchor.route);
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildRegulationGroupsList(BuildContext context) {
+    final colors = context.colors;
+    final groups = RegulationGroup.values.where((g) => g != RegulationGroup.all).toList();
+
+    return ListView.separated(
+      padding: const EdgeInsets.fromLTRB(
+        SpacingTokens.screenPaddingH,
+        SpacingTokens.spaceXs,
+        SpacingTokens.screenPaddingH,
+        SpacingTokens.bottomClearance,
+      ),
+      itemCount: groups.length,
+      separatorBuilder: (context, index) => const SizedBox(height: SpacingTokens.elementGap),
+      itemBuilder: (context, index) {
+        final group = groups[index];
+        return Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Navigator.of(context).pop();
+              context.push('${AppRoutes.activities}?group=${group.name}');
+            },
+            borderRadius: BorderRadius.circular(RadiusTokens.radiusMd),
+            child: Ink(
+              padding: const EdgeInsets.all(SpacingTokens.cardPadding),
+              decoration: BoxDecoration(
+                color: colors.bgSurface,
+                borderRadius: BorderRadius.circular(RadiusTokens.radiusMd),
+                border: Border.all(
+                  color: colors.borderSubtle,
+                  width: 1.0,
+                ),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: colors.actionSage.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(RadiusTokens.radiusSm),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        _resolveGroupIcon(group),
+                        size: 22,
+                        color: colors.actionSage,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: SpacingTokens.spaceMd),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          group.displayName,
+                          style: AppTypography.headingSm.copyWith(
+                            color: colors.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          group.description,
+                          style: AppTypography.captionSm.copyWith(
+                            color: colors.textSecondary,
+                            height: 1.35,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 14,
+                    color: colors.textTertiary,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -354,6 +583,25 @@ class _AnchorCard extends StatelessWidget {
         return Icons.headphones_outlined;
       default:
         return Icons.spa_outlined;
+    }
+  }
+
+  IconData _resolveGroupIcon(RegulationGroup group) {
+    switch (group) {
+      case RegulationGroup.all:
+        return Icons.auto_awesome_rounded;
+      case RegulationGroup.movement:
+        return AppIcons.physical;
+      case RegulationGroup.respiration:
+        return AppIcons.breathe;
+      case RegulationGroup.grounding:
+        return AppIcons.nature;
+      case RegulationGroup.flow:
+        return Icons.psychology_outlined;
+      case RegulationGroup.expression:
+        return AppIcons.journal;
+      case RegulationGroup.restAndSocial:
+        return AppIcons.audio;
     }
   }
 }

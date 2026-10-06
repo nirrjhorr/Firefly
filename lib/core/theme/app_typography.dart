@@ -120,6 +120,24 @@ abstract final class AppTypography {
   // ── Compatibility Aliases ────────────────────────────────────────────────────
   static const headlineSm = headingMd;
   static const headlineLg = headingLg;
+  static const headlineMedium = headingMd;
+  static const headlineSmall = headingSm;
+  static const headingSmall = headingSm;
+  static const displaySm = displayMd;
+  static const displayLarge = displayLg;
+  static const titleLarge = headingLg;
+  static const titleMedium = headingMd;
+  static const titleSmall = headingSm;
+  static const bodyLarge = bodyLg;
+  static const bodyMedium = bodyMd;
+  static const bodySmall = bodySm;
+  static const labelLarge = labelLg;
+  static const labelMedium = labelMd;
+  static const labelSmall = labelSm;
+  static const labelXs = labelSm;
+  static const captionSm = caption;
+  static const monoMedium = monoSm;
+  static const button = labelLg;
 
   /// Maps AppTypography to Flutter's Material TextTheme
   static TextTheme toTextTheme(Color defaultColor) => TextTheme(

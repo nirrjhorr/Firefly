@@ -10,7 +10,7 @@ abstract final class RecommendationEngine {
 
     // Priority 1: High Anxiety -> Cyclic Sighing Breathing
     if (state.anxietyLevel >= 4) {
-      return ActionSuggestion(
+      return const ActionSuggestion(
         actionType: ActionType.breathing,
         title: 'Slowing down with breath',
         body:
@@ -28,7 +28,7 @@ abstract final class RecommendationEngine {
 
     // Priority 2: Low / Heavy Mood + Low Energy -> Tiny Steps (Behavioral Activation)
     if ((mood == 'low' || mood == 'heavy') && state.energyLevel <= 2) {
-      return ActionSuggestion(
+      return const ActionSuggestion(
         actionType: ActionType.tinySteps,
         title: 'One tiny, gentle step',
         body:
@@ -72,7 +72,7 @@ abstract final class RecommendationEngine {
 
     // Priority 5: Moderate Anxiety or Lower Energy -> Expressive Journaling
     if (state.anxietyLevel >= 2 || state.energyLevel <= 3) {
-      return ActionSuggestion(
+      return const ActionSuggestion(
         actionType: ActionType.journaling,
         title: 'Offload your thoughts',
         body:
@@ -88,7 +88,7 @@ abstract final class RecommendationEngine {
     }
 
     // Priority 6: Default Balanced State -> Mindful Tiny Step
-    return ActionSuggestion(
+    return const ActionSuggestion(
       actionType: ActionType.tinySteps,
       title: 'Carry this steady moment forward',
       body:

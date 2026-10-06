@@ -22,16 +22,6 @@ import '../controllers/tiny_steps_controller.dart';
 class TinyStepsScreen extends ConsumerWidget {
   const TinyStepsScreen({super.key});
 
-  Future<void> _triggerWarmDoubleTapHaptic() async {
-    try {
-      await HapticFeedback.lightImpact();
-      await Future<void>.delayed(const Duration(milliseconds: 100));
-      await HapticFeedback.lightImpact();
-    } catch (_) {
-      // Haptics fail silently on unsupported platforms
-    }
-  }
-
   IconData _getCategoryIcon(TinyStepCategory category) {
     switch (category) {
       case TinyStepCategory.sensory:

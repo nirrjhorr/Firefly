@@ -1,23 +1,33 @@
-# Firefly v1.0.0 Release Notes
+# Firefly v2.2.0 Release Notes
 
-**Version:** `1.0.0+1`  
-**Date:** 2026-10-01  
-**Build Hash (SHA-256):** `4dc046b20f94d5844de40b34d2c11683062d49f42712d7ef9bdffbc126a4cd8c`  
-**Architecture:** 100% Offline Mental Wellbeing Companion  
+**Version:** `2.2.0+14`  
+**Date:** 2026-10-06  
+**Build Hash (SHA-256):** `1597bca9f9e68a141d47c0475066ea5ebef407a1e74265664e25a1a809bb6c3c`  
+**Architecture:** 100% Offline Mental Wellbeing Companion & 6-Group Self-Regulation System  
 
-## Key Highlights
-- **100% Zero-Network Operation:** System-wide socket/HTTP killswitch prevents all outbound data leakage.
-- **Stanley-Brown Safety Plan Intervention (SPI):** 6 evidence-based steps, persistent 1-tap SOS overlay, and panic fast-exit (< 15ms purge latency).
-- **Affect Check-In & Deterministic Recommendations:** Sub-millisecond state matching into personalized respiration, behavioral activation, or unsent letters.
-- **Respiration & Sensory Grounding:** Cyclic sighing (4s inhale / 8s exhale), visual bloom custom canvas, tactile haptics, and bundled ambient audio.
-- **Tiny Steps Behavioral Activation:** Curated 20+ micro-action library without streaks or gamification.
-- **Expressive Journaling & Unsent Letters:** Application-layer AES-256-GCM double encryption with cryptographic erasure, offline Vosk speech-to-text dictation, and auto-delete TTL intervals.
-- **Hardened Local Storage:** SQLCipher AES-256-CBC database with hardware-backed key derivation.
+## Key Highlights in v2.2.0
+- **Multi-Tab Activity Architecture & 6 Core Regulation Groups:**
+  - Complete library of 70 evidence-based self-regulation practices.
+  - Interactive multi-tab organization: Movement & Somatic, Respiration, Grounding & Nature, Cognitive Flow & Puzzles, Expression & Reframing, and Rest & Social Connection.
+  - Sub-millisecond client-side search, real-time energy filtering (Levels 1 to 5), and direct execution routes.
+  - Dual-mode Right Now Distress modal featuring acute distress anchors and regulation group browsing.
+- **Apple-Inspired Design System Harmonization & Stitch Serene Sanctuary:**
+  - Low-stimulation illuminated sage (`#7DBA9B`), dusk blue (`#5B8A99`), and grounding warm amber (`#D99B65`).
+  - Full WCAG 2.2 AAA contrast compliance (8.19:1 sage, 14.89:1 primary text against dark `#111518` canvas).
+  - Canonical `FireflyNavHeader`, `FireflyEmptyState`, and `FireflyCard` tokens.
+- **Clinical Safety Guardrails & Zero-Network Guarantee:**
+  - Deterministic on-device crisis phrase detector with non-blocking local safety banner.
+  - Instant pure-black OLED panic blackout screen with memory zeroing (< 15ms).
+  - Stanley-Brown 6-step Safety Plan intervention with offline SOS overlay.
+  - 100% offline verified: zero remote telemetry, zero cloud tracking, AES-256-GCM double encryption.
+- **Packaging & Icon Verification:**
+  - Verified launcher icons across all DPI buckets (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) + Android v26 adaptive icon.
+  - Complete bundled asset verification (audio soundscapes, Vosk acoustic models, Atkinson Hyperlegible fonts, curated activities JSON).
 
 ## Installation via ADB Sideload
 ```bash
 # Sideload release package to physical test device
-adb install -r dist/firefly-v1.0.0-release.apk
+adb install -r dist/firefly-v2.2.0-release.apk
 
 # Launch app directly
 adb shell monkey -p app.firefly -c android.intent.category.LAUNCHER 1

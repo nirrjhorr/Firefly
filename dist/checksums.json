@@ -1,16 +1,25 @@
 {
-  "release_package": "firefly-v1.0.0-release.apk",
-  "debug_package": "firefly-v1.0.0-debug.apk",
+  "release_package": "firefly-v2.2.0-release.apk",
+  "debug_package": "firefly-v2.2.0-debug.apk",
   "app_id": "app.firefly",
-  "version": "1.0.0+1",
-  "size_bytes": 2756,
-  "sha256": "4dc046b20f94d5844de40b34d2c11683062d49f42712d7ef9bdffbc126a4cd8c",
-  "sha1": "fb2cc2ba63583d5d267d62e35d9a1a990558d933",
-  "timestamp": 1790840758,
-  "bundled_assets": [
-    "assets/audio/cyclic_sigh_ambience.mp3",
-    "assets/audio/gentle_rain.mp3",
-    "assets/audio/grounding_chime.mp3",
-    "assets/models/vosk-model-small-en-us-0.15.zip"
+  "version": "2.2.0+14",
+  "version_code": 22,
+  "size_bytes": 79153071,
+  "sha256": "1597bca9f9e68a141d47c0475066ea5ebef407a1e74265664e25a1a809bb6c3c",
+  "sha1": "bc89fa76ebdb271bf44c8c51793f51b5e063714b",
+  "timestamp": 1791302969,
+  "launcher_icons_verified": true,
+  "total_bundled_assets": 46,
+  "bundled_assets_sample": [
+    "res/mipmap-mdpi/ic_launcher.png",
+    "res/mipmap-hdpi/ic_launcher.png",
+    "res/mipmap-xhdpi/ic_launcher.png",
+    "res/mipmap-xxhdpi/ic_launcher.png",
+    "res/mipmap-xxxhdpi/ic_launcher.png",
+    "res/mipmap-anydpi-v26/ic_launcher.xml",
+    "assets/audio/ATTRIBUTIONS.md",
+    "assets/audio/audio_catalogue.json",
+    "assets/audio/binaural_alpha_drone.mp3",
+    "assets/audio/binaural_delta_drone.mp3"
   ]
 }

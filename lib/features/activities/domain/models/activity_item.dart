@@ -1,4 +1,5 @@
 import 'activity_category.dart';
+import 'regulation_group.dart';
 
 /// The method or UI experience type used to deliver the regulation activity.
 enum GuidanceType {
@@ -64,6 +65,8 @@ class ActivityItem {
   final List<String> instructions;
   final bool isCustom;
   final bool isFavorite;
+
+  RegulationGroup get regulationGroup => category.regulationGroup;
 
   ActivityItem copyWith({
     String? id,

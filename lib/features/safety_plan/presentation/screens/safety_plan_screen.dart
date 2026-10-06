@@ -53,10 +53,20 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
       return Scaffold(
         backgroundColor: colors.bgCanvasDeep,
         appBar: AppBar(
-          title: const Text('Safety Plan'),
+          title: Text(
+            'Safety Plan',
+            style: AppTypography.headingMd.copyWith(color: colors.textPrimary),
+          ),
           backgroundColor: colors.bgCanvasDeep,
+          elevation: 0,
+          scrolledUnderElevation: 0,
         ),
-        body: const Center(child: CircularProgressIndicator()),
+        body: Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2.5,
+            valueColor: AlwaysStoppedAnimation<Color>(colors.actionSage),
+          ),
+        ),
       );
     }
 
@@ -70,6 +80,20 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
           style: AppTypography.headingMd.copyWith(color: colors.textPrimary),
         ),
         backgroundColor: colors.bgCanvasDeep,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          icon: const Icon(AppIcons.back),
+          color: colors.textSecondary,
+          tooltip: 'Back',
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go(AppRoutes.checkIn);
+            }
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(AppIcons.edit, color: colors.actionSage, size: IconSizeTokens.appAction),

@@ -139,12 +139,13 @@ class _HopeBoxScreenState extends ConsumerState<HopeBoxScreen> {
     final state = ref.watch(hopeBoxControllerProvider);
     final notifier = ref.read(hopeBoxControllerProvider.notifier);
 
-    const canvasBg = Color(0xFF111518); // ink900
-    const warmAmber = Color(0xFFE5B870); // amber300
-    const sage300 = Color(0xFF84B09A); // sage300
-    const neutral100 = Color(0xFFE8ECF0);
-    const neutral300 = Color(0xFF9AAAB6);
-    const cardBg = Color(0xFF191E23);
+    final colors = context.colors;
+    final canvasBg = colors.bgCanvasDeep;
+    final warmAmber = colors.accentWarmth;
+    final sage300 = colors.actionSage;
+    final neutral100 = colors.textPrimary;
+    final neutral300 = colors.textSecondary;
+    final cardBg = colors.surfaceCard;
 
     final filteredItems = state.filteredItems;
 

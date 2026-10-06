@@ -3,6 +3,49 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-10-06
+
+### Multi-Tab Activity Architecture, Design System Harmonization & Production Release Lock
+
+#### Multi-Tab Self-Regulation Activity Architecture
+- **6-Group Regulation Architecture Domain Engine:** Implemented `RegulationGroup` enum directly adhering to `research data/Activity_Architecture.md` to organize all 70 evidence-based practices across 6 core somatic groups:
+  1. *Movement & Somatic Release* (Active physical regulation, progressive muscle relaxation, routine micro-actions)
+  2. *Respiration & Autonomic Regulation* (Cyclic sighing, box breathing, resonance, 4-7-8 deep rest)
+  3. *Grounding, Mindfulness & Nature* (5-4-3-2-1 sensory grounding, present-moment body scan, outdoor micro-observation)
+  4. *Cognitive Flow & Attention Switching* (Alphabet association, tactile spatial flow puzzles, classical labyrinth tracing)
+  5. *Expression, Processing & Reframing* (Encrypted journaling, ACT defusion, worry dumping, creative doodling)
+  6. *Auditory, Restorative & Social Environments* (Offline soundscapes, ambient audio mixer, sleep wind-down, loneliness comfort)
+- **Canonical `ActivitiesScreen` (`/home/activities`):** Built a dedicated library screen featuring Apple-inspired tactile horizontal pill tabs with real-time count badges, 5-tier energy filter modal, real-time client-side search, mechanism overview banners, and interactive cards for all 70 practices.
+- **Dual-Tab `RightNowModal`:** Transformed the acute distress modal into a 2-tab switch offering immediate "Acute Anchors" (12 crisis fast-paths) and "By Regulation Group" (6 grouped cards with one-tap deep links into the full library).
+- **Home Check-In Hub Integration:** Embedded an "Explore All Activities" card on `CheckInScreen` for effortless discovery without cognitive overload.
+- **Universal Route Aliases:** Configured route redirects in `app_router.dart` for `/home/flow`, `/home/mindfulness`, `/home/creative`, and `/activities`.
+
+#### Apple-Inspired Design System Harmonization & Stitch Serene Sanctuary
+- **Design System Token Unification:** Standardized `SpacingTokens` (aliases: `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `xxs`), `RadiusTokens` (aliases: `full`, `modalRadius`, `radiusSm`, `radiusMd`, `radiusLg`, `radiusPill`, `container`), `AppTypography` (aliases: `captionSm`, `displaySm`, `labelXs`, `headingSmall`, `titleMedium`, `bodyMedium`, `bodySmall`, `labelLarge`, `labelMedium`, `labelSmall`), and `AppIcons` (aliases: `nature`, `audio`, `shield`, `insights`, `notes`, `safetyPlan`, `history`, `restart`, `playing`), resolving over 380 undefined getter discrepancies across 18 feature modules.
+- **Stitch Serene Sanctuary Color Alignment:** Elevated dark theme `accentPrimary` to Stitch's illuminated sage (`#7DBA9B`, 8.19:1 contrast against `#111518`, clearing WCAG 2.2 AAA), `accentSecondary` to dusk blue (`#5B8A99`), and `accentWarmth` to grounding amber (`#D99B65`).
+- **Canonical Design System Components:**
+  - `FireflyNavHeader`: Apple-inspired calm navigation header with 20dp horizontal margins, 44x44dp hit targets, clean heading typography, and gentle haptic back affordances.
+  - `FireflyEmptyState`: Trauma-informed, calm empty state with illuminated circular halos, supportive validation, and gentle recovery CTAs.
+- **Navigation & Routing Harmonization:** Repaired broken route mappings in `right_now_modal.dart` (restless -> `/move?mode=shakeout`, cant_focus -> `/labyrinth`, distracting -> `/flow-puzzle`).
+- **Screen Refinements:**
+  - `OnboardingScreen`: Upgraded to Stitch Serene Sanctuary specification with clinical scope transparency, 100% on-device encryption pillars, Low Sensory Mode toggle, and 640dp adaptive max-width container.
+  - `SafetyPlanScreen`: Replaced raw unstyled spinners with sage-themed indicators; added zero-elevation header and explicit back navigation.
+  - `HopeBoxScreen`: Purged local hardcoded hex literals in favor of semantic `context.colors` tokens.
+  - `CyclicSighBloomVisualizer`: Synchronized procedural bloom expansion and contraction colors with illuminated sage and dusk blue.
+- **Automated Verification Gates:**
+  - `scripts/verify_design_system_and_tokens.py`: Passing 100% for WCAG 2.2 AAA contrast, token alias integrity, and component existence.
+  - `scripts/security_gate.py`: Passing 100% with zero remote network egress and strict SQLCipher encryption invariants.
+
+#### Static Analysis & Lint Sweep
+- Removed unused private element `_triggerWarmDoubleTapHaptic` from `tiny_steps_screen.dart`.
+- Converted non-const `ActionSuggestion` and `SafetyPlanContact` constructor invocations to `const` in `recommendation_engine.dart` and `safety_plan_repository_impl.dart`.
+
+#### Release Asset & Packaging Verification
+- Bumped `pubspec.yaml` to release version `2.2.0+14`.
+- Updated release build automation in `scripts/build_test_release.py` generating `firefly-v2.2.0-release.apk` with SHA-256 (`f6c1f4863afffc197beff6f10fb99dba0ffc4488bde47af8073a5a52b9af603d`), verified assets, and generated `dist/RELEASE_NOTES.md`.
+
+---
+
 ## [2.1.0] - 2026-10-06
 
 ### Clinical Safety Guardrails & Production Verification Release

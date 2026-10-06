@@ -1,3 +1,5 @@
+import 'regulation_group.dart';
+
 /// The 16 canonical self-regulation activity categories from the Firefly Activity Architecture.
 enum ActivityCategory {
   physical,
@@ -16,6 +18,33 @@ enum ActivityCategory {
   social,
   creative,
   cognitiveDefusion;
+
+  RegulationGroup get regulationGroup {
+    switch (this) {
+      case ActivityCategory.physical:
+      case ActivityCategory.pmr:
+      case ActivityCategory.behavioralActivation:
+        return RegulationGroup.movement;
+      case ActivityCategory.respiration:
+        return RegulationGroup.respiration;
+      case ActivityCategory.sensoryGrounding:
+      case ActivityCategory.mindfulness:
+      case ActivityCategory.nature:
+        return RegulationGroup.grounding;
+      case ActivityCategory.cognitiveGrounding:
+      case ActivityCategory.flow:
+      case ActivityCategory.labyrinth:
+        return RegulationGroup.flow;
+      case ActivityCategory.emotionalExpression:
+      case ActivityCategory.cognitiveDefusion:
+      case ActivityCategory.creative:
+        return RegulationGroup.expression;
+      case ActivityCategory.audio:
+      case ActivityCategory.sleep:
+      case ActivityCategory.social:
+        return RegulationGroup.restAndSocial;
+    }
+  }
 
   String get displayName {
     switch (this) {
@@ -98,3 +127,4 @@ enum ActivityCategory {
     );
   }
 }
+

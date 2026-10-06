@@ -757,3 +757,41 @@ So that no unauthorized networking package or telemetry can ever enter the relea
 **Acceptance Criteria:**
 - scripts/security_gate.py scanning pubspec.lock and lib/ for forbidden networking packages and socket invocations.
 - Verification passes with 0 violations.
+
+---
+
+## Epic 17: Multi-Tab Activity Architecture & Design System Harmonization (v2 Sprint 8)
+
+Unify the 70 evidence-based practices into the canonical 6-group regulation architecture, implement the Apple-inspired Activities library screen, synchronize Serene Sanctuary design tokens, and lock the v2.2.0 production release.
+
+### Story 17.1: Multi-Tab 6-Group Activity Catalog & Search Interface
+As a user seeking to discover self-regulation practices without cognitive overwhelm,
+I want a unified, tactile activity catalog categorized by the 6 core somatic groups with real-time search and energy filtering,
+So that I can easily find practices matched to my current state.
+
+**Acceptance Criteria:**
+- RegulationGroup domain enum covering all 6 groups (Movement, Respiration, Grounding, Flow, Expression, Rest & Social) + All.
+- ActivitiesScreen (/home/activities) with tactile horizontal pill tabs, real-time count badges, energy filter sheet, and instant search.
+- Dual-tab RightNowModal with Acute Anchors (12 fast paths) and Regulation Groups (6 one-tap deep links).
+- Home check-in hub integration linking to the full library.
+
+### Story 17.2: Stitch Serene Sanctuary Design Tokens & WCAG AAA Verification
+As a user with sensory sensitivities,
+I want a unified, soothing visual design system adhering to Stitch Serene Sanctuary guidelines with verified contrast,
+So that every screen feels cohesive, unhurried, and accessible.
+
+**Acceptance Criteria:**
+- Standardized SpacingTokens, RadiusTokens, AppTypography, and AppIcons aliases across all feature modules.
+- Illuminated sage (#7DBA9B) elevated to 8.19:1 contrast against #111518 (WCAG 2.2 AAA verified).
+- Canonical reusable components FireflyNavHeader and FireflyEmptyState.
+- scripts/verify_design_system_and_tokens.py verifying contrast and token integrity.
+
+### Story 17.3: Production Release v2.2.0 Verification & Distribution Lock
+As a release engineer,
+I want automated release verification, lint sweeping, and signed distribution packages,
+So that release v2.2.0 is locked with cryptographic checksums and verified offline assets.
+
+**Acceptance Criteria:**
+- Version bumped to 2.2.0+14 in pubspec.yaml.
+- Automated release build script generating dist/firefly-v2.2.0-release.apk with verified checksums.
+- CHANGELOG.md and dist/RELEASE_NOTES.md fully documented and finalized.

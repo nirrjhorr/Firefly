@@ -362,6 +362,59 @@ class CheckInScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: SpacingTokens.elementGap),
+
+                    // 8. Full Activity Library Entry Card
+                    FireflyCard(
+                      variant: FireflyCardVariant.interactive,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      onTap: () {
+                        HapticFeedback.lightImpact();
+                        context.push(AppRoutes.activities);
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: colors.actionSage.withOpacity(0.14),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.auto_awesome_mosaic_rounded,
+                              color: colors.actionSage,
+                              size: IconSizeTokens.nav,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Explore All Activities',
+                                  style: AppTypography.headingMd.copyWith(
+                                    color: colors.textPrimary,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '70 practices organized across 6 regulation groups',
+                                  style: AppTypography.caption.copyWith(
+                                    color: colors.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            AppIcons.chevronRight,
+                            color: colors.textSecondary,
+                            size: IconSizeTokens.appAction,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
         ),
