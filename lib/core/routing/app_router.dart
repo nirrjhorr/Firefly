@@ -31,6 +31,7 @@ import '../../features/flow_puzzle/presentation/screens/flow_puzzle_screen.dart'
 import '../../features/cognitive_defusion/presentation/screens/cognitive_defusion_screen.dart';
 import '../../features/activities/presentation/screens/activities_screen.dart';
 import '../../features/one_session_reset/presentation/screens/reset_screen.dart';
+import '../../features/compassion/presentation/screens/compassion_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -286,6 +287,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ResetScreen(),
       ),
 
+      // Self-Compassion & Thought Untangler (Root Modal with SOS overlay)
+      GoRoute(
+        path: AppRoutes.modalCompassion,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const CompassionScreen(),
+      ),
+
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
         builder: (context, state, child) => MainShellScaffold(child: child),
@@ -452,6 +460,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.reset,
             builder: (context, state) => const ResetScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.compassion,
+            builder: (context, state) => const CompassionScreen(),
           ),
         ],
       ),

@@ -33,7 +33,7 @@ class _SosOverlayButtonState extends State<SosOverlayButton>
       duration: MotionTokens.micro,
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.94).animate(
-      CurvedAnimation(parent: _pressController, curve: Curves.easeOut),
+      CurvedAnimation(parent: _pressController, curve: MotionTokens.enterCurve),
     );
   }
 

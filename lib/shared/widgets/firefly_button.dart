@@ -61,11 +61,11 @@ class _FireflyButtonState extends State<FireflyButton>
       vsync: this,
       duration: MotionTokens.micro,
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.97).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    _scaleAnimation = Tween<double>(begin: 1.0, end: MotionTokens.buttonPressScale).animate(
+      CurvedAnimation(parent: _controller, curve: MotionTokens.enterCurve),
     );
     _opacityAnimation = Tween<double>(begin: 1.0, end: 0.88).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+      CurvedAnimation(parent: _controller, curve: MotionTokens.enterCurve),
     );
   }
 

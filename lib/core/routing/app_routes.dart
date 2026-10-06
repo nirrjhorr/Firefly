@@ -31,6 +31,8 @@ abstract final class AppRoutes {
   static const activities = '/home/activities';
   static const reset = '/home/reset';
   static const modalReset = '/reset';
+  static const compassion = '/home/compassion';
+  static const modalCompassion = '/compassion';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

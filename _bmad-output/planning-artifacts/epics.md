@@ -835,3 +835,49 @@ So that I can launch the reset whenever acute distress overwhelms me.
 - Activity seeded in curated_activities.json.
 - test/features/reset/verify_one_session_reset_standalone.dart passing 100% in pure Dart.
 - 100% compliance with security gate, lint sweep, and design tokens.
+
+---
+
+## Epic 19: Self-Compassion & Thought Untangler Module (v2 Sprint 10)
+
+Implement Kristin Neff's evidence-based self-compassion framework (Neff 2003, 2023) and cognitive untangling tools providing structured relief from harsh self-criticism, shame, and emotional fusion through the 3-step Self-Compassion Break and Interactive Thought Untangler.
+
+### Story 19.1: Self-Compassion Domain Models, State Machine & Repository
+As a user experiencing harsh self-criticism or shame,
+I want structured domain models and a state machine guiding me through the 3 components of self-compassion (Mindfulness, Common Humanity, Self-Kindness) and thought untangling,
+So that I can relate to my difficulties with warmth rather than isolation and self-blame.
+
+**Acceptance Criteria:**
+- `SelfCompassionComponent` enum (mindfulness, commonHumanity, selfKindness).
+- `CompassionExerciseType` enum (selfCompassionBreak, thoughtUntangler, lovingKindnessAffirmation).
+- `UntangledThought` immutable domain model with original thought, common humanity anchor, and kind reframe.
+- `CompassionSession` immutable model with pre/post distress rating, timestamp, and zero-knowledge encrypted persistence.
+- `CompassionRepository` interface and in-memory/encrypted SQLite DAO implementation.
+
+### Story 19.2: Interactive Self-Compassion Break & Thought Untangler UI (`CompassionScreen`)
+As a user under emotional distress from self-judgment,
+I want a serene, low-stimulation interface offering the 3-step Self-Compassion Break and Thought Untangler with soothing physical touch prompts (hand on heart) and gentle reassurance chips,
+So that I can soften self-criticism in under 4 minutes without cognitive strain.
+
+**Acceptance Criteria:**
+- `CompassionScreen` mounted at `/home/compassion` and `/compassion`.
+- Stitch Serene Sanctuary dark canvas `#111518`, illuminated sage `#7DBA9B`, warm amber `#D99B65`.
+- 3-step Neff Self-Compassion Break with soothing rhythmic breath/touch pulse visualizer and unhurried progression.
+- Interactive Thought Untangler with step-by-step externalization:
+  1. What is the harsh thought?
+  2. Common humanity: Millions of humans feel this exact way.
+  3. What would you say to a friend you deeply love?
+- Persistent SOS overlay on all steps; touch targets ≥ 56dp.
+
+### Story 19.3: Universal Routing, Catalog Seeding & Standalone Verification
+As a user exploring Firefly,
+I want direct access to Self-Compassion practices from the Activity Catalog, Right Now modal, and Home Hub,
+So that I can access compassionate relief whenever shame or self-criticism strikes.
+
+**Acceptance Criteria:**
+- AppRoutes (`/home/compassion`, `/compassion`) and AppRouter registration.
+- Activity catalog seeding in `curated_activities.json` (`act_self_compassion_break`, `act_thought_untangler`).
+- Integration cards in `RightNowModal` and `ActivitiesScreen` under Regulation Group 5 (Expression, Processing & Reframing).
+- Standalone test `test/features/compassion/verify_self_compassion_standalone.dart` passing 100% in pure Dart.
+- Zero network calls, 100% design system token compliance, clean lint sweep.
+

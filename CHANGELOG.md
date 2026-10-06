@@ -3,6 +3,23 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-10-06
+
+### Self-Compassion & Thought Untangler Module (Epic 19 / v2 Sprint 10)
+
+#### Kristin Neff Self-Compassion Break & Thought Untangler Protocol
+- **3-Step Neff Self-Compassion Break (`CompassionScreen` at `/home/compassion` & `/compassion`):** Operationalized Neff (2003, 2023) and Kirby et al. (2017) clinical findings that self-compassion protects against depressive rumination and shame:
+  1. *Mindfulness (Acknowledge What Hurts):* Consciously labeling distress without suppression, accompanied by a pulsing soothing aura visualizer.
+  2. *Common Humanity (You Are Not Alone):* Validating that imperfections and struggle are universal shared experiences, breaking the illusion of isolated failure.
+  3. *Self-Kindness & Soothing Touch:* Directing physical touch (warm hand over heart/belly) and reassuring self-talk to stimulate oxytocin release.
+- **Interactive Thought Untangler:** 3-step structured cognitive defusion separating objective reality from harsh internal criticism with quick tap chips and kind friend reframing.
+- **State Management & Domain Architecture:** Pure Dart `SelfCompassionComponent`, `CompassionExerciseType`, `UntangledThought`, and immutable `CompassionSession` with Riverpod `CompassionNotifier` state machine.
+- **Universal Route & Feature Integration:** Added direct launch anchor to `RightNowModal` ("I am being too hard on myself"), registered `AppRoutes.compassion` and `AppRoutes.modalCompassion` in `AppRouter`, and seeded `act_self_compassion_break` and `act_thought_untangler` in `curated_activities.json` (73 total activities).
+- **Taxonomy Alignment:** Extended `ActivityCategory.selfCompassion` mapped to `RegulationGroup.expression` (Group 5).
+- **Automated Verification:** Added `verify_self_compassion_standalone.dart` passing 100% across all domain, repository, routing, and catalog checks.
+
+---
+
 ## [2.3.0] - 2026-10-06
 
 ### Single-Session Intervention (SSI) — One-Session Reset Engine (Epic 18 / v2 Sprint 9)

@@ -17,7 +17,8 @@ enum ActivityCategory {
   sleep,
   social,
   creative,
-  cognitiveDefusion;
+  cognitiveDefusion,
+  selfCompassion;
 
   RegulationGroup get regulationGroup {
     switch (this) {
@@ -38,6 +39,7 @@ enum ActivityCategory {
       case ActivityCategory.emotionalExpression:
       case ActivityCategory.cognitiveDefusion:
       case ActivityCategory.creative:
+      case ActivityCategory.selfCompassion:
         return RegulationGroup.expression;
       case ActivityCategory.audio:
       case ActivityCategory.sleep:
@@ -80,6 +82,8 @@ enum ActivityCategory {
         return 'Creative & Doodling';
       case ActivityCategory.cognitiveDefusion:
         return 'Thought Distance';
+      case ActivityCategory.selfCompassion:
+        return 'Self-Compassion & Kindness';
     }
   }
 
@@ -117,6 +121,8 @@ enum ActivityCategory {
         return 'paintpalette';
       case ActivityCategory.cognitiveDefusion:
         return 'cloud';
+      case ActivityCategory.selfCompassion:
+        return 'heart';
     }
   }
 

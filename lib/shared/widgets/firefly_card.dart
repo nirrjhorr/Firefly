@@ -50,8 +50,8 @@ class _FireflyCardState extends State<FireflyCard>
       vsync: this,
       duration: MotionTokens.micro,
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.985).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    _scaleAnimation = Tween<double>(begin: 1.0, end: MotionTokens.cardPressScale).animate(
+      CurvedAnimation(parent: _controller, curve: MotionTokens.enterCurve),
     );
   }
 

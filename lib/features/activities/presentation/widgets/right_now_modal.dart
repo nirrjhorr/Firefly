@@ -121,6 +121,13 @@ const List<RightNowAnchor> kRightNowAnchors = [
     route: AppRoutes.reset,
   ),
   RightNowAnchor(
+    id: 'hard_on_myself',
+    title: 'I am being too hard on myself',
+    subtitle: 'Self-compassion & thought untangling',
+    iconKey: 'heart',
+    route: AppRoutes.compassion,
+  ),
+  RightNowAnchor(
     id: 'dont_know',
     title: 'I do not know what I need',
     subtitle: 'Gentle ambient sound sanctuary',

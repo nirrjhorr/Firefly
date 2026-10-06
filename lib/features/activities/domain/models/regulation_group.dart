@@ -100,6 +100,7 @@ enum RegulationGroup {
           ActivityCategory.emotionalExpression,
           ActivityCategory.cognitiveDefusion,
           ActivityCategory.creative,
+          ActivityCategory.selfCompassion,
         };
       case RegulationGroup.restAndSocial:
         return {

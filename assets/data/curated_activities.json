@@ -26,6 +26,51 @@
     ]
   },
   {
+    "id": "act_self_compassion_break",
+    "title": "Self-Compassion Break",
+    "description": "Evidence-based 3-step pause (Mindfulness, Common Humanity, Self-Kindness) with somatic touch to soothe acute self-criticism or pain.",
+    "category": "selfCompassion",
+    "energyRequired": 1,
+    "targetStates": [
+      "anxious",
+      "overwhelmed",
+      "flat",
+      "racingThoughts",
+      "lonely"
+    ],
+    "guidanceType": "stepper",
+    "evidenceLevel": "verified",
+    "route": "/home/compassion",
+    "durationMinutes": 3,
+    "instructions": [
+      "Acknowledge the pain: This is a moment of difficulty",
+      "Remember common humanity: Difficulty is a natural part of human life",
+      "Somatic kindness: Place a warm hand over your heart and offer gentle words"
+    ]
+  },
+  {
+    "id": "act_thought_untangler",
+    "title": "Thought Untangler",
+    "description": "Structured cognitive untangling: externalize the harsh internal critic, test objective reality, and craft compassionate words you would offer a dear friend.",
+    "category": "cognitiveDefusion",
+    "energyRequired": 1,
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "anxious",
+      "flat"
+    ],
+    "guidanceType": "stepper",
+    "evidenceLevel": "verified",
+    "route": "/home/compassion",
+    "durationMinutes": 4,
+    "instructions": [
+      "Externalize the harsh story your inner critic is telling",
+      "Acknowledge that stress exaggerates catastrophe and errors",
+      "Speak to yourself the exact comforting truth you would offer a loved friend"
+    ]
+  },
+  {
     "id": "act_cyclic_sighing",
     "title": "Cyclic Sighing",
     "description": "Double inhale followed by a prolonged, soothing exhale to rapidly calm the autonomic nervous system.",

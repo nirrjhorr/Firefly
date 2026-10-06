@@ -19,6 +19,7 @@ class FireflyNavHeader extends StatelessWidget {
     required this.title,
     this.subtitle,
     this.onBack,
+    this.onBackPressed,
     this.showBack = true,
     this.backIcon = AppIcons.back,
     this.backTooltip = 'Back',
@@ -33,6 +34,7 @@ class FireflyNavHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
   final VoidCallback? onBack;
+  final VoidCallback? onBackPressed;
   final bool showBack;
   final IconData backIcon;
   final String backTooltip;
@@ -42,8 +44,9 @@ class FireflyNavHeader extends StatelessWidget {
 
   void _handleBack(BuildContext context) {
     HapticFeedback.selectionClick();
-    if (onBack != null) {
-      onBack!();
+    final callback = onBack ?? onBackPressed;
+    if (callback != null) {
+      callback();
     } else if (context.canPop()) {
       context.pop();
     }

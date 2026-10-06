@@ -260,4 +260,14 @@ extension AppCustomColorsAliases on AppCustomColors {
   Color get onSurface => textPrimary;
   Color get onSurfaceVariant => textSecondary;
   Color get onError => const Color(0xFFFFFFFF);
+  Color get accentSage => accentPrimary;
+  Color get bgSurfaceElevated => bgSurfaceRaised;
+  Color get bgElevated => bgSurfaceRaised;
+  Color get outline => borderSubtle;
+  Color get canvas => bgCanvas;
+  Color get cardBackground => bgSurface;
+  Color get bgBorderSubtle => borderSubtle;
+  Color get secondaryContainer => bgSurfaceRaised;
+  Color get accentLavender => accentSecondary;
 }
+
