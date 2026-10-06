@@ -23,6 +23,7 @@ import '../../features/tiny_steps/presentation/screens/tiny_steps_screen.dart';
 import '../../features/tiny_steps/presentation/screens/tiny_step_activity_screen.dart';
 import '../../features/sleep/presentation/screens/sleep_suite_screen.dart';
 import '../../features/hope_box/presentation/screens/hope_box_screen.dart';
+import '../../features/nature/presentation/screens/nature_observation_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -160,6 +161,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Guided Nature & Outdoor Micro-Observation Suite (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/nature',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => NatureObservationScreen(
+          initialMode: state.uri.queryParameters['mode'],
+          showSosOverlay: true,
+        ),
+      ),
+
 
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
@@ -246,6 +257,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.hopeBox,
             builder: (context, state) => const HopeBoxScreen(
+              showSosOverlay: false,
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.nature,
+            builder: (context, state) => NatureObservationScreen(
+              initialMode: state.uri.queryParameters['mode'],
               showSosOverlay: false,
             ),
           ),

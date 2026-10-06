@@ -700,5 +700,70 @@
     "route": "/home/hope-box",
     "durationMinutes": 3,
     "instructions": ["Open your safe hope box", "Look at one photo or listen to a 10-second voice note from someone who cares", "Remind yourself why staying here matters"]
+  },
+  {
+    "id": "act_nature_sky_gazing",
+    "title": "Sky & Cloud Gazing",
+    "description": "Broaden visual attention and observe passing clouds or open daylight without focusing on a single spot.",
+    "category": "nature",
+    "energyRequired": 1,
+    "targetStates": ["overwhelmed", "racingThoughts", "restless"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/nature?mode=skyGazing",
+    "durationMinutes": 3,
+    "instructions": ["Direct your gaze upward toward open sky or light", "Follow the slow drift of clouds and air", "Rest in the wide calm above"]
+  },
+  {
+    "id": "act_nature_tree_canopy",
+    "title": "Tree Canopy & Leaves",
+    "description": "Observe natural branching fractals, leaf rustling, and plant shapes to calm sympathetic arousal.",
+    "category": "nature",
+    "energyRequired": 1,
+    "targetStates": ["anxious", "restless", "racingThoughts"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/nature?mode=treeCanopy",
+    "durationMinutes": 3,
+    "instructions": ["Look at a tree, branch, or houseplant", "Trace the branching patterns from thick to thin", "Notice the rooted stability of living growth"]
+  },
+  {
+    "id": "act_nature_light_shadow",
+    "title": "Light & Shadow Play",
+    "description": "Attend to gentle contrasts of sunlight and shadows across walls or ground surfaces.",
+    "category": "nature",
+    "energyRequired": 1,
+    "targetStates": ["overwhelmed", "flat", "anxious"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/nature?mode=lightAndShadow",
+    "durationMinutes": 3,
+    "instructions": ["Locate where natural light enters the space", "Observe where light meets shadow on a surface", "Notice the slow, steady progression of daylight"]
+  },
+  {
+    "id": "act_nature_outdoor_grounding",
+    "title": "Earth & Elements Grounding",
+    "description": "Sense firm ground underfoot, ambient air temperature, and natural tactile textures.",
+    "category": "nature",
+    "energyRequired": 1,
+    "targetStates": ["overwhelmed", "panicked", "restless"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/nature?mode=outdoorGrounding",
+    "durationMinutes": 3,
+    "instructions": ["Bring awareness to the solid earth under your feet", "Notice temperature on skin", "Touch a natural texture nearby"]
+  },
+  {
+    "id": "act_nature_weather_notice",
+    "title": "Weather & Atmosphere",
+    "description": "Listen to atmospheric sounds and notice air currents to ground in the present moment.",
+    "category": "nature",
+    "energyRequired": 1,
+    "targetStates": ["racingThoughts", "restless", "flat"],
+    "guidanceType": "promptCards",
+    "evidenceLevel": "verified",
+    "route": "/home/nature?mode=weatherNotice",
+    "durationMinutes": 3,
+    "instructions": ["Listen to background weather sounds", "Notice air movement across your skin", "Reflect that all weather—internal and external—passes"]
   }
 ]

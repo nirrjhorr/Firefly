@@ -154,6 +154,19 @@ class ActivitySeedingService {
         'durationMinutes': 3,
         'instructions': ['Select someone from your safe contact list', 'Choose a warm pre-written note', 'Tap send without pressure'],
       }),
+      ActivityItem.fromJson({
+        'id': 'act_nature_sky_gazing',
+        'title': 'Sky & Cloud Gazing',
+        'description': 'Soften your vision and observe the vast sky or light through your window.',
+        'category': 'nature',
+        'energyRequired': 1,
+        'targetStates': ['overwhelmed', 'racingThoughts', 'restless'],
+        'guidanceType': 'promptCards',
+        'evidenceLevel': 'verified',
+        'route': '/home/nature?mode=skyGazing',
+        'durationMinutes': 3,
+        'instructions': ['Look toward the open sky or ceiling', 'Observe the quiet drift of light and space'],
+      }),
     ];
   }
 }

@@ -98,12 +98,18 @@ development_status:
   10-7-movement-engine-routine-action-trackers: done
   epic-10-retrospective: optional
 
-  epic-11: in-progress
+  epic-11: done
   11-1-extended-sensory-grounding-suite: done
   11-2-cognitive-grounding-attention-switching-engine: done
   11-3-pre-bed-sleep-wind-down-suite: done
   11-4-hope-box-offline-multi-media-coping-vault: done
   11-5-loneliness-comfort-guess-vs-reality-experiment: done
-  11-6-universal-navigation-sos-panic-seeding-alignment: ready-for-dev
-  epic-11-retrospective: optional
+  11-6-universal-navigation-sos-panic-seeding-alignment: done
+  epic-11-retrospective: done
+
+  epic-12: in-progress
+  12-1-guided-nature-outdoor-micro-observation-suite: done
+  12-2-somatic-visualizations-body-centering: ready-for-dev
+  12-3-meditative-labyrinth-tracing-canvas-drawing: backlog
+  epic-12-retrospective: optional
 

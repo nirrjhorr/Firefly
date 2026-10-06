@@ -639,20 +639,28 @@ As a user experiencing physical anxiety or racing thoughts, I want to select fro
 
 ## Epic 12: v2 Sprint 3 - Grounding, Mindfulness & Nature
 
-Implement the sensory anchoring features designed to shift attention away from internal rumination.
+Implement environmental observation, somatic grounding visualizations, and meditative labyrinth tracing to shift attention away from internal rumination without cognitive load.
 
-### Story 12.1: Extended Sensory Grounding Suite
-As a user feeling dissociated or sensory-overloaded, I want guided multi-modal sensory grounding exercises (5-4-3-2-1, Texture Hunt, Sound Hunt), so that I can anchor my attention to the physical world.
+### Story 12.1: Guided Nature & Outdoor Micro-Observation Suite
+As a user feeling overwhelmed, restless, or mentally exhausted, I want guided nature observation and environmental grounding prompts (Sky gazing, Tree canopy, Light & shadow, Outdoor grounding, Weather noticing), so that I can anchor my attention to the natural world without cognitive pressure.
 **Acceptance Criteria:**
-- `SensoryGroundingScreen` with tactile prompt cards (≥ 56dp touch targets).
-- Smooth 300ms transition animations and soft haptic confirmations.
-- Ability to exit gracefully at any step.
+- `NatureObservationScreen` with tactile observation prompt cards (≥ 56dp touch targets).
+- 5 evidence-based nature observation modes with smooth 300ms transitions and optional serene timer.
+- Clean offline support, gentle haptic acknowledgments, and graceful "That's enough for now" exit with effectiveness rating.
 
-### Story 12.2: Nature & Somatic Visualizations
-As a user seeking calm, I want guided nature observation and somatic visualizations (Heavy body, Warm body), to gently ground myself.
+### Story 12.2: Somatic Visualizations & Body Centering
+As a user seeking deep physical calm or autonomic down-regulation, I want guided somatic visualization exercises (Heavy body gravity settling, Warm hands peripheral dilation, Mountain posture stability, Mindful pause), so that I can release physical vigilance.
 **Acceptance Criteria:**
-- Add Nature prompts (Sit outside, Look at trees) as guided text/audio elements.
-- Ensure audio components fall back to offline assets.
+- `SomaticCenteringScreen` with paced physiological settling stages and gentle pulse animations.
+- Offline audio guidance/soundscape integration and haptic transition cues.
+- Full accessibility compliance, no forced completion or countdown pressure.
+
+### Story 12.3: Meditative Labyrinth Tracing & Canvas Drawing
+As a user seeking quiet, focused distraction and rhythmic soothing, I want an interactive digital finger labyrinth and continuous meditative tracing canvas, so that repetitive motor-tactile flow can settle my nervous system.
+**Acceptance Criteria:**
+- `LabyrinthScreen` with interactive `CustomPainter` rendering smooth geometric classical labyrinth and spiral paths.
+- Real-time touch tracking with gentle glowing trail and haptic pulses on turn points.
+- Zero timers, scores, or fail states; non-judgmental pause or exit anytime.
 
 ---
 
