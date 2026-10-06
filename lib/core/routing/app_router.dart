@@ -25,6 +25,7 @@ import '../../features/sleep/presentation/screens/sleep_suite_screen.dart';
 import '../../features/hope_box/presentation/screens/hope_box_screen.dart';
 import '../../features/nature/presentation/screens/nature_observation_screen.dart';
 import '../../features/somatic/presentation/screens/somatic_centering_screen.dart';
+import '../../features/labyrinth/presentation/screens/labyrinth_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -182,6 +183,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Meditative Labyrinth Tracing & Canvas Drawing (Root Modal with SOS overlay)
+      GoRoute(
+        path: '/labyrinth',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LabyrinthScreen(
+          initialPattern: state.uri.queryParameters['pattern'],
+          showSosOverlay: true,
+        ),
+      ),
+
 
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
@@ -282,6 +293,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: AppRoutes.somatic,
             builder: (context, state) => SomaticCenteringScreen(
               initialMode: state.uri.queryParameters['mode'],
+              showSosOverlay: false,
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.labyrinth,
+            builder: (context, state) => LabyrinthScreen(
+              initialPattern: state.uri.queryParameters['pattern'],
               showSosOverlay: false,
             ),
           ),

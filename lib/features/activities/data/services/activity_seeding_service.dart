@@ -180,6 +180,19 @@ class ActivitySeedingService {
         'durationMinutes': 3,
         'instructions': ['Notice the solid surface holding you up', 'Let go of muscular vigilance', 'Allow gravity to carry your weight'],
       }),
+      ActivityItem.fromJson({
+        'id': 'act_labyrinth_classical',
+        'title': 'Classical Cretan Labyrinth',
+        'description': 'Unicursal geometric finger tracing winding slowly inward to center stillness.',
+        'category': 'labyrinth',
+        'energyRequired': 1,
+        'targetStates': ['racingThoughts', 'restless', 'anxious', 'overwhelmed'],
+        'guidanceType': 'interactivePainter',
+        'evidenceLevel': 'verified',
+        'route': '/home/labyrinth?pattern=classical',
+        'durationMinutes': 4,
+        'instructions': ['Place your finger at the outer opening', 'Follow the winding track inward', 'Rest in the center circle'],
+      }),
     ];
   }
 }

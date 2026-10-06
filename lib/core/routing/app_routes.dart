@@ -22,6 +22,7 @@ abstract final class AppRoutes {
   static const hopeBox = '/home/hope-box';
   static const nature = '/home/nature';
   static const somatic = '/home/somatic';
+  static const labyrinth = '/home/labyrinth';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

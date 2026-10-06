@@ -817,6 +817,58 @@
     "route": "/home/somatic?mode=mindfulPause",
     "durationMinutes": 2,
     "instructions": ["Pause whatever you were doing", "Drop awareness into feet on the floor or hands on lap", "Take one slow breath out and soften muscular tension"]
+  },
+  {
+    "id": "act_labyrinth_classical",
+    "title": "Classical Cretan Labyrinth",
+    "description": "Unicursal geometric finger tracing winding slowly inward to center stillness.",
+    "category": "labyrinth",
+    "energyRequired": 1,
+    "targetStates": ["racingThoughts", "restless", "anxious", "overwhelmed"],
+    "guidanceType": "interactivePainter",
+    "evidenceLevel": "verified",
+    "route": "/home/labyrinth?pattern=classical",
+    "durationMinutes": 4,
+    "instructions": ["Place your finger at the outer opening", "Follow the winding track inward at an unhurried pace", "Rest in the quiet center circle"]
+  },
+  {
+    "id": "act_labyrinth_spiral",
+    "title": "Concentric Inward Spiral",
+    "description": "Continuous spiral tracing drawing scattered attention into quiet focal concentration.",
+    "category": "labyrinth",
+    "energyRequired": 1,
+    "targetStates": ["racingThoughts", "overwhelmed", "restless"],
+    "guidanceType": "interactivePainter",
+    "evidenceLevel": "verified",
+    "route": "/home/labyrinth?pattern=spiral",
+    "durationMinutes": 3,
+    "instructions": ["Trace the smooth curving track", "Feel your breath settle as you approach the center", "Pause at the midpoint in quiet stillness"]
+  },
+  {
+    "id": "act_labyrinth_infinity",
+    "title": "Rhythmic Infinity Loop",
+    "description": "Flowing bilateral figure-8 motor tracing to discharge nervous restlessness.",
+    "category": "labyrinth",
+    "energyRequired": 1,
+    "targetStates": ["restless", "anxious", "racingThoughts"],
+    "guidanceType": "interactivePainter",
+    "evidenceLevel": "verified",
+    "route": "/home/labyrinth?pattern=infinity",
+    "durationMinutes": 3,
+    "instructions": ["Trace the continuous figure-8 loops smoothly", "Maintain a gentle, unforced rhythm", "Repeat as many cycles as feels soothing"]
+  },
+  {
+    "id": "act_labyrinth_meander",
+    "title": "Harmonic Meander Waves",
+    "description": "Rhythmic geometric waves providing predictable, steady tactile grounding.",
+    "category": "labyrinth",
+    "energyRequired": 1,
+    "targetStates": ["flat", "racingThoughts", "restless"],
+    "guidanceType": "interactivePainter",
+    "evidenceLevel": "verified",
+    "route": "/home/labyrinth?pattern=meander",
+    "durationMinutes": 3,
+    "instructions": ["Follow the crests and valleys of the rhythmic path", "Let your hand move with easy fluid motion"]
   }
 ]
 
