@@ -881,3 +881,46 @@ So that I can access compassionate relief whenever shame or self-criticism strik
 - Standalone test `test/features/compassion/verify_self_compassion_standalone.dart` passing 100% in pure Dart.
 - Zero network calls, 100% design system token compliance, clean lint sweep.
 
+---
+
+## Epic 20: Focus & Mental Organisation Suite — Three Priorities & Serene Focus Companion (v2 Sprint 11)
+
+Implement cognitive load throttling and focus restoration tools grounded in Cognitive Load Theory (Sweller 1988, 2011) and executive dysfunction research (Arnsten 2009; Snyder 2013). When overwhelmed or scattered, Firefly helps users externalize cognitive clutter through a Brain Dump, restrict immediate focus to at most Three Priorities ("Rule of 3"), and engage in low-stimulation, non-punitive focus intervals with a gentle companion timer.
+
+### Story 20.1: Focus & Mental Organisation Domain Models, State Machine & Repository
+As a user experiencing executive dysfunction or mental scattering,
+I want structured domain models and state management that offload mental clutter and enforce a maximum 3-item priority limit,
+So that I can regain agency without choice paralysis or cognitive overload.
+
+**Acceptance Criteria:**
+- `FocusMode` enum (`threePriorities`, `focusTimer`, `brainDump`).
+- `FocusPriority` immutable domain model with title, completion status, orderIndex (hard capped at 3), and timestamps.
+- `BrainDumpItem` immutable domain model for raw thought offloading with parking state.
+- `FocusSession` immutable domain model tracking focus duration, elapsed time, pause state, and optional ambient sound.
+- `FocusRepository` interface and in-memory/SQLite implementation with complete isolation and zero cloud footprint.
+
+### Story 20.2: Interactive Focus & Mental Organisation UI (`FocusScreen`)
+As a user struggling to direct attention amidst overwhelming to-do lists,
+I want a tranquil, low-stimulation interface offering Brain Dump, Three Priorities, and a gentle non-punitive Focus Companion with calm time display and soothing ambient sound accompaniment,
+So that I can focus on one small task at a time without anxiety or productivity pressure.
+
+**Acceptance Criteria:**
+- `FocusScreen` mounted at `/home/focus` and `/focus`.
+- Strict design token compliance: `FireflyNavHeader`, `FireflyCard`, `FireflyButton`, and `MotionTokens`.
+- Three Priorities view: visual 3-slot card stack with quick completion haptic, progress indicator, and "One Thing At A Time" highlight.
+- Brain Dump view: fast uninhibited input, quick chips to "Promote to Priority" or "Park for Later".
+- Focus Companion view: smooth low-stimulation circular timer, gentle play/pause/reset, duration selector (5m, 10m, 15m, 25m), optional background soundscape toggle.
+- Persistent SOS overlay protection on all steps; touch targets ≥ 56dp.
+
+### Story 20.3: Universal Routing, Catalog Seeding & Standalone Verification
+As a user navigating Firefly,
+I want direct access to the Focus suite from the Right Now acute modal, Activities catalog, and direct routes,
+So that I can find clarity whenever scattered thoughts or task paralysis strike.
+
+**Acceptance Criteria:**
+- AppRoutes (`/home/focus`, `/focus`) and AppRouter registration.
+- Activity catalog seeding in `curated_activities.json` (`act_three_priorities`, `act_serene_focus_timer`).
+- Anchor integration in `RightNowModal` under acute need ("My mind is scattered / cannot focus").
+- Standalone test `test/features/focus/verify_focus_standalone.dart` passing 100% in pure Dart.
+- Zero network calls, 100% design system token compliance, clean lint sweep.
+

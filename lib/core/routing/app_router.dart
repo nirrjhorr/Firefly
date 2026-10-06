@@ -32,6 +32,7 @@ import '../../features/cognitive_defusion/presentation/screens/cognitive_defusio
 import '../../features/activities/presentation/screens/activities_screen.dart';
 import '../../features/one_session_reset/presentation/screens/reset_screen.dart';
 import '../../features/compassion/presentation/screens/compassion_screen.dart';
+import '../../features/focus/presentation/screens/focus_screen.dart';
 import '../../shared/widgets/main_shell_scaffold.dart';
 import 'app_routes.dart';
 
@@ -294,6 +295,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const CompassionScreen(),
       ),
 
+      // Focus & Mental Organisation Suite (Root Modal with SOS overlay)
+      GoRoute(
+        path: AppRoutes.modalFocus,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => FocusScreen(
+          initialMode: state.uri.queryParameters['mode'],
+        ),
+      ),
+
       // Main Shell: Bottom Navigation Shell
       ShellRoute(
         builder: (context, state, child) => MainShellScaffold(child: child),
@@ -464,6 +474,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.compassion,
             builder: (context, state) => const CompassionScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.focus,
+            builder: (context, state) => FocusScreen(
+              initialMode: state.uri.queryParameters['mode'],
+            ),
           ),
         ],
       ),

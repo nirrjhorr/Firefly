@@ -3,6 +3,20 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2026-10-06
+
+### Focus & Mental Organisation Suite — Three Priorities & Serene Focus Companion (Epic 20 / v2 Sprint 11)
+
+#### Cognitive Load Throttling & Executive Function Restoration
+- **Three Priorities Mode (`FocusScreen` at `/home/focus` & `/focus`):** Operationalized Cognitive Load Theory (*Sweller 1988, 2011*) and executive dysfunction research (*Arnsten 2009; Snyder 2013*) by capping immediate focus to at most 3 micro-intentions ("Rule of 3"). Prevents choice paralysis and shame from oversized to-do lists during mental fatigue or ADHD overwhelm.
+- **Unstructured Brain Dump:** Distraction-free externalization space to offload racing tasks, anxieties, and ideas from working memory into an unjudged holding vault. Includes one-tap promotion to the 3 priorities and guilt-free parking for later.
+- **Serene Focus Companion (Timer):** Non-punitive, unhurried focus intervals (5, 10, 15, 25 minutes) with smooth circular visualizer, gentle play/pause/reset, optional ambient sound accompaniment (Rain, Forest, Waves, Silence), and zero productivity guilt or streak mechanics.
+- **Universal Route & Feature Integration:** Added direct anchor to `RightNowModal` ("My mind is scattered & overwhelmed"), registered `AppRoutes.focus` and `AppRoutes.modalFocus` in `AppRouter`, and seeded `act_three_priorities` and `act_serene_focus_timer` in `curated_activities.json` (75 total activities).
+- **Taxonomy Alignment:** Added `ActivityCategory.focus` mapped to `RegulationGroup.flow` (Group 4).
+- **Automated Verification:** Added `verify_focus_standalone.dart` passing 100% across all domain, repository, routing, and catalog checks with zero regressions.
+
+---
+
 ## [2.4.0] - 2026-10-06
 
 ### Self-Compassion & Thought Untangler Module (Epic 19 / v2 Sprint 10)

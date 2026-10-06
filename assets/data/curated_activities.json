@@ -71,6 +71,52 @@
     ]
   },
   {
+    "id": "act_three_priorities",
+    "title": "Three Priorities",
+    "description": "Curb executive overload and decision paralysis by offloading racing to-dos and committing to at most three gentle micro-intentions.",
+    "category": "focus",
+    "energyRequired": 2,
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "anxious",
+      "restless"
+    ],
+    "guidanceType": "interactiveList",
+    "evidenceLevel": "verified",
+    "route": "/home/focus?mode=threePriorities",
+    "durationMinutes": 3,
+    "instructions": [
+      "Brain dump racing tasks out of your mind",
+      "Select at most three small things to focus on right now",
+      "Park everything else without guilt or pressure",
+      "Begin one micro-step with quiet focus"
+    ]
+  },
+  {
+    "id": "act_serene_focus_timer",
+    "title": "Focus Companion",
+    "description": "A low-stimulation, non-punitive focus companion with gentle ambient pacing, unhurried time display, and zero productivity guilt.",
+    "category": "focus",
+    "energyRequired": 2,
+    "targetStates": [
+      "racingThoughts",
+      "overwhelmed",
+      "restless",
+      "flat"
+    ],
+    "guidanceType": "timerWithAudio",
+    "evidenceLevel": "verified",
+    "route": "/home/focus?mode=focusTimer",
+    "durationMinutes": 15,
+    "instructions": [
+      "Select your gentle focus interval (5 to 25 min)",
+      "Optionally pair with soothing rain or silence",
+      "Focus quietly on your single priority",
+      "Pause anytime without streak penalties or shame"
+    ]
+  },
+  {
     "id": "act_cyclic_sighing",
     "title": "Cyclic Sighing",
     "description": "Double inhale followed by a prolonged, soothing exhale to rapidly calm the autonomic nervous system.",

@@ -128,6 +128,13 @@ const List<RightNowAnchor> kRightNowAnchors = [
     route: AppRoutes.compassion,
   ),
   RightNowAnchor(
+    id: 'scattered_mind',
+    title: 'My mind is scattered & overwhelmed',
+    subtitle: 'Three Priorities & Focus Companion',
+    iconKey: 'checklist',
+    route: AppRoutes.focus,
+  ),
+  RightNowAnchor(
     id: 'dont_know',
     title: 'I do not know what I need',
     subtitle: 'Gentle ambient sound sanctuary',
