@@ -13,17 +13,20 @@ class ReachOutMessageDialog extends StatefulWidget {
     super.key,
     required this.contact,
     required this.initialTemplateIndex,
+    this.customInitialText,
     required this.onProceed,
   });
 
   final ReachOutContact contact;
   final int initialTemplateIndex;
+  final String? customInitialText;
   final void Function(String message) onProceed;
 
   static Future<void> show({
     required BuildContext context,
     required ReachOutContact contact,
     required int initialTemplateIndex,
+    String? customInitialText,
     required void Function(String message) onProceed,
   }) {
     return showModalBottomSheet<void>(
@@ -33,6 +36,7 @@ class ReachOutMessageDialog extends StatefulWidget {
       builder: (ctx) => ReachOutMessageDialog(
         contact: contact,
         initialTemplateIndex: initialTemplateIndex,
+        customInitialText: customInitialText,
         onProceed: onProceed,
       ),
     );
@@ -50,9 +54,14 @@ class _ReachOutMessageDialogState extends State<ReachOutMessageDialog> {
   void initState() {
     super.initState();
     _selectedIndex = widget.initialTemplateIndex;
-    final initialText = (_selectedIndex >= 0 && _selectedIndex < kDefaultReachOutTemplates.length)
-        ? kDefaultReachOutTemplates[_selectedIndex]
-        : kDefaultReachOutTemplates[0];
+    final String initialText;
+    if (widget.customInitialText != null) {
+      initialText = widget.customInitialText!;
+    } else if (_selectedIndex >= 0 && _selectedIndex < kDefaultReachOutTemplates.length) {
+      initialText = kDefaultReachOutTemplates[_selectedIndex];
+    } else {
+      initialText = kDefaultReachOutTemplates[0];
+    }
     _textController = TextEditingController(text: initialText);
   }
 

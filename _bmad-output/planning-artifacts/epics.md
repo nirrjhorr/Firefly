@@ -37,10 +37,10 @@ This document provides the complete epic and user story breakdown for Firefly, d
 - **Epic 9: Phase 2 Exploratory Features** (Sprint 8 & 9 - Completed)
 - **Epic 10: v2 Sprint 1 - Movement & Somatic Release** (Completed)
 - **Epic 11: v2 Sprint 2 - Grounding, Sleep, Hope Box & Loneliness Suite** (Completed)
-- **Epic 12: v2 Sprint 3 - Grounding, Mindfulness & Nature** (Active Sprint)
-- **Epic 13: v2 Sprint 4 - Cognitive Flow & Attention Switching** (Planned)
-- **Epic 14: v2 Sprint 5 - Expression, Processing & Reframing** (Planned)
-- **Epic 15: v2 Sprint 6 - Auditory, Restorative & Social Environments** (Planned)
+- **Epic 12: v2 Sprint 3 - Grounding, Mindfulness & Nature** (Completed)
+- **Epic 13: v2 Sprint 4 - Cognitive Flow & Attention Switching** (Completed)
+- **Epic 14: v2 Sprint 5 - Expression, Processing & Reframing** (Completed)
+- **Epic 15: v2 Sprint 6 - Auditory, Restorative & Social Environments** (Completed)
 
 
 ---

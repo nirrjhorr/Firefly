@@ -297,6 +297,19 @@ class ActivitySeedingService {
         'durationMinutes': 15,
         'instructions': ['Select restorative preset or customize layers', 'Adjust individual layer volumes', 'Set fading sleep timer'],
       }),
+      ActivityItem.fromJson({
+        'id': 'act_social_cooperative_activities',
+        'title': 'Cooperative Activities & Connection',
+        'description': 'Low-pressure shared presence, parallel quiet, and cooperative game invitations.',
+        'category': 'social',
+        'energyRequired': 1,
+        'targetStates': ['lonely', 'isolated', 'overwhelmed', 'flat'],
+        'guidanceType': 'promptCards',
+        'evidenceLevel': 'clinicalConsensus',
+        'route': '/home/loneliness',
+        'durationMinutes': 10,
+        'instructions': ['Browse low-pressure connection options', 'Select parallel quiet or cooperative activity', 'Invite a trusted contact via pre-written SMS'],
+      }),
     ];
   }
 }

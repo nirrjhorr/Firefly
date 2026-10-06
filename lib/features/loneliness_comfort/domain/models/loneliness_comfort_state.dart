@@ -6,6 +6,10 @@ const List<String> kDefaultReachOutTemplates = [
   "Hey — I've been thinking of you. How are you doing?",
   "Hi — just wanted to check in. Can we talk?",
   "I'm having a hard time and thought of you. Would you be up for a call?",
+  "Thinking of you today and so grateful for you. No need to reply at all, just wanted you to know.",
+  "Would you be up for sitting together in quiet for a bit? No need to talk, just parallel presence.",
+  "Would you want to do a simple puzzle or play a low-key cooperative game together sometime?",
+  "Could you just be around while I make tea or do a small task? Having someone nearby helps.",
 ];
 
 /// Immutable UI and domain state for the Loneliness Comfort & "Guess vs. Reality" engine.

@@ -18,6 +18,8 @@ import '../widgets/guess_vs_reality_sheet.dart';
 import '../widgets/reach_out_contact_card.dart';
 import '../widgets/reach_out_message_dialog.dart';
 import '../widgets/social_insight_card.dart';
+import '../../domain/models/cooperative_activity.dart';
+import '../widgets/cooperative_activities_section.dart';
 
 /// Screen providing trauma-informed comfort, reaching-out options,
 /// and the "Guess vs. Reality" cognitive behavioral experiment engine.
@@ -92,6 +94,105 @@ class _LonelinessComfortScreenState
       initialTemplateIndex: state.selectedTemplateIndex,
       onProceed: (message) {
         // Step 2: Show "Guess vs. Reality" prediction prompt
+        GuessVsRealitySheet.showPrediction(
+          context: context,
+          contactName: contact.name,
+          onConfirmed: (predictedOutcome) async {
+            await controller.startPredictionExperiment(
+              contact: contact,
+              predictedOutcome: predictedOutcome,
+              message: message,
+            );
+            await controller.launchSms(
+              phoneNumber: contact.phoneNumber ?? '',
+              message: message,
+            );
+          },
+          onSkip: () async {
+            await controller.launchSms(
+              phoneNumber: contact.phoneNumber ?? '',
+              message: message,
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _onCooperativeInvite(CooperativeActivity activity) {
+    final state = ref.read(lonelinessComfortControllerProvider);
+
+    if (!state.hasContacts) {
+      _openAddContactDialog();
+      return;
+    }
+
+    if (state.contacts.length == 1) {
+      _openMessageDialogWithTemplate(state.contacts.first, activity.suggestedInvitation);
+      return;
+    }
+
+    // Multiple contacts available: present gentle selection bottom sheet
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        final colors = context.colors;
+        return Container(
+          decoration: BoxDecoration(
+            color: colors.bgCanvasDeep,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            border: Border.all(color: colors.borderSubtle),
+          ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Invite a trusted person to ${activity.title}',
+                style: AppTypography.headingMd.copyWith(color: colors.textPrimary),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Choose who you would feel safest reaching out to.',
+                style: AppTypography.caption.copyWith(color: colors.textSecondary),
+              ),
+              const SizedBox(height: 16),
+              for (final contact in state.contacts)
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: CircleAvatar(
+                    backgroundColor: colors.actionSage.withOpacity(0.18),
+                    child: Text(
+                      contact.name.isNotEmpty ? contact.name[0].toUpperCase() : '?',
+                      style: TextStyle(color: colors.actionSage, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  title: Text(contact.name, style: AppTypography.bodyMd.copyWith(color: colors.textPrimary)),
+                  subtitle: Text(contact.displaySubtitle, style: AppTypography.caption.copyWith(color: colors.textSecondary)),
+                  trailing: Icon(Icons.arrow_forward_ios_rounded, size: 14, color: colors.textSecondary),
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                    _openMessageDialogWithTemplate(contact, activity.suggestedInvitation);
+                  },
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _openMessageDialogWithTemplate(ReachOutContact contact, String initialMessage) {
+    final controller = ref.read(lonelinessComfortControllerProvider.notifier);
+
+    ReachOutMessageDialog.show(
+      context: context,
+      contact: contact,
+      initialTemplateIndex: -1,
+      customInitialText: initialMessage,
+      onProceed: (message) {
         GuessVsRealitySheet.showPrediction(
           context: context,
           contactName: contact.name,
@@ -534,6 +635,13 @@ class _LonelinessComfortScreenState
                       const SizedBox(height: 10),
                     ],
                   ],
+
+                  const SizedBox(height: 24),
+
+                  // Low-Pressure Cooperative Activities Section
+                  CooperativeActivitiesSection(
+                    onInvitePressed: _onCooperativeInvite,
+                  ),
 
                   const SizedBox(height: 24),
 

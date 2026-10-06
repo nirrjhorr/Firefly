@@ -3,6 +3,41 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-10-06
+
+### Major Release — State-Based Regulation System & 6-Group Activity Architecture
+
+#### Epic 10: Movement & Somatic Release (v2 Sprint 1)
+- Unified Activity Domain Model and Drift schema (`curated_activities.json`, `ActivitiesDao`).
+- "Right Now" immediate distress modal and routing.
+- Progressive Muscle Relaxation (PMR) interactive anatomical body map.
+- Movement engine routine action trackers and somatic reset flows.
+
+#### Epic 11: Grounding, Sleep, Hope Box & Loneliness Suite (v2 Sprint 2)
+- Extended sensory grounding suite and attention-switching tasks.
+- Pre-bed sleep wind-down suite with circadian wake anchor and worry parking.
+- Hope Box multi-media offline coping vault with photos, reasons to keep going, and voice notes.
+- Loneliness comfort and "Guess vs. Reality" cognitive behavioral experiment engine.
+
+#### Epic 12: Grounding, Mindfulness & Nature (v2 Sprint 3)
+- Guided nature & outdoor micro-observation suite (sky gazing, tree canopy, light & shadow).
+- Somatic visualizations & body centering (gravity settling, warm hands peripheral dilation).
+- Meditative classical labyrinth tracing canvas with continuous touch feedback.
+
+#### Epic 13: Cognitive Flow & Attention Switching (v2 Sprint 4)
+- Structured working memory cognitive grounding exercises (Alphabet association, backward counting, category sorting).
+- Spatial flow puzzles with non-stimulating canvas interactions.
+
+#### Epic 14: Expression, Processing & Reframing (v2 Sprint 5)
+- Encrypted worry dump and unsent letters auto-deleting vault with "Burn Now" zeroing.
+- Cognitive defusion suite: Leaves on a Stream, Thought Cloud Dissolve, and 3-Tier Linguistic Defusion.
+
+#### Epic 15: Auditory, Restorative & Social Environments (v2 Sprint 6)
+- Multi-track Ambient Audio Mixer with independent volume controls and 5 restful presets.
+- Weber-Fechner logarithmic volume attenuation over the final 5 minutes of a 15–60 min timer.
+- Cooperative social connection activities (Parallel Quiet, Appreciation Micro-Notes, Cooperative Games, Low-Barrier Presence).
+- Pre-written invitation SMS templates linked to "Guess vs. Reality" empirical outcome tracking.
+
 ---
 
 ## [1.0.0] - 2026-10-01
