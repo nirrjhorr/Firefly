@@ -3,6 +3,24 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-10-06
+
+### On-Device Personal Regulation Effectiveness Engine & Affinity Profiles (Epic 21 / v2 Sprint 12)
+
+#### Self-Efficacy Personalization & Mathematical Affinity Engine (RM-AA-19 / FR-16)
+- **Bayesian & Laplace Damped Affinity Engine (`PersonalEffectivenessEngine`):** Operationalized Bandura's self-efficacy theory and Ecological Momentary Assessment (EMA) personalization by computing on-device activity affinity scores based on user-reported settledness shifts (-2 to +2 ratings). Uses sample count damping `(N / (N + 1.0))` to prevent single noisy ratings from destabilizing guidance while converging smoothly with repeated practice.
+- **State-Matched Dynamic Recommendation Ranking (`RecommendationEngine`):** Dynamically ranks and personalizes check-in recommendations against the user's historical state-specific affinities. Annotates recommendations with evidence badges (`personalizedReason: "Previously helped you feel more settled"`), reorders alternative suggestions with proven calming options first, and promotes high-affinity practices when baseline is untested. Seamlessly falls back to clinical defaults on cold start.
+- **Evidence Badging in Check-In (`AffectResultCard`):** Embedded an illuminated badge chip displaying the personal reason with `Icons.auto_awesome_rounded` and expanded icon support for all 15 core regulation modalities.
+- **Personal Sanctuary Screen (`PersonalProfileScreen` at `/home/profile` & `/profile`):** Built a dedicated sanctuary view featuring Apple-inspired calm cards:
+  - "Moments of Self-Care" summary: total guided sessions completed and percentage of sessions bringing positive nervous system shift, with zero streak pressure or productivity guilt.
+  - "What Helps You Most": categorized by emotional state (Anxious, Overwhelmed, Scattered, Low Energy), showing times practiced, average shift, and direct launch actions.
+  - 100% On-Device Privacy Shield: explicit privacy reassurance and a 1-tap "Reset Sanctuary Learning" confirmation dialog to clear learning logs on demand.
+- **Universal Route & Feature Integration:** Registered `AppRoutes.profile` and `AppRoutes.modalProfile` in `AppRouter`, added direct entry card on `CheckInScreen`, and added header shortcut in `ActivitiesScreen`.
+- **Extended Data Access:** Enhanced `ActivitiesDao` and `ActivityRepository` with `getAllEffectivenessLogs()` and `clearEffectivenessLogs()`.
+- **Automated Verification:** Added `verify_personalisation_standalone.dart` passing 100% across all mathematical scoring, JSON serialization, recommendation personalization, repository contract, and navigation audits with zero regressions.
+
+---
+
 ## [2.5.0] - 2026-10-06
 
 ### Focus & Mental Organisation Suite — Three Priorities & Serene Focus Companion (Epic 20 / v2 Sprint 11)

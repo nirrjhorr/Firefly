@@ -76,14 +76,31 @@ class _ActivitiesScreenState extends ConsumerState<ActivitiesScreen> {
                 FireflyNavHeader(
                   title: 'Activity Library',
                   subtitle: 'Evidence-based self-regulation practices',
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.tune_rounded,
-                      color: selectedEnergy != null ? colors.actionSage : colors.textSecondary,
-                      size: IconSizeTokens.appAction,
-                    ),
-                    onPressed: () => _showEnergyFilterModal(context),
-                    tooltip: 'Filter by energy level',
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.auto_awesome_rounded,
+                          color: colors.accentSecondary,
+                          size: IconSizeTokens.appAction,
+                        ),
+                        onPressed: () {
+                          HapticFeedback.selectionClick();
+                          context.push(AppRoutes.profile);
+                        },
+                        tooltip: 'Personal Sanctuary',
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.tune_rounded,
+                          color: selectedEnergy != null ? colors.actionSage : colors.textSecondary,
+                          size: IconSizeTokens.appAction,
+                        ),
+                        onPressed: () => _showEnergyFilterModal(context),
+                        tooltip: 'Filter by energy level',
+                      ),
+                    ],
                   ),
                 ),
 

@@ -924,3 +924,48 @@ So that I can find clarity whenever scattered thoughts or task paralysis strike.
 - Standalone test `test/features/focus/verify_focus_standalone.dart` passing 100% in pure Dart.
 - Zero network calls, 100% design system token compliance, clean lint sweep.
 
+---
+
+## Epic 21: On-Device Personal Regulation Effectiveness Engine & Affinity Profiles (v2 Sprint 12)
+
+Implement the on-device Personal Regulation Effectiveness Engine (RM-AA-19 / FR-16) grounded in Bandura's self-efficacy theory, EMA (Ecological Momentary Assessment) personalization, and Schleider & Baumel adaptive single-session intervention principles. Firefly closes the self-regulation learning loop: user-reported post-activity shifts (-2 to +2 EMA ratings) feed a deterministic on-device Bayesian affinity model to personalize check-in recommendations ("Last time you felt this way, this helped you feel more settled") and provide a peaceful, non-judgmental Personal Regulation Profile.
+
+### Story 21.1: Personal Regulation Effectiveness & Affinity Domain Models, Mathematical Scoring Engine & Repository
+As a user whose nervous system responds uniquely to different regulation practices,
+I want an on-device mathematical affinity engine that calculates how effectively each practice settles my body and mind across different emotional states,
+So that Firefly learns what works best for me without sending any private data off my device.
+
+**Acceptance Criteria:**
+- `ActivityAffinity` immutable domain model tracking activityId, targetState, sampleCount, averageRating, and smoothed affinityScore.
+- `PersonalRegulationProfile` immutable domain model grouping top calming practices by emotional state with overall regulation moments.
+- `PersonalEffectivenessEngine` pure Dart service computing smoothed Bayesian affinities with sample damping and recency weighting.
+- `ActivitiesDao` enhanced with `getAllEffectivenessLogs()` and `clearEffectivenessLogs()`.
+- `PersonalisationRepository` interface and implementation providing reactive stream and query methods.
+
+### Story 21.2: State-Matched Recommendation Personalization & Dynamic Evidence Badging
+As a user completing a daily or acute affect check-in,
+I want the recommendation engine to dynamically elevate practices that have proven effective for my current state and gently explain why,
+So that I feel understood and receive personalized guidance grounded in my own past relief.
+
+**Acceptance Criteria:**
+- `ActionSuggestion` updated with optional `personalizedReason` and `affinityScore`.
+- `ActionType` expanded to include all core Firefly practice types (`focus`, `compassion`, `reset`, `movement`, `pmr`, `flowPuzzle`, `labyrinth`, `sleepWindDown`).
+- `RecommendationEngine.evaluate` accepts personal affinity scores; elevates high-affinity practices and attaches compassionate explanation tags.
+- `AffectResultCard` renders the personalized evidence badge ("Previously helped you settle") with serene styling when present.
+- Seamless fallback to clinical defaults on cold start or neutral ratings.
+
+### Story 21.3: Personal Sanctuary Profile UI (`PersonalProfileScreen`), Universal Routing & Standalone Verification
+As a reflective user wanting to understand what calms my nervous system,
+I want a serene Personal Sanctuary screen showing my top calming practices by emotional state and total mindful moments, with full privacy controls,
+So that I can see tangible evidence of my self-regulation journey without gamification, streaks, or judgment.
+
+**Acceptance Criteria:**
+- `PersonalProfileScreen` mounted at `/home/profile` and `/profile`.
+- Strict design token compliance: `FireflyNavHeader`, `FireflyCard`, `FireflyButton`, `AppIcons`, and `MotionTokens`.
+- Categorized sections: "What Settles You Most" by state (Anxiety, Overwhelm, Low Energy, Scattered Mind).
+- Peaceful reflection stats: Moments of care, average positive shift, zero streak pressure or shame mechanics.
+- Privacy guarantee banner with 1-tap "Clear Sanctuary History" confirmation.
+- Standalone test `test/features/personalisation/verify_personalisation_standalone.dart` passing 100% in pure Dart.
+- 100% compliance with security gate, lint sweep, and design tokens.
+
+

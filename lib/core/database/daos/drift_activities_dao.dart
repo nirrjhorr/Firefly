@@ -155,6 +155,28 @@ class DriftActivitiesDao implements ActivitiesDao {
         timestamp: DateTime.fromMillisecondsSinceEpoch((data['timestamp_unix'] as int) * 1000),
       );
     }).toList();
+  @override
+  Future<List<ActivityEffectivenessLog>> getAllEffectivenessLogs() async {
+    final rows = await _db.customSelect(
+      'SELECT * FROM activity_effectiveness_logs ORDER BY timestamp_unix DESC',
+    ).get();
+
+    return rows.map((r) {
+      final data = r.data;
+      return ActivityEffectivenessLog(
+        id: data['id'] as String,
+        activityId: data['activity_id'] as String,
+        stateAtStart: data['state_at_start'] as String,
+        rating: data['rating'] as int,
+        durationSeconds: data['duration_seconds'] as int,
+        timestamp: DateTime.fromMillisecondsSinceEpoch((data['timestamp_unix'] as int) * 1000),
+      );
+    }).toList();
+  }
+
+  @override
+  Future<void> clearEffectivenessLogs() async {
+    await _db.customStatement('DELETE FROM activity_effectiveness_logs');
   }
 
   @override

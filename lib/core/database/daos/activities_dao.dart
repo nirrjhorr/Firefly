@@ -19,6 +19,8 @@ abstract class ActivitiesDao {
   Future<void> toggleFavorite(String id);
   Future<void> logEffectiveness(ActivityEffectivenessLog log);
   Future<List<ActivityEffectivenessLog>> getEffectivenessLogsForActivity(String activityId);
+  Future<List<ActivityEffectivenessLog>> getAllEffectivenessLogs();
+  Future<void> clearEffectivenessLogs();
   Future<double> getAverageAffinity(String activityId, String state);
   Future<int> countActivities();
 
@@ -117,6 +119,16 @@ class InMemoryActivitiesDao implements ActivitiesDao {
   @override
   Future<List<ActivityEffectivenessLog>> getEffectivenessLogsForActivity(String activityId) async {
     return _logs.where((l) => l.activityId == activityId).toList();
+  }
+
+  @override
+  Future<List<ActivityEffectivenessLog>> getAllEffectivenessLogs() async {
+    return List.unmodifiable(_logs);
+  }
+
+  @override
+  Future<void> clearEffectivenessLogs() async {
+    _logs.clear();
   }
 
   @override

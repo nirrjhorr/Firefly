@@ -28,6 +28,12 @@ abstract class ActivityRepository {
   /// Retrieves past effectiveness logs for a given activity.
   Future<List<ActivityEffectivenessLog>> getEffectivenessLogsForActivity(String activityId);
 
+  /// Retrieves all past effectiveness logs across all activities.
+  Future<List<ActivityEffectivenessLog>> getAllEffectivenessLogs();
+
+  /// Clears all effectiveness logs for privacy.
+  Future<void> clearEffectivenessLogs();
+
   /// Computes the exponential moving average (EMA) affinity score for an activity in a given state.
   Future<double> getAffinityScore(String activityId, String state);
 

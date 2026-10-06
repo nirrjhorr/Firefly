@@ -42,6 +42,22 @@ class _AffectResultCardState extends State<AffectResultCard> {
         return Icons.inventory_2_outlined;
       case ActionType.soundscape:
         return AppIcons.soundWaves;
+      case ActionType.focus:
+        return Icons.filter_center_focus_rounded;
+      case ActionType.compassion:
+        return Icons.volunteer_activism_rounded;
+      case ActionType.reset:
+        return Icons.restart_alt_rounded;
+      case ActionType.movement:
+        return Icons.directions_walk_rounded;
+      case ActionType.pmr:
+        return Icons.accessibility_new_rounded;
+      case ActionType.flowPuzzle:
+        return Icons.extension_rounded;
+      case ActionType.labyrinth:
+        return Icons.blur_circular_rounded;
+      case ActionType.sleepWindDown:
+        return Icons.bedtime_outlined;
     }
   }
 
@@ -97,6 +113,39 @@ class _AffectResultCardState extends State<AffectResultCard> {
                   ),
                 ],
               ),
+              if (suggestion.personalizedReason != null) ...[
+                const SizedBox(height: SpacingTokens.spaceSm),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.spaceSm,
+                    vertical: SpacingTokens.space2xs,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colors.accentSecondary.withOpacity(0.12),
+                    borderRadius: BorderRadius.circular(RadiusTokens.pill),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.auto_awesome_rounded,
+                        size: IconSizeTokens.xs,
+                        color: colors.accentSecondary,
+                      ),
+                      const SizedBox(width: SpacingTokens.space2xs),
+                      Flexible(
+                        child: Text(
+                          suggestion.personalizedReason!,
+                          style: AppTypography.captionSm.copyWith(
+                            color: colors.accentSecondary,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: SpacingTokens.spaceMd),
               Text(
                 suggestion.title,

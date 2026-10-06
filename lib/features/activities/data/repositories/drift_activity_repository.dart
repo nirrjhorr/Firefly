@@ -60,6 +60,16 @@ class DriftActivityRepository implements ActivityRepository {
   }
 
   @override
+  Future<List<ActivityEffectivenessLog>> getAllEffectivenessLogs() async {
+    return _dao.getAllEffectivenessLogs();
+  }
+
+  @override
+  Future<void> clearEffectivenessLogs() async {
+    await _dao.clearEffectivenessLogs();
+  }
+
+  @override
   Future<double> getAffinityScore(String activityId, String state) async {
     return _dao.getAverageAffinity(activityId, state);
   }

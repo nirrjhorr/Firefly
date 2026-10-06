@@ -468,6 +468,59 @@ class CheckInScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
+                    const SizedBox(height: SpacingTokens.elementGap),
+
+                    // 10. Personal Sanctuary & Regulation Profile
+                    FireflyCard(
+                      variant: FireflyCardVariant.interactive,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      onTap: () {
+                        HapticFeedback.lightImpact();
+                        context.push(AppRoutes.profile);
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: colors.accentSecondary.withOpacity(0.14),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.auto_awesome_rounded,
+                              color: colors.accentSecondary,
+                              size: IconSizeTokens.nav,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Personal Sanctuary',
+                                  style: AppTypography.headingMd.copyWith(
+                                    color: colors.textPrimary,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'What settles your body & mind based on past relief',
+                                  style: AppTypography.caption.copyWith(
+                                    color: colors.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            AppIcons.chevronRight,
+                            color: colors.textSecondary,
+                            size: IconSizeTokens.appAction,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
         ),

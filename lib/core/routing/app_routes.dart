@@ -35,6 +35,9 @@ abstract final class AppRoutes {
   static const modalCompassion = '/compassion';
   static const focus = '/home/focus';
   static const modalFocus = '/focus';
+  static const profile = '/home/profile';
+  static const modalProfile = '/profile';
+  static const movement = '/home/move';
   static const tinyStepActivity = '/tiny-step/:id';
 }
 

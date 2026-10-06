@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-
-@immutable
 class AffectState {
   const AffectState({
     required this.moodCategory,
