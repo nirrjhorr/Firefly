@@ -161,8 +161,39 @@ abstract final class TypographyScaleConstraints {
   static const double bodyTextMaxScale = 2.0;
 }
 
+/// Instance token dictionary for accessing typography tokens via context
+class AppTypographyTokens {
+  const AppTypographyTokens();
+
+  TextStyle get displayXl => AppTypography.displayXl;
+  TextStyle get displayLg => AppTypography.displayLg;
+  TextStyle get displayMd => AppTypography.displayMd;
+  TextStyle get displayMedium => AppTypography.displayMd;
+  TextStyle get headingLg => AppTypography.headingLg;
+  TextStyle get headingMd => AppTypography.headingMd;
+  TextStyle get headlineMedium => AppTypography.headingMd;
+  TextStyle get headingSm => AppTypography.headingSm;
+  TextStyle get headlineSmall => AppTypography.headingSm;
+  TextStyle get titleLarge => AppTypography.headingLg;
+  TextStyle get titleMedium => AppTypography.headingMd;
+  TextStyle get titleSmall => AppTypography.headingSm;
+  TextStyle get bodyLg => AppTypography.bodyLg;
+  TextStyle get bodyLarge => AppTypography.bodyLg;
+  TextStyle get bodyMd => AppTypography.bodyMd;
+  TextStyle get bodyMedium => AppTypography.bodyMd;
+  TextStyle get bodySm => AppTypography.bodySm;
+  TextStyle get bodySmall => AppTypography.bodySm;
+  TextStyle get labelLg => AppTypography.labelLg;
+  TextStyle get labelLarge => AppTypography.labelLg;
+  TextStyle get labelMd => AppTypography.labelMd;
+  TextStyle get labelMedium => AppTypography.labelMd;
+  TextStyle get labelSm => AppTypography.labelSm;
+  TextStyle get labelSmall => AppTypography.labelSm;
+}
+
 /// Convenience typography accessors on BuildContext
 extension BuildContextTypographyX on BuildContext {
+  AppTypographyTokens get typography => const AppTypographyTokens();
   TextStyle get displayMedium => AppTypography.displayMd;
   TextStyle get headlineSmall => AppTypography.headingSm;
   TextStyle get titleMedium => AppTypography.headingMd;

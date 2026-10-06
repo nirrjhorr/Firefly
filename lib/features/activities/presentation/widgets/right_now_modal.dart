@@ -456,7 +456,7 @@ class _RightNowModalState extends State<RightNowModal> {
                     ),
                     child: Center(
                       child: Icon(
-                        _resolveGroupIcon(group),
+                        group.icon,
                         size: 22,
                         color: colors.actionSage,
                       ),
