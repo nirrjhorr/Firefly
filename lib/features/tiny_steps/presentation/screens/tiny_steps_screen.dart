@@ -213,8 +213,23 @@ class TinyStepsScreen extends ConsumerWidget {
                         variant: FireflyButtonVariant.secondary,
                         isFullWidth: false,
                         icon: AppIcons.shuffle,
-                        text: 'Shuffle other options',
+                        text: 'Try different options',
                         onPressed: () => controller.shuffle(),
+                      ),
+                    ),
+                    const SizedBox(height: SpacingTokens.elementGap),
+                    Center(
+                      child: FireflyButton(
+                        variant: FireflyButtonVariant.tertiary,
+                        isFullWidth: false,
+                        text: "I'll do this later",
+                        onPressed: () {
+                          if (context.canPop()) {
+                            context.pop();
+                          } else {
+                            context.go(AppRoutes.home);
+                          }
+                        },
                       ),
                     ),
                   ],
@@ -338,7 +353,7 @@ class _MicroActionCard extends StatelessWidget {
 
               // Completion prompt text
               Text(
-                isCompleted ? 'Completed' : 'Tap to start',
+                isCompleted ? 'Done' : 'I did this',
                 style: AppTypography.caption.copyWith(
                   color: isCompleted
                       ? colors.accentPrimary

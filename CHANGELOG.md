@@ -3,6 +3,15 @@
 All notable changes to **Firefly** are documented in this file.
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2026-10-07
+
+### Tiny Steps UI Harmonization & Technical Debt Resolution (v2.8.1+21)
+
+#### Bug Fixes & UI Consistency
+- **Tiny Steps UI Alignment:** Resolved a discrepancy in the Tiny Steps module where the user interface did not match the test specifications. The "Tap to start" prompt was corrected to "I did this" and "Done", and secondary controls ("Try different options", "I'll do this later") were added to ensure the interactive experience meets the intended design and testing contract.
+
+---
+
 ## [2.8.0] - 2026-10-07
 
 ### Apple-Aligned Design Validation, System Harmonization & Production Release (v2.8.0+20)

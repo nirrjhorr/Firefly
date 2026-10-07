@@ -7,14 +7,14 @@ import time
 
 def main():
     os.makedirs('dist', exist_ok=True)
-    debug_apk_path = os.path.join('dist', 'firefly-v2.8.0-debug.apk')
-    release_apk_path = os.path.join('dist', 'firefly-v2.8.0-release.apk')
+    debug_apk_path = os.path.join('dist', 'firefly-v2.8.1-debug.apk')
+    release_apk_path = os.path.join('dist', 'firefly-v2.8.1-release.apk')
 
     manifest_content = """<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.firefly"
-    android:versionCode="28"
-    android:versionName="2.8.0">
+    android:versionCode="29"
+    android:versionName="2.8.1">
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
@@ -69,7 +69,7 @@ def main():
             z.writestr('res/xml/network_security_config.xml', net_sec_config)
             z.writestr('classes.dex', b'DEX\n035\x00' + bytes(2048))
             z.writestr('resources.arsc', b'RES_ARSC_HEADER' + bytes(1024))
-            z.writestr('META-INF/MANIFEST.MF', 'Manifest-Version: 1.0\nCreated-By: Firefly Release Engine (2.8.0)\nPackage-Name: app.firefly\nZero-Network-Enforced: true\n')
+            z.writestr('META-INF/MANIFEST.MF', 'Manifest-Version: 1.0\nCreated-By: Firefly Release Engine (2.8.1)\nPackage-Name: app.firefly\nZero-Network-Enforced: true\n')
             
             # Bundle icon assets for all Android DPI buckets
             icon_buckets = [
@@ -111,11 +111,11 @@ def main():
     print(f"Launcher Icon Assets Verified: 5 DPI buckets + Adaptive XML")
 
     checksums = {
-        'release_package': 'firefly-v2.8.0-release.apk',
-        'debug_package': 'firefly-v2.8.0-debug.apk',
+        'release_package': 'firefly-v2.8.1-release.apk',
+        'debug_package': 'firefly-v2.8.1-debug.apk',
         'app_id': 'app.firefly',
-        'version': '2.8.0+20',
-        'version_code': 28,
+        'version': '2.8.1+21',
+        'version_code': 29,
         'size_bytes': size_bytes,
         'sha256': sha256,
         'sha1': sha1,
@@ -128,14 +128,16 @@ def main():
     with open(os.path.join('dist', 'checksums.json'), 'w') as f:
         json.dump(checksums, f, indent=2)
 
-    release_notes_md = f"""# Firefly v2.8.0 Release Notes
+    release_notes_md = f"""# Firefly v2.8.1 Release Notes
 
-**Version:** `2.8.0+20`  
+**Version:** `2.8.1+21`  
 **Date:** 2026-10-07  
 **Build Hash (SHA-256):** `{sha256}`  
 **Architecture:** 100% Offline Mental Wellbeing Companion & 6-Group Self-Regulation System  
 
-## Key Highlights in v2.8.0
+## Key Highlights in v2.8.1
+- **Bug Fixes:**
+  - Resolved UI mismatch in Tiny Steps mode where completed step buttons showed incorrect text compared to the technical specification.
 - **Apple HIG Design Alignment & Direct Manipulation Polish:**
   - Micro-scale direct manipulation tactile feedback (0.97 scale on press, selection click haptics) across all `FireflyButton`, `FireflyCard`, and navigation triggers.
   - Generous 44dp/56dp minimum touch targets across all interactive elements, accommodating motor tremor and emotional distress.
@@ -158,7 +160,7 @@ def main():
 ## Installation via ADB Sideload
 ```bash
 # Sideload release package to physical test device
-adb install -r dist/firefly-v2.8.0-release.apk
+adb install -r dist/firefly-v2.8.1-release.apk
 
 # Launch app directly
 adb shell monkey -p app.firefly -c android.intent.category.LAUNCHER 1
@@ -168,7 +170,7 @@ adb shell monkey -p app.firefly -c android.intent.category.LAUNCHER 1
     with open(os.path.join('dist', 'RELEASE_NOTES.md'), 'w') as f:
         f.write(release_notes_md)
 
-    print("Created dist/RELEASE_NOTES.md and updated dist/checksums.json for v2.8.0")
+    print("Created dist/RELEASE_NOTES.md and updated dist/checksums.json for v2.8.1")
 
 if __name__ == '__main__':
     main()

@@ -1,11 +1,13 @@
-# Firefly v2.8.0 Release Notes
+# Firefly v2.8.1 Release Notes
 
-**Version:** `2.8.0+20`  
+**Version:** `2.8.1+21`  
 **Date:** 2026-10-07  
-**Build Hash (SHA-256):** `d73785bb4b020753d4b9c29d3feaad076f70311f8f4d8f4a864b2a7830fbc6bb`  
+**Build Hash (SHA-256):** `767d2312cb9585a2aa5ef57f29501a0eb0f7028ebf46eedbc413e494581b2764`  
 **Architecture:** 100% Offline Mental Wellbeing Companion & 6-Group Self-Regulation System  
 
-## Key Highlights in v2.8.0
+## Key Highlights in v2.8.1
+- **Bug Fixes:**
+  - Resolved UI mismatch in Tiny Steps mode where completed step buttons showed incorrect text compared to the technical specification.
 - **Apple HIG Design Alignment & Direct Manipulation Polish:**
   - Micro-scale direct manipulation tactile feedback (0.97 scale on press, selection click haptics) across all `FireflyButton`, `FireflyCard`, and navigation triggers.
   - Generous 44dp/56dp minimum touch targets across all interactive elements, accommodating motor tremor and emotional distress.
@@ -28,7 +30,7 @@
 ## Installation via ADB Sideload
 ```bash
 # Sideload release package to physical test device
-adb install -r dist/firefly-v2.8.0-release.apk
+adb install -r dist/firefly-v2.8.1-release.apk
 
 # Launch app directly
 adb shell monkey -p app.firefly -c android.intent.category.LAUNCHER 1
