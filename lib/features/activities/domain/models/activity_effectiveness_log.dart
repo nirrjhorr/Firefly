@@ -14,6 +14,7 @@ class ActivityEffectivenessLog {
     required this.rating,
     required this.timestamp,
     required this.durationSeconds,
+    this.tags = const [],
   }) : assert(rating >= -2 && rating <= 2, 'Rating must be between -2 and +2');
 
   final String id;
@@ -22,6 +23,7 @@ class ActivityEffectivenessLog {
   final int rating;
   final DateTime timestamp;
   final int durationSeconds;
+  final List<String> tags;
 
   Map<String, dynamic> toJson() {
     return {
@@ -31,6 +33,7 @@ class ActivityEffectivenessLog {
       'rating': rating,
       'timestamp': timestamp.toIso8601String(),
       'durationSeconds': durationSeconds,
+      'tags': tags,
     };
   }
 
@@ -42,6 +45,7 @@ class ActivityEffectivenessLog {
       rating: (json['rating'] as num).toInt(),
       timestamp: DateTime.parse(json['timestamp'] as String),
       durationSeconds: (json['durationSeconds'] as num).toInt(),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? const [],
     );
   }
 

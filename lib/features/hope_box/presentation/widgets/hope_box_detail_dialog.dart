@@ -5,6 +5,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../domain/models/hope_box_item.dart';
+import 'hope_box_audio_player_widget.dart';
 
 /// Modal dialog providing private, focused viewing of a Hope Box coping resource.
 class HopeBoxDetailDialog extends StatelessWidget {
@@ -263,50 +264,11 @@ class HopeBoxDetailDialog extends StatelessWidget {
                       ],
                     ] else if (item.type == HopeBoxItemType.voice ||
                         item.type == HopeBoxItemType.audio) ...[
-                      // Audio / Voice Card
-                      Text(
-                        item.title,
-                        style: AppTypography.headingSmall.copyWith(
-                          color: neutral100,
-                        ),
-                      ),
-                      const SizedBox(height: SpacingTokens.lg),
-                      Container(
-                        padding: const EdgeInsets.all(SpacingTokens.lg),
-                        decoration: BoxDecoration(
-                          color: cardBg,
-                          borderRadius: BorderRadius.circular(RadiusTokens.lg),
-                          border: Border.all(color: const Color(0xFF2E3840)),
-                        ),
-                        child: Column(
-                          children: [
-                            Icon(
-                              item.type == HopeBoxItemType.voice
-                                  ? Icons.record_voice_over_rounded
-                                  : Icons.music_note_rounded,
-                              size: 48,
-                              color: sage300,
-                            ),
-                            const SizedBox(height: SpacingTokens.md),
-                            Text(
-                              item.type == HopeBoxItemType.voice
-                                  ? 'Offline Voice Note'
-                                  : 'Offline Calming Track',
-                              style: AppTypography.bodyMedium.copyWith(
-                                color: neutral100,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(height: SpacingTokens.sm),
-                            Text(
-                              item.filePath ?? 'Stored locally',
-                              style: AppTypography.caption.copyWith(
-                                color: neutral300,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
+                      // Direct in-app playable audio & voice notes
+                      HopeBoxAudioPlayerWidget(
+                        filePath: item.filePath,
+                        title: item.title,
+                        isVoiceNote: item.type == HopeBoxItemType.voice,
                       ),
                     ],
                   ],

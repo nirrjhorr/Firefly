@@ -7,6 +7,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/theme/radius_tokens.dart';
 import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
+import '../../data/services/feedback_storage_service.dart';
 import '../../domain/models/activity_effectiveness_log.dart';
 import '../providers/activity_providers.dart';
 
@@ -91,8 +92,11 @@ class _EffectivenessFeedbackSheetState
         rating: _selectedRating!,
         timestamp: DateTime.now(),
         durationSeconds: widget.durationSeconds,
+        tags: _selectedTags.toList(),
       );
 
+      // Persist locally on device
+      await ref.read(feedbackStorageServiceProvider).saveLog(log);
       await ref.read(activityRepositoryProvider).logEffectiveness(log);
 
       if (mounted) {

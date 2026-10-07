@@ -29,11 +29,15 @@ class MoodTile extends StatefulWidget {
     required this.mood,
     required this.isSelected,
     required this.onTap,
+    this.width,
+    this.height,
   });
 
   final MoodCategory mood;
   final bool isSelected;
   final VoidCallback onTap;
+  final double? width;
+  final double? height;
 
   @override
   State<MoodTile> createState() => _MoodTileState();
@@ -104,8 +108,8 @@ class _MoodTileState extends State<MoodTile>
           child: AnimatedContainer(
             duration: MotionTokens.quick,
             curve: Curves.easeOut,
-            width: SpacingTokens.moodTileSize,
-            height: SpacingTokens.moodTileSize,
+            width: widget.width ?? SpacingTokens.moodTileSize,
+            height: widget.height ?? SpacingTokens.moodTileSize,
             decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: BorderRadius.circular(RadiusTokens.xl),

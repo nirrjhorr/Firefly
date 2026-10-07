@@ -14,7 +14,6 @@ import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../../../shared/widgets/firefly_nav_header.dart';
-import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../../domain/models/focus_mode.dart';
 import '../../domain/models/focus_priority.dart';
 import '../providers/focus_providers.dart';
@@ -141,13 +140,6 @@ class _FocusScreenState extends ConsumerState<FocusScreen>
                 ),
               ],
             ),
-          ),
-
-          // Persistent Floating SOS Overlay Button
-          const Positioned(
-            top: 12,
-            right: 16,
-            child: SosOverlayButton(),
           ),
         ],
       ),

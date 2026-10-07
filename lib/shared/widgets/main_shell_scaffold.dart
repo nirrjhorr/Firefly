@@ -50,11 +50,7 @@ class MainShellScaffold extends StatelessWidget {
       body: Stack(
         children: [
           child,
-          const Positioned(
-            bottom: SpacingTokens.spaceMd,
-            right: SpacingTokens.spaceMd,
-            child: SosOverlayButton(),
-          ),
+          const SosOverlayButton(),
         ],
       ),
       bottomNavigationBar: Container(

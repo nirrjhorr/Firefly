@@ -14,7 +14,6 @@ import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../../../shared/widgets/firefly_nav_header.dart';
-import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../../domain/models/reset_distress_anchor.dart';
 import '../../domain/models/reset_phase.dart';
 import '../providers/reset_session_providers.dart';
@@ -90,33 +89,24 @@ class _ResetScreenState extends ConsumerState<ResetScreen>
     return Scaffold(
       backgroundColor: colors.bgCanvasDeep,
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            Column(
-              children: [
-                FireflyNavHeader(
-                  title: 'One-Session Reset',
-                  subtitle: session.currentPhase.title,
-                  onBackPressed: session.currentPhase.hasPrevious
-                      ? () => notifier.previousPhase()
-                      : () => context.pop(),
-                ),
-                _buildStepperIndicator(context, session.currentPhase),
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.screenPaddingH,
-                      vertical: SpacingTokens.spaceMd,
-                    ),
-                    child: _buildPhaseContent(context, session, notifier),
-                  ),
-                ),
-              ],
+            FireflyNavHeader(
+              title: 'One-Session Reset',
+              subtitle: session.currentPhase.title,
+              onBackPressed: session.currentPhase.hasPrevious
+                  ? () => notifier.previousPhase()
+                  : () => context.pop(),
             ),
-            const Positioned(
-              bottom: 24,
-              right: 16,
-              child: SosOverlayButton(),
+            _buildStepperIndicator(context, session.currentPhase),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.screenPaddingH,
+                  vertical: SpacingTokens.spaceMd,
+                ),
+                child: _buildPhaseContent(context, session, notifier),
+              ),
             ),
           ],
         ),

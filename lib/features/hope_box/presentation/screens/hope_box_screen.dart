@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -252,25 +253,27 @@ class _HopeBoxScreenState extends ConsumerState<HopeBoxScreen> {
                       ? _buildEmptyState(context)
                       : filteredItems.isEmpty
                           ? _buildFilteredEmptyState()
-                          : ListView.separated(
-                              padding: const EdgeInsets.fromLTRB(
-                                SpacingTokens.lg,
-                                SpacingTokens.sm,
-                                SpacingTokens.lg,
-                                96.0, // Space for 64dp FAB
-                              ),
-                              itemCount: filteredItems.length,
-                              separatorBuilder: (c, i) =>
-                                  const SizedBox(height: SpacingTokens.md),
-                              itemBuilder: (context, index) {
-                                final item = filteredItems[index];
-                                return HopeBoxItemCard(
-                                  item: item,
-                                  onTap: () => _openItemDetail(item),
-                                  onTogglePin: () => notifier.togglePin(item.id),
-                                );
-                              },
-                            ),
+                          : state.filter == HopeBoxFilter.photos
+                              ? _buildPhotoGridView(filteredItems, notifier, cardBg)
+                              : ListView.separated(
+                                  padding: const EdgeInsets.fromLTRB(
+                                    SpacingTokens.lg,
+                                    SpacingTokens.sm,
+                                    SpacingTokens.lg,
+                                    96.0, // Space for 64dp FAB
+                                  ),
+                                  itemCount: filteredItems.length,
+                                  separatorBuilder: (c, i) =>
+                                      const SizedBox(height: SpacingTokens.md),
+                                  itemBuilder: (context, index) {
+                                    final item = filteredItems[index];
+                                    return HopeBoxItemCard(
+                                      item: item,
+                                      onTap: () => _openItemDetail(item),
+                                      onTogglePin: () => notifier.togglePin(item.id),
+                                    );
+                                  },
+                                ),
                 ),
               ],
             ),
@@ -379,6 +382,169 @@ class _HopeBoxScreenState extends ConsumerState<HopeBoxScreen> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPhotoGridView(
+    List<HopeBoxItem> photos,
+    HopeBoxController notifier,
+    Color cardBg,
+  ) {
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(
+        SpacingTokens.lg,
+        SpacingTokens.sm,
+        SpacingTokens.lg,
+        96.0,
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: SpacingTokens.md,
+        mainAxisSpacing: SpacingTokens.md,
+        childAspectRatio: 0.82,
+      ),
+      itemCount: photos.length,
+      itemBuilder: (context, index) {
+        final item = photos[index];
+        return _buildPhotoGridItem(item, notifier, cardBg);
+      },
+    );
+  }
+
+  Widget _buildPhotoGridItem(
+    HopeBoxItem item,
+    HopeBoxController notifier,
+    Color cardBg,
+  ) {
+    final hasValidFile =
+        item.filePath != null && File(item.filePath!).existsSync();
+
+    return Semantics(
+      button: true,
+      label: 'Photo: ${item.title}',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _openItemDetail(item),
+          borderRadius: BorderRadius.circular(RadiusTokens.lg),
+          child: Container(
+            decoration: BoxDecoration(
+              color: cardBg,
+              borderRadius: BorderRadius.circular(RadiusTokens.lg),
+              border: Border.all(
+                color: item.isPinned
+                    ? const Color(0xFF6B92BF).withOpacity(0.8)
+                    : const Color(0xFF2E3840),
+                width: item.isPinned ? 1.5 : 1.0,
+              ),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                // Direct Image Preview
+                if (hasValidFile)
+                  Image.file(
+                    File(item.filePath!),
+                    fit: BoxFit.cover,
+                    errorBuilder: (c, e, s) => _buildPlaceholderPhoto(),
+                  )
+                else
+                  _buildPlaceholderPhoto(),
+
+                // Bottom gradient scrim with title & details
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(SpacingTokens.sm),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          const Color(0xFF0F1418).withOpacity(0.85),
+                          const Color(0xFF0F1418),
+                        ],
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          item.title,
+                          style: AppTypography.caption.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        if (item.caption != null && item.caption!.isNotEmpty) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            item.caption!,
+                            style: AppTypography.caption.copyWith(
+                              color: const Color(0xFF9AAAB6),
+                              fontSize: 10,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Top right pin action badge
+                Positioned(
+                  top: SpacingTokens.xs,
+                  right: SpacingTokens.xs,
+                  child: GestureDetector(
+                    onTap: () => notifier.togglePin(item.id),
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0F1418).withOpacity(0.65),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        item.isPinned ? Icons.push_pin_rounded : Icons.push_pin_outlined,
+                        color: item.isPinned ? const Color(0xFFE5B870) : Colors.white70,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceholderPhoto() {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFF1E2832), Color(0xFF14191E)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: const Center(
+        child: Icon(
+          Icons.image_rounded,
+          color: Color(0xFF6B92BF),
+          size: 40,
         ),
       ),
     );

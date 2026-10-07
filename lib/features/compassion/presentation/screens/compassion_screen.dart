@@ -13,7 +13,6 @@ import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../../../shared/widgets/firefly_nav_header.dart';
-import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../../domain/models/compassion_exercise_type.dart';
 import '../../domain/models/self_compassion_component.dart';
 import '../providers/compassion_providers.dart';
@@ -178,13 +177,6 @@ class _CompassionScreenState extends ConsumerState<CompassionScreen>
                   _buildBottomBar(context, state, notifier),
               ],
             ),
-          ),
-
-          // Persistent Floating SOS Shield
-          const Positioned(
-            right: SpacingTokens.md,
-            bottom: SpacingTokens.md,
-            child: SosOverlayButton(),
           ),
         ],
       ),

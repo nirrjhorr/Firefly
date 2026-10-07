@@ -145,28 +145,56 @@ class CheckInScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: SpacingTokens.sectionGap),
 
-                    // 1. Mood Anchor (5 Moon Phase Tiles)
-                    Text(
-                      'Mood Anchor',
-                      style: AppTypography.headingMd.copyWith(
-                        color: colors.textPrimary,
-                      ),
-                    ),
-                    const SizedBox(height: SpacingTokens.elementGap),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      clipBehavior: Clip.none,
-                      child: Row(
-                        children: MoodCategory.values.map((mood) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: MoodTile(
-                              mood: mood,
-                              isSelected: state.selectedMood == mood,
-                              onTap: () => controller.setMood(mood),
+                    // 1. Mood Anchor (Contained in boxy stats card, non-scrollable)
+                    FireflyCard(
+                      padding: const EdgeInsets.all(SpacingTokens.cardPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Mood Anchor',
+                                style: AppTypography.headingMd.copyWith(
+                                  color: colors.textPrimary,
+                                ),
+                              ),
+                              Text(
+                                state.selectedMood.label,
+                                style: AppTypography.labelMd.copyWith(
+                                  color: colors.actionSage,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: SpacingTokens.space2xs),
+                          Text(
+                            state.selectedMood.semanticDescription,
+                            style: AppTypography.bodySm.copyWith(
+                              color: colors.textSecondary,
                             ),
-                          );
-                        }).toList(),
+                          ),
+                          const SizedBox(height: SpacingTokens.spaceMd),
+                          Row(
+                            children: MoodCategory.values.map((mood) {
+                              final isLast = mood == MoodCategory.values.last;
+                              return Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: isLast ? 0.0 : 6.0),
+                                  child: MoodTile(
+                                    mood: mood,
+                                    isSelected: state.selectedMood == mood,
+                                    width: double.infinity,
+                                    height: 68.0,
+                                    onTap: () => controller.setMood(mood),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: SpacingTokens.sectionGap),

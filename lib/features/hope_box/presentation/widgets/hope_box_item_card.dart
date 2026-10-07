@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -82,22 +83,46 @@ class HopeBoxItemCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Item Type Icon Container
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: accentColor.withOpacity(0.15),
+                // Item Visual Container (Photo thumbnail or type icon)
+                if (item.type == HopeBoxItemType.photo &&
+                    item.filePath != null &&
+                    File(item.filePath!).existsSync())
+                  ClipRRect(
                     borderRadius: BorderRadius.circular(RadiusTokens.md),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      _getIconData(item.type),
-                      color: accentColor,
-                      size: 24,
+                    child: Image.file(
+                      File(item.filePath!),
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
+                      errorBuilder: (c, e, s) => Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: accentColor.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(RadiusTokens.md),
+                        ),
+                        child: Center(
+                          child: Icon(_getIconData(item.type), color: accentColor, size: 24),
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: accentColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(RadiusTokens.md),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        _getIconData(item.type),
+                        color: accentColor,
+                        size: 24,
+                      ),
                     ),
                   ),
-                ),
                 const SizedBox(width: SpacingTokens.md),
 
                 // Item Details
@@ -151,6 +176,21 @@ class HopeBoxItemCard extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                // Audio Play Action
+                if (item.type == HopeBoxItemType.audio || item.type == HopeBoxItemType.voice)
+                  Padding(
+                    padding: const EdgeInsets.only(right: SpacingTokens.xs),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.play_circle_fill_rounded,
+                        color: accentColor,
+                        size: 32,
+                      ),
+                      tooltip: 'Play audio in app',
+                      onPressed: onTap,
+                    ),
+                  ),
 
                 // Pin Action Button
                 IconButton(

@@ -75,15 +75,37 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
               HapticFeedback.lightImpact();
               final count = await controller.purgeExpired();
               if (context.mounted) {
+                ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(
-                      count > 0
-                          ? 'Purged $count expired entry/entries'
-                          : 'No expired entries to purge',
+                    content: Row(
+                      children: [
+                        Icon(
+                          count > 0 ? Icons.check_circle_outline_rounded : Icons.info_outline_rounded,
+                          color: colors.actionSage,
+                          size: 20,
+                        ),
+                        const SizedBox(width: SpacingTokens.spaceSm),
+                        Expanded(
+                          child: Text(
+                            count > 0
+                                ? 'Purged $count expired reflection${count == 1 ? '' : 's'}'
+                                : 'No expired entries to purge',
+                            style: AppTypography.bodySm.copyWith(
+                              color: colors.textPrimary,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    backgroundColor: colors.surfaceCard,
+                    backgroundColor: colors.bgSurfaceElevated,
+                    duration: const Duration(seconds: 2),
                     behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(RadiusTokens.md),
+                      side: BorderSide(color: colors.borderSubtle),
+                    ),
                   ),
                 );
               }
@@ -108,30 +130,14 @@ class _JournalListScreenState extends ConsumerState<JournalListScreen> {
                     style: AppTypography.bodySm.copyWith(color: colors.textTertiary),
                   ),
                   const SizedBox(height: SpacingTokens.spaceMd),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FireflyButton(
-                          text: 'New Reflection',
-                          variant: FireflyButtonVariant.primary,
-                          icon: AppIcons.edit,
-                          onPressed: () {
-                            context.push('${AppRoutes.journal}/new');
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: SpacingTokens.spaceSm),
-                      Expanded(
-                        child: FireflyButton(
-                          text: 'Unsent Letter',
-                          variant: FireflyButtonVariant.secondary,
-                          icon: AppIcons.burnFlame,
-                          onPressed: () {
-                            context.push('${AppRoutes.journal}/new-letter?ttl=24h');
-                          },
-                        ),
-                      ),
-                    ],
+                  // Unified cohesive entry point
+                  FireflyButton(
+                    text: 'New Reflection',
+                    variant: FireflyButtonVariant.primary,
+                    icon: AppIcons.edit,
+                    onPressed: () {
+                      context.push('${AppRoutes.journal}/new');
+                    },
                   ),
                   const SizedBox(height: SpacingTokens.spaceMd),
                   // Search / Filter text field

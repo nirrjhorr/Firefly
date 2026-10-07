@@ -12,6 +12,8 @@ import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../controllers/safety_plan_controller.dart';
 import '../../domain/models/safety_plan_contact.dart';
+import '../widgets/crisis_support_card.dart';
+import '../widgets/crisis_support_config_modal.dart';
 
 class SafetyPlanScreen extends ConsumerStatefulWidget {
   const SafetyPlanScreen({super.key});
@@ -120,76 +122,33 @@ class _SafetyPlanScreenState extends ConsumerState<SafetyPlanScreen> {
                   ),
                   const SizedBox(height: SpacingTokens.spaceMd),
 
-                  // Emergency Crisis Lines Quick Bar
-                  Container(
-                    padding: const EdgeInsets.all(SpacingTokens.cardPadding),
-                    decoration: BoxDecoration(
-                      color: colors.crisisSurface,
-                      borderRadius: BorderRadius.circular(RadiusTokens.card),
-                      border: Border.all(
-                        color: colors.crisisCoral.withOpacity(0.35),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              AppIcons.emergencyShield,
-                              color: colors.crisisCoral,
-                              size: IconSizeTokens.standard,
-                            ),
-                            const SizedBox(width: SpacingTokens.spaceSm),
-                            Text(
-                              'Immediate Crisis Support (24/7)',
-                              style: AppTypography.headingMd.copyWith(
-                                color: colors.crisisCoral,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: SpacingTokens.spaceMd),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: colors.crisisCoral,
-                                  foregroundColor: Colors.white,
-                                  minimumSize: const Size(0, SpacingTokens.buttonHeightSecondary),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(RadiusTokens.buttonSecondary),
-                                  ),
-                                ),
-                                icon: Icon(AppIcons.phone, size: IconSizeTokens.md),
-                                label: const Text('Call 988'),
-                                onPressed: () => _launchCall('988'),
-                              ),
-                            ),
-                            const SizedBox(width: SpacingTokens.spaceSm),
-                            Expanded(
-                              child: OutlinedButton.icon(
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: colors.crisisCoral,
-                                  side: BorderSide(color: colors.crisisCoral),
-                                  minimumSize: const Size(0, SpacingTokens.buttonHeightSecondary),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(RadiusTokens.buttonSecondary),
-                                  ),
-                                ),
-                                icon: Icon(AppIcons.sms, size: IconSizeTokens.md),
-                                label: const Text('Text 741741'),
-                                onPressed: () => _launchSms(
-                                  '741741',
-                                  body: 'HOME',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  // Emergency Crisis Lines Quick Bar (Dynamic)
+                  CrisisSupportCard(
+                    config: state.crisisConfig,
+                    onConfigure: () {
+                      CrisisSupportConfigModal.show(
+                        context: context,
+                        initialConfig: state.crisisConfig,
+                        step4Contacts: plan.personalContacts,
+                        onSave: (newConfig) {
+                          ref
+                              .read(safetyPlanControllerProvider.notifier)
+                              .updateCrisisConfig(newConfig);
+                        },
+                        onUseDefaults: () {
+                          ref
+                              .read(safetyPlanControllerProvider.notifier)
+                              .useDefaultCrisisHelplines();
+                        },
+                      );
+                    },
+                    onUseDefaults: () {
+                      ref
+                          .read(safetyPlanControllerProvider.notifier)
+                          .useDefaultCrisisHelplines();
+                    },
+                    onCall: (phone) => _launchCall(phone),
+                    onText: (phone, msg) => _launchSms(phone, body: msg),
                   ),
                   const SizedBox(height: SpacingTokens.spaceLg),
 

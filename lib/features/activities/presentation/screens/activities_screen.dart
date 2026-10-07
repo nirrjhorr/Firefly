@@ -13,7 +13,6 @@ import '../../../../core/theme/spacing_tokens.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../../../shared/widgets/firefly_empty_state.dart';
 import '../../../../shared/widgets/firefly_nav_header.dart';
-import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../../domain/models/activity_category.dart';
 import '../../domain/models/activity_item.dart';
 import '../../domain/models/regulation_group.dart';
@@ -243,13 +242,6 @@ class _ActivitiesScreenState extends ConsumerState<ActivitiesScreen> {
                   ),
                 ),
               ],
-            ),
-
-            // Persistent SOS Shield Button
-            const Positioned(
-              bottom: SpacingTokens.spaceMd,
-              right: SpacingTokens.spaceMd,
-              child: SosOverlayButton(),
             ),
           ],
         ),

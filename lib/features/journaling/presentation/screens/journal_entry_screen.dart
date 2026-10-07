@@ -49,6 +49,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
   String _savedTitle = '';
   String _savedContent = '';
   bool _isExiting = false;
+  bool _isSavingLocally = false;
 
   static const CrisisPhraseDetector _phraseDetector = CrisisPhraseDetector();
   Timer? _debounceTimer;
@@ -198,38 +199,58 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
                     ),
                   ),
                 TextButton(
-                  onPressed: editorState.isSaving
+                  onPressed: (_isSavingLocally || editorState.isSaving)
                       ? null
                       : () async {
+                          if (_isSavingLocally || editorState.isSaving) return;
+                          setState(() {
+                            _isSavingLocally = true;
+                          });
                           HapticFeedback.lightImpact();
                           FocusScope.of(context).unfocus();
+
+                          // Commit populated text into controller before persisting
+                          controller.setTitle(_titleController.text);
+                          controller.setContent(_contentController.text);
+
                           final success = await controller.saveEntry();
-                          if (context.mounted) {
-                            if (success) {
-                              setState(() {
-                                _savedTitle = _titleController.text;
-                                _savedContent = _contentController.text;
-                              });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: const Text('Saved securely'),
-                                  backgroundColor: colors.surfaceCard,
-                                  duration: const Duration(seconds: 1),
-                                  behavior: SnackBarBehavior.floating,
-                                ),
-                              );
+                          if (!context.mounted) return;
+
+                          if (success) {
+                            _isExiting = true;
+                            setState(() {
+                              _savedTitle = _titleController.text;
+                              _savedContent = _contentController.text;
+                            });
+                            // Automatically revert back to the journal library screen
+                            if (context.canPop()) {
+                              context.pop();
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: const Text('Failed to save reflection'),
-                                  backgroundColor: colors.surfaceCard,
-                                  behavior: SnackBarBehavior.floating,
-                                ),
-                              );
+                              context.go(AppRoutes.journal);
                             }
+                          } else {
+                            setState(() {
+                              _isSavingLocally = false;
+                            });
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Unable to save reflection right now',
+                                  style: AppTypography.bodySm.copyWith(color: colors.textPrimary),
+                                ),
+                                backgroundColor: colors.bgSurfaceElevated,
+                                behavior: SnackBarBehavior.floating,
+                                duration: const Duration(seconds: 2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(RadiusTokens.md),
+                                  side: BorderSide(color: colors.crisisRed.withOpacity(0.5)),
+                                ),
+                              ),
+                            );
                           }
                         },
-                  child: editorState.isSaving
+                  child: (_isSavingLocally || editorState.isSaving)
                       ? const SizedBox(
                           width: 16,
                           height: 16,
@@ -325,51 +346,85 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen>
                             },
                           ),
                         ],
-                        // Expandable title field
-                        TextField(
-                          controller: _titleController,
-                          onChanged: (val) {
-                            controller.setTitle(val);
-                            _onTextChanged();
-                          },
-                          style: AppTypography.headingLg.copyWith(
-                            color: colors.textPrimary,
-                            fontSize: 22,
-                          ),
-                          decoration: InputDecoration(
-                            hintText: 'Title or recipient (optional)...',
-                            hintStyle: AppTypography.headingLg.copyWith(
-                              color: colors.textTertiary.withOpacity(0.5),
-                              fontSize: 22,
+                        // Unified, Coordinated Writing Canvas Surface
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: colors.bgSurface,
+                            borderRadius: BorderRadius.circular(RadiusTokens.lg),
+                            border: Border.all(
+                              color: colors.borderSubtle,
+                              width: 1.0,
                             ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.zero,
                           ),
-                        ),
-                        const SizedBox(height: SpacingTokens.spaceMd),
-                        // Multi-line body editor
-                        TextField(
-                          controller: _contentController,
-                          onChanged: (val) {
-                            controller.setContent(val);
-                            _onTextChanged();
-                          },
-                          maxLines: null,
-                          keyboardType: TextInputType.multiline,
-                          style: AppTypography.bodyLg.copyWith(
-                            color: colors.textPrimary,
-                            height: 1.65,
-                            fontSize: 17,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingTokens.spaceLg,
+                            vertical: SpacingTokens.spaceMd,
                           ),
-                          decoration: InputDecoration(
-                            hintText: 'Write freely. Your thoughts are double-encrypted with AES-256-GCM and never leave this device...',
-                            hintStyle: AppTypography.bodyLg.copyWith(
-                              color: colors.textTertiary.withOpacity(0.5),
-                              height: 1.65,
-                              fontSize: 17,
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.zero,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Title field with matching alignment and padding
+                              TextField(
+                                controller: _titleController,
+                                onChanged: (val) {
+                                  controller.setTitle(val);
+                                  _onTextChanged();
+                                },
+                                style: AppTypography.headingLg.copyWith(
+                                  color: colors.textPrimary,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: 'Title or recipient (optional)...',
+                                  hintStyle: AppTypography.headingLg.copyWith(
+                                    color: colors.textTertiary.withOpacity(0.5),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  filled: false,
+                                  border: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: SpacingTokens.spaceXs),
+                                ),
+                              ),
+                              Divider(
+                                color: colors.borderSubtle.withOpacity(0.5),
+                                height: SpacingTokens.spaceLg,
+                                thickness: 1.0,
+                              ),
+                              // Multi-line body editor seamlessly unified
+                              TextField(
+                                controller: _contentController,
+                                onChanged: (val) {
+                                  controller.setContent(val);
+                                  _onTextChanged();
+                                },
+                                maxLines: null,
+                                minLines: 10,
+                                keyboardType: TextInputType.multiline,
+                                style: AppTypography.bodyLg.copyWith(
+                                  color: colors.textPrimary,
+                                  height: 1.65,
+                                  fontSize: 16,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: 'Write freely. Your thoughts are double-encrypted with AES-256-GCM and never leave this device...',
+                                  hintStyle: AppTypography.bodyLg.copyWith(
+                                    color: colors.textTertiary.withOpacity(0.5),
+                                    height: 1.65,
+                                    fontSize: 16,
+                                  ),
+                                  filled: false,
+                                  border: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: SpacingTokens.spaceXs),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

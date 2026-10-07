@@ -14,7 +14,6 @@ import '../../../../shared/widgets/firefly_button.dart';
 import '../../../../shared/widgets/firefly_card.dart';
 import '../../../../shared/widgets/firefly_empty_state.dart';
 import '../../../../shared/widgets/firefly_nav_header.dart';
-import '../../../../shared/widgets/sos_overlay_button.dart';
 import '../controllers/personal_profile_controller.dart';
 
 /// Screen displaying the user's on-device personal regulation effectiveness
@@ -480,12 +479,6 @@ class _PersonalProfileScreenState extends ConsumerState<PersonalProfileScreen> {
                             ),
                 ),
               ],
-            ),
-            // Floating persistent SOS overlay
-            Positioned(
-              top: SpacingTokens.spaceSm,
-              right: SpacingTokens.spaceSm,
-              child: const SosOverlayButton(),
             ),
           ],
         ),

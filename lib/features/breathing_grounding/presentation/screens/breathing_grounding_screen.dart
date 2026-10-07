@@ -322,16 +322,24 @@ class _BreathingGroundingScreenState
           child: CyclicSighBloomVisualizer(
             progress: state.phaseProgress,
             phase: state.phase,
+            isActive: state.isActive,
             size: 260,
             inhaleColor: colors.actionSage,
             exhaleColor: colors.accentSecondary,
             child: state.isActive
-                ? null
-                : Icon(
-                    AppIcons.play,
-                    size: IconSizeTokens.hero,
-                    color: colors.actionSage.withOpacity(0.6),
-                  ),
+                ? Text(
+                    state.phase == BreathingPhase.inhale
+                        ? 'Inhale'
+                        : state.phase == BreathingPhase.exhale
+                            ? 'Exhale'
+                            : 'Hold',
+                    style: AppTypography.headingMd.copyWith(
+                      color: Colors.white.withOpacity(0.92),
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.2,
+                    ),
+                  )
+                : null,
           ),
         ),
 
@@ -355,7 +363,9 @@ class _BreathingGroundingScreenState
               // Controls: Play / Pause toggle
               FireflyButton(
                 key: const Key('breathing_play_pause_button'),
-                text: state.isActive ? 'Pause' : 'Begin Breathing',
+                text: state.isActive
+                    ? 'Pause Breathing'
+                    : (state.elapsedSeconds > 0 ? 'Resume Breathing' : 'Begin Breathing'),
                 icon: state.isActive ? AppIcons.pause : AppIcons.play,
                 onPressed: () => notifier.togglePlayPause(),
                 variant: FireflyButtonVariant.primary,
@@ -366,7 +376,10 @@ class _BreathingGroundingScreenState
               FireflyButton(
                 key: const Key('breathing_end_session_button'),
                 text: 'End Session',
-                onPressed: _handleExit,
+                onPressed: () {
+                  notifier.stop();
+                  _handleExit();
+                },
                 variant: FireflyButtonVariant.secondary,
               ),
               const SizedBox(height: SpacingTokens.spaceSm),

@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/errors/result.dart';
 import '../../data/repositories/safety_plan_repository_impl.dart';
+import '../../data/services/crisis_support_storage_service.dart';
+import '../../domain/models/crisis_support_config.dart';
 import '../../domain/models/safety_plan.dart';
 import '../../domain/models/safety_plan_contact.dart';
 import '../../domain/models/safety_plan_step.dart';
@@ -15,43 +17,76 @@ class SafetyPlanState {
   const SafetyPlanState({
     required this.isLoading,
     this.plan,
+    this.crisisConfig,
     this.errorMessage,
   });
 
   final bool isLoading;
   final SafetyPlan? plan;
+  final CrisisSupportConfig? crisisConfig;
   final String? errorMessage;
 
   SafetyPlanState copyWith({
     bool? isLoading,
     SafetyPlan? plan,
+    CrisisSupportConfig? crisisConfig,
     String? errorMessage,
   }) {
     return SafetyPlanState(
       isLoading: isLoading ?? this.isLoading,
       plan: plan ?? this.plan,
+      crisisConfig: crisisConfig ?? this.crisisConfig,
       errorMessage: errorMessage,
     );
   }
 }
 
 class SafetyPlanController extends StateNotifier<SafetyPlanState> {
-  SafetyPlanController(this._repository)
-      : super(const SafetyPlanState(isLoading: true)) {
+  SafetyPlanController(
+    this._repository, {
+    CrisisSupportStorageService? storageService,
+  })  : _storageService = storageService ?? CrisisSupportStorageService(),
+        super(const SafetyPlanState(isLoading: true)) {
     loadPlan();
   }
 
   final SafetyPlanRepository _repository;
+  final CrisisSupportStorageService _storageService;
 
   Future<void> loadPlan() async {
     state = state.copyWith(isLoading: true, errorMessage: null);
+    final crisisConfig = await _storageService.loadConfig();
     final result = await _repository.getActivePlan();
     switch (result) {
       case Ok(value: final plan):
-        state = state.copyWith(isLoading: false, plan: plan);
+        state = state.copyWith(
+          isLoading: false,
+          plan: plan,
+          crisisConfig: crisisConfig,
+        );
       case Err(error: final err):
-        state = state.copyWith(isLoading: false, errorMessage: err.toString());
+        state = state.copyWith(
+          isLoading: false,
+          crisisConfig: crisisConfig,
+          errorMessage: err.toString(),
+        );
     }
+  }
+
+  Future<void> updateCrisisConfig(CrisisSupportConfig config) async {
+    await _storageService.saveConfig(config);
+    state = state.copyWith(crisisConfig: config);
+  }
+
+  Future<void> useDefaultCrisisHelplines() async {
+    await updateCrisisConfig(CrisisSupportConfig.defaultHelplines);
+  }
+
+  Future<void> clearCrisisConfig() async {
+    await _storageService.clearConfig();
+    state = state.copyWith(
+      crisisConfig: const CrisisSupportConfig(),
+    );
   }
 
   Future<void> updateStepContent(int stepNumber, String content) async {
@@ -178,5 +213,6 @@ class SafetyPlanController extends StateNotifier<SafetyPlanState> {
 final safetyPlanControllerProvider =
     StateNotifierProvider<SafetyPlanController, SafetyPlanState>((ref) {
   final repository = ref.watch(safetyPlanRepositoryProvider);
-  return SafetyPlanController(repository);
+  final storageService = ref.watch(crisisSupportStorageServiceProvider);
+  return SafetyPlanController(repository, storageService: storageService);
 });

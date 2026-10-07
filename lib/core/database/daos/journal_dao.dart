@@ -70,8 +70,9 @@ class InMemoryJournalDao implements JournalDao {
   }
 
   @override
-  Stream<List<JournalEntry>> watchAllEntries() {
-    return _streamController.stream;
+  Stream<List<JournalEntry>> watchAllEntries() async* {
+    yield await getAllEntries();
+    yield* _streamController.stream;
   }
 
   @override
