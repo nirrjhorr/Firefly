@@ -72,7 +72,7 @@ class JournalListController extends StateNotifier<JournalListState> {
     _subscription?.cancel();
     state = state.copyWith(isLoading: true, clearError: true);
 
-    _repository.getAllEntries().then((result) {
+    _repository.getEntries().then((result) {
       if (!mounted) return;
       if (result.isOk) {
         state = state.copyWith(entries: result.unwrap(), isLoading: false);

@@ -25,12 +25,11 @@ with urllib.request.urlopen(req) as resp:
         conclusion = r.get('conclusion')
         sha = r.get('head_sha', '')[:7]
         print(f"Run {rid}: {name} (event: {event}) - status: {status}, conclusion: {conclusion}, sha: {sha}")
-        if name == 'Build and Release Android APK' and status == 'in_progress':
-            req_jobs = urllib.request.Request(f'https://api.github.com/repos/nirrjhorr/Firefly/actions/runs/{rid}/jobs', headers=headers)
-            with urllib.request.urlopen(req_jobs) as jresp:
-                jdata = json.loads(jresp.read().decode())
-                for job in jdata.get('jobs', []):
-                    print(f"  Job {job['name']}: {job['status']}")
-                    for step in job.get('steps', []):
-                        if step['status'] != 'pending':
-                            print(f"    Step: {step['name']} -> {step['status']} ({step.get('conclusion')})")
+        req_jobs = urllib.request.Request(f'https://api.github.com/repos/nirrjhorr/Firefly/actions/runs/{rid}/jobs', headers=headers)
+        with urllib.request.urlopen(req_jobs) as jresp:
+            jdata = json.loads(jresp.read().decode())
+            for job in jdata.get('jobs', []):
+                print(f"  Job {job['name']}: {job['status']} ({job.get('conclusion')})")
+                for step in job.get('steps', []):
+                    if step.get('conclusion') == 'failure' or step['status'] != 'completed':
+                        print(f"    Step: {step['name']} -> {step['status']} ({step.get('conclusion')})")

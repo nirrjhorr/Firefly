@@ -37,7 +37,7 @@ class CrisisSupportConfigModal extends StatefulWidget {
       isScrollControlled: true,
       backgroundColor: context.colors.surfaceCard,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(RadiusTokens.bottomSheet)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(RadiusTokens.sheet)),
       ),
       builder: (ctx) => Padding(
         padding: EdgeInsets.only(

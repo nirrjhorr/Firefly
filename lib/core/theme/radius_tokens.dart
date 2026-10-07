@@ -38,6 +38,7 @@ abstract final class RadiusTokens {
   static const double chip = sm;
   static const double dialog = sheet;
   static const double modal = sheet;
+  static const double bottomSheet = sheet;
   static const double modalRadius = sheet;
   static const double radiusXs = xs;
   static const double radiusSm = sm;
