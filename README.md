@@ -139,3 +139,5 @@ Firefly is built with Flutter and Dart, utilizing local-first encryption (SQLCip
 ---
 
 *Firefly is designed to support and comfort your daily wellbeing; it is not a replacement for clinical therapy, medical treatment, or emergency crisis intervention.*
+
+#Enjoy!
